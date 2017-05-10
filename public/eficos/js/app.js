@@ -1,0 +1,1 @@
+var postapp = angular.module('postapp', ['mainctrl', 'postservice']);
