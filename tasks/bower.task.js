@@ -29,16 +29,7 @@ Elixir.extend('bower', function (jsOutputFile, jsOutputFolder, cssOutputFile, cs
   }
 
   new Task('bower-js', function () {
-    return gulp.src(mainBowerFiles({
-      overrides: {
-        bootstrap: {
-          'ignore': true
-        },
-        AdminLTE: {
-          'ignore': true
-        }
-      }
-    }))
+    return gulp.src(mainBowerFiles())
       .on('error', onError)
       .pipe(filter('**/*.js'))
       .pipe(concat(jsFile, {sourcesContent: true}))
@@ -53,30 +44,7 @@ Elixir.extend('bower', function (jsOutputFile, jsOutputFolder, cssOutputFile, cs
   }).watch('bower.json')
 
   new Task('bower-css', function () {
-    return gulp.src(mainBowerFiles({
-      overrides: {
-        AdminLTE: {
-          main: [
-            './dist/css/*.min.css',
-            './dist/css/skins/' + Elixir.config.css.lteSkin,
-          ]
-        },
-        bootstrap: {
-          main: [
-            './dist/css/bootstrap.min.css'
-          ]
-        },
-        'angular-chart.js': {
-          'ignore': true
-        },
-        'angular-datatables': {
-          'ignore': true
-        },
-        'angular-bootstrap': {
-          'ignore': true
-        }
-      }
-    }))
+    return gulp.src(mainBowerFiles())
       .on('error', onError)
       .pipe(filter('**/*.css'))
       .pipe(concat(cssFile))

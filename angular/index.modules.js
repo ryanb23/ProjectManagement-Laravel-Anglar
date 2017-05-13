@@ -16,6 +16,5 @@ angular.module('app.config', [])
 angular.module('app.components', [
   'ui.router', 'angular-loading-bar',
   'restangular', 'ngStorage', 'satellizer',
-  'ui.bootstrap', 'chart.js', 'mm.acl', 'datatables',
-  'datatables.bootstrap', 'checklist-model'
+  'mm.acl'
 ])

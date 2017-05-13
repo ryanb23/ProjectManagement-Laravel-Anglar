@@ -27,7 +27,6 @@ class RegisterFormController {
         password: this.password,
         password_confirmation: this.password_confirmation
       }
-
       this.$auth.signup(user)
         .then(() => {
           this.$state.go('login', { registerSuccess: true })

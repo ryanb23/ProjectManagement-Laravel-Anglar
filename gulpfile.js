@@ -35,11 +35,12 @@ elixir(function (mix) {
       './public/js/vendor.js',
       './public/js/partials.js',
       './public/js/app.js',
-      './public/dist/js/app.js'
+      './public/dist/js/app.js',
+      
     ],
     styles = [
       './public/css/vendor.css',
-      './public/css/app.css'
+      './public/css/app.css',
     ],
     karmaJsDir = [
       jsOutputFolder + '/vendor.js',
@@ -49,7 +50,6 @@ elixir(function (mix) {
       jsOutputFolder + '/app.js',
       'tests/angular/**/*.spec.js'
   ]
-
   mix
     .bower()
     .angular('./angular/')

@@ -30,7 +30,6 @@ class LoginFormController {
       email: this.email,
       password: this.password
     }
-
     this.$auth.login(user)
       .then((response) => {
         let data = response.data.data
