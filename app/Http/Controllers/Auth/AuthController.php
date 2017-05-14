@@ -196,14 +196,14 @@ class AuthController extends Controller
         $user->email = trim(strtolower($request->email));
         $user->password = bcrypt($request->password);
         $user->email_verified = 1;
-        // $user->email_verification_code = $verificationCode;
+        $user->email_verification_code = $verificationCode;
         $user->save();
 
         $token = JWTAuth::fromUser($user);
 
-        // Mail::send('emails.userverification', ['verificationCode' => $verificationCode], function ($m) use ($request) {
-        //     $m->to($request->email, 'test')->subject('Email Confirmation');
-        // });
+        Mail::send('emails.userverification', ['verificationCode' => $verificationCode], function ($m) use ($request) {
+            $m->to($request->email, 'Efico')->subject('Email Confirmation');
+        });
 
         return response()->success(compact('user', 'token'));
     }
