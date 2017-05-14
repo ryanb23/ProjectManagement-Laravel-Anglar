@@ -29,12 +29,12 @@
 <body class="menubar-top  theme-primary menubar-light pace-done">
     <div route-bodyclass ui-view="layout">
     </div>
-    <!-- <script src="eficos/js/core.min.js"></script>
+    <script src="eficos/js/core.min.js"></script>
     <script src="eficos/js/app.min.js"></script>
     <script src="eficos/libs/bower/moment/moment.js"></script>
     <script src="eficos/libs/bower/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="eficos/js/fullcalendar.js"></script>
-    <script src="eficos/libs/bower/jquery/dist/jquery.js"></script> -->
+    <script src="eficos/libs/bower/jquery/dist/jquery.js"></script>
     <script src="{!! elixir('js/final.js') !!}"></script>
 </body>
 </html>

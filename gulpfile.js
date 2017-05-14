@@ -36,11 +36,6 @@ elixir(function (mix) {
       './public/js/partials.js',
       './public/js/app.js',
       './public/dist/js/app.js',
-      './public/eficos/js/core.min.js',
-      './public/eficos/js/app.min.js',
-      './public/eficos/libs/bower/moment/moment.js',
-      './public/eficos/libs/bower/fullcalendar/dist/fullcalendar.min.js',
-      './public/eficos/js/fullcalendar.js'
     ],
     styles = [
       './public/css/vendor.css',
