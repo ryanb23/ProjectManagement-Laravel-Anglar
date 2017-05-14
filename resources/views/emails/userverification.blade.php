@@ -257,12 +257,12 @@
         <table cellspacing="0" cellpadding="0" width="600" class="w320">
           <tr>
             <td class="header-lg">
-              Welcome to Awesome Inc!
+              Welcome to Efico!
             </td>
           </tr>
           <tr>
             <td class="free-text">
-              Thank you for signing up with awesome co! We hope you enjoy your time with us. Please confirm your email by clicking the link below.
+              Thank you for signing up with Efio.co! We hope you enjoy your time with us. Please confirm your email by clicking the link below.
             </td>
           </tr>
           <tr>
@@ -286,9 +286,9 @@
         <table cellspacing="0" cellpadding="0" width="600" class="w320">
           <tr>
             <td style="padding: 25px 0 25px">
-              <strong>Awesome Inc</strong><br />
-              1234 Awesome St <br />
-              Wonderland <br /><br />
+              <strong>Efico.co</strong><br />
+              Canada <br />
+              <br />
             </td>
           </tr>
         </table>
