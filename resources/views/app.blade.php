@@ -16,8 +16,8 @@
     <![endif]-->
     <link rel="stylesheet" href="eficos/libs/bower/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="eficos/libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="eficos/libs/bower/animate.css/animate.min.css">
-    <link rel="stylesheet" href="eficos/css/bootstrap.css">
+    <!-- <link rel="stylesheet" href="eficos/libs/bower/animate.css/animate.min.css"> -->
+    <!-- <link rel="stylesheet" href="eficos/css/bootstrap.css"> -->
     <link rel="stylesheet" href="eficos/css/app.min.css">
     <link rel="stylesheet" href="eficos/css/misc-pages.css">
     <link rel="stylesheet" href="{!! elixir('css/final.css') !!}">
@@ -29,12 +29,12 @@
 <body class="menubar-top  theme-primary menubar-light pace-done">
     <div route-bodyclass ui-view="layout">
     </div>
+    <script src="{!! elixir('js/final.js') !!}"></script>
     <script src="eficos/js/core.min.js"></script>
     <script src="eficos/js/app.min.js"></script>
     <script src="eficos/libs/bower/moment/moment.js"></script>
     <script src="eficos/libs/bower/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="eficos/js/fullcalendar.js"></script>
-    <script src="eficos/libs/bower/jquery/dist/jquery.js"></script>
-    <script src="{!! elixir('js/final.js') !!}"></script>
+    <!-- <script src="eficos/libs/bower/jquery/dist/jquery.js"></script> -->
 </body>
 </html>

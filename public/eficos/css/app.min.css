@@ -12442,6 +12442,11 @@ body.menubar-in .app-main {
 .app-main.in {
     opacity: 1;
 }
+@media (max-width:767px) {
+    .app-main{
+        margin-top: 60px;
+    }
+}
 .wrap {
     padding-top: 1.5rem;
     padding-left: 1.5rem;
@@ -12503,6 +12508,7 @@ body.menubar-top .wrap {
 }
 }.side-panel {
     position: fixed;
+    z-index: 1;
     right: -100%;
     top: 60px;
     width: 240px;
