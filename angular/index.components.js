@@ -18,6 +18,10 @@
 // import { UserRolesAddComponent } from './app/components/user-roles-add/user-roles-add.component'
 // import { UserRolesComponent } from './app/components/user-roles/user-roles.component'
 // import { UserListsComponent } from './app/components/user-lists/user-lists.component'
+import { ChatComponent } from './app/components/chat/chat.component'
+import { ProjectCreateComponent } from './app/components/project-create/project-create.component'
+import { ProjectsComponent } from './app/components/projects/projects.component'
+import { ProjectViewComponent } from './app/components/project-view/project-view.component'
 import { ContactsComponent } from './app/components/contacts/contacts.component'
 import { DashboardComponent } from './app/components/dashboard/dashboard.component'
 import { NavSidebarComponent } from './app/components/nav-sidebar/nav-sidebar.component'
@@ -49,6 +53,10 @@ angular.module('app.components')
   // .component('userRolesAdd', UserRolesAddComponent)
   // .component('userRoles', UserRolesComponent)
   // .component('userLists', UserListsComponent)
+  .component('chat', ChatComponent)
+  .component('projectView', ProjectViewComponent)
+  .component('projectCreate', ProjectCreateComponent)
+  .component('projects', ProjectsComponent)
   .component('contacts', ContactsComponent)
   .component('dashboard', DashboardComponent)
   .component('navSidebar', NavSidebarComponent)

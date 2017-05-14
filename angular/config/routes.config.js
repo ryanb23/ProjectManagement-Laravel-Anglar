@@ -51,6 +51,50 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('app.projects', {
+            url: '/projects',
+            data: {
+                auth: true
+            },
+            views: {
+                'main@app': {
+                    template: '<projects></projects>'
+                }
+            }
+        })
+        .state('app.project-create', {
+            url: '/project-create',
+            data: {
+                auth: true
+            },
+            views: {
+                'main@app': {
+                    template: '<project-create></project-create>'
+                }
+            }
+        })
+        .state('app.project-view', {
+            url: '/project-view',
+            data: {
+                auth: true
+            },
+            views: {
+                'main@app': {
+                    template: '<project-view></project-view>'
+                }
+            }
+        })
+        .state('app.chat', {
+            url: '/chat',
+            data: {
+                auth: true
+            },
+            views: {
+                'main@app': {
+                    template: '<chat></chat>'
+                }
+            }
+        })
         .state('login', {
             url: '/login',
             views: {

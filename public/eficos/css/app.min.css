@@ -12274,7 +12274,7 @@ body.menubar-fold .navbar-brand .brand-name {
 .navbar-brand .brand-name {
     display: none;
 }
-body>.navbar .navbar-brand, body>.navbar .navbar-brand:focus, body>.navbar .navbar-brand:hover {
+body .navbar .navbar-brand, body .navbar .navbar-brand:focus, body .navbar .navbar-brand:hover {
     color: #fff;
 }
 }.navbar-toggle {
@@ -12295,7 +12295,7 @@ body.menubar-left .navbar-container {
     box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
 }
 @media (min-width:768px) {
-    body.menubar-dark>.navbar .navbar-brand, body.menubar-top>.navbar .navbar-brand {
+    body.menubar-dark .navbar .navbar-brand, body.menubar-top .navbar .navbar-brand {
     color: #fff;
 }
 .menubar-unfold .navbar-container {
