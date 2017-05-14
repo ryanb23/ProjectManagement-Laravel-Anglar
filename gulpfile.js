@@ -40,9 +40,7 @@ elixir(function (mix) {
       './public/eficos/js/app.min.js',
       './public/eficos/libs/bower/moment/moment.js',
       './public/eficos/libs/bower/fullcalendar/dist/fullcalendar.min.js',
-      './public/eficos/js/fullcalendar.js',
-      './public/eficos/libs/bower/jquery/dist/jquery.js'
-      
+      './public/eficos/js/fullcalendar.js'
     ],
     styles = [
       './public/css/vendor.css',
