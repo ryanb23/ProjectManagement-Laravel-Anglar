@@ -26,7 +26,9 @@
     <script src="eficos/libs/bower/breakpoints.js/dist/breakpoints.min.js"></script>
     <script>Breakpoints();</script>
 </head>
-<body class="menubar-top  theme-primary menubar-light pace-done" route-bodyclass ui-view="layout">
+<body class="menubar-top  theme-primary menubar-light pace-done">
+    <div route-bodyclass ui-view="layout">
+    </div>
     <script src="eficos/js/core.min.js"></script>
     <script src="eficos/js/app.min.js"></script>
     <script src="eficos/libs/bower/moment/moment.js"></script>
