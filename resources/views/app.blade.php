@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="{!! elixir('css/final.css') !!}">
     <!-- <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic'> -->
     <!-- Font Awesome -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"> -->
@@ -21,6 +20,7 @@
     <link rel="stylesheet" href="eficos/css/bootstrap.css">
     <link rel="stylesheet" href="eficos/css/app.min.css">
     <link rel="stylesheet" href="eficos/css/misc-pages.css">
+    <link rel="stylesheet" href="{!! elixir('css/final.css') !!}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
     <!-- Scripts -->
     <script src="eficos/libs/bower/breakpoints.js/dist/breakpoints.min.js"></script>
@@ -29,12 +29,12 @@
 <body class="menubar-top  theme-primary menubar-light pace-done">
     <div route-bodyclass ui-view="layout">
     </div>
-    <script src="eficos/js/core.min.js"></script>
+    <!-- <script src="eficos/js/core.min.js"></script>
     <script src="eficos/js/app.min.js"></script>
     <script src="eficos/libs/bower/moment/moment.js"></script>
     <script src="eficos/libs/bower/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="eficos/js/fullcalendar.js"></script>
-    <script src="eficos/libs/bower/jquery/dist/jquery.js"></script>
+    <script src="eficos/libs/bower/jquery/dist/jquery.js"></script> -->
     <script src="{!! elixir('js/final.js') !!}"></script>
 </body>
 </html>
