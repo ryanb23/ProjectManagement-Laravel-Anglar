@@ -89,8 +89,35 @@
     <div class="app-user">
         <div class="media">
             <div class="media-left">
-                <div class="avatar avatar-md avatar-circle">
-                    <a href="javascript:void(0)"><img class="img-responsive" src="eficos/img/221.jpg" alt="avatar"></a>
+                <div class="avatar avatar-md avatar-circle dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle usertitle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-responsive" src="eficos/img/221.jpg" alt="avatar"></a>
+                    <ul class="dropdown-menu animated flipInY">
+                                <li>
+                                    <a class="text-color" href="#profile">
+                                        <span class="m-r-xs">
+                                                    <i class="fa fa-user"></i>
+                                                </span>
+                                        <span>Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-color" href="#setting">
+                                        <span class="m-r-xs">
+                                                    <i class="fa fa-gear"></i>
+                                                </span>
+                                        <span>Settings</span>
+                                    </a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <a class="text-color" ui-sref="app.logout">
+                                        <span class="m-r-xs">
+                                                    <i class="fa fa-power-off"></i>
+                                                </span>
+                                        <span>Logout</span>
+                                    </a>
+                                </li>
+                            </ul>
                 </div>
             </div>
             <div class="media-body">

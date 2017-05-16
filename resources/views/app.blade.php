@@ -14,27 +14,15 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" href="eficos/libs/bower/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="eficos/libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
-    <!-- <link rel="stylesheet" href="eficos/libs/bower/animate.css/animate.min.css"> -->
-    <!-- <link rel="stylesheet" href="eficos/css/bootstrap.css"> -->
-    <link rel="stylesheet" href="eficos/css/app.min.css">
-    <link rel="stylesheet" href="eficos/css/misc-pages.css">
     <link rel="stylesheet" href="{!! elixir('css/final.css') !!}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
-    <!-- Scripts -->
-    <script src="eficos/libs/bower/breakpoints.js/dist/breakpoints.min.js"></script>
-    <script>Breakpoints();</script>
+    
 </head>
-<body class="menubar-top  theme-primary menubar-light pace-done">
+<body class="menubar-top theme-primary menubar-light pace-done">
     <div route-bodyclass ui-view="layout">
     </div>
+
     <script src="{!! elixir('js/final.js') !!}"></script>
-    <script src="eficos/js/core.min.js"></script>
-    <script src="eficos/js/app.min.js"></script>
-    <script src="eficos/libs/bower/moment/moment.js"></script>
-    <script src="eficos/libs/bower/fullcalendar/dist/fullcalendar.min.js"></script>
-    <script src="eficos/js/fullcalendar.js"></script>
-    <!-- <script src="eficos/libs/bower/jquery/dist/jquery.js"></script> -->
+    
 </body>
 </html>

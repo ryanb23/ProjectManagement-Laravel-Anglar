@@ -5,11 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600|Lato:700,900,400|Raleway' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="eficos/css/bootstrap.css">
-        <link rel="stylesheet" href="eficos/libs/bower/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="eficos/libs/misc/owl-carousel/owl.carousel.css">
-        <link rel="stylesheet" href="eficos/libs/bower/animate.css/animate.min.css">
-        <link rel="stylesheet" href="eficos/css/landing-page.css">
+        <link rel="stylesheet" href="libs/misc/owl-carousel/owl.carousel.css">
+        <link rel="stylesheet" href="{!! elixir('css/final.css') !!}">
+        <link rel="stylesheet" href="css/landing-page.css">
         <title>Efico | Innovative Platform</title>
     </head>
     <body data-spy="scroll" data-target=".navbar-fixed-top" data-offset="60">
@@ -76,9 +74,9 @@
                     </div>
                     <div id="video-container">
                         <a id="play-video" href="#" data-toggle="modal" data-target="#video-modal" data-backdrop="true">
-                            <img src="eficos/img/landing-page/video-bg.png" alt="">
+                            <img src="img/landing-page/video-bg.png" alt="">
                             <span class="play-icon">
-                                <img src="eficos/img/landing-page/play-icon.png" alt="">
+                                <img src="img/landing-page/play-icon.png" alt="">
                             </span>
                         </a>
                     </div>
@@ -102,7 +100,7 @@
                     <div class="row text-center">
                         <div class="col-md-4">
                             <div class="col-inner feature">
-                                <img src="eficos/assets/svg/tie.svg" alt="icon">
+                                <img src="assets/svg/tie.svg" alt="icon">
                                 <h4>Myspace profile</h4>
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. ipsum dolor sit amet, consectetur adipisicing elit.
@@ -111,7 +109,7 @@
                         </div><!-- /.col -->
                         <div class="col-md-4">
                             <div class="col-inner feature">
-                                <img src="eficos/assets/svg/pig.svg" alt="icon">
+                                <img src="assets/svg/pig.svg" alt="icon">
                                 <h4>Myspace profile</h4>
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. ipsum dolor sit amet, consectetur adipisicing elit.
@@ -120,7 +118,7 @@
                         </div><!-- /.col -->
                         <div class="col-md-4">
                             <div class="col-inner feature">
-                                <img src="eficos/assets/svg/pointer.svg" alt="icon">
+                                <img src="assets/svg/pointer.svg" alt="icon">
                                 <h4>Myspace profile</h4>
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. ipsum dolor sit amet, consectetur adipisicing elit.
@@ -132,7 +130,7 @@
             </section><!-- #features -->
             <section id="brief">
                 <div id="brief-img">
-                    <img src="eficos/img/landing-page/img-1.jpg" alt="">
+                    <img src="img/landing-page/img-1.jpg" alt="">
                 </div><!-- #brief-img -->
                 <div class="container">
                     <div id="brief-text">
@@ -144,19 +142,19 @@
                         </p>
                         <ul>
                             <li>
-                                <img class="item-icon" src="eficos/assets/svg/check.svg" alt="">
+                                <img class="item-icon" src="assets/svg/check.svg" alt="">
                                 <span class="item-text">
                                     Home Audio Recording For Everyone
                                 </span>
                             </li>
                             <li>
-                                <img class="item-icon" src="eficos/assets/svg/check.svg" alt="">
+                                <img class="item-icon" src="assets/svg/check.svg" alt="">
                                 <span class="item-text">
                                     Understanding Operating Systems
                                 </span>
                             </li>
                             <li>
-                                <img class="item-icon" src="eficos/assets/svg/check.svg" alt="">
+                                <img class="item-icon" src="assets/svg/check.svg" alt="">
                                 <span class="item-text">
                                     Compare Prices Find The Best
                                 </span>
@@ -224,13 +222,13 @@
                             <div class="col-md-4">
                                 <div class="control-wrap">
                                     <input type="text" class="form-control" placeholder="Your Name">
-                                    <img src="eficos/assets/svg/users.svg" alt="">
+                                    <img src="assets/svg/users.svg" alt="">
                                 </div>
                             </div><!-- /.col -->
                             <div class="col-md-4">
                                 <div class="control-wrap">
                                     <input type="text" class="form-control" placeholder="Your Email">
-                                    <img src="eficos/assets/svg/email.svg" alt="">
+                                    <img src="assets/svg/email.svg" alt="">
                                 </div>
                             </div><!-- /.col -->
                             <div class="col-md-4">
@@ -261,23 +259,23 @@
                                 </header>
                                 <ul>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/check.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
                                         <span>Simple Install</span>
                                     </li>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/check.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
                                         <span>Unlimited Projects</span>
                                     </li>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/remove.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/remove.svg" alt="">
                                         <span class="crossed">After Hourss Support</span>
                                     </li>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/remove.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/remove.svg" alt="">
                                         <span class="crossed">Unlimited Storage</span>
                                     </li>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/remove.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/remove.svg" alt="">
                                         <span class="crossed">Desdcated Server</span>
                                     </li>
                                 </ul>
@@ -294,23 +292,23 @@
                                 </header>
                                 <ul>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/check.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
                                         <span>Simple Install</span>
                                     </li>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/check.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
                                         <span>Unlimited Projects</span>
                                     </li>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/check.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
                                         <span>After Hourss Support</span>
                                     </li>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/remove.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/remove.svg" alt="">
                                         <span class="crossed">Unlimited Storage</span>
                                     </li>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/remove.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/remove.svg" alt="">
                                         <span class="crossed">Desdcated Server</span>
                                     </li>
                                 </ul>
@@ -327,23 +325,23 @@
                                 </header>
                                 <ul>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/check.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
                                         <span>Simple Install</span>
                                     </li>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/check.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
                                         <span>Unlimited Projects</span>
                                     </li>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/check.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
                                         <span>After Hourss Support</span>
                                     </li>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/check.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
                                         <span>Unlimited Storage</span>
                                     </li>
                                     <li>
-                                        <img class="item-icon" src="eficos/assets/svg/check.svg" alt="">
+                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
                                         <span>Desdcated Server</span>
                                     </li>
                                 </ul>
@@ -361,7 +359,7 @@
                     <div class="row">
                         <div class="col-md-10 col-md-offset-1">
                             <div class="text-center">
-                                <img src="eficos/img/landing-page/talk-bubble.png" alt="">
+                                <img src="img/landing-page/talk-bubble.png" alt="">
                             </div>
                             <div id="owl-slider" class="owl-carousel owl-theme">
                                 <div class="item">
@@ -429,13 +427,13 @@
                                 <h2>PROJECTS</h2>
                                 <div class="images clearfix">
                                     <a href="#">
-                                        <img class="img-responsive" src="eficos/img/103.jpg" alt="">
+                                        <img class="img-responsive" src="img/103.jpg" alt="">
                                     </a>
                                     <a href="#">
-                                        <img class="img-responsive" src="eficos/img/102.jpg" alt="">
+                                        <img class="img-responsive" src="img/102.jpg" alt="">
                                     </a>
                                     <a href="#">
-                                        <img class="img-responsive" src="eficos/img/101.jpg" alt="">
+                                        <img class="img-responsive" src="img/101.jpg" alt="">
                                     </a>
                                 </div>
                                 <div class="icons">
@@ -466,15 +464,15 @@
             </section><!-- #copyright -->
         </div>
         <div id="loading-div">
-            <img src="eficos/img/landing-page/puff.svg" width="50" alt="">
+            <img src="img/landing-page/puff.svg" width="50" alt="">
         </div>
         <!-- -->
-        <script src="eficos/libs/bower/jquery/dist/jquery.js"></script>
-        <script src="eficos/libs/bower/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
-        <script src="eficos/libs/misc/owl-carousel/owl.carousel.min.js"></script>
-        <script src="eficos/libs/bower/smooth-scroll/dist/js/smooth-scroll.min.js"></script>
-        <script src="eficos/libs/bower/waypoints/lib/jquery.waypoints.min.js"></script>
-        <script src="eficos/libs/bower/counterup/jquery.counterup.min.js"></script>
+        <script src="libs/bower/jquery/dist/jquery.js"></script>
+        <script src="libs/bower/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+        <script src="libs/misc/owl-carousel/owl.carousel.min.js"></script>
+        <script src="libs/bower/smooth-scroll/dist/js/smooth-scroll.min.js"></script>
+        <script src="libs/bower/waypoints/lib/jquery.waypoints.min.js"></script>
+        <script src="libs/bower/counterup/jquery.counterup.min.js"></script>
         <script>
             $(function() {
                 $(window).on('load', function(){
