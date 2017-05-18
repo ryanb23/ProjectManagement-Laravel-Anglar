@@ -16,10 +16,16 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('oauth_provider')->nullable();
             $table->string('oauth_provider_id')->nullable();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->string('avatar')->nullable();
+            $table->string('firstname',30);
+            $table->string('lastname',30);
+            $table->string('middlename',30);
+            $table->integer('score');
+            $table->string('salt');
+            $table->enum('active',['1','0'])->default('1');
             $table->enum('email_verified', ['1', '0'])->default('0');
             $table->string('email_verification_code', 60)->nullable();
             $table->rememberToken();
