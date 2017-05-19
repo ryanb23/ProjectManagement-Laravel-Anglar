@@ -40,8 +40,8 @@ elixir(function (mix) {
     styles = [
       './public/css/vendor.css',
       './public/css/app.css',
-      './public/css/custom.css',
-      './public/css/core.css',
+      './public/dist/css/custom.css',
+      './public/dist/css/core.css',
     ],
     karmaJsDir = [
       jsOutputFolder + '/vendor.js',
