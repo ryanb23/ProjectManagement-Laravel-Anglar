@@ -158,7 +158,6 @@ return [
         Dingo\Api\Provider\LaravelServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ResponseMacroServiceProvider::class,
-        
 
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         LaravelAngular\Generators\LaravelServiceProvider::class,
