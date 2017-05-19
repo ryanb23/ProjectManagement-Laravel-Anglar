@@ -36,7 +36,7 @@
 
       //Bind a function to a Event (the full Laravel class)
       channel.bind('App\\Events\\MessagePostEvent', function(data) {
-        console.log('An event was triggered with message: ' + data.message);
+        console.log(data);
       });
     </script>
 </body>

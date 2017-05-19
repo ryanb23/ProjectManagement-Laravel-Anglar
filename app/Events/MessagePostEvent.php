@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Events\Event;
+use App\User;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
@@ -11,6 +12,7 @@ class MessagePostEvent extends Event implements ShouldBroadcast
     use SerializesModels;
 
     public $message;
+    public $user;
     /**
      * Create a new event instance.
      *
@@ -21,6 +23,7 @@ class MessagePostEvent extends Event implements ShouldBroadcast
     {
         //
         $this->message = $message;
+        $this->user = 'user';
     }
 
     /**

@@ -22,7 +22,8 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('/test', function(){
-    		event(new App\Events\MessagePostEvent('test!'));
-        return 'event posted';
+
+      event(new App\Events\MessagePostEvent('test!'));
+      return 'event posted';
 	});
 });

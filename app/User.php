@@ -12,6 +12,8 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Message;
+
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasRoleAndPermissionContract
 {
     use Authenticatable, CanResetPassword, HasRoleAndPermission;
@@ -33,4 +35,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = [
         'password', 'remember_token', 'oauth_provider_id', 'oauth_provider',
     ];
+
+    public function messages(){
+        return $this->hasMany(Message::class);
+    }
 }
