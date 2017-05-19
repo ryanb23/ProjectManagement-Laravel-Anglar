@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="libs/misc/owl-carousel/owl.carousel.css">
         <link rel="stylesheet" href="{!! elixir('css/final.css') !!}">
         <link rel="stylesheet" href="css/landing-page.css">
+        <link ref="manifest" href="manifest.json" />
         <title>Efico | Innovative Platform</title>
     </head>
     <body data-spy="scroll" data-target=".navbar-fixed-top" data-offset="60">

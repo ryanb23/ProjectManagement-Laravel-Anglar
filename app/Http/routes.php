@@ -19,4 +19,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('auth/{provider}', ['uses' => 'Auth\AuthController@redirectToProvider']);
     Route::get('auth/{provider}/callback', ['uses' => 'Auth\AuthController@handleProviderCallback']);
     Route::get('/api/authenticate/user', 'Auth\AuthController@getAuthenticatedUser');
+
+
+    Route::get('/test', function(){
+    		event(new App\Events\MessagePostEvent('test!'));
+        return 'event posted';
+	});
 });

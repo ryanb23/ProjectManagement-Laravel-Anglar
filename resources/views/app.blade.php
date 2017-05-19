@@ -16,13 +16,28 @@
     <![endif]-->
     <link rel="stylesheet" href="{!! elixir('css/final.css') !!}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
-    
+
 </head>
 <body class="menubar-top theme-primary menubar-light pace-done">
     <div route-bodyclass ui-view="layout">
     </div>
 
     <script src="{!! elixir('js/final.js') !!}"></script>
-    
+    <script src="//js.pusher.com/4.0/pusher.min.js"></script>
+    <script>
+      //instantiate a Pusher object with our Credential's key
+      var pusher = new Pusher('10fc757079ccb460a820', {
+          cluster: 'us2',
+          encrypted: true
+      });
+
+      //Subscribe to the channel we specified in our Laravel Event
+      var channel = pusher.subscribe('test-channel');
+
+      //Bind a function to a Event (the full Laravel class)
+      channel.bind('App\\Events\\MessagePostEvent', function(data) {
+        console.log('An event was triggered with message: ' + data.message);
+      });
+    </script>
 </body>
 </html>

@@ -195,7 +195,6 @@ class AuthController extends Controller
         $user->name = trim($request->name);
         $user->email = trim(strtolower($request->email));
         $user->password = bcrypt($request->password);
-        $user->email_verified = 1;
         $user->email_verification_code = $verificationCode;
         $user->save();
 
