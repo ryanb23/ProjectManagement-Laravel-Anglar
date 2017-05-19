@@ -12,7 +12,8 @@
         "laravelangular/generators": "2.7.x",
         "dingo/api": "1.0.x@dev",
         "laravel/socialite": "^2.0",
-        "bican/roles": "2.1.*"
+        "bican/roles": "2.1.*",
+        "guzzlehttp/guzzle": "~5.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -49,7 +50,6 @@
         ],
         "post-install-cmd": [
             "php artisan clear-compiled",
-            "php -r \"copy('.env.example', '.env');\"",
             "php artisan optimize",
             "php artisan key:generate"
         ],
