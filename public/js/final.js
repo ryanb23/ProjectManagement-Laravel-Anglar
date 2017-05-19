@@ -88012,6 +88012,36 @@ try {
   module = angular.module('app.partials', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('./views/app/components/coming-soon/coming-soon.component.html',
+    '<section class="content">\n' +
+    '  <div class="row">\n' +
+    '    <div class="col-md-12">\n' +
+    '      <div class="box box-info">\n' +
+    '        <div class="box-header with-border">\n' +
+    '          <div class="box-tools pull-right">\n' +
+    '            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>\n' +
+    '            </button>\n' +
+    '            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>\n' +
+    '          </div>\n' +
+    '        </div>\n' +
+    '        <div class="box-body">\n' +
+    '          <h3>Coming Soon... (Pull Requests are Welcome)</h3>\n' +
+    '        </div>\n' +
+    '      </div>\n' +
+    '    </div>\n' +
+    '  </div>\n' +
+    '</section>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('app.partials');
+} catch (e) {
+  module = angular.module('app.partials', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('./views/app/components/contacts/contacts.component.html',
     '<section class="app-content">\n' +
     '    <div class="row">\n' +
@@ -88338,36 +88368,6 @@ module.run(['$templateCache', function($templateCache) {
     '        </div>\n' +
     '    </div>\n' +
     '</div>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('app.partials');
-} catch (e) {
-  module = angular.module('app.partials', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('./views/app/components/coming-soon/coming-soon.component.html',
-    '<section class="content">\n' +
-    '  <div class="row">\n' +
-    '    <div class="col-md-12">\n' +
-    '      <div class="box box-info">\n' +
-    '        <div class="box-header with-border">\n' +
-    '          <div class="box-tools pull-right">\n' +
-    '            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>\n' +
-    '            </button>\n' +
-    '            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>\n' +
-    '          </div>\n' +
-    '        </div>\n' +
-    '        <div class="box-body">\n' +
-    '          <h3>Coming Soon... (Pull Requests are Welcome)</h3>\n' +
-    '        </div>\n' +
-    '      </div>\n' +
-    '    </div>\n' +
-    '  </div>\n' +
-    '</section>\n' +
     '');
 }]);
 })();
@@ -88730,6 +88730,42 @@ try {
   module = angular.module('app.partials', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('./views/app/components/forgot-password/forgot-password.component.html',
+    '<div class="simple-page-wrap">\n' +
+    '    <div class="simple-page-logo animated swing"><a href="/"><span><i class="fa fa-gg"></i></span> <span>Efico</span></a></div>\n' +
+    '    <div class="simple-page-form animated flipInY" id="reset-password-form">\n' +
+    '        <h4 class="form-title m-b-xl text-center">Forgot Your Password ?</h4>\n' +
+    '        <form ng-submit="vm.submit()" class="ForgotPassword-form" name="vm.forgotPasswordForm" novalidate>\n' +
+    '            <div class="callout callout-danger" ng-if="vm.errorTrigger">\n' +
+    '                <h4>Error:</h4>\n' +
+    '                <p>Pl ease check your email and try again.</p>\n' +
+    '            </div>\n' +
+    '            <div class="form-group has-feedback" ng-class="{ \'has-error\': (vm.forgotPasswordForm.email.$invalid || vm.serverError) && ( vm.formSubmitted || vm.forgotPasswordForm.email.$touched) }">\n' +
+    '                <input id="reset-password-email" type="email" class="form-control" placeholder="Please enter your email address" name="email" ng-model="vm.email" ng-required="true" ng-pattern="/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/">\n' +
+    '                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>\n' +
+    '                <p ng-show="vm.forgotPasswordForm.email.$error.email  && ( vm.formSubmitted || vm.forgotPasswordForm.email.$touched)" class="help-block">This is not a valid email</p>\n' +
+    '                <p ng-show="vm.forgotPasswordForm.email.$error.required && ( vm.formSubmitted || vm.forgotPasswordForm.email.$touched)" class="help-block">Email is required.</p>\n' +
+    '                <p ng-show=\'vm.serverError\' class="help-block">{{ vm.serverError }}</p>\n' +
+    '            </div>\n' +
+    '            <input type="submit" class="btn btn-primary" value="RESET YOUR PASSWORD">\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="simple-page-footer">\n' +
+    '        <p><a ui-sref="login">Login In</a></p>\n' +
+    '        <p><small>Don\'t have an account ?</small> <a ui-sref="register">CREATE AN ACCOUNT</a></p>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('app.partials');
+} catch (e) {
+  module = angular.module('app.partials', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('./views/app/components/login-form/login-form.component.html',
     '<div class="simple-page-wrap">\n' +
     '    <div class="simple-page-logo animated swing"><a href="/"><span><i class="fa fa-gg"></i></span> <span>Efico</span></a></div>\n' +
@@ -88788,29 +88824,158 @@ try {
   module = angular.module('app.partials', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('./views/app/components/forgot-password/forgot-password.component.html',
-    '<div class="simple-page-wrap">\n' +
-    '    <div class="simple-page-logo animated swing"><a href="/"><span><i class="fa fa-gg"></i></span> <span>Efico</span></a></div>\n' +
-    '    <div class="simple-page-form animated flipInY" id="reset-password-form">\n' +
-    '        <h4 class="form-title m-b-xl text-center">Forgot Your Password ?</h4>\n' +
-    '        <form ng-submit="vm.submit()" class="ForgotPassword-form" name="vm.forgotPasswordForm" novalidate>\n' +
-    '            <div class="callout callout-danger" ng-if="vm.errorTrigger">\n' +
-    '                <h4>Error:</h4>\n' +
-    '                <p>Pl ease check your email and try again.</p>\n' +
-    '            </div>\n' +
-    '            <div class="form-group has-feedback" ng-class="{ \'has-error\': (vm.forgotPasswordForm.email.$invalid || vm.serverError) && ( vm.formSubmitted || vm.forgotPasswordForm.email.$touched) }">\n' +
-    '                <input id="reset-password-email" type="email" class="form-control" placeholder="Please enter your email address" name="email" ng-model="vm.email" ng-required="true" ng-pattern="/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/">\n' +
-    '                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>\n' +
-    '                <p ng-show="vm.forgotPasswordForm.email.$error.email  && ( vm.formSubmitted || vm.forgotPasswordForm.email.$touched)" class="help-block">This is not a valid email</p>\n' +
-    '                <p ng-show="vm.forgotPasswordForm.email.$error.required && ( vm.formSubmitted || vm.forgotPasswordForm.email.$touched)" class="help-block">Email is required.</p>\n' +
-    '                <p ng-show=\'vm.serverError\' class="help-block">{{ vm.serverError }}</p>\n' +
-    '            </div>\n' +
-    '            <input type="submit" class="btn btn-primary" value="RESET YOUR PASSWORD">\n' +
-    '        </form>\n' +
+  $templateCache.put('./views/app/components/login-loader/login-loader.component.html',
+    'Logging in...');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('app.partials');
+} catch (e) {
+  module = angular.module('app.partials', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('./views/app/components/nav-sidebar/nav-sidebar.component.html',
+    '<div id="side-panel" class="side-panel">\n' +
+    '    <div class="panel-header">\n' +
+    '        <h4 class="panel-title">Contacts</h4>\n' +
     '    </div>\n' +
-    '    <div class="simple-page-footer">\n' +
-    '        <p><a ui-sref="login">Login In</a></p>\n' +
-    '        <p><small>Don\'t have an account ?</small> <a ui-sref="register">CREATE AN ACCOUNT</a></p>\n' +
+    '    <div class="scrollable-container">\n' +
+    '        <div class="media-group">\n' +
+    '            <a href="javascript:void(0)" class="media-group-item">\n' +
+    '                <div class="media">\n' +
+    '                    <div class="media-left">\n' +
+    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/221.jpg" alt=""> <i class="status status-online"></i></div>\n' +
+    '                    </div>\n' +
+    '                    <div class="media-body">\n' +
+    '                        <h5 class="media-heading">John Doe</h5>\n' +
+    '                        <small class="media-meta">active now</small>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </a>\n' +
+    '            <a href="javascript:void(0)" class="media-group-item">\n' +
+    '                <div class="media">\n' +
+    '                    <div class="media-left">\n' +
+    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/205.jpg" alt=""> <i class="status status-online"></i></div>\n' +
+    '                    </div>\n' +
+    '                    <div class="media-body">\n' +
+    '                        <h5 class="media-heading">John Doe</h5>\n' +
+    '                        <small class="media-meta">active now</small>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </a>\n' +
+    '            <a href="javascript:void(0)" class="media-group-item">\n' +
+    '                <div class="media">\n' +
+    '                    <div class="media-left">\n' +
+    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/206.jpg" alt=""> <i class="status status-online"></i></div>\n' +
+    '                    </div>\n' +
+    '                    <div class="media-body">\n' +
+    '                        <h5 class="media-heading">Adam Kiti</h5>\n' +
+    '                        <small class="media-meta">active now</small>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </a>\n' +
+    '            <a href="javascript:void(0)" class="media-group-item">\n' +
+    '                <div class="media">\n' +
+    '                    <div class="media-left">\n' +
+    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/207.jpg" alt=""> <i class="status status-away"></i></div>\n' +
+    '                    </div>\n' +
+    '                    <div class="media-body">\n' +
+    '                        <h5 class="media-heading">Jane Doe</h5>\n' +
+    '                        <small class="media-meta">away</small>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </a>\n' +
+    '            <a href="javascript:void(0)" class="media-group-item">\n' +
+    '                <div class="media">\n' +
+    '                    <div class="media-left">\n' +
+    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/208.jpg" alt=""> <i class="status status-away"></i></div>\n' +
+    '                    </div>\n' +
+    '                    <div class="media-body">\n' +
+    '                        <h5 class="media-heading">Sara Adams</h5>\n' +
+    '                        <small class="media-meta">away</small>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </a>\n' +
+    '            <a href="javascript:void(0)" class="media-group-item">\n' +
+    '                <div class="media">\n' +
+    '                    <div class="media-left">\n' +
+    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/209.jpg" alt=""> <i class="status status-away"></i></div>\n' +
+    '                    </div>\n' +
+    '                    <div class="media-body">\n' +
+    '                        <h5 class="media-heading">Smith Doe</h5>\n' +
+    '                        <small class="media-meta">away</small>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </a>\n' +
+    '            <a href="javascript:void(0)" class="media-group-item">\n' +
+    '                <div class="media">\n' +
+    '                    <div class="media-left">\n' +
+    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/219.jpg" alt=""> <i class="status status-away"></i></div>\n' +
+    '                    </div>\n' +
+    '                    <div class="media-body">\n' +
+    '                        <h5 class="media-heading">Dana Dyab</h5>\n' +
+    '                        <small class="media-meta">away</small>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </a>\n' +
+    '            <a href="javascript:void(0)" class="media-group-item">\n' +
+    '                <div class="media">\n' +
+    '                    <div class="media-left">\n' +
+    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/210.jpg" alt=""> <i class="status status-offline"></i></div>\n' +
+    '                    </div>\n' +
+    '                    <div class="media-body">\n' +
+    '                        <h5 class="media-heading">Jeffry Way</h5>\n' +
+    '                        <small class="media-meta">2 hours ago</small>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </a>\n' +
+    '            <a href="javascript:void(0)" class="media-group-item">\n' +
+    '                <div class="media">\n' +
+    '                    <div class="media-left">\n' +
+    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/211.jpg" alt=""> <i class="status status-offline"></i></div>\n' +
+    '                    </div>\n' +
+    '                    <div class="media-body">\n' +
+    '                        <h5 class="media-heading">Jane Doe</h5>\n' +
+    '                        <small class="media-meta">5 hours ago</small>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </a>\n' +
+    '            <a href="javascript:void(0)" class="media-group-item">\n' +
+    '                <div class="media">\n' +
+    '                    <div class="media-left">\n' +
+    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/212.jpg" alt=""> <i class="status status-offline"></i></div>\n' +
+    '                    </div>\n' +
+    '                    <div class="media-body">\n' +
+    '                        <h5 class="media-heading">Adam Khoury</h5>\n' +
+    '                        <small class="media-meta">22 minutes ago</small>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </a>\n' +
+    '            <a href="javascript:void(0)" class="media-group-item">\n' +
+    '                <div class="media">\n' +
+    '                    <div class="media-left">\n' +
+    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/207.jpg" alt=""> <i class="status status-offline"></i></div>\n' +
+    '                    </div>\n' +
+    '                    <div class="media-body">\n' +
+    '                        <h5 class="media-heading">Sara Smith</h5>\n' +
+    '                        <small class="media-meta">2 days ago</small>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </a>\n' +
+    '            <a href="javascript:void(0)" class="media-group-item">\n' +
+    '                <div class="media">\n' +
+    '                    <div class="media-left">\n' +
+    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/211.jpg" alt=""> <i class="status status-offline"></i></div>\n' +
+    '                    </div>\n' +
+    '                    <div class="media-body">\n' +
+    '                        <h5 class="media-heading">Donia Dyab</h5>\n' +
+    '                        <small class="media-meta">3 days ago</small>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </a>\n' +
+    '        </div>\n' +
     '    </div>\n' +
     '</div>\n' +
     '');
@@ -89059,171 +89224,6 @@ module.run(['$templateCache', function($templateCache) {
     '        </button>\n' +
     '    </div>\n' +
     '    <div class="navbar-search-backdrop" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false"></div>\n' +
-    '</div>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('app.partials');
-} catch (e) {
-  module = angular.module('app.partials', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('./views/app/components/login-loader/login-loader.component.html',
-    'Logging in...');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('app.partials');
-} catch (e) {
-  module = angular.module('app.partials', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('./views/app/components/nav-sidebar/nav-sidebar.component.html',
-    '<div id="side-panel" class="side-panel">\n' +
-    '    <div class="panel-header">\n' +
-    '        <h4 class="panel-title">Contacts</h4>\n' +
-    '    </div>\n' +
-    '    <div class="scrollable-container">\n' +
-    '        <div class="media-group">\n' +
-    '            <a href="javascript:void(0)" class="media-group-item">\n' +
-    '                <div class="media">\n' +
-    '                    <div class="media-left">\n' +
-    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/221.jpg" alt=""> <i class="status status-online"></i></div>\n' +
-    '                    </div>\n' +
-    '                    <div class="media-body">\n' +
-    '                        <h5 class="media-heading">John Doe</h5>\n' +
-    '                        <small class="media-meta">active now</small>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </a>\n' +
-    '            <a href="javascript:void(0)" class="media-group-item">\n' +
-    '                <div class="media">\n' +
-    '                    <div class="media-left">\n' +
-    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/205.jpg" alt=""> <i class="status status-online"></i></div>\n' +
-    '                    </div>\n' +
-    '                    <div class="media-body">\n' +
-    '                        <h5 class="media-heading">John Doe</h5>\n' +
-    '                        <small class="media-meta">active now</small>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </a>\n' +
-    '            <a href="javascript:void(0)" class="media-group-item">\n' +
-    '                <div class="media">\n' +
-    '                    <div class="media-left">\n' +
-    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/206.jpg" alt=""> <i class="status status-online"></i></div>\n' +
-    '                    </div>\n' +
-    '                    <div class="media-body">\n' +
-    '                        <h5 class="media-heading">Adam Kiti</h5>\n' +
-    '                        <small class="media-meta">active now</small>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </a>\n' +
-    '            <a href="javascript:void(0)" class="media-group-item">\n' +
-    '                <div class="media">\n' +
-    '                    <div class="media-left">\n' +
-    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/207.jpg" alt=""> <i class="status status-away"></i></div>\n' +
-    '                    </div>\n' +
-    '                    <div class="media-body">\n' +
-    '                        <h5 class="media-heading">Jane Doe</h5>\n' +
-    '                        <small class="media-meta">away</small>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </a>\n' +
-    '            <a href="javascript:void(0)" class="media-group-item">\n' +
-    '                <div class="media">\n' +
-    '                    <div class="media-left">\n' +
-    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/208.jpg" alt=""> <i class="status status-away"></i></div>\n' +
-    '                    </div>\n' +
-    '                    <div class="media-body">\n' +
-    '                        <h5 class="media-heading">Sara Adams</h5>\n' +
-    '                        <small class="media-meta">away</small>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </a>\n' +
-    '            <a href="javascript:void(0)" class="media-group-item">\n' +
-    '                <div class="media">\n' +
-    '                    <div class="media-left">\n' +
-    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/209.jpg" alt=""> <i class="status status-away"></i></div>\n' +
-    '                    </div>\n' +
-    '                    <div class="media-body">\n' +
-    '                        <h5 class="media-heading">Smith Doe</h5>\n' +
-    '                        <small class="media-meta">away</small>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </a>\n' +
-    '            <a href="javascript:void(0)" class="media-group-item">\n' +
-    '                <div class="media">\n' +
-    '                    <div class="media-left">\n' +
-    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/219.jpg" alt=""> <i class="status status-away"></i></div>\n' +
-    '                    </div>\n' +
-    '                    <div class="media-body">\n' +
-    '                        <h5 class="media-heading">Dana Dyab</h5>\n' +
-    '                        <small class="media-meta">away</small>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </a>\n' +
-    '            <a href="javascript:void(0)" class="media-group-item">\n' +
-    '                <div class="media">\n' +
-    '                    <div class="media-left">\n' +
-    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/210.jpg" alt=""> <i class="status status-offline"></i></div>\n' +
-    '                    </div>\n' +
-    '                    <div class="media-body">\n' +
-    '                        <h5 class="media-heading">Jeffry Way</h5>\n' +
-    '                        <small class="media-meta">2 hours ago</small>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </a>\n' +
-    '            <a href="javascript:void(0)" class="media-group-item">\n' +
-    '                <div class="media">\n' +
-    '                    <div class="media-left">\n' +
-    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/211.jpg" alt=""> <i class="status status-offline"></i></div>\n' +
-    '                    </div>\n' +
-    '                    <div class="media-body">\n' +
-    '                        <h5 class="media-heading">Jane Doe</h5>\n' +
-    '                        <small class="media-meta">5 hours ago</small>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </a>\n' +
-    '            <a href="javascript:void(0)" class="media-group-item">\n' +
-    '                <div class="media">\n' +
-    '                    <div class="media-left">\n' +
-    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/212.jpg" alt=""> <i class="status status-offline"></i></div>\n' +
-    '                    </div>\n' +
-    '                    <div class="media-body">\n' +
-    '                        <h5 class="media-heading">Adam Khoury</h5>\n' +
-    '                        <small class="media-meta">22 minutes ago</small>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </a>\n' +
-    '            <a href="javascript:void(0)" class="media-group-item">\n' +
-    '                <div class="media">\n' +
-    '                    <div class="media-left">\n' +
-    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/207.jpg" alt=""> <i class="status status-offline"></i></div>\n' +
-    '                    </div>\n' +
-    '                    <div class="media-body">\n' +
-    '                        <h5 class="media-heading">Sara Smith</h5>\n' +
-    '                        <small class="media-meta">2 days ago</small>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </a>\n' +
-    '            <a href="javascript:void(0)" class="media-group-item">\n' +
-    '                <div class="media">\n' +
-    '                    <div class="media-left">\n' +
-    '                        <div class="avatar avatar-xs avatar-circle"><img src="eficos/img/211.jpg" alt=""> <i class="status status-offline"></i></div>\n' +
-    '                    </div>\n' +
-    '                    <div class="media-body">\n' +
-    '                        <h5 class="media-heading">Donia Dyab</h5>\n' +
-    '                        <small class="media-meta">3 days ago</small>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </a>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
     '</div>\n' +
     '');
 }]);

@@ -6987,9 +6987,9 @@ md-toast[md-theme=warn] .md-toast-content {
 
 
 
+
 .ForgotPassword-input {
   margin-bottom: 0; }
-
 
 .btn-github:hover {
   color: #fff; }
@@ -6999,7 +6999,6 @@ md-toast[md-theme=warn] .md-toast-content {
 
 .btn-google:hover {
   color: #fff; }
-
 
 
 
@@ -7016,6 +7015,7 @@ md-toast[md-theme=warn] .md-toast-content {
   margin-left: 0;
   width: 100%;
   padding: 5px 0; }
+
 
 .ResetPassword-input {
   margin-bottom: 0; }
