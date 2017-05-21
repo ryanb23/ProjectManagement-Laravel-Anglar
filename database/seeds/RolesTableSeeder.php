@@ -17,12 +17,12 @@ class RolesTableSeeder extends Seeder
                 'name' => 'Super Admin',
                 'slug' => 'admin.super',
                 'description' => 'Super Admin',
-                'level' => '1',
+                'level' => '0',
                 'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
             ], [
                 'id' => 2,
-                'name' => 'User Admin',
+                'name' => 'Admin',
                 'slug' => 'admin.user',
                 'description' => 'Can manage users',
                 'level' => '1',
@@ -30,21 +30,29 @@ class RolesTableSeeder extends Seeder
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
             ], [
                 'id' => 3,
-                'name' => 'Role Admin',
-                'slug' => 'admin.role',
-                'description' => 'Can manage user roles',
-                'level' => '1',
+                'name' => 'Decision Maker',
+                'slug' => 'user.decision_maker',
+                'description' => 'Can manage PM',
+                'level' => '2',
                 'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
             ], [
                 'id' => 4,
-                'name' => 'Permission Admin',
-                'slug' => 'admin.permission',
-                'description' => 'Can manage permissions',
-                'level' => '1',
+                'name' => 'Project Manager',
+                'slug' => 'user.project_manager',
+                'description' => 'Can manage Projects',
+                'level' => '3',
                 'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
-            ],
+            ], [
+                'id' => 5,
+                'name' => 'Emplpoyee',
+                'slug' => 'user.employee',
+                'description' => 'Can manage Subtasks',
+                'level' => '4',
+                'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            ]
         ]);
     }
 }

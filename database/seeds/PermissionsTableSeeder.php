@@ -26,11 +26,29 @@ class PermissionsTableSeeder extends Seeder
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
             ], [
                 'id' => 3,
-                'name' => 'Manage Permissions',
-                'slug' => 'manage.permissions',
+                'name' => 'Manage Projects',
+                'slug' => 'manage.projects',
                 'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
-            ],
+            ],[
+                'id' => 4,
+                'name' => 'Manage Tasks',
+                'slug' => 'manage.tasks',
+                'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            ],[
+                'id' => 5,
+                'name' => 'Manage Departments',
+                'slug' => 'manage.department',
+                'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            ],[
+                'id' => 6,
+                'name' => 'Manage Posts',
+                'slug' => 'manage.posts',
+                'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            ]
         ]);
     }
 }

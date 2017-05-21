@@ -26,6 +26,33 @@ class UserController extends Controller
     }
 
     /**
+     * Get all user
+     *
+     * @return JSON
+     */
+    public function getAll(){
+        $users = User::all();
+        return response()->success(compact('users'));
+    }
+
+    /**
+     * Get all users with same department permission
+     *
+     * @return JSON
+     */
+    public function getAllChatUser(){
+        $user = Auth::user();
+        $user_level = $user->roles()->first()->level;
+        // $result = $user->belongsToMany('role')->wherePivot('level', 1);
+
+        $result = User::with('messages')->whereHas('roles',function($query){
+          $query->where('level','>',0);
+        })->get();
+
+        return response()->success($result);
+    }
+
+    /**
      * Update user current context.
      *
      * @return JSON success message
