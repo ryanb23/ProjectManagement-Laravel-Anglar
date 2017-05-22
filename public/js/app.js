@@ -58,7 +58,7 @@
 
 	__webpack_require__(31);
 
-	__webpack_require__(34);
+	__webpack_require__(35);
 
 /***/ }),
 /* 1 */
@@ -1043,16 +1043,80 @@
 	  value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var ChatController = function ChatController($scope) {
-	  'ngInject';
+	var ChatController = function () {
+	  ChatController.$inject = ["API", "$scope", "ContextService", "$anchorScroll"];
+	  function ChatController(API, $scope, ContextService, $anchorScroll) {
+	    'ngInject';
 
-	  _classCallCheck(this, ChatController);
+	    var _this = this;
 
-	  $scope.test = 'test';
-	};
-	ChatController.$inject = ["$scope"];
+	    _classCallCheck(this, ChatController);
+
+	    this.API = API;
+	    this.message = '';
+	    API.all('users').get('all-chat-user').then(function (response) {
+	      _this.chatUsers = response.plain().data;
+	    });
+
+	    API.all('users').get('me').then(function (response) {
+	      var data = response.plain().data;
+	      _this.userInfo = data;
+
+	      //Subscribe to the channel we specified in our Laravel Event
+	      console.log('chat-channel-' + data.id);
+	      var channel = pusher.subscribe('chat-channel-' + data.id);
+	      var that = _this;
+	      //Bind a function to a Event (the full Laravel class)
+	      channel.bind('App\\Events\\MessagePostEvent', function (messageData) {
+	        console.log(messageData);
+	        console.log(that.openChanelId);
+	        if (messageData.user.id == that.openChanelId) {
+	          that.addMessage(messageData);
+	          $scope.$apply();
+	        }
+	      });
+	    });
+	  }
+
+	  _createClass(ChatController, [{
+	    key: '$onInit',
+	    value: function $onInit() {}
+	  }, {
+	    key: 'addMessage',
+	    value: function addMessage(message) {
+	      this.messageList.push(message);
+	    }
+	  }, {
+	    key: 'openChanel',
+	    value: function openChanel(userInfo) {
+	      var _this2 = this;
+
+	      this.openChanelId = userInfo.id;
+	      this.API.one('message', 'message-with').get({ with_id: this.openChanelId }).then(function (response) {
+	        _this2.messageList = response.plain().data;
+	      });
+	    }
+	  }, {
+	    key: 'sendMessage',
+	    value: function sendMessage(message) {
+	      var _this3 = this;
+
+	      if (message == '') return;
+	      this.message = '';
+	      var newMessage = { to_id: this.openChanelId, message: message };
+
+	      this.API.all('message/create').post(newMessage).then(function (response) {
+	        _this3.addMessage({ message: message, to_id: _this3.openChanelId, user: _this3.userInfo });
+	      });
+	    }
+	  }]);
+
+	  return ChatController;
+	}();
 
 	var ChatComponent = exports.ChatComponent = {
 	  templateUrl: './views/app/components/chat/chat.component.html',
@@ -1674,7 +1738,9 @@
 
 	var _passwordVerify = __webpack_require__(33);
 
-	angular.module('app.components').directive('routeBodyclass', _routeBodyclass.RouteBodyClassComponent).directive('passwordVerify', _passwordVerify.PasswordVerifyClassComponent);
+	var _scrollToBottom = __webpack_require__(34);
+
+	angular.module('app.components').directive('routeBodyclass', _routeBodyclass.RouteBodyClassComponent).directive('passwordVerify', _passwordVerify.PasswordVerifyClassComponent).directive('scrollToBottom', _scrollToBottom.ScrollToBottomComponent);
 
 /***/ }),
 /* 32 */
@@ -1759,18 +1825,48 @@
 
 /***/ }),
 /* 34 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	scrollToBottom.$inject = ['$timeout', '$window'];
+	function scrollToBottom($timeout, $window) {
+	    return {
+	        scope: {
+	            scrollToBottom: "="
+	        },
+	        restrict: 'A',
+	        link: function link(scope, element, attr) {
+	            scope.$watchCollection('scrollToBottom', function (newVal) {
+	                if (newVal) {
+	                    $timeout(function () {
+	                        element[0].scrollTop = element[0].scrollHeight;
+	                    }, 0);
+	                }
+	            });
+	        }
+	    };
+	}
+
+	var ScrollToBottomComponent = exports.ScrollToBottomComponent = scrollToBottom;
+
+/***/ }),
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _context = __webpack_require__(35);
+	var _context = __webpack_require__(36);
 
-	var _API = __webpack_require__(36);
+	var _API = __webpack_require__(37);
 
 	angular.module('app.services').service('ContextService', _context.ContextService).service('API', _API.APIService);
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1822,7 +1918,7 @@
 	}();
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports) {
 
 	'use strict';
