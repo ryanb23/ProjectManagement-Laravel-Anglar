@@ -4,6 +4,7 @@ namespace App\Events;
 
 use App\Events\Event;
 use App\User;
+use Auth;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
@@ -11,7 +12,7 @@ class MessagePostEvent extends Event implements ShouldBroadcast
 {
     use SerializesModels;
 
-    public $message;
+    public $message, $to_id;
     public $user;
     /**
      * Create a new event instance.
@@ -19,11 +20,13 @@ class MessagePostEvent extends Event implements ShouldBroadcast
      * @return void
      */
 
-    public function __construct($message)
+    public function __construct($message,$to_id)
     {
         //
         $this->message = $message;
-        $this->user = 'user';
+        $user = Auth::user();
+        $this->to_id = $to_id;
+        $this->user = $user;
     }
 
     /**
@@ -33,6 +36,6 @@ class MessagePostEvent extends Event implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['test-channel'];
+        return ['chat-channel-'.$this->to_id];
     }
 }

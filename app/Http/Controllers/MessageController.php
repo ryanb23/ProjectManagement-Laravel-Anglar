@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Models\Message;
+use App\Events\MessagePostEvent;
 use Auth;
 use Bican\Roles\Models\Permission;
 use Bican\Roles\Models\Role;
@@ -17,7 +18,7 @@ class MessageController extends Controller
 {
     //
 
-    public function putCreate(Request $request)
+    public function postCreate(Request $request)
     {
         $user = Auth::user();
         $this->validate($request, [
@@ -31,20 +32,24 @@ class MessageController extends Controller
             'to_id'     => $to_id,
             'message'   => $message
         ]);
+
+        event(new MessagePostEvent($message,$to_id));
         return response()->success('success');
     }
 
-    public function getAll(Request $request)
+    public function getMessageWith(Request $request)
     {
         $user = Auth::user();
         $user_id = $user->id;
-        $messages = Message::where('user_id',$user_id)
-                  ->orwhere('to_id',$user_id)
-                  ->get();
-        return response()->success(compact('messages'));
+        $to_id = $request['with_id'];
+        $messages = Message::with('user')
+            ->whereIn('user_id',[$user_id,$to_id])
+            ->whereIn('to_id',[$user_id,$to_id])
+            ->get();
+        return response()->success($messages);
     }
 
     public function test(){
-      
+
     }
 }
