@@ -45,9 +45,21 @@ class UserController extends Controller
         $user_level = $user->roles()->first()->level;
         // $result = $user->belongsToMany('role')->wherePivot('level', 1);
 
-        $result = User::with('messages')->whereHas('roles',function($query){
-          $query->where('level','>',0);
-        })->get();
+        // $result = User::whereHas('roles',function($query){
+        //   $query->where('level','>',0);
+        // })
+        // ->orHas('roles','=',0)
+        // ->where('email_verified','=',1)
+        // ->whereNotIn('id',[$user->id])
+        // ->get([
+        //   'id',
+        //   'name',
+        //   'active',
+        //   'avatar',
+        //   'firstname',
+        //   'lastname'
+        // ]);
+        $result = User::whereNotIn('id',[$user->id])->get();
 
         return response()->success($result);
     }

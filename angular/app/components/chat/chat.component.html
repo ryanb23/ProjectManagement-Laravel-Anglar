@@ -1,96 +1,40 @@
 <section class="app-content">
-    <div class="row">
+    <div ng-if="vm.openChanelId" class="row">
         <div class="col-md-9">
             <div class="widget">
                 <header class="widget-header">
-                    <h4 class="widget-title">Sara Adams</h4>
+                    <h4 class="widget-title">Chat</h4>
                 </header>
                 <hr class="widget-separator">
-                <div class="">
-                    <div class="chat convo">
+                <div class="chat-wrapper">
+                    <div class="chat convo" scroll-to-bottom="vm.messageList">
                         <ul class="chat-body">
-                            <li class="answer left">
+                            <li ng-repeat="(key, messageItem) in  vm.messageList" class="answer" ng-class="{right:vm.userInfo.id == messageItem.user.id, left:vm.userInfo.id != messageItem.user.id}">
                                 <div class="avatar">
                                     <img alt="User name" src="eficos/img/208.jpg">
-                                    <div class="status offline"></div>
+                                    <div ng-class="{online: userInfo.active==1,offline:userInfo.active==0}" class="status"></div>
                                 </div>
-                                <div class="name">Alexander Herthic</div>
+                                <div class="name">{{messageItem.user.name}}</div>
                                 <div class="text">
-                                    Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit
+                                    {{messageItem.message}}
                                 </div>
-                                <div class="time">5 min ago</div>
-                            </li>
-                            <li class="answer right">
-                                <div class="avatar">
-                                    <img alt="User name" src="eficos/img/221.jpg">
-                                    <div class="status offline"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text">
-                                    Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit
-                                </div>
-                                <div class="time">5 min ago</div>
-                            </li>
-                            <li class="answer left">
-                                <div class="avatar">
-                                    <img alt="User name" src="eficos/img/208.jpg">
-                                    <div class="status online"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text"> ...</div>
-                                <div class="time">5 min ago</div>
-                            </li>
-                            <li class="answer right">
-                                <div class="avatar">
-                                    <img alt="User name" src="eficos/img/221.jpg">
-                                    <div class="status busy"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text">
-                                    It is a long established fact that a reader will be. Thanks Mate!
-                                </div>
-                                <div class="time">5 min ago</div>
-                            </li>
-                            <li class="answer left">
-                                <div class="avatar">
-                                    <img alt="User name" src="eficos/img/208.jpg">
-                                    <div class="status offline"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text">
-                                    Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit
-                                </div>
-                                <div class="time">5 min ago</div>
-                            </li>
-                            <li class="answer right">
-                                <div class="avatar">
-                                    <img alt="User name" src="eficos/img/221.jpg">
-                                    <div class="status offline"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text">
-                                    Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit
-                                </div>
-                                <div class="time">5 min ago</div>
-                            </li>
-                            <li class="answer left">
-                                <div class="avatar">
-                                    <img alt="User name" src="eficos/img/208.jpg">
-                                    <div class="status offline"></div>
-                                </div>
-                                <div class="name">Alexander Herthic</div>
-                                <div class="text"> ...</div>
                                 <div class="time">5 min ago</div>
                             </li>
                         </ul>
                     </div>
-                    <footer class="chat-input">
-                        <input placeholder="Write a message">
-                        <span class="answer-btn answer-btn-1"></span>
-                        <span class="answer-btn answer-btn-2"></span>
-                    </footer>
+                    <div class="chat-input">
+                        <input ng-model = "vm.message" placeholder="Write a message" ng-keyup="$event.keyCode == 13 && vm.sendMessage(vm.message)">
+                        <a class="answer-btn" ng-click="vm.sendMessage(vm.message)">Send</a>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row chat-uesr-list">
+      <ul class="chat-user-list-body">
+        <li ng-repeat="(key, userInfo) in  vm.chatUsers" ng-click="vm.openChanel(userInfo)" class="user-info" ng-class="{active: userInfo.id==vm.openChanelId}">
+            <p>{{userInfo.name}}</p>
+        </li>
+      </ul>
     </div>
 </section>
