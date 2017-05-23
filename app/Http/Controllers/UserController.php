@@ -42,7 +42,7 @@ class UserController extends Controller
      */
     public function getAllChatUser(){
         $user = Auth::user();
-        $user_level = $user->roles()->first()->level;
+        // $user_level = $user->roles()->first()->level;
         // $result = $user->belongsToMany('role')->wherePivot('level', 1);
 
         // $result = User::whereHas('roles',function($query){
