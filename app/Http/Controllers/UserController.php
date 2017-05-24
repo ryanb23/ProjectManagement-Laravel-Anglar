@@ -26,16 +26,6 @@ class UserController extends Controller
     }
 
     /**
-     * Get all user
-     *
-     * @return JSON
-     */
-    public function getAll(){
-        $users = User::all();
-        return response()->success(compact('users'));
-    }
-
-    /**
      * Get all users with same department permission
      *
      * @return JSON
