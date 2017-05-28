@@ -16,8 +16,7 @@ use Validator;
 
 class MessageController extends Controller
 {
-    //
-
+    
     public function postCreate(Request $request)
     {
         $user = Auth::user();
@@ -33,7 +32,7 @@ class MessageController extends Controller
             'message'   => $message
         ]);
 
-        event(new MessagePostEvent($message,$to_id));
+        event(new MessagePostEvent($message, $to_id));
         return response()->success('success');
     }
 
@@ -43,13 +42,13 @@ class MessageController extends Controller
         $user_id = $user->id;
         $to_id = $request['with_id'];
         $messages = Message::with('user')
-            ->whereIn('user_id',[$user_id,$to_id])
-            ->whereIn('to_id',[$user_id,$to_id])
+            ->whereIn('user_id', [$user_id,$to_id])
+            ->whereIn('to_id', [$user_id,$to_id])
             ->get();
         return response()->success($messages);
     }
 
-    public function test(){
-
+    public function test()
+    {
     }
 }

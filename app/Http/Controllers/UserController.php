@@ -11,8 +11,14 @@ use Illuminate\Http\Request;
 use Input;
 use Validator;
 
+use App\Models\SubDepartment;
+
 class UserController extends Controller
 {
+
+    public function test(){
+        return SubDepartment::with('department')->get();
+    }
     /**
      * Get user current context.
      *
@@ -21,7 +27,10 @@ class UserController extends Controller
     public function getMe()
     {
         $user = Auth::user();
-
+        $user['role'] = $user
+                        ->roles()
+                        ->select(['slug', 'roles.id', 'roles.name'])
+                        ->get();
         return response()->success($user);
     }
 

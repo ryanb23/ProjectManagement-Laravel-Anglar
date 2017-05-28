@@ -7,6 +7,8 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->post('auth/password/email', 'Auth\PasswordResetController@sendResetLinkEmail');
     $api->get('auth/password/verify', 'Auth\PasswordResetController@verify');
     $api->post('auth/password/reset', 'Auth\PasswordResetController@reset');
+    
+    $api->get('test','UserController@test');
 });
 
 $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
@@ -17,6 +19,9 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     ** Message Api
     **/
     $api->controller('message','MessageController');
+    $api->controller('project','ProjectController');
+    $api->controller('department','DepartmentController');
+
 });
 
 $api->group(['middleware' => ['api', 'api.auth', 'role:admin.super|admin.user']], function ($api) {
