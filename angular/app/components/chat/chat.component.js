@@ -6,7 +6,6 @@ class ChatController {
     API.all('users').get('all-chat-user').then((response) => {
         this.chatUsers = response.plain().data
     })
-
     API.all('users').get('me').then((response) => {
       let data = response.plain().data
       this.userInfo = data
