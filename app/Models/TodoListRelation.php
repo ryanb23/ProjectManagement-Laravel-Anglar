@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class TodoListRelation extends Model
 {
     //
 }

@@ -26,6 +26,24 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\PasswordReset::class, function (Faker\Generator $faker) {
     return [
         'email'  => $faker->safeEmail,
-        'token' => str_random(10),
+        'token' => 'ds',
+    ];
+});
+
+$factory->define(App\Models\ProjectStatus::class, function (Faker\Generator $faker) {
+    return [
+        'name'  => str_random(10),
+        'hex_color' => str_random(10),
+    ];
+});
+
+$factory->define(App\Models\Project::class, function (Faker\Generator $faker) {
+    return [
+        'department_id' => 1,
+        'project_status_id' =>1,
+        'name'  => str_random(10),
+        'objective' => str_random(20),
+        'description' => str_random(20),
+        'upvotes' => 100,
     ];
 });

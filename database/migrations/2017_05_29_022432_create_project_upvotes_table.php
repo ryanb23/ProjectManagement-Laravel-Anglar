@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectContributorsTable extends Migration
+class CreateProjectUpvotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,14 @@ class CreateProjectContributorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_contributors', function (Blueprint $table) {
+        Schema::create('project_upvotes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('project_id')->unsigned();
-            $table->integer('contributor_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
-            $table->foreign('contributor_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateProjectContributorsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('project_contributors');
+        Schema::drop('project_upvotes');
     }
 }
