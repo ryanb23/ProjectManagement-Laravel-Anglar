@@ -1,4 +1,4 @@
-export function RoutesConfig($stateProvider, $urlRouterProvider) {
+export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
     'ngInject'
 
     var getView = (viewName) => {
@@ -16,6 +16,9 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
             views: {
                 'layout': {
                     templateUrl: getLayout('layout')
+                },
+                'sidebar@app': {
+                    template: '<nav-sidebar></nav-sidebar>'
                 },
                 'header@app': {
                     templateUrl: getView('header')
@@ -40,14 +43,14 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-        .state('app.contacts', {
-            url: '/contacts',
+        .state('app.organiztion', {
+            url: '/organiztion',
             data: {
                 auth: true
             },
             views: {
                 'main@app': {
-                    template: '<contacts></contacts>'
+                    template: '<organization></organization>'
                 }
             }
         })
@@ -62,8 +65,8 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-        .state('app.project-create', {
-            url: '/project-create',
+        .state('app.projects.create', {
+            url: '/create',
             data: {
                 auth: true
             },
@@ -73,16 +76,40 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-        .state('app.project-view', {
-            url: '/project-view',
+        .state('app.preference', {
+            url: '/preference',
             data: {
                 auth: true
             },
             views: {
                 'main@app': {
-                    template: '<project-view></project-view>'
+                    template: '<preference></preference>'
                 }
             }
+        })
+        .state('app.users', {
+            url: '/users',
+            data: {
+                auth: true
+            },
+            resolve: {
+                  deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                      return $ocLazyLoad.load([
+                              'dataTables',
+                              'ui-grid'
+                          ], {
+                              insertBefore: '#lazyload_placeholder'
+                          })
+                          .then(function() {
+                              console.log(3);
+                          });
+                  }]
+            },
+            views: {
+                'main@app': {
+                    template: '<user-management></user-management>'
+                }
+            },
         })
         .state('app.chat', {
             url: '/chat',
