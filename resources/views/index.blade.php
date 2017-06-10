@@ -1,559 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600|Lato:700,900,400|Raleway' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="libs/misc/owl-carousel/owl.carousel.css">
-        <link rel="stylesheet" href="{!! elixir('css/final.css') !!}">
-        <link rel="stylesheet" href="css/landing-page.css">
-        <link ref="manifest" href="manifest.json" />
-        <title>Efico | Innovative Platform</title>
-    </head>
-    <body data-spy="scroll" data-target=".navbar-fixed-top" data-offset="60">
-        <div class="wrapper">
-            <nav class="navbar navbar-default navbar-fixed-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#page-menu-collapse" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand animated" href="#">
-                            <i class="brand-icon fa fa-gg"></i>
-                            <span class="brand-name">Efico</span>
-                        </a>
-                    </div><!-- .navbar-header -->
-                    <div class="navbar-collapse collapse" id="page-menu-collapse">
-                        <div class="navbar-right">
-                            <ul class="nav navbar-nav">
-                                <li>
-                                    <a data-scroll href="#header">Home</a>
-                                </li>
-                                <li>
-                                    <a data-scroll href="#features">Features</a>
-                                </li>
-                                <li>
-                                    <a data-scroll href="#brief">Brief</a>
-                                </li>
-                                <li>
-                                    <a data-scroll href="#states">Numbers</a>
-                                </li>
-                                <li>
-                                    <a data-scroll href="#subscribe">News Letter</a>
-                                </li>
-                                <li>
-                                    <a data-scroll href="#price">Pricing</a>
-                                </li>
-                                <li>
-                                    <a data-scroll href="#reviews">Clients</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('/app') }}">Login</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div><!-- .navbar-collapse -->
-                </div><!-- .container -->
-            </nav>
-            <header id="header">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="intro-text">
-                                <h2 class="section-heading animated">
-                                    Innovative idea sharing platform
-                                </h2>
-                                <p class="section-paragraph">
-                                    For innovators, by innovators.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="video-container">
-                        <a id="play-video" href="#" data-toggle="modal" data-target="#video-modal" data-backdrop="true">
-                            <img src="img/landing-page/video-bg.png" alt="">
-                            <span class="play-icon">
-                                <img src="img/landing-page/play-icon.png" alt="">
-                            </span>
-                        </a>
-                    </div>
-                </div><!-- .container -->
-            </header><!-- #header -->
-            <div class="modal fade video-modal" id="video-modal" role="dialog">
-                <div class="modal-content">
-                    <iframe src="https://player.vimeo.com/video/160856876" width="860" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                </div>
-            </div><!-- #video-modal -->
-            <section id="features">
-                <div class="container">
-                    <div class="text-center">
-                        <h2 class="section-heading animated">
-                            Working to Build A Better Web
-                        </h2>
-                        <p class="section-paragraph">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus sunt quisquam ea distinctio unde, iste doloribus iure dignissimos rerum eaque ipsum nostrum. Non deserunt reprehenderit eaque libero sunt, nam optio.
-                        </p>
-                    </div><!-- .text-center -->
-                    <div class="row text-center">
-                        <div class="col-md-4">
-                            <div class="col-inner feature">
-                                <img src="assets/svg/tie.svg" alt="icon">
-                                <h4>Myspace profile</h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. ipsum dolor sit amet, consectetur adipisicing elit.
-                                </p>
-                            </div>
-                        </div><!-- /.col -->
-                        <div class="col-md-4">
-                            <div class="col-inner feature">
-                                <img src="assets/svg/pig.svg" alt="icon">
-                                <h4>Myspace profile</h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. ipsum dolor sit amet, consectetur adipisicing elit.
-                                </p>
-                            </div>
-                        </div><!-- /.col -->
-                        <div class="col-md-4">
-                            <div class="col-inner feature">
-                                <img src="assets/svg/pointer.svg" alt="icon">
-                                <h4>Myspace profile</h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. ipsum dolor sit amet, consectetur adipisicing elit.
-                                </p>
-                            </div>
-                        </div><!-- /.col -->
-                    </div><!-- .row -->
-                </div><!-- .container -->
-            </section><!-- #features -->
-            <section id="brief">
-                <div id="brief-img">
-                    <img src="img/landing-page/img-1.jpg" alt="">
-                </div><!-- #brief-img -->
-                <div class="container">
-                    <div id="brief-text">
-                        <h2 class="section-heading animated">
-                            Creative &amp; Professional
-                        </h2>
-                        <p class="section-paragraph">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo sit non sunt, a numquam reiciendis expedita possimus quisquam ipsam veritatis doloribus voluptas illum, nostrum perspiciatis laudantium minima obcaecati maxime laborum.
-                        </p>
-                        <ul>
-                            <li>
-                                <img class="item-icon" src="assets/svg/check.svg" alt="">
-                                <span class="item-text">
-                                    Home Audio Recording For Everyone
-                                </span>
-                            </li>
-                            <li>
-                                <img class="item-icon" src="assets/svg/check.svg" alt="">
-                                <span class="item-text">
-                                    Understanding Operating Systems
-                                </span>
-                            </li>
-                            <li>
-                                <img class="item-icon" src="assets/svg/check.svg" alt="">
-                                <span class="item-text">
-                                    Compare Prices Find The Best
-                                </span>
-                            </li>
-                        </ul>
-                    </div><!-- #brief-text -->
-                </div><!-- .container -->
-            </section><!-- #brief -->
-            <section id="states" class="bg-primary">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="col-inner text-center">
-                                <h3 class="counterUp">51</h3>
-                                <h4>The Advantages</h4>
-                                <p>
-                                    If you are a male over the age of 40 and are suffering from weakness, impotence, pain
-                                </p>
-                            </div>
-                        </div><!-- /.col -->
-                        <div class="col-md-3 col-sm-6">
-                            <div class="col-inner text-center">
-                                <h3 class="counterUp">2542</h3>
-                                <h4>Active Users</h4>
-                                <p>
-                                    Chamomile is known worldwide to be a calming sleep aid, a remedy to ease an upset stomach
-                                </p>
-                            </div>
-                        </div><!-- /.col -->
-                        <div class="col-md-3 col-sm-6">
-                            <div class="col-inner text-center">
-                                <h3 class="counterUp">8546</h3>
-                                <h4>Vasectomy</h4>
-                                <p>
-                                    Classical homeopathy is generally defined as a system of medical treatment
-                                </p>
-                            </div>
-                        </div><!-- /.col -->
-                        <div class="col-md-3 col-sm-6">
-                            <div class="col-inner text-center">
-                                <h3 class="counterUp">1258</h3>
-                                <h4>Asperger</h4>
-                                <p>
-                                    LASIK is the most commonly performed refractive surgery.
-                                </p>
-                            </div>
-                        </div><!-- /.col -->
-                    </div><!-- .row -->
-                </div><!-- .container -->
-            </section><!-- #states -->
-            <section id="subscribe">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2">
-                            <div class="text-center">
-                                <h2 class="section-heading animated">Subscribe</h2>
-                                <p class="section-paragraph">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt accusantium est illum ratione corporis?
-                                </p>
-                            </div>
-                        </div><!-- /.col -->
-                    </div><!-- .row -->
-                    <div class="subs-form">
-                        <form action="#" class="form-horizontal">
-                            <div class="col-md-4">
-                                <div class="control-wrap">
-                                    <input type="text" class="form-control" placeholder="Your Name">
-                                    <img src="assets/svg/users.svg" alt="">
-                                </div>
-                            </div><!-- /.col -->
-                            <div class="col-md-4">
-                                <div class="control-wrap">
-                                    <input type="text" class="form-control" placeholder="Your Email">
-                                    <img src="assets/svg/email.svg" alt="">
-                                </div>
-                            </div><!-- /.col -->
-                            <div class="col-md-4">
-                                <input type="submit" value="SUBSCRIBE NOW" class="btn btn-block btn-primary">
-                            </div><!-- /.col -->
-                        </form>
-                    </div>
-                </div><!-- .container -->
-            </section><!-- #subscribe -->
-            <section id="price">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2">
-                            <div class="text-center">
-                                <h2 class="section-heading animated">Our Prices</h2>
-                                <p class="section-paragraph">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt accusantium est illum ratione corporis?
-                                </p>
-                            </div>
-                        </div><!-- /.col -->
-                    </div><!-- .row -->
-                    <div class="row">
-                        <div class="col-md-4 price-column">
-                            <div class="price-column-inner">
-                                <header>
-                                    <h4>Basic</h4>
-                                    <h3>Free</h3>
-                                </header>
-                                <ul>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
-                                        <span>Simple Install</span>
-                                    </li>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
-                                        <span>Unlimited Projects</span>
-                                    </li>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/remove.svg" alt="">
-                                        <span class="crossed">After Hourss Support</span>
-                                    </li>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/remove.svg" alt="">
-                                        <span class="crossed">Unlimited Storage</span>
-                                    </li>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/remove.svg" alt="">
-                                        <span class="crossed">Desdcated Server</span>
-                                    </li>
-                                </ul>
-                                <footer class="text-center">
-                                    <button class="btn btn-default">BUY NOW</button>
-                                </footer>
-                            </div>
-                        </div><!-- /.col -->
-                        <div class="col-md-4 price-column">
-                            <div class="price-column-inner">
-                                <header>
-                                    <h4>Professional</h4>
-                                    <h3>$<span class="counterUp">49</span></h3>
-                                </header>
-                                <ul>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
-                                        <span>Simple Install</span>
-                                    </li>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
-                                        <span>Unlimited Projects</span>
-                                    </li>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
-                                        <span>After Hourss Support</span>
-                                    </li>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/remove.svg" alt="">
-                                        <span class="crossed">Unlimited Storage</span>
-                                    </li>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/remove.svg" alt="">
-                                        <span class="crossed">Desdcated Server</span>
-                                    </li>
-                                </ul>
-                                <footer class="text-center">
-                                    <button class="btn btn-primary">BUY NOW</button>
-                                </footer>
-                            </div>
-                        </div><!-- /.col -->
-                        <div class="col-md-4 price-column">
-                            <div class="price-column-inner">
-                                <header>
-                                    <h4>Unlimited</h4>
-                                    <h3>$<span class="counterUp">415</span></h3>
-                                </header>
-                                <ul>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
-                                        <span>Simple Install</span>
-                                    </li>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
-                                        <span>Unlimited Projects</span>
-                                    </li>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
-                                        <span>After Hourss Support</span>
-                                    </li>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
-                                        <span>Unlimited Storage</span>
-                                    </li>
-                                    <li>
-                                        <img class="item-icon" src="assets/svg/check.svg" alt="">
-                                        <span>Desdcated Server</span>
-                                    </li>
-                                </ul>
-                                <footer class="text-center">
-                                    <button class="btn btn-default">BUY NOW</button>
-                                </footer>
-                            </div>
-                        </div><!-- /.col -->
-                    </div><!-- .row -->
-                </div><!-- .container -->
-            </section><!-- #price -->
 
-            <section id="reviews">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="text-center">
-                                <img src="img/landing-page/talk-bubble.png" alt="">
-                            </div>
-                            <div id="owl-slider" class="owl-carousel owl-theme">
-                                <div class="item">
-                                    <p class="review-text">
-                                        Being the richest man in the cemetery doesn't matter to me. Going to bed at night saying we've done something wonderful, that's what matters to me.
-                                    </p>
-                                    <h4 class="reviewer">Steve Jobs</h4>
-                                </div>
-                                <div class="item">
-                                    <p class="review-text">
-                                        Technology is just a tool. In terms of getting the kids working together and motivating them, the teacher is the most important
-                                    </p>
-                                    <h4 class="reviewer">Bill Gates</h4>
-                                </div>
-                                <div class="item">
-                                    <p class="review-text">
-                                        When you give everyone a voice and give people power, the system usually ends up in a really good place. So, what we view our role as, is giving people that power.
-                                    </p>
-                                    <h4 class="reviewer">Mark Zuckerberg</h4>
-                                </div>
-                            </div><!-- #owl-slider -->
-                        </div><!-- /.col -->
-                    </div>
-                </div><!-- .container -->
-            </section><!-- #reviews -->
+<head>
 
-            <section id="footer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="col-inner navigation">
-                                <h2>NAVIGATION</h2>
-                                <ul class="navigation-menu">
-                                    <li>
-                                        <a href="#">ABOUT US</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">SERVICES</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">SELECTED WORK</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">GET IN TOUCH</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">CAREERS</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div><!-- /.col -->
-                        <div class="col-md-5 col-md-offset-1">
-                            <div class="col-inner news">
-                                <h2>RECENT NEWS</h2>
-                                <p>
-                                    Made with infinty - <a href="#">@Ra-Themes</a> - see more of what our creative customers make a <a class="text-primary" href="#">http://rathemes.com</a>
-                                </p>
-                                <p>
-                                    Computer users and programmers have become so accustomed to using Windows <a href="#">@Ra-Themes</a>
-                                </p>
-                            </div>
-                        </div><!-- /.col -->
-                        <div class="col-md-3 col-md-offset-1">
-                            <div class="col-inner">
-                                <h2>PROJECTS</h2>
-                                <div class="images clearfix">
-                                    <a href="#">
-                                        <img class="img-responsive" src="img/103.jpg" alt="">
-                                    </a>
-                                    <a href="#">
-                                        <img class="img-responsive" src="img/102.jpg" alt="">
-                                    </a>
-                                    <a href="#">
-                                        <img class="img-responsive" src="img/101.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="icons">
-                                    <a href="#" class="icon">
-                                        <i class="fa fa-facebook"></i>
-                                    </a>
-                                    <a href="#" class="icon">
-                                        <i class="fa fa-twitter"></i>
-                                    </a>
-                                    <a href="#" class="icon">
-                                        <i class="fa fa-google-plus"></i>
-                                    </a>
-                                    <a href="#" class="icon">
-                                        <i class="fa fa-dribbble"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div><!-- /.col -->
-                    </div><!-- .row -->
-                </div><!-- .container -->
-            </section><!-- #footer -->
-            <section id="copyright">
-                <div class="container text-center">
-                    <p>
-                        Copyright &copy; 2017 <a href="#" class="text-primary">BlueOnix Technology</a> Inc.
-                    </p>
-                </div>
-            </section><!-- #copyright -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Efico - Innovation</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="libs/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="libs/device-mockups/device-mockups.min.css">
+
+    <!-- Theme CSS -->
+    <link href="css/new-age.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Efico</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="#download">Download</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#features">Features</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                    <li>
+                        <a href="{{url('/app')}}">Login</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-        <div id="loading-div">
-            <img src="img/landing-page/puff.svg" width="50" alt="">
+        <!-- /.container-fluid -->
+    </nav>
+
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="header-content">
+                        <div class="header-content-inner">
+                            <h1>New Age is an app landing page that will help you beautifully showcase your new mobile app, or anything else!</h1>
+                            <a href="#download" class="btn btn-outline btn-xl page-scroll">Start Now for Free!</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="device-container">
+                        <div class="device-mockup iphone6_plus portrait white">
+                            <div class="device">
+                                <div class="screen">
+                                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                                    <img src="img/demo-screen-1.jpg" class="img-responsive" alt="">
+                                </div>
+                                <div class="button">
+                                    <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- -->
-        <script src="libs/bower/jquery/dist/jquery.js"></script>
-        <script src="libs/bower/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
-        <script src="libs/misc/owl-carousel/owl.carousel.min.js"></script>
-        <script src="libs/bower/smooth-scroll/dist/js/smooth-scroll.min.js"></script>
-        <script src="libs/bower/waypoints/lib/jquery.waypoints.min.js"></script>
-        <script src="libs/bower/counterup/jquery.counterup.min.js"></script>
-        <script>
-            $(function() {
-                $(window).on('load', function(){
-                    $(document.body).addClass('loading-done');
-                });
+    </header>
 
-                //= shrink and expand the navbar
-                $(window).bind('scroll', function () {
-                    if ($(window).scrollTop() > 50) $('.navbar').addClass('shrink');
-                    else $('.navbar').removeClass('shrink');
-                });
+    <section id="download" class="download bg-primary text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="section-heading">Discover what all the buzz is about!</h2>
+                    <p>Our app is available on any mobile device! Download now to get started!</p>
+                    <div class="badges">
+                        <a class="badge-link" href="#"><img src="img/google-play-badge.svg" alt=""></a>
+                        <a class="badge-link" href="#"><img src="img/app-store-badge.svg" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                //= autoplay the video when the modal show up
-                autoPlayYouTubeModal();
+    <section id="features" class="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-heading">
+                        <h2>Unlimited Features, Unlimited Fun</h2>
+                        <p class="text-muted">Check out what you can do with this app theme!</p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="device-container">
+                        <div class="device-mockup iphone6_plus portrait white">
+                            <div class="device">
+                                <div class="screen">
+                                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                                    <img src="img/demo-screen-1.jpg" class="img-responsive" alt=""> </div>
+                                <div class="button">
+                                    <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="feature-item">
+                                    <i class="icon-screen-smartphone text-primary"></i>
+                                    <h3>Device Mockups</h3>
+                                    <p class="text-muted">Ready to use HTML/CSS device mockups, no Photoshop required!</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="feature-item">
+                                    <i class="icon-camera text-primary"></i>
+                                    <h3>Flexible Use</h3>
+                                    <p class="text-muted">Put an image, video, animation, or anything else in the screen!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="feature-item">
+                                    <i class="icon-present text-primary"></i>
+                                    <h3>Free to Use</h3>
+                                    <p class="text-muted">As always, this theme is free to download and use for any purpose!</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="feature-item">
+                                    <i class="icon-lock-open text-primary"></i>
+                                    <h3>Open Source</h3>
+                                    <p class="text-muted">Since this theme is MIT licensed, you can use it commercially!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                //= equal columns height
-                matchHeight('#states .col-inner');
+    <section class="cta">
+        <div class="cta-content">
+            <div class="container">
+                <h2>Stop waiting.<br>Start building.</h2>
+                <a href="#contact" class="btn btn-outline btn-xl page-scroll">Let's Get Started!</a>
+            </div>
+        </div>
+        <div class="overlay"></div>
+    </section>
 
-                //= counterUp plugin
-                $('.counterUp').counterUp({ delay: 10, time: 1500 });
+    <section id="contact" class="contact bg-primary">
+        <div class="container">
+            <h2>We <i class="fa fa-heart"></i> new friends!</h2>
+            <ul class="list-inline list-social">
+                <li class="social-twitter">
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li class="social-facebook">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li class="social-google-plus">
+                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                </li>
+            </ul>
+        </div>
+    </section>
 
-                //= set the max-height property for .navbar-collapse
-                $(window).on('load resize orientationchange', function(){
-                    $('.navbar-collapse').css('max-height', $(window).height() - $('.navbar').height());
-                });
+    <footer>
+        <div class="container">
+            <p>&copy; 2016 Start Bootstrap. All Rights Reserved.</p>
+            <ul class="list-inline">
+                <li>
+                    <a href="#">Privacy</a>
+                </li>
+                <li>
+                    <a href="#">Terms</a>
+                </li>
+                <li>
+                    <a href="#">FAQ</a>
+                </li>
+            </ul>
+        </div>
+    </footer>
 
-                $(document).on('click', '[data-toggle="collapse"]', function(e){
-                    var $trigger = $(e.target);
-                    $trigger.is('[data-toggle="collapse"]') || ($trigger = $trigger.parents('[data-toggle="collapse"]'));
+    <!-- jQuery -->
+    <script src="libs/jquery/jquery.min.js"></script>
 
-                    var $target = $($trigger.attr('data-target'));
-                    if ($target.attr('id') === 'page-menu-collapse')
-                        $(document.body).toggleClass('navbar-collapse-show', !$trigger.hasClass('collapsed'))
-                });
+    <!-- Bootstrap Core JavaScript -->
+    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
 
-                //= initialize smooth scroll plugin
-                smoothScroll.init({
-                    offset: 60,
-                    speed: 1000,
-                    updateURL: false
-                });
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
-                // initializing owlCarousel
-                $("#owl-slider").owlCarousel({
-                    slideSpeed : 300,
-                    paginationSpeed : 400,
-                    singleItem:true,
-                    autoPlay: true
-                });
+    <!-- Theme JavaScript -->
+    <script src="js/new-age.js"></script>
 
-                // initialize waypoints for section-headings
-                $('.section-heading').waypoint(function(direction) {
-                    if (direction === 'down') $(this.element).addClass('fadeInUp');
-                    else $(this.element).removeClass('fadeInUp');
-                }, { offset: '96%' });
-            });
+</body>
 
-            autoPlayYouTubeModal = function() {
-                $('#play-video').on("click",function() {
-                    var theModal = $(this).data("target"),
-                    videoSRC = $('#video-modal iframe').attr('src'),
-                    videoSRCauto = videoSRC + "?autoplay=1";
-                    $(theModal + ' iframe').attr('src', videoSRCauto);
-                    $(theModal + ' button.close').on("click",function() {
-                        $(theModal + ' iframe').attr('src', videoSRC);
-                    });
-                    $('.modal').on("click",function() {
-                        $(theModal + ' iframe').attr('src', videoSRC);
-                    });
-                });
-            };
-
-            matchHeight = function(selector){
-                var height, max = 0, $selector = $(selector);
-                $selector.each(function(index, item){
-                    height = $(item).height();
-                    if (height > max) max = height;
-                });
-                $selector.height(max);
-            };
-        </script>
-    </body>
 </html>

@@ -52,13 +52,13 @@
 
 	__webpack_require__(4);
 
-	__webpack_require__(9);
+	__webpack_require__(10);
 
-	__webpack_require__(17);
+	__webpack_require__(18);
 
-	__webpack_require__(31);
+	__webpack_require__(37);
 
-	__webpack_require__(35);
+	__webpack_require__(54);
 
 /***/ }),
 /* 1 */
@@ -73,7 +73,7 @@
 	angular.module('app.filters', []);
 	angular.module('app.services', []);
 	angular.module('app.config', []);
-	angular.module('app.components', ['ui.router', 'angular-loading-bar', 'restangular', 'ngStorage', 'satellizer', 'mm.acl']);
+	angular.module('app.components', ['ui.router', 'angular-loading-bar', 'restangular', 'ngStorage', 'satellizer', 'mm.acl', 'oc.lazyLoad', 'ui.utils', 'ui.grid']);
 
 /***/ }),
 /* 2 */
@@ -159,7 +159,9 @@
 
 	var _satellizer = __webpack_require__(8);
 
-	angular.module('app.config').config(_acl.AclConfig).config(_routes.RoutesConfig).config(_loading_bar.LoadingBarConfig).config(_satellizer.SatellizerConfig);
+	var _lazyload = __webpack_require__(9);
+
+	angular.module('app.config').config(_acl.AclConfig).config(_lazyload.LazyloadConfig).config(_routes.RoutesConfig).config(_loading_bar.LoadingBarConfig).config(_satellizer.SatellizerConfig);
 
 /***/ }),
 /* 5 */
@@ -191,12 +193,12 @@
 
 	'use strict';
 
-	RoutesConfig.$inject = ["$stateProvider", "$urlRouterProvider"];
+	RoutesConfig.$inject = ["$stateProvider", "$urlRouterProvider", "$ocLazyLoadProvider"];
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.RoutesConfig = RoutesConfig;
-	function RoutesConfig($stateProvider, $urlRouterProvider) {
+	function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
 	    'ngInject';
 
 	    var getView = function getView(viewName) {
@@ -213,6 +215,9 @@
 	        views: {
 	            'layout': {
 	                templateUrl: getLayout('layout')
+	            },
+	            'sidebar@app': {
+	                template: '<nav-sidebar></nav-sidebar>'
 	            },
 	            'header@app': {
 	                templateUrl: getView('header')
@@ -235,14 +240,14 @@
 	                templateUrl: getView('landing')
 	            }
 	        }
-	    }).state('app.contacts', {
-	        url: '/contacts',
+	    }).state('app.organiztion', {
+	        url: '/organiztion',
 	        data: {
 	            auth: true
 	        },
 	        views: {
 	            'main@app': {
-	                template: '<contacts></contacts>'
+	                template: '<organization></organization>'
 	            }
 	        }
 	    }).state('app.projects', {
@@ -255,8 +260,8 @@
 	                template: '<projects></projects>'
 	            }
 	        }
-	    }).state('app.project-create', {
-	        url: '/project-create',
+	    }).state('app.projects.create', {
+	        url: '/create',
 	        data: {
 	            auth: true
 	        },
@@ -265,14 +270,33 @@
 	                template: '<project-create></project-create>'
 	            }
 	        }
-	    }).state('app.project-view', {
-	        url: '/project-view',
+	    }).state('app.preference', {
+	        url: '/preference',
 	        data: {
 	            auth: true
 	        },
 	        views: {
 	            'main@app': {
-	                template: '<project-view></project-view>'
+	                template: '<preference></preference>'
+	            }
+	        }
+	    }).state('app.users', {
+	        url: '/users',
+	        data: {
+	            auth: true
+	        },
+	        resolve: {
+	            deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+	                return $ocLazyLoad.load(['dataTables', 'ui-grid'], {
+	                    insertBefore: '#lazyload_placeholder'
+	                }).then(function () {
+	                    console.log(3);
+	                });
+	            }]
+	        },
+	        views: {
+	            'main@app': {
+	                template: '<user-management></user-management>'
 	            }
 	        }
 	    }).state('app.chat', {
@@ -779,28 +803,174 @@
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	LazyloadConfig.$inject = ["$ocLazyLoadProvider"];
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.LazyloadConfig = LazyloadConfig;
+	function LazyloadConfig($ocLazyLoadProvider) {
+	    'ngInject';
+
+	    $ocLazyLoadProvider.config({
+	        debug: true,
+	        events: true,
+	        modules: [{
+	            name: 'isotope',
+	            files: ['assets/plugins/imagesloaded/imagesloaded.pkgd.min.js', 'assets/plugins/jquery-isotope/isotope.pkgd.min.js']
+	        }, {
+	            name: 'codropsDialogFx',
+	            files: ['assets/plugins/codrops-dialogFx/dialogFx.js', 'assets/plugins/codrops-dialogFx/dialog.css', 'assets/plugins/codrops-dialogFx/dialog-sandra.css']
+	        }, {
+	            name: 'metrojs',
+	            files: ['assets/plugins/jquery-metrojs/MetroJs.min.js', 'assets/plugins/jquery-metrojs/MetroJs.css']
+	        }, {
+	            name: 'owlCarousel',
+	            files: ['assets/plugins/owl-carousel/owl.carousel.min.js', 'assets/plugins/owl-carousel/assets/owl.carousel.css']
+	        }, {
+	            name: 'noUiSlider',
+	            files: ['assets/plugins/jquery-nouislider/jquery.nouislider.min.js', 'assets/plugins/jquery-nouislider/jquery.liblink.js', 'assets/plugins/jquery-nouislider/jquery.nouislider.css']
+	        }, {
+	            name: 'nvd3',
+	            files: ['assets/plugins/nvd3/lib/d3.v3.js', 'assets/plugins/nvd3/nv.d3.min.js', 'assets/plugins/nvd3/src/utils.js', 'assets/plugins/nvd3/src/tooltip.js', 'assets/plugins/nvd3/src/interactiveLayer.js', 'assets/plugins/nvd3/src/models/axis.js', 'assets/plugins/nvd3/src/models/line.js', 'assets/plugins/nvd3/src/models/lineWithFocusChart.js', 'assets/plugins/angular-nvd3/angular-nvd3.js', 'assets/plugins/nvd3/nv.d3.min.css'],
+	            serie: true // load in the exact order
+	        }, {
+	            name: 'rickshaw',
+	            files: ['assets/plugins/nvd3/lib/d3.v3.js', 'assets/plugins/rickshaw/rickshaw.min.js', 'assets/plugins/angular-rickshaw/rickshaw.js', 'assets/plugins/rickshaw/rickshaw.min.css'],
+	            serie: true
+	        }, {
+	            name: 'sparkline',
+	            files: ['assets/plugins/jquery-sparkline/jquery.sparkline.min.js', 'assets/plugins/angular-sparkline/angular-sparkline.js']
+	        }, {
+	            name: 'mapplic',
+	            files: ['assets/plugins/mapplic/js/hammer.js', 'assets/plugins/mapplic/js/jquery.mousewheel.js', 'assets/plugins/mapplic/js/mapplic.js', 'assets/plugins/mapplic/css/mapplic.css']
+	        }, {
+	            name: 'skycons',
+	            files: ['assets/plugins/skycons/skycons.js']
+	        }, {
+	            name: 'switchery',
+	            files: ['assets/plugins/switchery/js/switchery.min.js', 'assets/plugins/ng-switchery/ng-switchery.js', 'assets/plugins/switchery/css/switchery.min.css']
+	        }, {
+	            name: 'menuclipper',
+	            files: ['assets/plugins/jquery-menuclipper/jquery.menuclipper.css', 'assets/plugins/jquery-menuclipper/jquery.menuclipper.js']
+	        }, {
+	            name: 'wysihtml5',
+	            files: ['assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.min.css', 'assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js']
+	        }, {
+	            name: 'stepsForm',
+	            files: ['assets/plugins/codrops-stepsform/css/component.css', 'assets/plugins/codrops-stepsform/js/stepsForm.js']
+	        }, {
+	            name: 'jquery-ui',
+	            files: ['assets/plugins/jquery-ui-touch/jquery.ui.touch-punch.min.js']
+	        }, {
+	            name: 'moment',
+	            files: ['assets/plugins/moment/moment.min.js', 'assets/plugins/moment/moment-with-locales.min.js']
+	        }, {
+	            name: 'moment-locales',
+	            files: ['assets/plugins/moment/moment-with-locales.min.js']
+	        }, {
+	            name: 'hammer',
+	            files: ['assets/plugins/hammer.min.js']
+	        }, {
+	            name: 'sieve',
+	            files: ['assets/plugins/jquery.sieve.min.js']
+	        }, {
+	            name: 'line-icons',
+	            files: ['assets/plugins/simple-line-icons/simple-line-icons.css']
+	        }, {
+	            name: 'ionRangeSlider',
+	            files: ['assets/plugins/ion-slider/css/ion.rangeSlider.css', 'assets/plugins/ion-slider/css/ion.rangeSlider.skinFlat.css', 'assets/plugins/ion-slider/js/ion.rangeSlider.min.js']
+	        }, {
+	            name: 'navTree',
+	            files: ['assets/plugins/angular-bootstrap-nav-tree/abn_tree_directive.js', 'assets/plugins/angular-bootstrap-nav-tree/abn_tree.css']
+	        }, {
+	            name: 'nestable',
+	            files: ['assets/plugins/jquery-nestable/jquery.nestable.css', 'assets/plugins/jquery-nestable/jquery.nestable.js', 'assets/plugins/angular-nestable/angular-nestable.js']
+	        }, {
+	            //https://github.com/angular-ui/ui-select
+	            name: 'select',
+	            files: ['assets/plugins/bootstrap-select2/select2.css', 'assets/plugins/angular-ui-select/select.min.css', 'assets/plugins/angular-ui-select/pages-select2-old.css', 'assets/plugins/angular-ui-select/select.min.js']
+	        }, {
+	            name: 'datepicker',
+	            files: ['assets/plugins/bootstrap-datepicker/css/datepicker3.css', 'assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js']
+	        }, {
+	            name: 'daterangepicker',
+	            files: ['assets/plugins/moment/moment.min.js', 'assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css', 'assets/plugins/bootstrap-daterangepicker/daterangepicker.js', 'assets/plugins/angular-daterangepicker/angular-daterangepicker.min.js'],
+	            serie: true
+	        }, {
+	            name: 'timepicker',
+	            files: ['assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.css', 'assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js']
+	        }, {
+	            name: 'inputMask',
+	            files: ['assets/plugins/jquery-inputmask/jquery.inputmask.min.js']
+	        }, {
+	            name: 'autonumeric',
+	            files: ['assets/plugins/jquery-autonumeric/autoNumeric.js']
+	        }, {
+	            name: 'summernote',
+	            files: ['assets/plugins/summernote/css/summernote.css', 'assets/plugins/summernote/js/summernote.min.js', 'assets/plugins/angular-summernote/angular-summernote.min.js'],
+	            serie: true // load in the exact order
+	        }, {
+	            name: 'tagsInput',
+	            files: ['assets/plugins/bootstrap-tag/bootstrap-tagsinput.css', 'assets/plugins/bootstrap-tag/bootstrap-tagsinput.min.js']
+	        }, {
+	            name: 'dropzone',
+	            files: ['assets/plugins/dropzone/css/dropzone.css', 'assets/plugins/dropzone/dropzone.min.js', 'assets/plugins/angular-dropzone/angular-dropzone.js'],
+	            serie: true
+	        }, {
+	            name: 'wizard',
+	            files: ['assets/plugins/lodash/lodash.min.js', 'assets/plugins/angular-wizard/angular-wizard.min.css', 'assets/plugins/angular-wizard/angular-wizard.min.js']
+	        }, {
+	            name: 'dataTables',
+	            files: ['assets/plugins/jquery-datatable/media/css/dataTables.bootstrap.min.css', 'assets/plugins/jquery-datatable/extensions/FixedColumns/css/dataTables.fixedColumns.min.css', 'assets/plugins/datatables-responsive/css/datatables.responsive.css', 'assets/plugins/jquery-datatable/media/js/jquery.dataTables.min.js', 'assets/plugins/jquery-datatable/extensions/TableTools/js/dataTables.tableTools.min.js', 'assets/plugins/jquery-datatable/media/js/dataTables.bootstrap.js', 'assets/plugins/jquery-datatable/extensions/Bootstrap/jquery-datatable-bootstrap.js', 'assets/plugins/datatables-responsive/js/datatables.responsive.js'],
+	            serie: true // load in the exact order
+	        }, {
+	            name: 'google-map',
+	            files: ['assets/plugins/angular-google-map-loader/google-map-loader.js', 'assets/plugins/angular-google-map-loader/google-maps.js']
+	        }, {
+	            name: 'interact',
+	            files: ['assets/plugins/interactjs/interact.min.js']
+	        }, {
+	            name: 'tabcollapse',
+	            files: ['assets/plugins/bootstrap-collapse/bootstrap-tabcollapse.js']
+	        }, {
+	            name: 'ui-grid',
+	            files: ['assets/plugins/angular-ui-grid/ui-grid.min.css', 'assets/plugins/angular-ui-grid/ui-grid.min.js']
+
+	        }, {
+	            name: 'typehead',
+	            files: ['assets/plugins/bootstrap-typehead/typeahead.bundle.min.js', 'assets/plugins/bootstrap-typehead/typeahead.jquery.min.js', 'assets/plugins/bootstrap-typehead/bloodhound.min.js', 'assets/plugins/angular-typehead/angular-typeahead.min.js']
+	        }]
+	    });
+	}
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _date_millis = __webpack_require__(10);
+	var _date_millis = __webpack_require__(11);
 
-	var _capitalize = __webpack_require__(11);
+	var _capitalize = __webpack_require__(12);
 
-	var _human_readable = __webpack_require__(12);
+	var _human_readable = __webpack_require__(13);
 
-	var _truncate_characters = __webpack_require__(13);
+	var _truncate_characters = __webpack_require__(14);
 
-	var _truncate_words = __webpack_require__(14);
+	var _truncate_words = __webpack_require__(15);
 
-	var _trust_html = __webpack_require__(15);
+	var _trust_html = __webpack_require__(16);
 
-	var _ucfirst = __webpack_require__(16);
+	var _ucfirst = __webpack_require__(17);
 
 	angular.module('app.filters').filter('datemillis', _date_millis.DateMillisFilter).filter('capitalize', _capitalize.CapitalizeFilter).filter('humanreadable', _human_readable.HumanReadableFilter).filter('truncateCharacters', _truncate_characters.TruncatCharactersFilter).filter('truncateWords', _truncate_words.TruncateWordsFilter).filter('trustHtml', _trust_html.TrustHtmlFilter).filter('ucfirst', _ucfirst.UcFirstFilter);
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -818,7 +988,7 @@
 	}
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -836,7 +1006,7 @@
 	}
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -859,7 +1029,7 @@
 	}
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -897,7 +1067,7 @@
 	}
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -925,7 +1095,7 @@
 	}
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -941,7 +1111,7 @@
 	}
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -960,37 +1130,67 @@
 	}
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _chat = __webpack_require__(18);
+	var _chat = __webpack_require__(19);
 
-	var _projectCreate = __webpack_require__(19);
+	var _projectCreate = __webpack_require__(20);
 
-	var _projects = __webpack_require__(20);
+	var _projects = __webpack_require__(21);
 
-	var _projectView = __webpack_require__(21);
+	var _projectView = __webpack_require__(22);
 
-	var _contacts = __webpack_require__(22);
+	var _contacts = __webpack_require__(23);
 
-	var _dashboard = __webpack_require__(23);
+	var _dashboard = __webpack_require__(24);
 
-	var _navSidebar = __webpack_require__(24);
+	var _navSidebar = __webpack_require__(25);
 
-	var _navHeader = __webpack_require__(25);
+	var _navHeader = __webpack_require__(26);
 
-	var _loginLoader = __webpack_require__(26);
+	var _loginLoader = __webpack_require__(27);
 
-	var _resetPassword = __webpack_require__(27);
+	var _resetPassword = __webpack_require__(28);
 
-	var _forgotPassword = __webpack_require__(28);
+	var _forgotPassword = __webpack_require__(29);
 
-	var _loginForm = __webpack_require__(29);
+	var _loginForm = __webpack_require__(30);
 
-	var _registerForm = __webpack_require__(30);
+	var _registerForm = __webpack_require__(31);
 
+	var _quickSearch = __webpack_require__(32);
+
+	var _quickView = __webpack_require__(33);
+
+	var _organization = __webpack_require__(34);
+
+	var _preference = __webpack_require__(35);
+
+	var _userManagement = __webpack_require__(36);
+
+	// import { TablesSimpleComponent } from './app/components/tables-simple/tables-simple.component'
+	// import { UiModalComponent } from './app/components/ui-modal/ui-modal.component'
+	// import { UiTimelineComponent } from './app/components/ui-timeline/ui-timeline.component'
+	// import { UiButtonsComponent } from './app/components/ui-buttons/ui-buttons.component'
+	// import { UiIconsComponent } from './app/components/ui-icons/ui-icons.component'
+	// import { UiGeneralComponent } from './app/components/ui-general/ui-general.component'
+	// import { FormsGeneralComponent } from './app/components/forms-general/forms-general.component'
+	// import { ChartsChartjsComponent } from './app/components/charts-chartjs/charts-chartjs.component'
+	// import { WidgetsComponent } from './app/components/widgets/widgets.component'
+	// import { UserProfileComponent } from './app/components/user-profile/user-profile.component'
+	// import { UserVerificationComponent } from './app/components/user-verification/user-verification.component'
+	// import { ComingSoonComponent } from './app/components/coming-soon/coming-soon.component'
+	// import { UserEditComponent } from './app/components/user-edit/user-edit.component'
+	// import { UserPermissionsEditComponent } from './app/components/user-permissions-edit/user-permissions-edit.component'
+	// import { UserPermissionsAddComponent } from './app/components/user-permissions-add/user-permissions-add.component'
+	// import { UserPermissionsComponent } from './app/components/user-permissions/user-permissions.component'
+	// import { UserRolesEditComponent } from './app/components/user-roles-edit/user-roles-edit.component'
+	// import { UserRolesAddComponent } from './app/components/user-roles-add/user-roles-add.component'
+	// import { UserRolesComponent } from './app/components/user-roles/user-roles.component'
+	// import { UserListsComponent } from './app/components/user-lists/user-lists.component'
 	angular.module('app.components')
 	// .component('tablesSimple', TablesSimpleComponent)
 	// .component('uiModal', UiModalComponent)
@@ -1012,29 +1212,10 @@
 	// .component('userRolesAdd', UserRolesAddComponent)
 	// .component('userRoles', UserRolesComponent)
 	// .component('userLists', UserListsComponent)
-	.component('chat', _chat.ChatComponent).component('projectView', _projectView.ProjectViewComponent).component('projectCreate', _projectCreate.ProjectCreateComponent).component('projects', _projects.ProjectsComponent).component('contacts', _contacts.ContactsComponent).component('dashboard', _dashboard.DashboardComponent).component('navSidebar', _navSidebar.NavSidebarComponent).component('navHeader', _navHeader.NavHeaderComponent).component('loginLoader', _loginLoader.LoginLoaderComponent).component('resetPassword', _resetPassword.ResetPasswordComponent).component('forgotPassword', _forgotPassword.ForgotPasswordComponent).component('loginForm', _loginForm.LoginFormComponent).component('registerForm', _registerForm.RegisterFormComponent); // import { TablesSimpleComponent } from './app/components/tables-simple/tables-simple.component'
-	// import { UiModalComponent } from './app/components/ui-modal/ui-modal.component'
-	// import { UiTimelineComponent } from './app/components/ui-timeline/ui-timeline.component'
-	// import { UiButtonsComponent } from './app/components/ui-buttons/ui-buttons.component'
-	// import { UiIconsComponent } from './app/components/ui-icons/ui-icons.component'
-	// import { UiGeneralComponent } from './app/components/ui-general/ui-general.component'
-	// import { FormsGeneralComponent } from './app/components/forms-general/forms-general.component'
-	// import { ChartsChartjsComponent } from './app/components/charts-chartjs/charts-chartjs.component'
-	// import { WidgetsComponent } from './app/components/widgets/widgets.component'
-	// import { UserProfileComponent } from './app/components/user-profile/user-profile.component'
-	// import { UserVerificationComponent } from './app/components/user-verification/user-verification.component'
-	// import { ComingSoonComponent } from './app/components/coming-soon/coming-soon.component'
-	// import { UserEditComponent } from './app/components/user-edit/user-edit.component'
-	// import { UserPermissionsEditComponent } from './app/components/user-permissions-edit/user-permissions-edit.component'
-	// import { UserPermissionsAddComponent } from './app/components/user-permissions-add/user-permissions-add.component'
-	// import { UserPermissionsComponent } from './app/components/user-permissions/user-permissions.component'
-	// import { UserRolesEditComponent } from './app/components/user-roles-edit/user-roles-edit.component'
-	// import { UserRolesAddComponent } from './app/components/user-roles-add/user-roles-add.component'
-	// import { UserRolesComponent } from './app/components/user-roles/user-roles.component'
-	// import { UserListsComponent } from './app/components/user-lists/user-lists.component'
+	.component('chat', _chat.ChatComponent).component('projectView', _projectView.ProjectViewComponent).component('projectCreate', _projectCreate.ProjectCreateComponent).component('projects', _projects.ProjectsComponent).component('contacts', _contacts.ContactsComponent).component('dashboard', _dashboard.DashboardComponent).component('navSidebar', _navSidebar.NavSidebarComponent).component('navHeader', _navHeader.NavHeaderComponent).component('loginLoader', _loginLoader.LoginLoaderComponent).component('resetPassword', _resetPassword.ResetPasswordComponent).component('forgotPassword', _forgotPassword.ForgotPasswordComponent).component('loginForm', _loginForm.LoginFormComponent).component('registerForm', _registerForm.RegisterFormComponent).component('quickSearch', _quickSearch.QuickSearchComponent).component('quickView', _quickView.QuickViewComponent).component('organization', _organization.OrganizationComponent).component('preference', _preference.PreferenceComponent).component('userManagement', _userManagement.UserManagementComponent);
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1061,7 +1242,6 @@
 	    API.all('users').get('all-chat-user').then(function (response) {
 	      _this.chatUsers = response.plain().data;
 	    });
-
 	    API.all('users').get('me').then(function (response) {
 	      var data = response.plain().data;
 	      _this.userInfo = data;
@@ -1126,7 +1306,7 @@
 	};
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1154,7 +1334,7 @@
 	};
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1182,7 +1362,7 @@
 	};
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1210,7 +1390,7 @@
 	};
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1238,7 +1418,7 @@
 	};
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1273,7 +1453,7 @@
 	};
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1317,7 +1497,7 @@
 	};
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1338,13 +1518,20 @@
 	    _classCallCheck(this, NavHeaderController);
 
 	    var navHeader = this;
-
+	    this.$rootscope = $rootScope;
 	    ContextService.me(function (data) {
 	      navHeader.userData = data;
 	    });
 	  }
 
 	  _createClass(NavHeaderController, [{
+	    key: 'showSearchOverlay',
+	    value: function showSearchOverlay() {
+	      this.$rootscope.$broadcast('toggleSearchOverlay', {
+	        show: true
+	      });
+	    }
+	  }, {
 	    key: '$onInit',
 	    value: function $onInit() {}
 	  }]);
@@ -1360,7 +1547,7 @@
 	};
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1400,7 +1587,7 @@
 	};
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1492,7 +1679,7 @@
 	};
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1554,7 +1741,7 @@
 	};
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1649,7 +1836,7 @@
 	};
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1682,6 +1869,8 @@
 	  _createClass(RegisterFormController, [{
 	    key: '$onInit',
 	    value: function $onInit() {
+	      this.firstname = '';
+	      this.lastname = '';
 	      this.name = '';
 	      this.email = '';
 	      this.password = '';
@@ -1694,6 +1883,8 @@
 
 	      if (isValid) {
 	        var user = {
+	          firstname: this.firstname,
+	          lastname: this.lastname,
 	          name: this.name,
 	          email: this.email,
 	          password: this.password,
@@ -1729,21 +1920,273 @@
 	};
 
 /***/ }),
-/* 31 */
+/* 32 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var QuickSearchController = function () {
+	  QuickSearchController.$inject = ["API", "ContextService"];
+	  function QuickSearchController(API, ContextService) {
+	    'ngInject';
+
+	    _classCallCheck(this, QuickSearchController);
+	  }
+
+	  _createClass(QuickSearchController, [{
+	    key: 'liveSearch',
+	    value: function liveSearch() {
+	      console.log("Live search for: " + $scope.search.query);
+	    }
+	  }, {
+	    key: '$onInit',
+	    value: function $onInit() {}
+	  }]);
+
+	  return QuickSearchController;
+	}();
+
+	var QuickSearchComponent = exports.QuickSearchComponent = {
+	  templateUrl: './views/app/components/quick-search/quick-search.component.html',
+	  controller: QuickSearchController,
+	  controllerAs: 'vm',
+	  bindings: {}
+	};
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var QuickViewController = function () {
+	  QuickViewController.$inject = ["API", "ContextService"];
+	  function QuickViewController(API, ContextService) {
+	    'ngInject';
+
+	    _classCallCheck(this, QuickViewController);
+	  }
+
+	  _createClass(QuickViewController, [{
+	    key: '$onInit',
+	    value: function $onInit() {}
+	  }]);
+
+	  return QuickViewController;
+	}();
+
+	var QuickViewComponent = exports.QuickViewComponent = {
+	  templateUrl: './views/app/components/quick-view/quick-view.component.html',
+	  controller: QuickViewController,
+	  controllerAs: 'vm',
+	  bindings: {}
+	};
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var OrganizationController = function OrganizationController($scope) {
+	  'ngInject';
+
+	  _classCallCheck(this, OrganizationController);
+
+	  $scope.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+	  $scope.series = ['Series A', 'Series B'];
+	  $scope.data = [[65, 59, 80, 81, 56, 55, 40], [28, 48, 40, 19, 86, 27, 90]];
+
+	  $scope.onClick = function () {};
+
+	  $scope.pieLabels = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+	  $scope.pieData = [300, 500, 100];
+	};
+	OrganizationController.$inject = ["$scope"];
+
+	var OrganizationComponent = exports.OrganizationComponent = {
+	  templateUrl: './views/app/components/organization/organization.component.html',
+	  controller: OrganizationController,
+	  controllerAs: 'vm',
+	  bindings: {}
+	};
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var PreferenceController = function () {
+	  function PreferenceController() {
+	    'ngInject';
+
+	    //
+
+	    _classCallCheck(this, PreferenceController);
+	  }
+
+	  _createClass(PreferenceController, [{
+	    key: '$onInit',
+	    value: function $onInit() {}
+	  }]);
+
+	  return PreferenceController;
+	}();
+
+	var PreferenceComponent = exports.PreferenceComponent = {
+	  templateUrl: './views/app/components/preference/preference.component.html',
+	  controller: PreferenceController,
+	  controllerAs: 'vm',
+	  bindings: {}
+	};
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var UserManagementController = function () {
+	    UserManagementController.$inject = ["$scope"];
+	    function UserManagementController($scope) {
+	        'ngInject';
+
+	        _classCallCheck(this, UserManagementController);
+
+	        this.table = $('#tableWithSearch');
+	        this.addTable = $('#addNewAppModal');
+	        var that = this;
+
+	        this.options = {
+	            "sDom": "<'table-responsive't><'row'<p i>>",
+
+	            "destroy": true,
+	            "scrollCollapse": true,
+	            "oLanguage": {
+	                "sLengthMenu": "_MENU_ ",
+	                "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+	            },
+	            "iDisplayLength": 5
+	        };
+	        this.filter = function (event) {
+	            that.table.dataTable().fnFilter($(event.currentTarget).val());
+	        };
+	        this.showModal = function () {
+	            that.addTable.modal('show');
+	        };
+	        this.addNewUser = function () {
+	            alert();
+	            that.addTable.modal('hide');
+	        };
+	        this.hideModal = function () {
+	            that.addTable.modal('hide');
+	        };
+	    }
+
+	    _createClass(UserManagementController, [{
+	        key: '$onInit',
+	        value: function $onInit() {}
+	    }]);
+
+	    return UserManagementController;
+	}();
+
+	var UserManagementComponent = exports.UserManagementComponent = {
+	    templateUrl: './views/app/components/user-management/user-management.component.html',
+	    controller: UserManagementController,
+	    controllerAs: 'vm',
+	    bindings: {}
+	};
+
+/***/ }),
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _routeBodyclass = __webpack_require__(32);
+	var _routeBodyclass = __webpack_require__(38);
 
-	var _passwordVerify = __webpack_require__(33);
+	var _passwordVerify = __webpack_require__(39);
 
-	var _scrollToBottom = __webpack_require__(34);
+	var _scrollToBottom = __webpack_require__(40);
 
-	angular.module('app.components').directive('routeBodyclass', _routeBodyclass.RouteBodyClassComponent).directive('passwordVerify', _passwordVerify.PasswordVerifyClassComponent).directive('scrollToBottom', _scrollToBottom.ScrollToBottomComponent);
+	var _csSelect = __webpack_require__(41);
+
+	var _pgDropdown = __webpack_require__(42);
+
+	var _pgFormGroup = __webpack_require__(43);
+
+	var _pgHorizontalMenu = __webpack_require__(44);
+
+	var _pgNavigate = __webpack_require__(45);
+
+	var _pgNotificationCenter = __webpack_require__(46);
+
+	var _pgPortlet = __webpack_require__(47);
+
+	var _pgQuickview = __webpack_require__(48);
+
+	var _pgSearch = __webpack_require__(49);
+
+	var _pgSidebar = __webpack_require__(50);
+
+	var _pgTabDropdownfx = __webpack_require__(51);
+
+	var _pgTab = __webpack_require__(52);
+
+	var _skycons = __webpack_require__(53);
+
+	angular.module('app.components').directive('routeBodyclass', _routeBodyclass.RouteBodyClassComponent).directive('passwordVerify', _passwordVerify.PasswordVerifyClassComponent).directive('scrollToBottom', _scrollToBottom.ScrollToBottomComponent).directive('csSelect', _csSelect.CsSelect).directive('pgDropdown', _pgDropdown.PgDropdown).directive('pgFormGroup', _pgFormGroup.PgFormGroup).directive('pgHorizontalMenu', _pgHorizontalMenu.PgHorizontalMenu).directive('pgHorizontalMenu', _pgHorizontalMenu.PgHorizontalMenuToggle).directive('pgNavigate', _pgNavigate.PgNavigate).directive('pgNotificationCenter', _pgNotificationCenter.PgNotificationCenter).directive('pgPortlet', _pgPortlet.PgPortlet).directive('pgQuickview', _pgQuickview.PgQuickview).directive('pgSearch', _pgSearch.PgSearch).directive('pgSidebar', _pgSidebar.PgSidebar).directive('pgTabDropdownfx', _pgTabDropdownfx.PgTabDropdownfx).directive('pgTab', _pgTab.PgTab).directive('skycons', _skycons.Skycons).directive('includeReplace', function () {
+	    return {
+	        require: 'ngInclude',
+	        restrict: 'A',
+	        link: function link(scope, el) {
+	            el.replaceWith(el.children());
+	        }
+	    };
+	});
 
 /***/ }),
-/* 32 */
+/* 38 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1779,7 +2222,7 @@
 	var RouteBodyClassComponent = exports.RouteBodyClassComponent = routeBodyClass;
 
 /***/ }),
-/* 33 */
+/* 39 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1824,7 +2267,7 @@
 	var PasswordVerifyClassComponent = exports.PasswordVerifyClassComponent = passwordVerifyClass;
 
 /***/ }),
-/* 34 */
+/* 40 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1840,6 +2283,7 @@
 	        },
 	        restrict: 'A',
 	        link: function link(scope, element, attr) {
+
 	            scope.$watchCollection('scrollToBottom', function (newVal) {
 	                if (newVal) {
 	                    $timeout(function () {
@@ -1854,19 +2298,534 @@
 	var ScrollToBottomComponent = exports.ScrollToBottomComponent = scrollToBottom;
 
 /***/ }),
-/* 35 */
+/* 41 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/* ============================================================
+	 * Directive: csSelect
+	 * AngularJS directive for SelectFx jQuery plugin
+	 * https://github.com/codrops/SelectInspiration
+	 * ============================================================ */
+
+	csSelect.$inject = ['$compile'];
+	function csSelect($compile) {
+	    return {
+	        restrict: 'A',
+	        link: function link(scope, element, attrs) {
+	            if (!window.SelectFx) return;
+
+	            var newElement = angular.element('<div class="cs-wrapper"></div>');
+	            element.wrap($compile(newElement)(scope));
+	            new SelectFx(element[0]);
+	        }
+	    };
+	}
+
+	var CsSelect = exports.CsSelect = csSelect;
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/* ============================================================
+	 * Directive: pgDropdown
+	 * Prepare Bootstrap dropdowns to match Pages theme
+	 * ============================================================ */
+
+	function pgDropdown() {
+	    return {
+	        restrict: 'A',
+	        link: function link(scope, element, attrs) {
+
+	            var btn = angular.element(element).find('.dropdown-menu').siblings('.dropdown-toggle');
+	            var offset = 0;
+
+	            var padding = btn.actual('innerWidth') - btn.actual('width');
+	            var menuWidth = angular.element(element).find('.dropdown-menu').actual('outerWidth');
+
+	            if (btn.actual('outerWidth') < menuWidth) {
+	                btn.width(menuWidth - offset);
+	                angular.element(element).find('.dropdown-menu').width(btn.actual('outerWidth'));
+	            } else {
+	                angular.element(element).find('.dropdown-menu').width(btn.actual('outerWidth'));
+	            }
+	        }
+	    };
+	}
+
+	var PgDropdown = exports.PgDropdown = pgDropdown;
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/* ============================================================
+	 * Directive: pgFormGroup
+	 * Apply Pages default form effects
+	 * ============================================================ */
+
+	function pgFormGroup() {
+	    return {
+	        restrict: 'A',
+	        link: function link(scope, element, attrs) {
+	            $(element).on('click', function () {
+	                $(this).find(':input').focus();
+	            });
+
+	            $('body').on('focus', '.form-group.form-group-default :input', function () {
+	                $('.form-group.form-group-default').removeClass('focused');
+	                $(this).parents('.form-group').addClass('focused');
+	            });
+
+	            $('body').on('blur', '.form-group.form-group-default :input', function () {
+	                $(this).parents('.form-group').removeClass('focused');
+	                if ($(this).val()) {
+	                    $(this).closest('.form-group').find('label').addClass('fade');
+	                } else {
+	                    $(this).closest('.form-group').find('label').removeClass('fade');
+	                }
+	            });
+
+	            $(element).find('.checkbox, .radio').hover(function () {
+	                $(this).parents('.form-group').addClass('focused');
+	            }, function () {
+	                $(this).parents('.form-group').removeClass('focused');
+	            });
+	        }
+	    };
+	}
+
+	var PgFormGroup = exports.PgFormGroup = pgFormGroup;
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/* ============================================================
+	 * Directive: pgHorizontalMenu
+	 * AngularJS directive for Pages Horizontal Menu
+	 * ============================================================ */
+
+	pgHorizontalMenu.$inject = ['$parse'];
+	function pgHorizontalMenu($parse) {
+	    return {
+	        restrict: 'A',
+	        link: function link(scope, element, attrs) {
+
+	            $(document).on('click', '.horizontal-menu .bar-inner > ul > li', function () {
+	                $(this).toggleClass('open').siblings().removeClass('open');
+	            });
+
+	            $('.content').on('click', function () {
+	                $('.horizontal-menu .bar-inner > ul > li').removeClass('open');
+	            });
+	        }
+	    };
+	}
+
+	var PgHorizontalMenu = exports.PgHorizontalMenu = pgHorizontalMenu;
+
+	pgHorizontalMenuToggle.$inject = ['$parse'];
+	function pgHorizontalMenuToggle($parse) {
+	    return {
+	        restrict: 'A',
+	        link: function link(scope, element, attrs) {
+
+	            $(element).click(function (e) {
+	                e.preventDefault();
+	                $('body').toggleClass('menu-opened');
+	            });
+	        }
+	    };
+	}
+
+	var PgHorizontalMenuToggle = exports.PgHorizontalMenuToggle = pgHorizontalMenuToggle;
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/* ============================================================
+	 * Directive: pgNavigate
+	 * Pre-made view ports to be used for HTML5 mobile hybrid apps
+	 * ============================================================ */
+
+	function pgNavigate() {
+	    return {
+	        restrict: 'A',
+	        link: function link(scope, element, attrs) {
+
+	            $(element).click(function () {
+	                var el = $(this).attr('data-view-port');
+	                if ($(this).attr('data-toggle-view') != null) {
+	                    $(el).children().last().children('.view').hide();
+	                    $($(this).attr('data-toggle-view')).show();
+	                }
+	                $(el).toggleClass($(this).attr('data-view-animation'));
+	                return false;
+	            });
+	        }
+	    };
+	};
+
+	var PgNavigate = exports.PgNavigate = pgNavigate;
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/* ============================================================
+	 * Directive: pgNotificationCenter
+	 * Shows a list of notifications in a dropdown in header
+	 * ============================================================ */
+
+	function pgNotificationCenter() {
+	    return {
+	        restrict: 'A',
+	        link: function link(scope, element, attrs) {
+	            $(element).on('click', function (event) {
+	                event.stopPropagation();
+	            });
+	            $(element).find('.toggle-more-details').on('click', function (event) {
+	                var p = $(this).closest('.heading');
+	                p.closest('.heading').children('.more-details').stop().slideToggle('fast', function () {
+	                    p.toggleClass('open');
+	                });
+	            });
+	        }
+	    };
+	}
+
+	var PgNotificationCenter = exports.PgNotificationCenter = pgNotificationCenter;
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/* ============================================================
+	 * Directive: pgPortlet
+	 * AngularJS directive for Pages Portlets jQuery plugin
+	 * ============================================================ */
+
+	pgPortlet.$inject = ['$parse'];
+	function pgPortlet($parse) {
+	    return {
+	        restrict: 'A',
+	        scope: true,
+	        link: function link(scope, element, attrs) {
+
+	            var onRefresh = $parse(attrs.onRefresh);
+
+	            var options = {};
+
+	            if (attrs.progress) options.progress = attrs.progress;
+	            if (attrs.overlayOpacity) options.overlayOpacity = attrs.overlayOpacity;
+	            if (attrs.overlayColor) options.overlayColor = attrs.overlayColor;
+	            if (attrs.progressColor) options.progressColor = attrs.progressColor;
+	            if (attrs.onRefresh) options.onRefresh = function () {
+	                onRefresh(scope);
+	            };
+
+	            element.portlet(options);
+	        }
+	    };
+	}
+
+	var PgPortlet = exports.PgPortlet = pgPortlet;
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/* ============================================================
+	 * Directive: pgQuickview
+	 * AngularJS directive for Pages Overlay Search jQuery plugin
+	 * ============================================================ */
+
+	pgQuickview.$inject = ['$parse'];
+	function pgQuickview($parse) {
+	    return {
+	        restrict: 'A',
+	        link: function link(scope, element, attrs) {
+	            var $quickview = $(element);
+	            $quickview.quickview($quickview.data());
+	        }
+	    };
+	}
+
+	var PgQuickview = exports.PgQuickview = pgQuickview;
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/* ============================================================
+	 * Directive: pgSearch
+	 * AngularJS directive for Pages Overlay Search jQuery plugin
+	 * ============================================================ */
+
+	pgSearch.$inject = ['$parse'];
+	function pgSearch($parse) {
+	    return {
+	        restrict: 'A',
+	        link: function link(scope, element, attrs) {
+	            angular.element(element).search();
+
+	            scope.$on('toggleSearchOverlay', function (scopeDetails, status) {
+	                if (status.show) {
+	                    angular.element(element).data('pg.search').toggleOverlay('show');
+	                } else {
+	                    angular.element(element).data('pg.search').toggleOverlay('hide');
+	                }
+	            });
+	        }
+	    };
+	}
+
+	var PgSearch = exports.PgSearch = pgSearch;
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/* ============================================================
+	 * Directive: pgSidebar
+	 * AngularJS directive for Pages Sidebar jQuery plugin
+	 * ============================================================ */
+
+	function pgSidebar() {
+	    return {
+	        restrict: 'A',
+	        link: function link(scope, element, attrs) {
+	            var $sidebar = $(element);
+	            $sidebar.sidebar($sidebar.data());
+
+	            // Bind events
+	            // Toggle sub menus
+	            $('body').on('click', '.sidebar-menu a', function (e) {
+
+	                if ($(this).parent().children('.sub-menu') === false) {
+	                    return;
+	                }
+	                var el = $(this);
+	                var parent = $(this).parent().parent();
+	                var li = $(this).parent();
+	                var sub = $(this).parent().children('.sub-menu');
+
+	                if (li.hasClass("active open")) {
+	                    el.children('.arrow').removeClass("active open");
+	                    sub.slideUp(200, function () {
+	                        li.removeClass("active open");
+	                    });
+	                } else {
+	                    parent.children('li.open').children('.sub-menu').slideUp(200);
+	                    parent.children('li.open').children('a').children('.arrow').removeClass('active open');
+	                    parent.children('li.open').removeClass("open active");
+	                    el.children('.arrow').addClass("active open");
+	                    sub.slideDown(200, function () {
+	                        li.addClass("active open");
+	                    });
+	                }
+	            });
+	        }
+	    };
+	}
+	var PgSidebar = exports.PgSidebar = pgSidebar;
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/* ============================================================
+	 * Directive: pgTabDropdownfx
+	 * Responsive Tabs with dropdown effect
+	 * effect for tab transitions.
+	 * ============================================================ */
+
+	function pgTabDropdownfx() {
+	    return {
+	        link: function link(scope, element, attrs) {
+
+	            var drop = $(element);
+	            drop.addClass("hidden-sm hidden-xs");
+	            var content = '<select class="cs-select cs-skin-slide full-width" data-init-plugin="cs-select">';
+	            for (var i = 1; i <= drop.children("li").length; i++) {
+	                var li = drop.children("li:nth-child(" + i + ")");
+	                var selected = "";
+	                if (li.hasClass("active")) {
+	                    selected = "selected";
+	                }
+	                content += '<option value="' + li.children('a').attr('href') + '" ' + selected + '>';
+	                content += li.children('a').text();
+	                content += '</option>';
+	            }
+	            content += '</select>';
+	            drop.after(content);
+	            var select = drop.next()[0];
+	            $(select).on('change', function (e) {
+	                var optionSelected = $("option:selected", this);
+	                var valueSelected = this.value;
+	                drop.find('a[href="' + valueSelected + '"]').tab('show');
+	            });
+	            $(select).wrap('<div class="nav-tab-dropdown cs-wrapper full-width p-t-10 visible-xs visible-sm"></div>');
+	            new SelectFx(select);
+	        }
+	    };
+	}
+
+	var PgTabDropdownfx = exports.PgTabDropdownfx = pgTabDropdownfx;
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/* ============================================================
+	 * Directive: pgTab
+	 * Makes Bootstrap Tabs compatible with AngularJS and add sliding
+	 * effect for tab transitions.
+	 * ============================================================ */
+
+	pgTab.$inject = ['$parse'];
+	function pgTab($parse) {
+	    return {
+	        link: function link(scope, element, attrs) {
+	            var slide = attrs.slide;
+	            var onShown = $parse(attrs.onShown);
+	            // Sliding effect for tabs
+	            $(element).on('show.bs.tab', function (e) {
+	                e = $(e.target).parent().find('a[data-toggle=tab]');
+
+	                var hrefCurrent = e.attr('href');
+
+	                if ($(hrefCurrent).is('.slide-left, .slide-right')) {
+	                    $(hrefCurrent).addClass('sliding');
+
+	                    setTimeout(function () {
+	                        $(hrefCurrent).removeClass('sliding');
+	                    }, 100);
+	                }
+	            });
+
+	            $(element).on('shown.bs.tab', {
+	                onShown: onShown
+	            }, function (e) {
+	                if (e.data.onShown) {
+	                    e.data.onShown(scope);
+	                }
+	            });
+
+	            $(element).click(function (e) {
+	                e.preventDefault();
+	                $(element).tab('show');
+	            });
+	        }
+	    };
+	}
+
+	var PgTab = exports.PgTab = pgTab;
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/* ============================================================
+	 * Directive: skycons
+	 * AngularJS directive for skycons plugin
+	 * http://darkskyapp.github.io/skycons/
+	 * ============================================================ */
+
+	function skycons() {
+	    return {
+	        restrict: 'A',
+	        link: function link(scope, element, attrs) {
+	            var skycons = new Skycons();
+	            skycons.add($(element).get(0), attrs.class);
+	            skycons.play();
+	        }
+	    };
+	}
+
+	var Skycons = exports.Skycons = skycons;
+
+/***/ }),
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _context = __webpack_require__(36);
+	var _context = __webpack_require__(55);
 
-	var _API = __webpack_require__(37);
+	var _API = __webpack_require__(56);
 
 	angular.module('app.services').service('ContextService', _context.ContextService).service('API', _API.APIService);
 
 /***/ }),
-/* 36 */
+/* 55 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1918,7 +2877,7 @@
 	}();
 
 /***/ }),
-/* 37 */
+/* 56 */
 /***/ (function(module, exports) {
 
 	'use strict';

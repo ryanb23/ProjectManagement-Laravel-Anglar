@@ -185,6 +185,8 @@ class AuthController extends Controller
     public function postRegister(Request $request)
     {
         $this->validate($request, [
+            'firstname'       => 'required|min:2',
+            'lastname'       => 'required|min:2',
             'name'       => 'required|min:3',
             'email'      => 'required|email|unique:users',
             'password'   => 'required|min:8|confirmed',
@@ -192,6 +194,8 @@ class AuthController extends Controller
 
         $verificationCode = str_random(40);
         $user = new User();
+        $user->firstname = trim($request->firstname);
+        $user->lastname = trim($request->lastname);
         $user->name = trim($request->name);
         $user->email = trim(strtolower($request->email));
         $user->password = bcrypt($request->password);

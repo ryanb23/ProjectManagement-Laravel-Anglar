@@ -14,16 +14,83 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="apple-touch-icon" href="pages/ico/60.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="pages/ico/76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="pages/ico/120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="pages/ico/152.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <!-- BEGIN Vendor CSS-->
+    <!-- <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" /> -->
+    <link href="assets/plugins/bootstrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css" media="screen" />
+
+    <link id="lazyload_placeholder">
+    <!-- BEGIN Pages CSS-->
+    <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+    <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{!! elixir('css/final.css') !!}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
+    <!--[if lte IE 9]>
+        <link href="pages/css/ie9.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <!--[if lt IE 9]>
+            <link href="assets/plugins/mapplic/css/mapplic-ie.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <script type="text/javascript">
+    window.onload = function() {
+        // fix for windows 8
+        if (navigator.appVersion.indexOf("Windows NT 6.2") != -1)
+            document.head.innerHTML += '<link rel="stylesheet" type="text/css" href="pages/css/windows.chrome.fix.css" />'
+    }
+    </script>
 
 </head>
-<body class="menubar-top theme-primary menubar-light pace-done">
-    <div route-bodyclass ui-view="layout">
+<body class="fixed-header"  ng-class="{
+'bg-master-lighter': is('app.extra.timeline'),
+'no-header': is('app.social') || is('app.calendar') || is('app.maps.vector') || is('app.maps.google'),
+'menu-pin' : app.layout.menuPin,
+'menu-behind' : app.layout.menuBehind
+ }">
+    <div route-bodyclass ui-view="layout" class="full-height">
     </div>
 
     <script src="//js.pusher.com/4.0/pusher.min.js"></script>
+    <!-- BEGIN VENDOR JS -->
+    <!-- JQUERY -->
+    <!-- <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script> -->
+    <script src="assets/plugins/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/modernizr.custom.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/bootstrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery/jquery-easy.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-bez/jquery.bez.min.js"></script>
+    <script src="assets/plugins/jquery-ios-list/jquery.ioslist.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-actual/jquery.actual.min.js"></script>
+    <script src="assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/classie/classie.js"></script>
+
+    <!-- ANGULAR -->
     <script src="{!! elixir('js/final.js') !!}"></script>
-    
+    <script type="text/javascript" src="assets/plugins/angular-ui-grid/ui-grid.min.js"></script>
+    <!-- <script src="assets/plugins/angular-sanitize/angular-sanitize.min.js" type="text/javascript"></script> -->
+    <!-- <script src="assets/plugins/angular-oc-lazyload/ocLazyLoad.min.js" type="text/javascript"></script> -->
+
+    <script type="text/javascript" src="assets/plugins/jquery-datatable/media/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-datatable/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-datatable/media/js/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-datatable/extensions/Bootstrap/jquery-datatable-bootstrap.js"></script>
+    <script type="text/javascript" src="assets/plugins/datatables-responsive/js/datatables.responsive.js"></script>
+    <!-- END VENDOR JS -->
+    <!-- BEGIN CORE TEMPLATE JS -->
+    <!-- END CORE TEMPLATE JS -->
+
 </body>
 </html>
