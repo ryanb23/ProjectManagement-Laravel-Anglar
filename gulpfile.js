@@ -36,12 +36,12 @@ elixir(function (mix) {
       './public/js/partials.js',
       './public/js/app.js',
       './public/dist/js/app.js',
+      './public/pages/js/pages.js'
     ],
     styles = [
       './public/css/vendor.css',
       './public/css/app.css',
       './public/dist/css/custom.css',
-      './public/dist/css/core.css',
     ],
     karmaJsDir = [
       jsOutputFolder + '/vendor.js',
