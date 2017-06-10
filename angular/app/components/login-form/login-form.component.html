@@ -1,46 +1,56 @@
-<div class="simple-page-wrap">
-    <div class="simple-page-logo animated swing"><a href="/"><span><i class="fa fa-gg"></i></span> <span>Efico</span></a></div>
-    <div class="simple-page-form animated flipInY" id="login-form">
-        <h4 class="form-title m-b-xl text-center">Sign In With Your Efico Account</h4>
-        <form ng-submit="vm.login()" method="post" name="vm.loginForm">
-            <div class="callout callout-danger" ng-if="vm.loginfailederror">
-                <h4>Login Failed</h4>
-                <p>{{ vm.loginfailederror }}</p>
-            </div>
-            <div class="callout callout-danger" ng-if="vm.loginfailed">
-                <h4>Login Failed</h4>
-                <p>Incorrect Email/Username or Password.</p>
-            </div>
-            <div class="callout callout-danger" ng-if="vm.unverified">
-                <h4>Email Unverified</h4>
-                <p>Please check your email and click the verification link.</p>
-            </div>
-            <div class="callout callout-success" ng-if="vm.registerSuccess">
-                <h4>Registration Success!</h4>
-                <p>A verification link has been sent to your Email Account. Thank You!</p>
-            </div>
-            <div class="callout callout-success" ng-if="vm.successMsg">
-                <h4>Success!</h4>
-                <p>{{ vm.successMsg }}</p>
-            </div>
-            <div class="form-group has-feedback">
-                <input id="sign-in-email" type="email" class="form-control" placeholder="Email" ng-model="vm.email" ng-required="true" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input id="sign-in-password" name="password" type="password" class="form-control" placeholder="Password" ng-model="vm.password" ng-required="true">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="form-group m-b-xl">
-                <div class="checkbox checkbox-primary">
-                    <input type="checkbox" id="keep_me_logged_in">
-                    <label for="keep_me_logged_in">Keep me signed in</label>
-                </div>
-            </div>
-            <input type="submit" class="btn btn-primary" value="SING IN">
-        </form>
+<form id="form-login" class="p-t-15" role="form" ng-submit="vm.login()" method="post" name="loginForm">
+    <div class="callout callout-danger" ng-if="vm.loginfailederror">
+        <h4>Login Failed</h4>
+        <p>{{ vm.loginfailederror }}</p>
     </div>
-    <div class="simple-page-footer">
-        <p><a ui-sref="forgot_password">FORGOT YOUR PASSWORD ?</a></p>
-        <p><small>Don't have an account ?</small> <a ui-sref="register">CREATE AN ACCOUNT</a></p>
+    <div class="callout callout-danger" ng-if="vm.loginfailed">
+        <h4>Login Failed</h4>
+        <p>Incorrect Email/Username or Password.</p>
     </div>
+    <div class="callout callout-danger" ng-if="vm.unverified">
+        <h4>Email Unverified</h4>
+        <p>Please check your email and click the verification link.</p>
+    </div>
+    <div class="callout callout-success" ng-if="vm.registerSuccess">
+        <h4>Registration Success!</h4>
+        <p>A verification link has been sent to your Email Account. Thank You!</p>
+    </div>
+    <div class="callout callout-success" ng-if="vm.successMsg">
+        <h4>Success!</h4>
+        <p>{{ vm.successMsg }}</p>
+    </div>
+    <!-- START Form Control-->
+    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
+        <label>Login</label>
+        <div class="controls">
+            <input id="sign-in-email" name="email" type="email" class="form-control" placeholder="Email" ng-model="vm.email" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+        </div>
+    </div>
+    <label class="error" for="username" ng-show="loginForm.email.$invalid && !loginForm.email.$pristine">This field is required.</label>
+    <!-- END Form Control-->
+    <!-- START Form Control-->
+    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
+        <label>Password</label>
+        <div class="controls">
+            <input id="sign-in-password" name="password" type="password" class="form-control" placeholder="Password" ng-model="vm.password" ng-required="true">
+        </div>
+    </div>
+    <label class="error" for="username" ng-show="loginForm.password.$invalid && !loginForm.password.$pristine">This field is required.</label>
+    <!-- START Form Control-->
+    <div class="row">
+        <div class="col-md-6 no-padding">
+            <div class="checkbox ">
+                <input type="checkbox" value="1" id="checkbox1">
+                <label for="checkbox1">Keep Me Signed in</label>
+            </div>
+        </div>
+        <div class="col-md-12 text-right">
+            <a ui-sref="register" class="text-info small">Create an account</a>
+        </div>
+        <div class="col-md-12 text-right">
+            <a ui-sref="forgot_password" class="text-info small">Forgot password?</a>
+        </div>
+    </div>
+    <!-- END Form Control-->
+    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="loginForm.$invalid">Sign in</button>
+</form>

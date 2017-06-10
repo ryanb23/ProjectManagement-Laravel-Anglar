@@ -13,6 +13,8 @@ class RegisterFormController {
   }
 
   $onInit () {
+    this.firstname = ''
+    this.lastname = ''
     this.name = ''
     this.email = ''
     this.password = ''
@@ -22,6 +24,8 @@ class RegisterFormController {
   register (isValid) {
     if (isValid) {
       var user = {
+        firstname: this.firstname,
+        lastname: this.lastname,
         name: this.name,
         email: this.email,
         password: this.password,

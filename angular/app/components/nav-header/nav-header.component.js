@@ -3,12 +3,16 @@ class NavHeaderController {
     'ngInject'
 
     let navHeader = this
-
+    this.$rootscope = $rootScope;
     ContextService.me(function (data) {
       navHeader.userData = data
     })
   }
-
+  showSearchOverlay(){
+    this.$rootscope.$broadcast('toggleSearchOverlay', {
+        show: true
+    })
+  }
   $onInit () {}
 }
 

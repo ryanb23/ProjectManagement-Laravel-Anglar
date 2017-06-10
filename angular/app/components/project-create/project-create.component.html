@@ -1,149 +1,80 @@
-<section class="app-content">
-    <div class="row">
-        <div class="col-md-2">
-            <div class="app-action-panel" id="compose-action-panel">
-                <div class="action-panel-toggle" data-toggle="class" data-target="#compose-action-panel" data-class="open"><i class="fa fa-chevron-right"></i> <i class="fa fa-chevron-left"></i></div>
-                <div class="app-actions-list scrollable-container">
-                    <div class="list-group">
-                        <h4>Lables</h4>
-                        <a href="#" class="list-group-item">
-                            <i class="m-r-sm fa fa-circle text-warning"></i>
-                            <span>Personal</span>
-                            <div class="item-actions">
-                                <i class="item-action fa fa-edit" data-toggle="modal" data-target="#labelModal"></i>
-                                <i class="item-action fa fa-trash" data-toggle="modal" data-target="#deleteItemModal"></i>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <i class="m-r-sm fa fa-circle text-primary"></i>
-                            <span>Work</span>
-                            <div class="item-actions">
-                                <i class="item-action fa fa-edit" data-toggle="modal" data-target="#labelModal"></i>
-                                <i class="item-action fa fa-trash" data-toggle="modal" data-target="#deleteItemModal"></i>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <i class="m-r-sm fa fa-circle text-danger"></i>
-                            <span>Business</span>
-                            <div class="item-actions">
-                                <i class="item-action fa fa-edit" data-toggle="modal" data-target="#labelModal"></i>
-                                <i class="item-action fa fa-trash" data-toggle="modal" data-target="#deleteItemModal"></i>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <i class="m-r-sm fa fa-circle text-success"></i>
-                            <span>Clients</span>
-                            <div class="item-actions">
-                                <i class="item-action fa fa-edit" data-toggle="modal" data-target="#labelModal"></i>
-                                <i class="item-action fa fa-trash" data-toggle="modal" data-target="#deleteItemModal"></i>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item text-color" data-toggle="modal" data-target="#labelModal">
-                            <i class="fa fa-plus m-r-sm"></i> Add New Label
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-10">
-            <div class="panel panel-default new-message">
-                <form action="#projects" class="ng-pristine ng-valid" zzz>
-                    <div class="panel-body">
-                        <div class="form-group m-b-0">
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <label>Title</label>
-                                    <input class="form-control m-b-lg" type="text">
-                                </div>
-                                <div class="col-sm-4">
-                                    <label>Departement</label>
-                                    <select class="form-control">
-                                        <option>Finance</option>
-                                        <option>Human resources</option>
-                                        <option>Legal</option>
-                                        <option>Technology</option>
-                                    </select>
+<!-- START PAGE CONTENT -->
+<div class="split-view">
+    <div data-email="opened" class="split-details">
+        <div class="email-content-wrapper" style="">
+            <div class="email-content row">
+                <aside class="col-md-12">
+                    <form>
+                        <section>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-default required">
+                                            <label>TitlE</LAbel>
+                                            <input class="form-control" required="" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-default">
+                                            <label>Labels</label>
+                                            <input class="form-control" required="" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-default required">
+                                            <label>Departement</label>
+                                            <input class="form-control" required="" type="text">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Objective</label>
-                            <input class="form-control" type="text">
-                        </div>
-                        <div class="form-group m-b-0">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label>Contributors</label>
-                                    <input class="form-control m-b-lg" type="text">
-                                </div>
-                                <div class="col-sm-6">
-                                    <label>Files attachements</label>
-                                    <input class="form-control m-b-lg" multiple="" type="file">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-default required">
+                                            <label>Objective</label>
+                                            <input class="form-control" required="" type="text">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea name="new_message_body" class="form-control full-wysiwyg"></textarea>
-                        </div>
-                    </div>
-                    <div class="panel-footer clearfix">
-                        <div class="pull-right">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-group-default">
+                                            <label>Contributor(s)</label>
+                                            <input class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-group-default">
+                                            <label>Files</label>
+                                            <input class="form-control" required="" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-default">
+                                <label class="control-label">Description</label>
+                                <textarea class="form-control" style="height:60px;"></textarea>
+                            </div>
+                        </section>
+                        <section class="pull-right">
                             <button type="button" class="btn btn-danger">
-                                <i class="fa fa-trash"></i>
-                            </button>
+								<i class="fa fa-trash"></i>
+							</button>
                             <button type="button" class="btn btn-success">
-                                <i class="fa fa-save"></i>
-                            </button>
+								<i class="fa fa-save"></i>
+							</button>
                             <button type="submit" class="btn btn-primary">
-                                Publish
-                                <i class="fa fa-send"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-<div id="labelModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">Create / update label</h4>
-            </div>
-            <form action="#" id="newCategoryForm">
-                <div class="modal-body">
-                    <div class="form-group m-0">
-                        <input type="text" id="catLabel" class="form-control" placeholder="Label">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<div id="deleteItemModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">Delete item</h4>
-            </div>
-            <div class="modal-body">
-                <h5>Do you really want to delete this item ?</h5>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+								Publish
+								<i class="fa fa-send"></i>
+							</button>
+                        </section>
+                    </form>
+                </aside>
             </div>
         </div>
     </div>
 </div>
+<script src="assets/plugins/summernote/js/summernote.min.js" type="text/javascript"></script>

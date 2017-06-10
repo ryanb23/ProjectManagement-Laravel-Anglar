@@ -1,357 +1,375 @@
-<div class="row">
-    <div class="col-md-2">
-        <div class="app-action-panel" id="inbox-action-panel">
-            <div class="action-panel-toggle" data-toggle="class" data-target="#inbox-action-panel" data-class="open"><i class="fa fa-chevron-right"></i> <i class="fa fa-chevron-left"></i></div>
-            <div class="app-actions-list scrollable-container">
-                <div class="list-group">
-                    <h4>Status</h4>
-                    <a href="javascript:void(0)" class="text-color list-group-item"><i class="m-r-sm fa fa-check"></i>Recognized</a>
-                    <a href="javascript:void(0)" class="text-color list-group-item"><i class="m-r-sm fa fa-exclamation-triangle"></i>Dismissed</a>
+<!-- START PAGE CONTENT -->
+<nav class="secondary-sidebar padding-30" style="">
+    <a href="create.html" class="btn btn-complete btn-block btn-compose m-b-30">
+		<i calss="fa fa-plus"></i> Create
+	</a>
+    <p class="menu-title">All Departements</p>
+    <ul class="main-menu scroll-content scroll-scrolly_visible">
+        <li class="">
+            <a href="#">
+				<span class="title">
+					<i class="fa fa-line-chart"></i> Finance
+				</span>
+				<span class="badge pull-right">1</span>
+			</a>
+        </li>
+        <li class="active">
+            <a href="#">
+				<span class="title">
+					<i class="fa fa-desktop"></i> IT
+				</span>
+				<span class="badge pull-right">4</span>
+			</a>
+        </li>
+        <li>
+            <a href="#">
+				<span class="title">
+					<i class="pg-sent"></i> Procurement
+				</span>
+				<span class="badge pull-right">2</span>
+			</a>
+        </li>
+        <li>
+            <a href="#">
+				<span class="title">
+					<i class="fa fa-balance-scale"></i> Law
+				</span>
+				<span class="badge pull-right">2</span>
+			</a>
+        </li>
+        <li>
+            <a href="#">
+				<span class="title">
+					<i class="fa fa-briefcase"></i> Accounting
+				</span>
+				<span class="badge pull-right">3</span>
+			</a>
+        </li>
+    </ul>
+    <p class="menu-title m-t-20 all-caps">Project Status</p>
+    <ul class="sub-menu no-padding">
+        <li>
+            <a href="#">
+				<span class="title">Approved Project</span>
+			</a>
+        </li>
+        <li>
+            <a href="#">
+				<span class="title">Dismissed Project</span>
+			</a>
+        </li>
+    </ul>
+</nav>
+<!-- DISPLAY PROJECT LIST -->
+<div class="inner-content full-height">
+    <div class="split-view">
+        <div class="split-list">
+            <a class="list-refresh" href="#"><i class="fa fa-refresh"></i></a>
+            <div class="list-view">
+                <h2 class="list-view-fake-header">Today June 23</h2>
+                <div class="list-view-group-container">
+                    <div class="list-view-group-header"><span>Today June 23</span></div>
+                    <ul class="no-padding">
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">Jane Smith</a>, Web development
+                                </p>
+                                <a class="subject no-margin" href="project.html">Pages - Multi-Purpose Admin Template Revolution Begins here!</a>
+                                <p class="body no-margin">
+                                    have recently ordered a new pair of soccer cleats (item #6542951) from your website on June 21.
+                                </p>
+                            </div>
+                            <div class="datetime">5 Mins ago</div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 9423
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 13
+								</span>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">Anne Simons</a>, UI design
+                                </p>
+                                <a class="subject no-margin" href="project.html">Your site has some very imaginative animation /movement, especially the Sluggo! </a>
+                                <p class="body no-margin"> Dear Kristen:I saw your listing on Craigslist.com for a website designer for your tee-shirt company.</p>
+                            </div>
+                            <div class="datetime">45 mins ago</div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 2331
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 444
+								</span>
+                            </div>
+                        </li>
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">Herald Menster</a>, Finance
+                                </p>
+                                <a class="subject no-margin" href="project.html">Recently ordered a new pair of soccer cleats from your website on June 21</a>
+                                <p class="body no-margin"> Dear Colleagues:As some of you may already be aware, I will be leaving my job at Acme Corp shortly.</p>
+                            </div>
+                            <div class="datetime">1:33pm</div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 2213
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 4
+								</span>
+                            </div>
+                        </li>
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">John Doe</a>, Accounting</p>
+                                <a class="subject no-margin" href="project.html">Everything here, Made Just for you :)</a>
+                                <p class="body no-margin"> Dear Ms. Hillman,Thank you for spending such quality time with me yesterday.</p>
+                            </div>
+                            <div class="datetime">11:23am</div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 602
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 45
+								</span>
+                            </div>
+                        </li>
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">Alec talbac</a>, Human resource
+                                </p>
+                                <a class="subject no-margin" href="project.html">Simplicity is the ultimate sophistication</a>
+                                <p class="body no-margin"> A man's favorite donkey falls into a deep precipice; He can't pull it out no matter how hard he tries; </p>
+                            </div>
+                            <div class="datetime">10:33pm</div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 21
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 55
+								</span>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <hr class="m-0 m-b-md" style="border-color: #ddd">
-                <div class="list-group">
-                    <h4>Departements</h4>
-                    <a href="#" class="list-group-item">
-                        <div class="item-data">
-                            <span class="label-text">Finance</span>
-                            <span class="pull-right hide-on-hover">7</span>
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <div class="item-data">
-                            <span class="label-text">Human<br>resources</span>
-                            <span class="pull-right hide-on-hover">5</span>
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <div class="item-data">
-                            <span class="label-text">Legal</span>
-                            <span class="pull-right hide-on-hover">7</span>
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <div class="item-data">
-                            <span class="label-text">Technology</span>
-                            <span class="pull-right hide-on-hover">10</span>
-                        </div>
-                    </a>
+                <div class="list-view-group-container">
+                    <div class="list-view-group-header"><span>Yesterday June 22</span></div>
+                    <ul class="no-padding">
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">James Simons</a>, Public relation
+                                </p>
+                                <a class="subject no-margin" href="project.html">Good design is obvious. Great design is transparent</a>
+                                <p class="body no-margin"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sodales, velit at laoreet hendrerit, tellus dui aliquet est, ac cursus velit erat et est. Quisque vitae tortor nibh.</p>
+                            </div>
+                            <div class="datetime">1:33pm</div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 13
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 9
+								</span>
+                            </div>
+                        </li>
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">Albert Wang</a>, IT
+                                </p>
+                                <a class="subject no-margin" href="project.html">Your site has some very imaginative animation /movement, especially the Sluggo! </a>
+                                <p class="body no-margin"> Dear Kristen:I saw your listing on Craigslist.com for </p>
+                            </div>
+                            <div class="datetime">45 mins ago</div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 37
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 91
+								</span>
+                            </div>
+                        </li>
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">Niel Paterson</a>, IT
+                                </p>
+                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
+                                <p class="body no-margin"> Morbi mauris dui, sollicitudin ut ipsum nec, porta malesuada justo.</p>
+                            </div>
+                            <div class="datetime">1:33pm</div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 16
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 55
+								</span>
+                            </div>
+                        </li>
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">Philip Ville-neuve</a>, QA
+                                </p>
+                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
+                                <p class="body no-margin"> Donec metus ligula, cursus ut auctor ac, faucibus et eros. Mauris nec adipiscing purus, sollicitudin fermentum nunc. Nullam et elementum lectus. Duis lobortis commodo tellus quis rutrum. In sed interdum mauris.</p>
+                            </div>
+                            <div class="datetime">1:33pm</div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 53
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 13
+								</span>
+                            </div>
+                        </li>
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">Chomenski Lou</a>, IT
+                                </p>
+                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
+                                <p class="body no-margin"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sodales, velit at laoreet hendrerit, tellus dui aliquet est, ac cursus velit erat et est. Quisque vitae tortor nibh. </p>
+                            </div>
+                            <div class="datetime">1:33pm</div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 7
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 3
+								</span>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <hr class="m-0 m-b-md" style="border-color: #ddd">
-                <div class="list-group">
-                    <h4>Labels</h4>
-                    <a href="#" class="list-group-item"><i class="m-r-sm fa fa-circle text-warning"></i> <span>Personal</span></a>
-                    <a href="#" class="list-group-item"><i class="m-r-sm fa fa-circle text-primary"></i> <span>Work</span></a>
-                    <a href="#" class="list-group-item"><i class="m-r-sm fa fa-circle text-danger"></i> <span>Business</span></a>
-                    <a href="#" class="list-group-item"><i class="m-r-sm fa fa-circle text-success"></i> <span>Clients</span></a>
+                <div class="list-view-group-container">
+                    <div class="list-view-group-header"><span>Yesterday June 22 </span></div>
+                    <ul class="no-padding">
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">Jason Tremblay</a>, Marketing
+                                </p>
+                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
+                                <p class="body no-margin"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sodales, velit at laoreet hendrerit, tellus dui aliquet est, ac cursus velit erat et est. Quisque vitae tortor nibh. Aliquam ornare, augue ac pulvinar euismod,
+                                    mi felis cursus nisl, non ultrices lacus turpis sit amet lacus. Vestibulum in lacus ut augue tincidunt lobortis id quis mauris.</p>
+                            </div>
+                            <div class="datetime">1:33pm</div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 23
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 21
+								</span>
+                            </div>
+                        </li>
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">Alexender Wayne</a>, Public relation
+                                </p>
+                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
+                                <p class="body no-margin"> Aliquam est tellus, fringilla egestas fermentum quis, venenatis eu massa. Curabitur aliquet id metus a molestie.</p>
+                            </div>
+                            <div class="datetime">1:33pm</div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 16
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 7
+								</span>
+                            </div>
+                        </li>
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">Jean Balmian</a>, UI design
+                                </p>
+                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
+                                <p class="body no-margin"> Morbi mauris dui, sollicitudin ut ipsum nec, porta malesuada justo. In eget tempor lacus. In dapibus,</p>
+                            </div>
+                            <div class="datetime">1:33pm</div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 13
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 2
+								</span>
+                            </div>
+                        </li>
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">Richard Hendrix</a>, Software engineering
+                                </p>
+                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
+                                <p class="body no-margin"> Donec metus ligula, cursus ut auctor ac, faucibus et eros. Mauris nec adipiscing purus, sollicitudin fermentum nunc. Nullam et elementum lectus. Duis lobortis commodo tellus quis rutrum. In sed interdum mauris.</p>
+                            </div>
+                            <div class="datetime">1:33pm</div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 100
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 4
+								</span>
+                            </div>
+                        </li>
+                        <li class="item padding-15">
+                            <div class="m-l-15">
+                                <p class="recipients no-margin hint-text small">
+                                    <a href="profile.html">Simon Li</a>, Marketing
+                                </p>
+                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
+                                <p class="body no-margin"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sodales, velit at laoreet hendrerit, tellus dui aliquet est, ac cursus velit erat et est. Quisque vitae tortor nibh.</p>
+                            </div>
+                            <div class="datetime">1:33pm</div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left m-l-15">
+                                <span>
+									<i class="fa fa-heart" aria-hidden="true"></i> 27
+								</span>
+                                <span>
+									<i class="fa fa-comments-o" aria-hidden="true"></i> 5
+								</span>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-md-10">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="mail-toolbar m-b-lg">
-                    <div role="group" class="btn-group pull-left">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Date</a></li>
-                            <li><a href="#">Starred</a></li>
-                            <li><a href="#">Involvement</a></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group pull-left col-md-9">
-                        <div class="form-group">
-                            <input class="form-control promo-search-field" placeholder="What are you looking for" type="search">
-                        </div>
-                    </div>
-                    <div class="btn-group pull-right" role="group">
-                        <a href="#" class="btn btn-default">
-                            <i class="fa fa-chevron-left"></i>
-                        </a>
-                        <a href="#" class="btn btn-default">
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="table-responsive">
-            <table class="table mail-list">
-                <tr>
-                    <td>
-                        <div class="mail-item">
-                            <table class="mail-container">
-                                <tr>
-                                    <td class="mail-left">
-                                        <div class="avatar avatar-lg avatar-circle">
-                                            <a href="#"><img src="eficos/img/208.jpg" alt="sender photo"></a>
-                                        </div>
-                                    </td>
-                                    <td class="mail-center">
-                                        <div class="pull-right">
-                                            <span>
-                                                    <i class="fa fa-comments-o" aria-hidden="true"></i> 620
-                                                </span>
-                                            <span>
-                                                    <i class="fa fa-users" aria-hidden="true"></i> 40
-                                                </span>
-                                        </div>
-                                        <div class="mail-item-header">
-                                            <h4 class="mail-item-title">
-                                                    <a href="#project-info" class="title-color">Idea collaboration platform</a>
-                                                </h4>
-                                            <a href="#">
-                                                <span class="label label-success">client</span>
-                                            </a>
-                                            <a href="#">
-                                                <span class="label label-primary">work</span>
-                                            </a>
-                                        </div>
-                                        <p class="mail-item-excerpt">
-                                            Processes that help multiple people or groups within the same entreprise to interact and share information to achieve common goals.
-                                        </p>
-                                    </td>
-                                    <td class="mail-right">
-                                        <p class="mail-item-date">2 hours ago</p>
-                                        <p class="mail-item-star starred"><a href="#"><i class="zmdi zmdi-star"></i></a></p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="mail-item">
-                            <table class="mail-container">
-                                <tr>
-                                    <td class="mail-left">
-                                        <div class="avatar avatar-lg avatar-circle">
-                                            <a href="#"><img src="eficos/img/209.jpg" alt="sender photo"></a>
-                                        </div>
-                                    </td>
-                                    <td class="mail-center">
-                                        <div class="pull-right">
-                                            <span>
-                                                    <i class="fa fa-comments-o" aria-hidden="true"></i> 120
-                                                </span>
-                                            <span>
-                                                    <i class="fa fa-users" aria-hidden="true"></i> 20
-                                                </span>
-                                        </div>
-                                        <div class="mail-item-header">
-                                            <h4 class="mail-item-title">
-                                                    <a href="#project-info" class="title-color">Cross-platform software support</a>
-                                                </h4>
-                                            <a href="#">
-                                                <span class="label label-warning">personal</span>
-                                            </a>
-                                        </div>
-                                        <p class="mail-item-excerpt">
-                                            Implemented efico on multiple computing platforms. (e.g. Android, BlackBerry, iDevices, Windows phone)
-                                        </p>
-                                    </td>
-                                    <td class="mail-right">
-                                        <p class="mail-item-date">1 minute ago</p>
-                                        <p class="mail-item-star"><a href="#"><i class="zmdi zmdi-star-outline"></i></a></p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="mail-item">
-                            <table class="mail-container">
-                                <tr>
-                                    <td class="mail-left">
-                                        <div class="avatar avatar-lg avatar-circle">
-                                            <a href="#"><img src="eficos/img/210.jpg" alt="sender photo"></a>
-                                        </div>
-                                    </td>
-                                    <td class="mail-center">
-                                        <div class="pull-right">
-                                            <span>
-                                                    <i class="fa fa-comments-o" aria-hidden="true"></i> 450
-                                                </span>
-                                            <span>
-                                                    <i class="fa fa-users" aria-hidden="true"></i> 50
-                                                </span>
-                                        </div>
-                                        <div class="mail-item-header">
-                                            <h4 class="mail-item-title">
-                                                    <a href="#project-info" class="title-color">Stand alone infrastructure</a>
-                                                </h4>
-                                            <a href="#">
-                                                <span class="label label-primary">work</span>
-                                            </a>
-                                        </div>
-                                        <p class="mail-item-excerpt">
-                                            Use file and data management operations to directly manipulate groups of files and information in those files.
-                                        </p>
-                                    </td>
-                                    <td class="mail-right">
-                                        <p class="mail-item-date">2 hours ago</p>
-                                        <p class="mail-item-star">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-star-outline"></i>
-                                            </a>
-                                        </p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="mail-item">
-                            <table class="mail-container">
-                                <tr>
-                                    <td class="mail-left">
-                                        <div class="avatar avatar-lg avatar-circle">
-                                            <a href="#"><img src="eficos/img/211.jpg" alt="sender photo"></a>
-                                        </div>
-                                    </td>
-                                    <td class="mail-center">
-                                        <div class="pull-right">
-                                            <span>
-                                                    <i class="fa fa-comments-o" aria-hidden="true"></i> 100
-                                                </span>
-                                            <span>
-                                                    <i class="fa fa-users" aria-hidden="true"></i> 12
-                                                </span>
-                                        </div>
-                                        <div class="mail-item-header">
-                                            <h4 class="mail-item-title">
-                                                    <a href="#project-info" class="title-color">Reward system</a>
-                                                </h4>
-                                            <a href="#">
-                                                <span class="label label-danger">business</span>
-                                            </a>
-                                        </div>
-                                        <p class="mail-item-excerpt">
-                                            Approach to reward one or more persons who act in a desirable way.
-                                        </p>
-                                    </td>
-                                    <td class="mail-right">
-                                        <p class="mail-item-date">Just now</p>
-                                        <p class="mail-item-star starred">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-star"></i>
-                                            </a>
-                                        </p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="mail-item">
-                            <table class="mail-container">
-                                <tr>
-                                    <td class="mail-left">
-                                        <div class="avatar avatar-lg avatar-circle">
-                                            <a href="#"><img src="eficos/img/212.jpg" alt="sender photo"></a>
-                                        </div>
-                                    </td>
-                                    <td class="mail-center">
-                                        <div class="pull-right">
-                                            <span>
-                                                    <i class="fa fa-comments-o" aria-hidden="true"></i> 120
-                                                </span>
-                                            <span>
-                                                    <i class="fa fa-users" aria-hidden="true"></i> 17
-                                                </span>
-                                        </div>
-                                        <div class="mail-item-header">
-                                            <h4 class="mail-item-title">
-                                                    <a href="#project-info" class="title-color">Social media integration</a>
-                                                </h4>
-                                            <a href="#">
-                                                <span class="label label-warning">personal</span>
-                                            </a>
-                                        </div>
-                                        <p class="mail-item-excerpt">
-                                            Increase awareness of your marketing efforts.
-                                        </p>
-                                    </td>
-                                    <td class="mail-right">
-                                        <p class="mail-item-date">a minute ago</p>
-                                        <p class="mail-item-star"><a href="#"><i class="zmdi zmdi-star-outline"></i></a></p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="mail-item">
-                            <table class="mail-container">
-                                <tr>
-                                    <td class="mail-left">
-                                        <div class="avatar avatar-lg avatar-circle">
-                                            <a href="#"><img src="eficos/img/213.jpg" alt="sender photo"></a>
-                                        </div>
-                                    </td>
-                                    <td class="mail-center">
-                                        <div class="pull-right">
-                                            <span>
-                                                    <i class="fa fa-comments-o" aria-hidden="true"></i> 500
-                                                </span>
-                                            <span>
-                                                    <i class="fa fa-users" aria-hidden="true"></i> 40
-                                                </span>
-                                        </div>
-                                        <div class="mail-item-header">
-                                            <h4 class="mail-item-title">
-                                                    <a href="#project-info" class="title-color">Multi file format viewer</a>
-                                                </h4>
-                                            <a href="#">
-                                                <span class="label label-primary">work</span>
-                                            </a>
-                                        </div>
-                                        <p class="mail-item-excerpt">
-                                            With so many different types of file around these days, it can be quite difficult to now what each of them does...
-                                        </p>
-                                    </td>
-                                    <td class="mail-right">
-                                        <p class="mail-item-date">10 days ago</p>
-                                        <p class="mail-item-star starred">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-star"></i>
-                                            </a>
-                                        </p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="mail-item">
-                            <table class="mail-container">
-                                <tr>
-                                    <td class="mail-left">
-                                        <div class="avatar avatar-lg avatar-circle">
-                                            <a href="#"><img src="eficos/img/214.jpg" alt="sender photo"></a>
-                                        </div>
-                                    </td>
-                                    <td class="mail-center">
-                                        <div class="pull-right">
-                                            <span>
-                                                    <i class="fa fa-comments-o" aria-hidden="true"></i> 200
-                                                </span>
-                                            <span>
-                                                    <i class="fa fa-users" aria-hidden="true"></i> 20
-                                                </span>
-                                        </div>
-                                        <div class="mail-item-header">
-                                            <h4 class="mail-item-title">
-                                                    <a href="#project-info" class="title-color">Quota based pricing</a>
-                                                </h4>
-                                            <a href="#">
-                                                <span class="label label-success">client</span>
-                                            </a>
-                                        </div>
-                                        <p class="mail-item-excerpt">
-                                            Offers free quota that allows you to get started at no cost...
-                                        </p>
-                                    </td>
-                                    <td class="mail-right">
-                                        <p class="mail-item-date">2 years ago</p>
-                                        <p class="mail-item-star"><a href="#"><i class="zmdi zmdi-star-outline"></i></a></p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-            </table>
         </div>
     </div>
 </div>
-</section>
