@@ -6,6 +6,7 @@ function scrollToBottom ($timeout,$window) {
         },
         restrict: 'A',
         link: function(scope, element, attr) {
+
             scope.$watchCollection('scrollToBottom', function(newVal) {
                 if (newVal) {
                     $timeout(function() {
