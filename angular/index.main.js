@@ -1,6 +1,6 @@
 // Modules
-import './index.modules'
 
+import './index.modules'
 // Run
 import './index.run'
 

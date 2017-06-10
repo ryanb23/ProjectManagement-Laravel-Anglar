@@ -31,6 +31,11 @@ import { ResetPasswordComponent } from './app/components/reset-password/reset-pa
 import { ForgotPasswordComponent } from './app/components/forgot-password/forgot-password.component'
 import { LoginFormComponent } from './app/components/login-form/login-form.component'
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
+import { QuickSearchComponent } from './app/components/quick-search/quick-search.component'
+import { QuickViewComponent } from './app/components/quick-view/quick-view.component'
+import { OrganizationComponent } from './app/components/organization/organization.component'
+import { PreferenceComponent } from './app/components/preference/preference.component'
+import { UserManagementComponent } from './app/components/user-management/user-management.component'
 
 angular.module('app.components')
   // .component('tablesSimple', TablesSimpleComponent)
@@ -66,3 +71,8 @@ angular.module('app.components')
   .component('forgotPassword', ForgotPasswordComponent)
   .component('loginForm', LoginFormComponent)
   .component('registerForm', RegisterFormComponent)
+  .component('quickSearch', QuickSearchComponent)
+  .component('quickView', QuickViewComponent)
+  .component('organization', OrganizationComponent)
+  .component('preference', PreferenceComponent)
+  .component('userManagement', UserManagementComponent)
