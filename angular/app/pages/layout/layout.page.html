@@ -1,5 +1,34 @@
-<div ui-view="header"></div>
+<!-- <div ui-view="header"></div>
 <main id="app-main" class="app-main">
     <div class="wrap ng-scope" ui-view="main"></div>
     <div ui-view="footer"></div>
-</main>
+</main> -->
+<!-- BEGIN SIDEBAR -->
+<div ui-view="sidebar"></div>
+<!-- END SIDEBAR -->
+<!-- START PAGE-CONTAINER -->
+<div class="page-container">
+    <!-- START PAGE HEADER WRAPPER -->
+    <div ui-view="header">
+    </div>
+    <!-- END PAGE HEADER WRAPPER -->
+    <!-- START PAGE CONTENT WRAPPER -->
+    <div class="page-content-wrapper">
+        <!-- START PAGE CONTENT -->
+        <div class="content full-height">
+            <div class="full-height full-width" ui-view ="main">
+            </div>
+        </div>
+        <!-- END PAGE CONTENT -->
+        <div ui-view="footer">
+        </div>
+    </div>
+    <!-- END PAGE CONTENT WRAPPER -->
+</div>
+<!-- END PAGE CONTAINER -->
+<!--START QUICKVIEW -->
+<quick-view></quick-view>
+<!-- END QUICKVIEW-->
+<!-- START OVERLAY -->
+<quick-search></quick-search>
+<!-- END OVERLAY -->
