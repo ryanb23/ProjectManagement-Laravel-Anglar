@@ -79,15 +79,17 @@
 
     <!-- ANGULAR -->
     <script src="{!! elixir('js/final.js') !!}"></script>
-    <script type="text/javascript" src="assets/plugins/angular-ui-grid/ui-grid.min.js"></script>
+    <!-- <script type="text/javascript" src="assets/plugins/angular-ui-grid/ui-grid.min.js"></script> -->
     <!-- <script src="assets/plugins/angular-sanitize/angular-sanitize.min.js" type="text/javascript"></script> -->
     <!-- <script src="assets/plugins/angular-oc-lazyload/ocLazyLoad.min.js" type="text/javascript"></script> -->
 
-    <script type="text/javascript" src="assets/plugins/jquery-datatable/media/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/jquery-datatable/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/jquery-datatable/media/js/dataTables.bootstrap.js"></script>
-    <script type="text/javascript" src="assets/plugins/jquery-datatable/extensions/Bootstrap/jquery-datatable-bootstrap.js"></script>
-    <script type="text/javascript" src="assets/plugins/datatables-responsive/js/datatables.responsive.js"></script>
+    <script src="assets/plugins/jquery-datatable/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-datatable/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-datatable/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-datatable/media/js/dataTables.bootstrap.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-datatable/extensions/Bootstrap/jquery-datatable-bootstrap.js" type="text/javascript"></script>
+    <script src="assets/plugins/datatables-responsive/js/datatables.responsive.js" type="text/javascript"></script>
+
     <!-- END VENDOR JS -->
     <!-- BEGIN CORE TEMPLATE JS -->
     <!-- END CORE TEMPLATE JS -->
