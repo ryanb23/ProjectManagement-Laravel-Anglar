@@ -1,0 +1,122 @@
+<!-- START CONTAINER FLUID -->
+<div class="container-fluid container-fixed-lg bg-white">
+    <!-- START PANEL -->
+    <div class="panel panel-transparent">
+        <div class="panel-heading">
+            <div class="panel-title">User Table</div>
+            <div class="clearfix"></div>
+            <div class="pull-left">
+                <div class="col-xs-12">
+                    <input type="text" id="search-table" class="form-control pull-right" placeholder="Search" ng-keyup="vm.filter($event)">
+                </div>
+            </div>
+            <div class="pull-right">
+                <div class="col-xs-12">
+                    <button id="show-modal" class="btn btn-primary btn-cons" ng-click="vm.showModal()"><i class="fa fa-plus"></i> Add row</button>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover" id="tableDepartments" ui-jq="dataTable" ui-options="vm.options">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>DEPARTMENT</th>
+                    <th>PERMISSION</th>
+                    <th>STATUS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.departments">
+                    <td class="v-align-middle">
+                        <p>{{item.name}}</p>
+                    </td>
+                    <td class="v-align-middle">
+                        <a href="#" class="btn btn-tag">Finance</a>
+                    </td>
+                    <td class="v-align-middle">
+                        <a href="#" class="btn btn-tag">Decision maker</a>
+                        <a href="#" class="btn btn-tag">Project manager</a>
+                    </td>
+                    <td class="v-align-middle">
+                        <p>chen.vincent@efico.co</p>
+                    </td>
+                    <td class="v-align-middle">
+                        <span class="label label-success">Enabled</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- END PANEL -->
+</div>
+<!-- END CONTAINER FLUID -->
+
+<!-- MODAL STICK UP  -->
+<div class="modal fade stick-up" id="addDepartmentModal" tabindex="-1" role="dialog" aria-labelledby="addDepartmentModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header clearfix ">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                </button>
+                <h4 class="p-b-5"><span class="semi-bold">New</span> Department</h4>
+            </div>
+            <div class="modal-body">
+                <p class="small-text">Create a new Department</p>
+                <form role="form" name="vm.addDepartmentFrom">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div pg-form-group class="form-group form-group-default required"  ng-class="{ 'has-error': vm.addDepartmentFrom.name.$invalid && ( vm.formSubmitted || vm.addDepartmentFrom.name.$touched) }">
+                                <label>name</label>
+                                <input id="departmentName" ng-model="vm.newDepartment.name" name="name" type="text" class="form-control" placeholder="Name" required>
+                            </div>
+                            <label class="error help-block" for="name" ng-show="vm.addDepartmentFrom.name.$error.required && ( vm.formSubmitted || vm.addDepartmentFrom.name.$touched)">This field is required.</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group form-group-default input-group">
+                                <label class="inline">Enable</label>
+                                <span class="input-group-addon bg-transparent">
+                                  <input type="checkbox" class="js-switch" ng-model="vm.newDepartment.active" ui-switch="{color: '#6d5cae',size : 'small'}"/>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form class="m-t-10" role="form">
+                                <div pg-form-group class="form-group form-group-default form-group-default-select">
+                                    <label class="">Parent Department</label>
+                                    <ui-select ng-model="vm.p_department_sel.selected" theme="bootstrap">
+                                        <ui-select-match placeholder="Select Department">{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="item in vm.p_departments | filter: $select.search">
+                                            <span ng-bind-html="vm.trustAsHtml((item.name | highlight: $select.search))"></span>
+                                            <small ng-bind-html="vm.trustAsHtml((item.des | highlight: $select.search))"></small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default">
+                                <label>Description</label>
+                                <input id="description" ng-model="vm.newDepartment.des" type="text" class="form-control" placeholder="Description">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="add-app" type="button" class="btn btn-primary  btn-cons" ng-click="vm.addNewUser()">Add</button>
+                <button type="button" class="btn btn-cons" ng-click="vm.hideModal()">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
