@@ -56,9 +56,9 @@
 
 	__webpack_require__(18);
 
-	__webpack_require__(37);
+	__webpack_require__(38);
 
-	__webpack_require__(54);
+	__webpack_require__(55);
 
 /***/ }),
 /* 1 */
@@ -73,7 +73,7 @@
 	angular.module('app.filters', []);
 	angular.module('app.services', []);
 	angular.module('app.config', []);
-	angular.module('app.components', ['ui.router', 'angular-loading-bar', 'restangular', 'ngStorage', 'satellizer', 'mm.acl', 'oc.lazyLoad', 'ui.utils', 'ui.grid']);
+	angular.module('app.components', ['ui.router', 'angular-loading-bar', 'restangular', 'ngStorage', 'satellizer', 'mm.acl', 'oc.lazyLoad', 'ui.utils']);
 
 /***/ }),
 /* 2 */
@@ -290,13 +290,32 @@
 	                return $ocLazyLoad.load(['dataTables', 'ui-grid'], {
 	                    insertBefore: '#lazyload_placeholder'
 	                }).then(function () {
-	                    console.log(3);
+	                    angular.module('app.components', ['ui.grid']);
 	                });
 	            }]
 	        },
 	        views: {
 	            'main@app': {
 	                template: '<user-management></user-management>'
+	            }
+	        }
+	    }).state('app.departments', {
+	        url: '/departments',
+	        data: {
+	            auth: true
+	        },
+	        resolve: {
+	            deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+	                return $ocLazyLoad.load(['dataTables', 'ui-grid', 'switchery', 'select'], {
+	                    insertBefore: '#lazyload_placeholder'
+	                }).then(function () {
+	                    angular.module('app.components', ['ui.grid', 'ui.select']);
+	                });
+	            }]
+	        },
+	        views: {
+	            'main@app': {
+	                template: '<department-management></department-management>'
 	            }
 	        }
 	    }).state('app.chat', {
@@ -1171,26 +1190,8 @@
 
 	var _userManagement = __webpack_require__(36);
 
-	// import { TablesSimpleComponent } from './app/components/tables-simple/tables-simple.component'
-	// import { UiModalComponent } from './app/components/ui-modal/ui-modal.component'
-	// import { UiTimelineComponent } from './app/components/ui-timeline/ui-timeline.component'
-	// import { UiButtonsComponent } from './app/components/ui-buttons/ui-buttons.component'
-	// import { UiIconsComponent } from './app/components/ui-icons/ui-icons.component'
-	// import { UiGeneralComponent } from './app/components/ui-general/ui-general.component'
-	// import { FormsGeneralComponent } from './app/components/forms-general/forms-general.component'
-	// import { ChartsChartjsComponent } from './app/components/charts-chartjs/charts-chartjs.component'
-	// import { WidgetsComponent } from './app/components/widgets/widgets.component'
-	// import { UserProfileComponent } from './app/components/user-profile/user-profile.component'
-	// import { UserVerificationComponent } from './app/components/user-verification/user-verification.component'
-	// import { ComingSoonComponent } from './app/components/coming-soon/coming-soon.component'
-	// import { UserEditComponent } from './app/components/user-edit/user-edit.component'
-	// import { UserPermissionsEditComponent } from './app/components/user-permissions-edit/user-permissions-edit.component'
-	// import { UserPermissionsAddComponent } from './app/components/user-permissions-add/user-permissions-add.component'
-	// import { UserPermissionsComponent } from './app/components/user-permissions/user-permissions.component'
-	// import { UserRolesEditComponent } from './app/components/user-roles-edit/user-roles-edit.component'
-	// import { UserRolesAddComponent } from './app/components/user-roles-add/user-roles-add.component'
-	// import { UserRolesComponent } from './app/components/user-roles/user-roles.component'
-	// import { UserListsComponent } from './app/components/user-lists/user-lists.component'
+	var _departmentManagement = __webpack_require__(37);
+
 	angular.module('app.components')
 	// .component('tablesSimple', TablesSimpleComponent)
 	// .component('uiModal', UiModalComponent)
@@ -1212,7 +1213,26 @@
 	// .component('userRolesAdd', UserRolesAddComponent)
 	// .component('userRoles', UserRolesComponent)
 	// .component('userLists', UserListsComponent)
-	.component('chat', _chat.ChatComponent).component('projectView', _projectView.ProjectViewComponent).component('projectCreate', _projectCreate.ProjectCreateComponent).component('projects', _projects.ProjectsComponent).component('contacts', _contacts.ContactsComponent).component('dashboard', _dashboard.DashboardComponent).component('navSidebar', _navSidebar.NavSidebarComponent).component('navHeader', _navHeader.NavHeaderComponent).component('loginLoader', _loginLoader.LoginLoaderComponent).component('resetPassword', _resetPassword.ResetPasswordComponent).component('forgotPassword', _forgotPassword.ForgotPasswordComponent).component('loginForm', _loginForm.LoginFormComponent).component('registerForm', _registerForm.RegisterFormComponent).component('quickSearch', _quickSearch.QuickSearchComponent).component('quickView', _quickView.QuickViewComponent).component('organization', _organization.OrganizationComponent).component('preference', _preference.PreferenceComponent).component('userManagement', _userManagement.UserManagementComponent);
+	.component('chat', _chat.ChatComponent).component('projectView', _projectView.ProjectViewComponent).component('projectCreate', _projectCreate.ProjectCreateComponent).component('projects', _projects.ProjectsComponent).component('contacts', _contacts.ContactsComponent).component('dashboard', _dashboard.DashboardComponent).component('navSidebar', _navSidebar.NavSidebarComponent).component('navHeader', _navHeader.NavHeaderComponent).component('loginLoader', _loginLoader.LoginLoaderComponent).component('resetPassword', _resetPassword.ResetPasswordComponent).component('forgotPassword', _forgotPassword.ForgotPasswordComponent).component('loginForm', _loginForm.LoginFormComponent).component('registerForm', _registerForm.RegisterFormComponent).component('quickSearch', _quickSearch.QuickSearchComponent).component('quickView', _quickView.QuickViewComponent).component('organization', _organization.OrganizationComponent).component('preference', _preference.PreferenceComponent).component('userManagement', _userManagement.UserManagementComponent).component('departmentManagement', _departmentManagement.DepartmentManagementComponent); // import { TablesSimpleComponent } from './app/components/tables-simple/tables-simple.component'
+	// import { UiModalComponent } from './app/components/ui-modal/ui-modal.component'
+	// import { UiTimelineComponent } from './app/components/ui-timeline/ui-timeline.component'
+	// import { UiButtonsComponent } from './app/components/ui-buttons/ui-buttons.component'
+	// import { UiIconsComponent } from './app/components/ui-icons/ui-icons.component'
+	// import { UiGeneralComponent } from './app/components/ui-general/ui-general.component'
+	// import { FormsGeneralComponent } from './app/components/forms-general/forms-general.component'
+	// import { ChartsChartjsComponent } from './app/components/charts-chartjs/charts-chartjs.component'
+	// import { WidgetsComponent } from './app/components/widgets/widgets.component'
+	// import { UserProfileComponent } from './app/components/user-profile/user-profile.component'
+	// import { UserVerificationComponent } from './app/components/user-verification/user-verification.component'
+	// import { ComingSoonComponent } from './app/components/coming-soon/coming-soon.component'
+	// import { UserEditComponent } from './app/components/user-edit/user-edit.component'
+	// import { UserPermissionsEditComponent } from './app/components/user-permissions-edit/user-permissions-edit.component'
+	// import { UserPermissionsAddComponent } from './app/components/user-permissions-add/user-permissions-add.component'
+	// import { UserPermissionsComponent } from './app/components/user-permissions/user-permissions.component'
+	// import { UserRolesEditComponent } from './app/components/user-roles-edit/user-roles-edit.component'
+	// import { UserRolesAddComponent } from './app/components/user-roles-add/user-roles-add.component'
+	// import { UserRolesComponent } from './app/components/user-roles/user-roles.component'
+	// import { UserListsComponent } from './app/components/user-lists/user-lists.component'
 
 /***/ }),
 /* 19 */
@@ -2078,7 +2098,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -2086,94 +2106,207 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var UserManagementController = function () {
-	    UserManagementController.$inject = ["$scope"];
-	    function UserManagementController($scope) {
-	        'ngInject';
+	  UserManagementController.$inject = ["$scope"];
+	  function UserManagementController($scope) {
+	    'ngInject';
 
-	        _classCallCheck(this, UserManagementController);
+	    _classCallCheck(this, UserManagementController);
 
-	        this.table = $('#tableWithSearch');
-	        this.addTable = $('#addNewAppModal');
-	        var that = this;
+	    this.table = $('#tableWithSearch');
+	    this.addTable = $('#addNewAppModal');
+	    var that = this;
 
-	        this.options = {
-	            "sDom": "<'table-responsive't><'row'<p i>>",
+	    this.options = {
+	      "sDom": "<'table-responsive't><'row'<p i>>",
 
-	            "destroy": true,
-	            "scrollCollapse": true,
-	            "oLanguage": {
-	                "sLengthMenu": "_MENU_ ",
-	                "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
-	            },
-	            "iDisplayLength": 5
-	        };
-	        this.filter = function (event) {
-	            that.table.dataTable().fnFilter($(event.currentTarget).val());
-	        };
-	        this.showModal = function () {
-	            that.addTable.modal('show');
-	        };
-	        this.addNewUser = function () {
-	            alert();
-	            that.addTable.modal('hide');
-	        };
-	        this.hideModal = function () {
-	            that.addTable.modal('hide');
-	        };
-	    }
+	      "destroy": true,
+	      "scrollCollapse": true,
+	      "oLanguage": {
+	        "sLengthMenu": "_MENU_ ",
+	        "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+	      },
+	      "iDisplayLength": 5
+	    };
+	    this.filter = function (event) {
+	      that.table.dataTable().fnFilter($(event.currentTarget).val());
+	    };
+	    this.showModal = function () {
+	      that.addTable.modal('show');
+	    };
+	    this.addNewUser = function () {
+	      alert();
+	      that.addTable.modal('hide');
+	    };
+	    this.hideModal = function () {
+	      that.addTable.modal('hide');
+	    };
+	  }
 
-	    _createClass(UserManagementController, [{
-	        key: '$onInit',
-	        value: function $onInit() {}
-	    }]);
+	  _createClass(UserManagementController, [{
+	    key: '$onInit',
+	    value: function $onInit() {}
+	  }]);
 
-	    return UserManagementController;
+	  return UserManagementController;
 	}();
 
 	var UserManagementComponent = exports.UserManagementComponent = {
-	    templateUrl: './views/app/components/user-management/user-management.component.html',
-	    controller: UserManagementController,
-	    controllerAs: 'vm',
-	    bindings: {}
+	  templateUrl: './views/app/components/user-management/user-management.component.html',
+	  controller: UserManagementController,
+	  controllerAs: 'vm',
+	  bindings: {}
 	};
 
 /***/ }),
 /* 37 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var DepartmentManagementController = function () {
+	  DepartmentManagementController.$inject = ["API", "$scope", "$sce", "$compile"];
+	  function DepartmentManagementController(API, $scope, $sce, $compile) {
+	    'ngInject';
+
+	    _classCallCheck(this, DepartmentManagementController);
+
+	    this.$sce = $sce;
+	    this.$scope = $scope;
+	    this.$compile = $compile;
+	    this.API = API;
+	    this.departmentRoute = API.all('department');
+	    var that = this;
+	    this.table = $('#tableDepartments');
+	    this.addTable = $('#addDepartmentModal');
+
+	    this.options = {
+	      "sDom": "<'table-responsive't><'row'<p i>>",
+	      "destroy": true,
+	      "scrollCollapse": true,
+	      "oLanguage": {
+	        "sLengthMenu": "_MENU_ ",
+	        "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+	      },
+	      "iDisplayLength": 5
+	    };
+	    this.departments = [];
+	    this.p_department_sel = {};
+	    this.p_departments = [{ id: '0', name: '---', des: '', p_dep: '' }];
+
+	    this.newDepartment = { name: 'a', active: '1', des: 'a', p_dep: '0' };
+	  }
+
+	  _createClass(DepartmentManagementController, [{
+	    key: 'getDepartment',
+	    value: function getDepartment() {
+	      var _this = this;
+
+	      this.departmentRoute.get('index').then(function (response) {
+	        var dep_list = response.plain().data;
+	        _this.table.dataTable();
+	        _this.departments = dep_list;
+	        console.log(_this.departments);
+	        for (var i = 0; i < dep_list.length; i++) {
+	          var item = dep_list[i];
+	          _this.p_departments.push({ id: item.id, name: item.name, des: item.description });
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'filter',
+	    value: function filter(event) {
+	      this.table.dataTable().fnFilter($(event.currentTarget).val());
+	    }
+	  }, {
+	    key: 'showModal',
+	    value: function showModal() {
+	      this.addTable.modal('show');
+	    }
+	  }, {
+	    key: 'addNewUser',
+	    value: function addNewUser() {
+	      var _this2 = this;
+
+	      var selected_dep_id = this.p_department_sel.selected.id;
+	      this.newDepartment.p_dep = selected_dep_id;
+	      this.departmentRoute.all("new-department").post(this.newDepartment).then(function (response) {
+	        _this2.getDepartment();
+	      });
+	      this.addTable.modal('hide');
+	    }
+	  }, {
+	    key: 'hideModal',
+	    value: function hideModal() {
+	      this.addTable.modal('hide');
+	    }
+	  }, {
+	    key: 'trustAsHtml',
+	    value: function trustAsHtml(value) {
+	      return this.$sce.trustAsHtml(value);
+	    }
+	  }, {
+	    key: '$onInit',
+	    value: function $onInit() {
+	      this.p_department_sel.selected = this.p_departments[0];
+	      this.getDepartment();
+	    }
+	  }]);
+
+	  return DepartmentManagementController;
+	}();
+
+	var DepartmentManagementComponent = exports.DepartmentManagementComponent = {
+	  templateUrl: './views/app/components/department-management/department-management.component.html',
+	  controller: DepartmentManagementController,
+	  controllerAs: 'vm',
+	  bindings: {}
+	};
+
+/***/ }),
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _routeBodyclass = __webpack_require__(38);
+	var _routeBodyclass = __webpack_require__(39);
 
-	var _passwordVerify = __webpack_require__(39);
+	var _passwordVerify = __webpack_require__(40);
 
-	var _scrollToBottom = __webpack_require__(40);
+	var _scrollToBottom = __webpack_require__(41);
 
-	var _csSelect = __webpack_require__(41);
+	var _csSelect = __webpack_require__(42);
 
-	var _pgDropdown = __webpack_require__(42);
+	var _pgDropdown = __webpack_require__(43);
 
-	var _pgFormGroup = __webpack_require__(43);
+	var _pgFormGroup = __webpack_require__(44);
 
-	var _pgHorizontalMenu = __webpack_require__(44);
+	var _pgHorizontalMenu = __webpack_require__(45);
 
-	var _pgNavigate = __webpack_require__(45);
+	var _pgNavigate = __webpack_require__(46);
 
-	var _pgNotificationCenter = __webpack_require__(46);
+	var _pgNotificationCenter = __webpack_require__(47);
 
-	var _pgPortlet = __webpack_require__(47);
+	var _pgPortlet = __webpack_require__(48);
 
-	var _pgQuickview = __webpack_require__(48);
+	var _pgQuickview = __webpack_require__(49);
 
-	var _pgSearch = __webpack_require__(49);
+	var _pgSearch = __webpack_require__(50);
 
-	var _pgSidebar = __webpack_require__(50);
+	var _pgSidebar = __webpack_require__(51);
 
-	var _pgTabDropdownfx = __webpack_require__(51);
+	var _pgTabDropdownfx = __webpack_require__(52);
 
-	var _pgTab = __webpack_require__(52);
+	var _pgTab = __webpack_require__(53);
 
-	var _skycons = __webpack_require__(53);
+	var _skycons = __webpack_require__(54);
 
 	angular.module('app.components').directive('routeBodyclass', _routeBodyclass.RouteBodyClassComponent).directive('passwordVerify', _passwordVerify.PasswordVerifyClassComponent).directive('scrollToBottom', _scrollToBottom.ScrollToBottomComponent).directive('csSelect', _csSelect.CsSelect).directive('pgDropdown', _pgDropdown.PgDropdown).directive('pgFormGroup', _pgFormGroup.PgFormGroup).directive('pgHorizontalMenu', _pgHorizontalMenu.PgHorizontalMenu).directive('pgHorizontalMenu', _pgHorizontalMenu.PgHorizontalMenuToggle).directive('pgNavigate', _pgNavigate.PgNavigate).directive('pgNotificationCenter', _pgNotificationCenter.PgNotificationCenter).directive('pgPortlet', _pgPortlet.PgPortlet).directive('pgQuickview', _pgQuickview.PgQuickview).directive('pgSearch', _pgSearch.PgSearch).directive('pgSidebar', _pgSidebar.PgSidebar).directive('pgTabDropdownfx', _pgTabDropdownfx.PgTabDropdownfx).directive('pgTab', _pgTab.PgTab).directive('skycons', _skycons.Skycons).directive('includeReplace', function () {
 	    return {
@@ -2186,7 +2319,7 @@
 	});
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2222,7 +2355,7 @@
 	var RouteBodyClassComponent = exports.RouteBodyClassComponent = routeBodyClass;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2267,7 +2400,7 @@
 	var PasswordVerifyClassComponent = exports.PasswordVerifyClassComponent = passwordVerifyClass;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2298,7 +2431,7 @@
 	var ScrollToBottomComponent = exports.ScrollToBottomComponent = scrollToBottom;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2329,7 +2462,7 @@
 	var CsSelect = exports.CsSelect = csSelect;
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2366,7 +2499,7 @@
 	var PgDropdown = exports.PgDropdown = pgDropdown;
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2413,7 +2546,7 @@
 	var PgFormGroup = exports.PgFormGroup = pgFormGroup;
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2462,7 +2595,7 @@
 	var PgHorizontalMenuToggle = exports.PgHorizontalMenuToggle = pgHorizontalMenuToggle;
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2496,7 +2629,7 @@
 	var PgNavigate = exports.PgNavigate = pgNavigate;
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2529,7 +2662,7 @@
 	var PgNotificationCenter = exports.PgNotificationCenter = pgNotificationCenter;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2569,7 +2702,7 @@
 	var PgPortlet = exports.PgPortlet = pgPortlet;
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2596,7 +2729,7 @@
 	var PgQuickview = exports.PgQuickview = pgQuickview;
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2630,7 +2763,7 @@
 	var PgSearch = exports.PgSearch = pgSearch;
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2683,7 +2816,7 @@
 	var PgSidebar = exports.PgSidebar = pgSidebar;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -2731,7 +2864,7 @@
 	var PgTabDropdownfx = exports.PgTabDropdownfx = pgTabDropdownfx;
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2785,7 +2918,7 @@
 	var PgTab = exports.PgTab = pgTab;
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2813,19 +2946,19 @@
 	var Skycons = exports.Skycons = skycons;
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _context = __webpack_require__(55);
+	var _context = __webpack_require__(56);
 
-	var _API = __webpack_require__(56);
+	var _API = __webpack_require__(57);
 
 	angular.module('app.services').service('ContextService', _context.ContextService).service('API', _API.APIService);
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -2877,7 +3010,7 @@
 	}();
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
 	'use strict';

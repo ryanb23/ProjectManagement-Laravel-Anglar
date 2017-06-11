@@ -15,8 +15,9 @@ class CreateSubDepartmentsTable extends Migration
         Schema::create('sub_departments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('p_dep_id')->unsigned();
-            $table->string('role');
-            $table->string('name');
+            $table->string('description');
+            $table->string('name')->unique();
+            $table->enum('active',['1','0'])->default('1');
             $table->timestamps();
 
             $table->foreign('p_dep_id')
