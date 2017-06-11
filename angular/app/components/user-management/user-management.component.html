@@ -164,7 +164,6 @@
     <!-- END PANEL -->
 </div>
 <!-- END CONTAINER FLUID -->
-
 <!-- MODAL STICK UP  -->
 <div class="modal fade stick-up" id="addNewAppModal" tabindex="-1" role="dialog" aria-labelledby="addNewAppModal" aria-hidden="true">
     <div class="modal-dialog">
@@ -187,10 +186,17 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div pg-form-group class="form-group form-group-default">
-                                <label>Description</label>
-                                <input id="appDescription" type="text" class="form-control" placeholder="Tell us more about it">
-                            </div>
+                          <form role="form">
+                              <div class="form-group ">
+                                  <ui-select ng-model="person.selected" theme="bootstrap">
+                                      <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
+                                      <ui-select-choices repeat="item in people | filter: $select.search">
+                                          <div ng-bind-html="trustAsHtml((item.name | highlight: $select.search))"></div>
+                                          <small ng-bind-html="trustAsHtml((item.email | highlight: $select.search))"></small>
+                                      </ui-select-choices>
+                                  </ui-select>
+                              </div>
+                          </form>
                         </div>
                     </div>
                     <div class="row">

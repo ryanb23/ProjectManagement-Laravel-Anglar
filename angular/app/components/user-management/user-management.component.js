@@ -19,8 +19,8 @@ class UserManagementController {
     this.filter = function(event) {
       that.table.dataTable().fnFilter($(event.currentTarget).val());
     }
-    this.showModal = function() {
-        that.addTable.modal('show');
+    this.showModal = function(){
+      that.addTable.modal('show');
     }
     this.addNewUser = function() {
         alert()
