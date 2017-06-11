@@ -101,13 +101,39 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                               insertBefore: '#lazyload_placeholder'
                           })
                           .then(function() {
-                              console.log(3);
+                            angular.module('app.components', ['ui.grid']);
                           });
                   }]
             },
             views: {
                 'main@app': {
                     template: '<user-management></user-management>'
+                }
+            },
+        })
+        .state('app.departments', {
+            url: '/departments',
+            data: {
+                auth: true
+            },
+            resolve: {
+                  deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                      return $ocLazyLoad.load([
+                              'dataTables',
+                              'ui-grid',
+                              'switchery',
+                              'select'
+                          ], {
+                              insertBefore: '#lazyload_placeholder'
+                          })
+                          .then(function() {
+                              angular.module('app.components', ['ui.grid','ui.select']);
+                          });
+                  }]
+            },
+            views: {
+                'main@app': {
+                    template: '<department-management></department-management>'
                 }
             },
         })

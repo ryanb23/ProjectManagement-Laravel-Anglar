@@ -36,6 +36,7 @@ import { QuickViewComponent } from './app/components/quick-view/quick-view.compo
 import { OrganizationComponent } from './app/components/organization/organization.component'
 import { PreferenceComponent } from './app/components/preference/preference.component'
 import { UserManagementComponent } from './app/components/user-management/user-management.component'
+import { DepartmentManagementComponent } from './app/components/department-management/department-management.component'
 
 angular.module('app.components')
   // .component('tablesSimple', TablesSimpleComponent)
@@ -76,3 +77,4 @@ angular.module('app.components')
   .component('organization', OrganizationComponent)
   .component('preference', PreferenceComponent)
   .component('userManagement', UserManagementComponent)
+  .component('departmentManagement', DepartmentManagementComponent)

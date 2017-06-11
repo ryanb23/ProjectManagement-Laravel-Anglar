@@ -16,5 +16,5 @@ angular.module('app.config', [])
 angular.module('app.components', [
   'ui.router', 'angular-loading-bar',
   'restangular', 'ngStorage', 'satellizer',
-  'mm.acl','oc.lazyLoad','ui.utils','ui.grid'
+  'mm.acl','oc.lazyLoad','ui.utils'
 ])
