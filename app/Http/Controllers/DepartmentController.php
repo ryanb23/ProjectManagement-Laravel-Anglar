@@ -22,17 +22,18 @@ class DepartmentController extends Controller
 
     public function postNewDepartment(Request $request){
       $p_dep_id = $request['p_dep'];
+      $active = $request['active'] ? '1' : '0';
       if($p_dep_id == 0) // Department
       {
-        Department::create(['name'=>$request['name'],'description'=>$request['des'],'active'=>$request['active']]);
+        Department::create(['name'=>$request['name'],'description'=>$request['des'],'active'=>$active]);
       }else{  // Sub Department
-        SubDepartment::create(['p_dep_id'=>$p_dep_id,'name'=>$request['name'],'description'=>$request['des'],'active'=>$request['active']]);
+        SubDepartment::create(['p_dep_id'=>$p_dep_id,'name'=>$request['name'],'description'=>$request['des'],'active'=>$active]);
       }
-      return response()->success('success');
+      return response()->success(self::getAllDepartment());
     }
 
     private function getAllDepartment(){
-      $departmentList = Department::with('subdepartment','departmentpermission')->get();
+      $departmentList = Department::with('subdepartment','departmentpermission')->get()->toArray();
       return $departmentList;
     }
 }

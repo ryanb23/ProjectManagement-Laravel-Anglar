@@ -12,7 +12,7 @@ class SubDepartment extends Model
      * @var array
      */
     protected $fillable = [
-        'p_dep_id', 'role', 'name'
+        'p_dep_id', 'role', 'name', 'active'
     ];
 
     public function department()
