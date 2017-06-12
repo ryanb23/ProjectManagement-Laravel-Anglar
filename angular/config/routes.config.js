@@ -123,11 +123,12 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                               'ui-grid',
                               'switchery',
                               'select',
+
                           ], {
                               insertBefore: '#lazyload_placeholder'
                           })
                           .then(function() {
-                              angular.module('app.components', ['ui.grid','ui.select']);
+                              angular.module('app.components', ['ui.grid','ui.select'])
                           });
                   }]
             },
