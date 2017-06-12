@@ -19,33 +19,53 @@
         </div>
     </div>
     <div class="panel-body">
-        <table class="table table-hover" id="tableDepartments" ui-jq="dataTable" ui-options="vm.options">
+        <table class="table table-hover" id="tableDepartments">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Name</th>
+                    <th>Parent</th>
                     <th>Description</th>
-                    <th>DEPARTMENT</th>
-                    <th>PERMISSION</th>
-                    <th>STATUS</th>
+                    <th>Status</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in vm.departments">
+                <tr class="parent" ng-repeat-start="item in vm.departments" on-finish-render="initDataTable">
+                    <td>+</td>
                     <td class="v-align-middle">
                         <p>{{item.name}}</p>
                     </td>
                     <td class="v-align-middle">
-                        <a href="#" class="btn btn-tag">Finance</a>
                     </td>
                     <td class="v-align-middle">
-                        <a href="#" class="btn btn-tag">Decision maker</a>
-                        <a href="#" class="btn btn-tag">Project manager</a>
+                        <p>{{item.description}}</p>
                     </td>
                     <td class="v-align-middle">
-                        <p>chen.vincent@efico.co</p>
+                        <span class="label" ng-class="{'label-success':item.active == 1,'label-danger':item.active == 0}">{{item.active == 1?'Enabled':'Disabled'}}</span>
+                    </td>
+                    <td>
+                      <button class="btn btn-primary btn-xs m-t-10" ng-click="vm.editDepartment({'type':'parent','id':item.id})"><i class="fa fa-edit"></i></button>
+                      <button class="btn btn-danger btn-xs m-t-10" ng-click="vm.removeDepartment({'type':'parent','id':item.id})"><i class="fa fa-remove"></i></button>
+                    </td>
+                </tr>
+                <tr ng-repeat-end ng-repeat="subitem in item.subdepartment">
+                    <td></td>
+                    <td class="v-align-middle">
+                        <p>{{subitem.name}}</p>
                     </td>
                     <td class="v-align-middle">
-                        <span class="label label-success">Enabled</span>
+                        <a href="javascript:;" class="btn btn-tag">{{item.name}}</a>
+                    </td>
+                    <td class="v-align-middle">
+                        <p>{{subitem.description}}</p>
+                    </td>
+                    <td class="v-align-middle">
+                        <span class="label" ng-class="{'label-success':subitem.active == 1,'label-danger':subitem.active == 0}">{{subitem.active == 1?'Enabled':'Disabled'}}</span>
+                    </td>
+                    <td>
+                      <button class="btn btn-primary btn-xs m-t-10">Edit</button>
+                      <button class="btn btn-danger btn-xs m-t-10">Remove</button>
                     </td>
                 </tr>
             </tbody>
@@ -112,7 +132,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="add-app" type="button" class="btn btn-primary  btn-cons" ng-click="vm.addNewUser()">Add</button>
+                <button id="add-app" type="button" class="btn btn-primary  btn-cons" ng-click="vm.addNewDepartment()">Add</button>
                 <button type="button" class="btn btn-cons" ng-click="vm.hideModal()">Close</button>
             </div>
         </div>
