@@ -122,7 +122,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                               'dataTables',
                               'ui-grid',
                               'switchery',
-                              'select'
+                              'select',
                           ], {
                               insertBefore: '#lazyload_placeholder'
                           })

@@ -15,6 +15,7 @@ import { PgSidebar } from './directives/custom/pg-sidebar.component'
 import { PgTabDropdownfx } from './directives/custom/pg-tab-dropdownfx.component'
 import { PgTab } from './directives/custom/pg-tab.component'
 import { Skycons } from './directives/custom/skycons.component'
+import { OnFinishRender } from './directives/custom/on-finish-render.component'
 
 angular.module('app.components')
   .directive('routeBodyclass', RouteBodyClassComponent)
@@ -34,6 +35,7 @@ angular.module('app.components')
   .directive('pgTabDropdownfx', PgTabDropdownfx)
   .directive('pgTab', PgTab)
   .directive('skycons', Skycons)
+  .directive('onFinishRender', OnFinishRender)
   .directive('includeReplace', function() {
       return {
           require: 'ngInclude',
