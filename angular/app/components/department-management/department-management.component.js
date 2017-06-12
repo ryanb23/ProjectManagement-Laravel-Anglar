@@ -7,9 +7,14 @@ class DepartmentManagementController {
     this.API = API;
     this.departmentRoute = API.all('department');
     let that = this
+
     this.table = $('#tableDepartments')
     this.addTable = $('#addDepartmentModal')
+    this.addDepartmentFrom = null
     this.addTable_dj = null
+    this.formSubmitted = false
+    this.formType = 'add';
+
     this.options = {
         "sDom": "<'table-responsive't><'row'<p i>>",
         "destroy": true,
@@ -25,7 +30,7 @@ class DepartmentManagementController {
     this.p_department_sel = {};
     this.p_departments = [];
 
-    this.newDepartment = {name:'a',active: true, des:'a' ,p_dep:'0'}
+    this.newDepartment = {name:'',active: true, des:'' ,p_dep:'0'}
 
     $scope.$on('initDataTable', function(ngRepeatFinishedEvent) {
       if($.fn.DataTable.isDataTable( '#tableDepartments' ))
@@ -56,19 +61,41 @@ class DepartmentManagementController {
   }
 
   addNewDepartment() {
-    let selected_dep_id = this.p_department_sel.selected.id;
-    this.newDepartment.p_dep = selected_dep_id
-    this.departmentRoute.all("new-department").post(this.newDepartment).then((response) => {
-        var dep_list = response.plain().data;
-        this.InitValues(dep_list)
-    })
-    this.addTable.modal('hide');
+    this.newDepartment.active = false
+    // console.log(this.addDepartmentFrom);
+    this.formSubmitted = true
+    // let selected_dep_id = this.p_department_sel.selected.id;
+    // this.newDepartment.p_dep = selected_dep_id
+    // this.departmentRoute.all("new-department").post(this.newDepartment).then((response) => {
+    //     var dep_list = response.plain().data;
+    //     this.InitValues(dep_list)
+    // })
+    // this.addTable.modal('hide');
+  }
+  addDepartment(){
+    this.formType = 'add';
+    this.newDepartment = {name:'',active: true, des:'' ,p_dep:'0'}
+    this.showModal();
   }
 
   editDepartment(params){
+    this.formType = 'edit';
     let type = params.type;
-    let id = params.id;
-    console.log(id)
+    let item = params.data;
+    if(type == 'parent')
+    {
+      this.newDepartment.name = item.name
+      this.newDepartment.des = item.description
+      this.newDepartment.active = item.active == 1 ? true: false;
+
+      // this.p_department_sel
+
+      this.newDepartment.p_dep = item.p_dep
+    }
+    else{
+
+    }
+    this.showModal();
   }
 
   removeDepartment(params){
@@ -79,9 +106,9 @@ class DepartmentManagementController {
     this.addTable.modal('show')
   }
   hideModal() {
-      this.addTable.modal('hide');
+    this.addTable.modal('hide');
   }
-  
+
   trustAsHtml(value) {
       return this.$sce.trustAsHtml(value);
   }

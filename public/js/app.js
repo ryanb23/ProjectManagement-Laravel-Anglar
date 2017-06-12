@@ -58,7 +58,7 @@
 
 	__webpack_require__(38);
 
-	__webpack_require__(55);
+	__webpack_require__(56);
 
 /***/ }),
 /* 1 */
@@ -2184,40 +2184,56 @@
 	    this.API = API;
 	    this.departmentRoute = API.all('department');
 	    var that = this;
+
 	    this.table = $('#tableDepartments');
 	    this.addTable = $('#addDepartmentModal');
+	    this.addDepartmentFrom = null;
+	    this.addTable_dj = null;
+	    this.formSubmitted = false;
+	    this.formType = 'add';
 
 	    this.options = {
 	      "sDom": "<'table-responsive't><'row'<p i>>",
 	      "destroy": true,
+	      "bSort": false,
 	      "scrollCollapse": true,
 	      "oLanguage": {
 	        "sLengthMenu": "_MENU_ ",
 	        "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
 	      },
-	      "iDisplayLength": 5
+	      "iDisplayLength": 10
 	    };
 	    this.departments = [];
 	    this.p_department_sel = {};
-	    this.p_departments = [{ id: '0', name: '---', des: '', p_dep: '' }];
+	    this.p_departments = [];
 
-	    this.newDepartment = { name: 'a', active: '1', des: 'a', p_dep: '0' };
+	    this.newDepartment = { name: '', active: true, des: '', p_dep: '0' };
+
+	    $scope.$on('initDataTable', function (ngRepeatFinishedEvent) {
+	      if ($.fn.DataTable.isDataTable('#tableDepartments')) that.addTable_dj.fnDestroy();
+	      that.addTable_dj = that.table.dataTable(that.options);
+	    });
 	  }
 
 	  _createClass(DepartmentManagementController, [{
+	    key: 'InitValues',
+	    value: function InitValues(dep_list) {
+	      if ($.fn.DataTable.isDataTable('#tableDepartments')) this.addTable_dj.fnDestroy();
+	      this.departments = dep_list;
+	      this.p_departments = [{ id: '0', name: '---', des: '', p_dep: '' }];
+	      for (var i = 0; i < dep_list.length; i++) {
+	        var item = dep_list[i];
+	        this.p_departments.push({ id: item.id, name: item.name, des: item.description });
+	      }
+	    }
+	  }, {
 	    key: 'getDepartment',
 	    value: function getDepartment() {
 	      var _this = this;
 
 	      this.departmentRoute.get('index').then(function (response) {
 	        var dep_list = response.plain().data;
-	        _this.table.dataTable();
-	        _this.departments = dep_list;
-	        console.log(_this.departments);
-	        for (var i = 0; i < dep_list.length; i++) {
-	          var item = dep_list[i];
-	          _this.p_departments.push({ id: item.id, name: item.name, des: item.description });
-	        }
+	        _this.InitValues(dep_list);
 	      });
 	    }
 	  }, {
@@ -2226,21 +2242,52 @@
 	      this.table.dataTable().fnFilter($(event.currentTarget).val());
 	    }
 	  }, {
+	    key: 'addNewDepartment',
+	    value: function addNewDepartment() {
+	      this.newDepartment.active = false;
+	      // console.log(this.addDepartmentFrom);
+	      this.formSubmitted = true;
+	      // let selected_dep_id = this.p_department_sel.selected.id;
+	      // this.newDepartment.p_dep = selected_dep_id
+	      // this.departmentRoute.all("new-department").post(this.newDepartment).then((response) => {
+	      //     var dep_list = response.plain().data;
+	      //     this.InitValues(dep_list)
+	      // })
+	      // this.addTable.modal('hide');
+	    }
+	  }, {
+	    key: 'addDepartment',
+	    value: function addDepartment() {
+	      this.formType = 'add';
+	      this.newDepartment = { name: '', active: true, des: '', p_dep: '0' };
+	      this.showModal();
+	    }
+	  }, {
+	    key: 'editDepartment',
+	    value: function editDepartment(params) {
+	      this.formType = 'edit';
+	      var type = params.type;
+	      var item = params.data;
+	      if (type == 'parent') {
+	        this.newDepartment.name = item.name;
+	        this.newDepartment.des = item.description;
+	        this.newDepartment.active = item.active == 1 ? true : false;
+
+	        // this.p_department_sel
+
+	        this.newDepartment.p_dep = item.p_dep;
+	      } else {}
+	      this.showModal();
+	    }
+	  }, {
+	    key: 'removeDepartment',
+	    value: function removeDepartment(params) {}
+	    // Modal Functions
+
+	  }, {
 	    key: 'showModal',
 	    value: function showModal() {
 	      this.addTable.modal('show');
-	    }
-	  }, {
-	    key: 'addNewUser',
-	    value: function addNewUser() {
-	      var _this2 = this;
-
-	      var selected_dep_id = this.p_department_sel.selected.id;
-	      this.newDepartment.p_dep = selected_dep_id;
-	      this.departmentRoute.all("new-department").post(this.newDepartment).then(function (response) {
-	        _this2.getDepartment();
-	      });
-	      this.addTable.modal('hide');
 	    }
 	  }, {
 	    key: 'hideModal',
@@ -2308,7 +2355,9 @@
 
 	var _skycons = __webpack_require__(54);
 
-	angular.module('app.components').directive('routeBodyclass', _routeBodyclass.RouteBodyClassComponent).directive('passwordVerify', _passwordVerify.PasswordVerifyClassComponent).directive('scrollToBottom', _scrollToBottom.ScrollToBottomComponent).directive('csSelect', _csSelect.CsSelect).directive('pgDropdown', _pgDropdown.PgDropdown).directive('pgFormGroup', _pgFormGroup.PgFormGroup).directive('pgHorizontalMenu', _pgHorizontalMenu.PgHorizontalMenu).directive('pgHorizontalMenu', _pgHorizontalMenu.PgHorizontalMenuToggle).directive('pgNavigate', _pgNavigate.PgNavigate).directive('pgNotificationCenter', _pgNotificationCenter.PgNotificationCenter).directive('pgPortlet', _pgPortlet.PgPortlet).directive('pgQuickview', _pgQuickview.PgQuickview).directive('pgSearch', _pgSearch.PgSearch).directive('pgSidebar', _pgSidebar.PgSidebar).directive('pgTabDropdownfx', _pgTabDropdownfx.PgTabDropdownfx).directive('pgTab', _pgTab.PgTab).directive('skycons', _skycons.Skycons).directive('includeReplace', function () {
+	var _onFinishRender = __webpack_require__(55);
+
+	angular.module('app.components').directive('routeBodyclass', _routeBodyclass.RouteBodyClassComponent).directive('passwordVerify', _passwordVerify.PasswordVerifyClassComponent).directive('scrollToBottom', _scrollToBottom.ScrollToBottomComponent).directive('csSelect', _csSelect.CsSelect).directive('pgDropdown', _pgDropdown.PgDropdown).directive('pgFormGroup', _pgFormGroup.PgFormGroup).directive('pgHorizontalMenu', _pgHorizontalMenu.PgHorizontalMenu).directive('pgHorizontalMenu', _pgHorizontalMenu.PgHorizontalMenuToggle).directive('pgNavigate', _pgNavigate.PgNavigate).directive('pgNotificationCenter', _pgNotificationCenter.PgNotificationCenter).directive('pgPortlet', _pgPortlet.PgPortlet).directive('pgQuickview', _pgQuickview.PgQuickview).directive('pgSearch', _pgSearch.PgSearch).directive('pgSidebar', _pgSidebar.PgSidebar).directive('pgTabDropdownfx', _pgTabDropdownfx.PgTabDropdownfx).directive('pgTab', _pgTab.PgTab).directive('skycons', _skycons.Skycons).directive('onFinishRender', _onFinishRender.OnFinishRender).directive('includeReplace', function () {
 	    return {
 	        require: 'ngInclude',
 	        restrict: 'A',
@@ -2947,18 +2996,47 @@
 
 /***/ }),
 /* 55 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/* ============================================================
+	 * Directive: onFinishRender
+	 * ============================================================ */
+
+	onFinishRender.$inject = ['$timeout'];
+	function onFinishRender($timeout) {
+	    return {
+	        restrict: 'A',
+	        link: function link(scope, element, attr) {
+	            if (scope.$last === true) {
+	                $timeout(function () {
+	                    scope.$emit(attr.onFinishRender);
+	                });
+	            }
+	        }
+	    };
+	}
+
+	var OnFinishRender = exports.OnFinishRender = onFinishRender;
+
+/***/ }),
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _context = __webpack_require__(56);
+	var _context = __webpack_require__(57);
 
-	var _API = __webpack_require__(57);
+	var _API = __webpack_require__(58);
 
 	angular.module('app.services').service('ContextService', _context.ContextService).service('API', _API.APIService);
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -3010,7 +3088,7 @@
 	}();
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports) {
 
 	'use strict';

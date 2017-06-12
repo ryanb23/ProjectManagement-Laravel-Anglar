@@ -12,7 +12,7 @@
             </div>
             <div class="pull-right">
                 <div class="col-xs-12">
-                    <button id="show-modal" class="btn btn-primary btn-cons" ng-click="vm.showModal()"><i class="fa fa-plus"></i> Add row</button>
+                    <button id="show-modal" class="btn btn-primary btn-cons" ng-click="vm.addDepartment()"><i class="fa fa-plus"></i> Add row</button>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -45,8 +45,8 @@
                         <span class="label" ng-class="{'label-success':item.active == 1,'label-danger':item.active == 0}">{{item.active == 1?'Enabled':'Disabled'}}</span>
                     </td>
                     <td>
-                      <button class="btn btn-primary btn-xs m-t-10" ng-click="vm.editDepartment({'type':'parent','id':item.id})"><i class="fa fa-edit"></i></button>
-                      <button class="btn btn-danger btn-xs m-t-10" ng-click="vm.removeDepartment({'type':'parent','id':item.id})"><i class="fa fa-remove"></i></button>
+                      <button class="btn btn-primary btn-xs m-t-10" ng-click="vm.editDepartment({'type':'parent','data':item})"><i class="fa fa-edit"></i></button>
+                      <button class="btn btn-danger btn-xs m-t-10" ng-click="vm.removeDepartment({'type':'parent','data':item})"><i class="fa fa-remove"></i></button>
                     </td>
                 </tr>
                 <tr ng-repeat-end ng-repeat="subitem in item.subdepartment">
@@ -85,9 +85,9 @@
                 </button>
                 <h4 class="p-b-5"><span class="semi-bold">New</span> Department</h4>
             </div>
+            <form role="form" name="vm.addDepartmentFrom" ng-submit="vm.addNewDepartment(vm.addDepartmentFrom.$valid)"  novalidate>
             <div class="modal-body">
                 <p class="small-text">Create a new Department</p>
-                <form role="form" name="vm.addDepartmentFrom">
                     <div class="row">
                         <div class="col-sm-8">
                             <div pg-form-group class="form-group form-group-default required"  ng-class="{ 'has-error': vm.addDepartmentFrom.name.$invalid && ( vm.formSubmitted || vm.addDepartmentFrom.name.$touched) }">
@@ -107,18 +107,16 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <form class="m-t-10" role="form">
-                                <div pg-form-group class="form-group form-group-default form-group-default-select">
-                                    <label class="">Parent Department</label>
-                                    <ui-select ng-model="vm.p_department_sel.selected" theme="bootstrap">
-                                        <ui-select-match placeholder="Select Department">{{$select.selected.name}}</ui-select-match>
-                                        <ui-select-choices repeat="item in vm.p_departments | filter: $select.search">
-                                            <span ng-bind-html="vm.trustAsHtml((item.name | highlight: $select.search))"></span>
-                                            <small ng-bind-html="vm.trustAsHtml((item.des | highlight: $select.search))"></small>
-                                        </ui-select-choices>
-                                    </ui-select>
-                                </div>
-                            </form>
+                            <div pg-form-group class="form-group form-group-default form-group-default-select">
+                                <label class="">Parent Department</label>
+                                <ui-select ng-model="vm.p_department_sel.selected" theme="bootstrap">
+                                    <ui-select-match placeholder="Select Department">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="item in vm.p_departments | filter: $select.search">
+                                        <span ng-bind-html="vm.trustAsHtml((item.name | highlight: $select.search))"></span>
+                                        <small ng-bind-html="vm.trustAsHtml((item.des | highlight: $select.search))"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -129,12 +127,12 @@
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
             <div class="modal-footer">
-                <button id="add-app" type="button" class="btn btn-primary  btn-cons" ng-click="vm.addNewDepartment()">Add</button>
+                <button type="submit" class="btn btn-primary  btn-cons">Add</button>
                 <button type="button" class="btn btn-cons" ng-click="vm.hideModal()">Close</button>
             </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>
