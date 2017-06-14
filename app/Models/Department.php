@@ -12,12 +12,8 @@ class Department extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'active'
+        'name', 'description', 'active', 'p_dep_id'
     ];
-
-    public function subdepartment(){
-        return $this->hasMany(SubDepartment::class,'p_dep_id','id');
-    }
 
     public function departmentpermission(){
         return $this->hasMany(DepartmentPermission::class,'dep_id','id');

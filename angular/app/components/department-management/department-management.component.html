@@ -31,8 +31,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="parent" ng-repeat-start="item in vm.departments" on-finish-render="initDataTable">
-                    <td>+</td>
+                <tr ng-class="{parent:item.p_dep_id == 0}" ng-repeat="item in vm.departments" on-finish-render="initDataTable">
+                    <td>{{item.p_dep_id == 0 ? "+" : ""}}</td>
                     <td class="v-align-middle">
                         <p>{{item.name}}</p>
                     </td>
@@ -45,27 +45,8 @@
                         <span class="label" ng-class="{'label-success':item.active == 1,'label-danger':item.active == 0}">{{item.active == 1?'Enabled':'Disabled'}}</span>
                     </td>
                     <td>
-                      <button class="btn btn-primary btn-xs m-t-10" ng-click="vm.editDepartment({'type':'parent','data':item})"><i class="fa fa-edit"></i></button>
-                      <button class="btn btn-danger btn-xs m-t-10" ng-click="vm.removeDepartment({'type':'parent','data':item})"><i class="fa fa-remove"></i></button>
-                    </td>
-                </tr>
-                <tr ng-repeat-end ng-repeat="subitem in item.subdepartment">
-                    <td></td>
-                    <td class="v-align-middle">
-                        <p>{{subitem.name}}</p>
-                    </td>
-                    <td class="v-align-middle">
-                        <a href="javascript:;" class="btn btn-tag">{{item.name}}</a>
-                    </td>
-                    <td class="v-align-middle">
-                        <p>{{subitem.description}}</p>
-                    </td>
-                    <td class="v-align-middle">
-                        <span class="label" ng-class="{'label-success':subitem.active == 1,'label-danger':subitem.active == 0}">{{subitem.active == 1?'Enabled':'Disabled'}}</span>
-                    </td>
-                    <td>
-                      <button class="btn btn-primary btn-xs m-t-10">Edit</button>
-                      <button class="btn btn-danger btn-xs m-t-10">Remove</button>
+                      <button class="btn btn-primary btn-xs m-t-10" ng-click="vm.editDepartment({'data':item})"><i class="fa fa-edit"></i></button>
+                      <button class="btn btn-danger btn-xs m-t-10" ng-click="vm.removeDepartment({'id':item.id})"><i class="fa fa-remove"></i></button>
                     </td>
                 </tr>
             </tbody>
@@ -85,16 +66,16 @@
                 </button>
                 <h4 class="p-b-5"><span class="semi-bold">New</span> Department</h4>
             </div>
-            <form role="form" name="vm.addDepartmentFrom" ng-submit="vm.addNewDepartment(vm.addDepartmentFrom.$valid)"  novalidate>
+            <form role="form" name="vm.addDepartmentForm" ng-submit="vm.addNewDepartment(vm.addDepartmentForm.$valid)"  novalidate>
             <div class="modal-body">
                 <p class="small-text">Create a new Department</p>
                     <div class="row">
                         <div class="col-sm-8">
-                            <div pg-form-group class="form-group form-group-default required"  ng-class="{ 'has-error': vm.addDepartmentFrom.name.$invalid && ( vm.formSubmitted || vm.addDepartmentFrom.name.$touched) }">
+                            <div pg-form-group class="form-group form-group-default required"  ng-class="{ 'has-error': vm.addDepartmentForm.name.$invalid && ( vm.formSubmitted || vm.addDepartmentForm.name.$touched) }">
                                 <label>name</label>
                                 <input id="departmentName" ng-model="vm.newDepartment.name" name="name" type="text" class="form-control" placeholder="Name" required>
                             </div>
-                            <label class="error help-block" for="name" ng-show="vm.addDepartmentFrom.name.$error.required && ( vm.formSubmitted || vm.addDepartmentFrom.name.$touched)">This field is required.</label>
+                            <label class="error help-block" for="name" ng-show="vm.addDepartmentForm.name.$error.required && ( vm.formSubmitted || vm.addDepartmentForm.name.$touched)">This field is required.</label>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group form-group-default input-group">
