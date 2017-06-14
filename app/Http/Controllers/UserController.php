@@ -11,14 +11,9 @@ use Illuminate\Http\Request;
 use Input;
 use Validator;
 
-use App\Models\SubDepartment;
-
 class UserController extends Controller
 {
 
-    public function test(){
-        return SubDepartment::with('department')->get();
-    }
     /**
      * Get user current context.
      *
