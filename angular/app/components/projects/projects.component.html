@@ -1,10 +1,18 @@
 <!-- START PAGE CONTENT -->
 <nav class="secondary-sidebar padding-30" style="">
-    <a href="create.html" class="btn btn-complete btn-block btn-compose m-b-30">
+    <a ui-sref="app.projects.create" class="btn btn-complete btn-block btn-compose m-b-30">
 		<i calss="fa fa-plus"></i> Create
 	</a>
     <p class="menu-title">All Departements</p>
     <ul class="main-menu scroll-content scroll-scrolly_visible">
+        <li ng-class="" ng-repeat="dep_item in vm.departments">
+            <a href="#">
+				<span class="title">
+					<i class="fa fa-line-chart"></i> Finance
+				</span>
+				<span class="badge pull-right">1</span>
+			</a>
+        </li>
         <li class="">
             <a href="#">
 				<span class="title">
@@ -20,6 +28,22 @@
 				</span>
 				<span class="badge pull-right">4</span>
 			</a>
+            <ul class="sub-menu no-padding">
+                <li>
+                    <a href="#">
+                        <span class="title">Important</span>
+                        <span class="badge pull-right">2</span>
+                    </a>
+                    <div style="clear:both"></div>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="title">Labeled</span>
+                        <span class="badge pull-right">2</span>
+                    </a>
+                    <div style="clear:both"></div>
+                </li>
+            </ul>
         </li>
         <li>
             <a href="#">
