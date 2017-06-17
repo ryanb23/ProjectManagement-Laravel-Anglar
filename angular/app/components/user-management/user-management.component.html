@@ -12,7 +12,7 @@
             </div>
             <div class="pull-right">
                 <div class="col-xs-12">
-                    <button id="show-modal" class="btn btn-primary btn-cons" ng-click="vm.addDepartment()"><i class="fa fa-plus"></i> Add row</button>
+                    <button id="show-modal" class="btn btn-primary btn-cons" ng-click="vm.addUser()"><i class="fa fa-plus"></i> Add User</button>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -22,31 +22,36 @@
         <table class="table table-hover" id="tableUsers">
             <thead>
                 <tr>
-                    <th></th>
+                    <th>ID</th>
                     <th>Name</th>
-                    <th>Parent</th>
-                    <th>Description</th>
+                    <th>Department</th>
+                    <th>Roles</th>
+                    <th>Email</th>
                     <th>Status</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-class="{parent:item.p_dep_id == 0}" ng-repeat="item in vm.departments" on-finish-render="initDataTable">
-                    <td>{{item.p_dep_id == 0 ? "+" : ""}}</td>
+                <tr ng-repeat="item in vm.users" on-finish-render="initDataTable">
+                    <td>{{item.id}}</td>
                     <td class="v-align-middle">
-                        <p>{{item.name}}</p>
+                        <p>{{item.fullname}}</p>
                     </td>
                     <td class="v-align-middle">
+                        <a ng-repeat="uDepItem in item.departments" href="" class="btn btn-tag">{{uDepItem.name}}</a>
                     </td>
                     <td class="v-align-middle">
-                        <p>{{item.description}}</p>
+                        <a ng-repeat="uRoleItem in item.roles" href="" class="btn btn-tag">{{uRoleItem.name}}</a>
+                    </td>
+                    <td class="v-align-middle">
+                        <p>{{item.email}}</p>
                     </td>
                     <td class="v-align-middle">
                         <span class="label" ng-class="{'label-success':item.active == 1,'label-danger':item.active == 0}">{{item.active == 1?'Enabled':'Disabled'}}</span>
                     </td>
                     <td>
-                      <button class="btn btn-primary btn-xs m-t-10" ng-click="vm.editDepartment({'data':item})"><i class="fa fa-edit"></i></button>
-                      <button class="btn btn-danger btn-xs m-t-10" ng-click="vm.removeDepartment({'id':item.id})"><i class="fa fa-remove"></i></button>
+                        <button class="btn btn-primary btn-xs m-t-10" ng-click="vm.editUser({'data':item})"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-danger btn-xs m-t-10" ng-click="vm.removeUser({'id':item.id})"><i class="fa fa-remove"></i></button>
                     </td>
                 </tr>
             </tbody>
@@ -58,61 +63,110 @@
 <!-- END CONTAINER FLUID -->
 
 <!-- MODAL STICK UP  -->
-<div class="modal fade stick-up" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addDepartmentModal" aria-hidden="true">
+<div class="modal fade stick-up" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header clearfix ">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
                 </button>
-                <h4 class="p-b-5"><span class="semi-bold">New</span> Department</h4>
+                <h4 class="p-b-5"><span class="semi-bold">{{vm.formType == 'add'?'New':'Edit'}}</span> User</h4>
             </div>
-            <form role="form" name="vm.addUserForm" ng-submit="vm.addNewDepartment(vm.addUserForm.$valid)"  novalidate>
-            <div class="modal-body">
-                <p class="small-text">Create a new Department</p>
+            <form role="form" name="vm.addUserForm" ng-submit="vm.addNewUser(vm.addUserForm.$valid)" novalidate>
+                <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-8">
-                            <div pg-form-group class="form-group form-group-default required"  ng-class="{ 'has-error': vm.addUserForm.name.$invalid && ( vm.formSubmitted || vm.addUserForm.name.$touched) }">
-                                <label>name</label>
-                                <input id="departmentName" ng-model="vm.newDepartment.name" name="name" type="text" class="form-control" placeholder="Name" required>
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.addUserForm.name.$invalid && ( vm.formSubmitted || vm.addUserForm.name.$touched) }">
+                                <label>User Name</label>
+                                <input ng-model="vm.newUser.name" name="name" type="text" class="form-control" placeholder="User Name" required>
                             </div>
-                            <label class="error help-block" for="name" ng-show="vm.addUserForm.name.$error.required && ( vm.formSubmitted || vm.addUserForm.name.$touched)">This field is required.</label>
+                            <label class="error help-block" for="name" ng-show="vm.addUserForm.name.$error.required && ( vm.formSubmitted || vm.addUserForm.name.$touched)">Username is required.</label>
+                            <label class="error help-block" for="name" ng-show="vm.addUserForm.name.$invalid && (vm.formSubmitted || vm.errors.name)" >{{vm.errors.name}}</label>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group form-group-default input-group">
                                 <label class="inline">Enable</label>
                                 <span class="input-group-addon bg-transparent">
-                                  <input type="checkbox" class="js-switch" ng-model="vm.newDepartment.active" ui-switch="{color: '#6d5cae',size : 'small'}"/>
+                                  <input type="checkbox" class="js-switch" ng-model="vm.newUser.active" ui-switch="{color: '#6d5cae',size : 'small'}"/>
                                 </span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-sm-6">
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.addUserForm.firstname.$invalid && ( vm.formSubmitted || vm.addUserForm.firstname.$touched) }">
+                                <label>First Name</label>
+                                <input ng-model="vm.newUser.firstname" name="firstname" type="text" class="form-control" placeholder="First Name" required>
+                            </div>
+                            <label class="error help-block" for="firstname" ng-show="vm.addUserForm.firstname.$error.required && ( vm.formSubmitted || vm.addUserForm.firstname.$touched)">First Name is required.</label>
+                            <label class="error help-block" for="firstname" ng-show="vm.addUserForm.firstname.$invalid && (vm.formSubmitted || vm.errors.firstname)" >{{vm.errors.firstname}}</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.addUserForm.lastname.$invalid && ( vm.formSubmitted || vm.addUserForm.lastname.$touched) }">
+                                <label>Last Name</label>
+                                <input ng-model="vm.newUser.lastname" name="lastname" type="text" class="form-control" placeholder="Last Name" required>
+                            </div>
+                            <label class="error help-block" for="lastname" ng-show="vm.addUserForm.lastname.$error.required && ( vm.formSubmitted || vm.addUserForm.lastname.$touched)">First Name is required.</label>
+                            <label class="error help-block" for="lastname" ng-show="vm.addUserForm.lastname.$invalid && (vm.formSubmitted || vm.errors.lastname)" >{{vm.errors.lastname}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.addUserForm.email.$invalid && ( vm.formSubmitted || vm.addUserForm.email.$touched) }">
+                                <label>Email</label>
+                                <input ng-model="vm.newUser.email" name="email" type="email" class="form-control" placeholder="Email" ng-maxlength="30" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+                            </div>
+                            <label ng-show="vm.addUserForm.email.$invalid && (vm.formSubmitted || vm.errors.email)" class="error help-block">{{vm.errors.email}}</label>
+                            <label ng-show="vm.addUserForm.email.$error.required && ( vm.formSubmitted || vm.addUserForm.email.$touched)" class="error help-block">Email is required.</label>
+                            <label ng-show="vm.addUserForm.email.$error.email && vm.addUserForm.email.$touched" class="error help-block">This is not a valid email.</label>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="vm.formType =='add'">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': vm.addUserForm.password.$invalid && ( vm.formSubmitted || vm.addUserForm.password.$touched) }">
+                                <label>Password</label>
+                                <input ng-model="vm.newUser.password" type="password" name="password" class="form-control" placeholder="Password">
+                            </div>
+                            <label ng-show="vm.addUserForm.password.$invalid && (vm.formSubmitted || vm.errors.password)" class="error help-block">{{vm.errors.password}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div pg-form-group class="form-group form-group-default form-group-default-select required" ng-class="{ 'has-error': vm.department_sel.length == 0 && ( vm.formSubmitted || vm.addUserForm.department_sel.$touched) }">
+                                <label class="">Departements</label>
+                                <ui-select multiple ng-model="vm.department_sel" name="department_sel" theme="select2" ng-disabled="disabled" style="width:100%">
+                                    <ui-select-match placeholder="Select Departments">{{$item.name}}</ui-select-match>
+                                    <ui-select-choices repeat="dItem in vm.departments | propsFilter: {name: $select.search, description: $select.search}">
+                                        <span ng-if="dItem.p_dep_id != 0" style="margin-left:20px"></span>
+                                        <span ng-bind-html="vm.trustAsHtml((dItem.name | highlight: $select.search))"></span> -
+                                        <small ng-bind-html="vm.trustAsHtml((dItem.description | highlight: $select.search))"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <label ng-show="vm.addUserForm.department_sel.$invalid && (vm.formSubmitted || vm.errors.department)" class="error help-block">{{vm.errors.department}}</label>
+                            <label ng-show="vm.department_sel.length == 0 && ( vm.formSubmitted || vm.addUserForm.department_sel.$touched)" class="error help-block">Department is required.</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+
                             <div pg-form-group class="form-group form-group-default form-group-default-select">
-                                <label class="">Parent Department</label>
-                                <ui-select ng-model="vm.p_department_sel.selected" theme="bootstrap">
-                                    <ui-select-match placeholder="Select Department">{{$select.selected.name}}</ui-select-match>
-                                    <ui-select-choices repeat="item in vm.p_departments | filter: $select.search">
-                                        <span ng-bind-html="vm.trustAsHtml((item.name | highlight: $select.search))"></span>
-                                        <small ng-bind-html="vm.trustAsHtml((item.des | highlight: $select.search))"></small>
+                                <label class="">Roles</label>
+                                <ui-select multiple ng-model="vm.roles.selected" name="role_select" theme="select2" ng-disabled="disabled" style="width:100%">
+                                    <ui-select-match placeholder="Select Roles">{{$item.name}}</ui-select-match>
+                                    <ui-select-choices repeat="roleItem in vm.roles.list | propsFilter: {name: $select.search, description: $select.search}">
+                                        <span ng-bind-html="vm.trustAsHtml((roleItem.name | highlight: $select.search))"></span> -
+                                        <small ng-bind-html="vm.trustAsHtml((roleItem.description | highlight: $select.search))"></small>
                                     </ui-select-choices>
                                 </ui-select>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div pg-form-group class="form-group form-group-default">
-                                <label>Description</label>
-                                <input id="description" ng-model="vm.newDepartment.des" type="text" class="form-control" placeholder="Description">
-                            </div>
-                        </div>
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary  btn-cons">Add</button>
-                <button type="button" class="btn btn-cons" ng-click="vm.hideModal()">Close</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary  btn-cons">{{vm.formType == 'add'?'Add':'Edit'}}</button>
+                    <button type="button" class="btn btn-cons" ng-click="vm.hideModal()">Close</button>
+                </div>
             </form>
         </div>
         <!-- /.modal-content -->
