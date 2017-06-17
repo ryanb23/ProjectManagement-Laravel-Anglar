@@ -18,4 +18,8 @@ class Department extends Model
     public function departmentpermission(){
         return $this->hasMany(DepartmentPermission::class,'dep_id','id');
     }
+
+    public function p_department(){
+        return $this->belongsto(Department::class,'p_dep_id');
+    }
 }

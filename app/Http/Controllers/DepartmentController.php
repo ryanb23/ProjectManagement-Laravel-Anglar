@@ -11,9 +11,13 @@ class DepartmentController extends Controller
 {
     public function getIndex()
     {
-      return response()->success(self::getAllDepartment());
+        return response()->success(self::getAllDepartment());
     }
 
+    public function getDepartmentGroup(){
+        $departmentGroup = Department::with('p_department')->get();
+        return response()->success($departmentGroup);
+    }
 
     public function postNewDepartment(Request $request){
       $p_dep_id = $request['p_dep'];

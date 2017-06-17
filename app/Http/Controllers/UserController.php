@@ -10,6 +10,7 @@ use Hash;
 use Illuminate\Http\Request;
 use Input;
 use Validator;
+use DB;
 
 class UserController extends Controller
 {
@@ -58,6 +59,87 @@ class UserController extends Controller
         return response()->success($result);
     }
 
+    /**
+     * Create  new User.
+     *
+     * @return JSON
+     */
+
+    public function postUser(Request $request)
+    {
+
+        $this->validate($request, [
+            'firstname'       => 'required|min:2',
+            'lastname'       => 'required|min:2',
+            'name'       => 'required|min:3|unique:users',
+            'email'      => 'required|email|unique:users',
+            'password'   => 'min:8',
+        ]);
+
+        $active = $request['active'] ? '1' : '0';
+
+        $user = new User();
+        $user->firstname = trim($request->firstname);
+        $user->lastname = trim($request->lastname);
+        $user->name = trim($request->name);
+        $user->email = trim(strtolower($request->email));
+        $user->password = bcrypt($request->password);
+        $user->email_verified = 1;
+        $user->active = $active;
+        $user->save();
+        $user_id = $user->id;
+        $departments = $request['department'];
+        $roles = $request['role'];
+
+        $dep_data = array_map(function($dep_item) use ($user_id){
+            return ['user_id'=>$user_id,'department_id'=>$dep_item['id']];
+        }, $departments);
+
+        DB::table('department_user')->insert($dep_data);
+
+        foreach($roles as $role)
+            $user->attachRole($role['id']);
+        return response()->success('success');
+    }
+
+    public function postUserUpdate(Request $request)
+    {
+        $user_id = $request['id'];
+        $this->validate($request, [
+            'firstname'       => 'required|min:2',
+            'lastname'       => 'required|min:2',
+            'name'       => 'required|min:3|unique:users,name,'.$user_id,
+            'email'      => 'required|email|unique:users,email,'.$user_id
+        ]);
+        $active = $request['active'] ? '1' : '0';
+
+        $user = User::find($user_id);
+        $user->firstname = trim($request->firstname);
+        $user->lastname = trim($request->lastname);
+        $user->name = trim($request->name);
+        $user->email = trim(strtolower($request->email));
+        $user->email_verified = 1;
+        $user->active = $active;
+        $user->save();
+
+        $departments = $request['department'];
+        $roles = $request['role'];
+
+        $dep_data = array_map(function($dep_item) use ($user_id){
+            return ['user_id'=>$user_id,'department_id'=>$dep_item['id']];
+        }, $departments);
+
+        DB::table('department_user')->where('user_id','=',$user_id)->delete();
+        DB::table('department_user')->insert($dep_data);
+
+        $user->detachAllRoles();
+        foreach($roles as $role)
+        {
+            $user->attachRole($role['id']);
+        }
+        return response()->success('success');
+    }
+    
     /**
      * Update user current context.
      *
@@ -123,9 +205,13 @@ class UserController extends Controller
      */
     public function getIndex()
     {
-        $users = User::all();
+        $users = User::with('departments','roles')->get();
+        foreach($users as &$user)
+        {
+          $user->fullname = $user->firstname . ' ' . $user->lastname;
+        }
 
-        return response()->success(compact('users'));
+        return response()->success($users);
     }
 
     /**
@@ -194,8 +280,8 @@ class UserController extends Controller
      */
     public function deleteUser($id)
     {
-        // $user = User::find($id);
-        // $user->delete();
+        $user = User::find($id);
+        $user->delete();
         return response()->success('success');
     }
 
@@ -206,7 +292,7 @@ class UserController extends Controller
      */
     public function getRoles()
     {
-        $roles = Role::all();
+        $roles = Role::where('level','<>',0)->orderby('level','asc')->get();
 
         return response()->success(compact('roles'));
     }

@@ -12,7 +12,9 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
 
+use Bican\Roles\Models\Role;
 use App\Models\Message;
+use App\Models\Department;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasRoleAndPermissionContract
 {
@@ -38,5 +40,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function messages(){
         return $this->hasMany(Message::class);
+    }
+
+    public function roles(){
+       return $this->belongsToMany(Role::class, 'role_user','user_id','role_id');
+    }
+    public function departments(){
+        return $this->belongsToMany(Department::class, 'department_user','user_id','department_id');
     }
 }
