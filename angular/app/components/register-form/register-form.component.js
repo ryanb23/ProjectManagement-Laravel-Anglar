@@ -45,7 +45,7 @@ class RegisterFormController {
     if (response.status === 422) {
       for (var error in response.data.errors) {
         this.errors[error] = response.data.errors[error][0]
-        this.$scope.userForm[error].$invalid = true
+        this.registerForm[error].$invalid = true
       }
     }
   }

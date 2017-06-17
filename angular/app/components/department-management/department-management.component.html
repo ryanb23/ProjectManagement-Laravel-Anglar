@@ -45,8 +45,8 @@
                         <span class="label" ng-class="{'label-success':item.active == 1,'label-danger':item.active == 0}">{{item.active == 1?'Enabled':'Disabled'}}</span>
                     </td>
                     <td>
-                      <button class="btn btn-primary btn-xs m-t-10" ng-click="vm.editDepartment({'data':item})"><i class="fa fa-edit"></i></button>
-                      <button class="btn btn-danger btn-xs m-t-10" ng-click="vm.removeDepartment({'id':item.id})"><i class="fa fa-remove"></i></button>
+                        <button class="btn btn-primary btn-xs m-t-10" ng-click="vm.editDepartment({'data':item})"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-danger btn-xs m-t-10" ng-click="vm.removeDepartment({'id':item.id})"><i class="fa fa-remove"></i></button>
                     </td>
                 </tr>
             </tbody>
@@ -66,12 +66,12 @@
                 </button>
                 <h4 class="p-b-5"><span class="semi-bold">New</span> Department</h4>
             </div>
-            <form role="form" name="vm.addDepartmentForm" ng-submit="vm.addNewDepartment(vm.addDepartmentForm.$valid)"  novalidate>
-            <div class="modal-body">
-                <p class="small-text">Create a new Department</p>
+            <form role="form" name="vm.addDepartmentForm" ng-submit="vm.addNewDepartment(vm.addDepartmentForm.$valid)" novalidate>
+                <div class="modal-body">
+                    <p class="small-text">Create a new Department</p>
                     <div class="row">
                         <div class="col-sm-8">
-                            <div pg-form-group class="form-group form-group-default required"  ng-class="{ 'has-error': vm.addDepartmentForm.name.$invalid && ( vm.formSubmitted || vm.addDepartmentForm.name.$touched) }">
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.addDepartmentForm.name.$invalid && ( vm.formSubmitted || vm.addDepartmentForm.name.$touched) }">
                                 <label>name</label>
                                 <input id="departmentName" ng-model="vm.newDepartment.name" name="name" type="text" class="form-control" placeholder="Name" required>
                             </div>
@@ -108,11 +108,11 @@
                             </div>
                         </div>
                     </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary  btn-cons">Add</button>
-                <button type="button" class="btn btn-cons" ng-click="vm.hideModal()">Close</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary  btn-cons">Add</button>
+                    <button type="button" class="btn btn-cons" ng-click="vm.hideModal()">Close</button>
+                </div>
             </form>
         </div>
         <!-- /.modal-content -->

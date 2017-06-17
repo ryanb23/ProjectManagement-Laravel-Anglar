@@ -5,6 +5,7 @@ import { TruncatCharactersFilter } from './filters/truncate_characters.filter'
 import { TruncateWordsFilter } from './filters/truncate_words.filter'
 import { TrustHtmlFilter } from './filters/trust_html.filter'
 import { UcFirstFilter } from './filters/ucfirst.filter'
+import { PropsFilter } from './filters/custom.filter'
 
 angular.module('app.filters')
   .filter('datemillis', DateMillisFilter)
@@ -14,3 +15,4 @@ angular.module('app.filters')
   .filter('truncateWords', TruncateWordsFilter)
   .filter('trustHtml', TrustHtmlFilter)
   .filter('ucfirst', UcFirstFilter)
+  .filter('propsFilter', PropsFilter)
