@@ -23,7 +23,7 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     ** Message Api
     **/
     $api->controller('message','MessageController');
-    $api->controller('project','ProjectController');
+    $api->controller('projects','ProjectController');
     $api->controller('departments','DepartmentController');
 
 });

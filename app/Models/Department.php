@@ -22,4 +22,8 @@ class Department extends Model
     public function p_department(){
         return $this->belongsto(Department::class,'p_dep_id');
     }
+
+    public function child_department(){
+        return $this->hasMany(Department::class,'p_dep_id');
+    }
 }

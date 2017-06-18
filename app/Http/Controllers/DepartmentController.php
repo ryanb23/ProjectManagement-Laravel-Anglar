@@ -19,6 +19,9 @@ class DepartmentController extends Controller
         return response()->success($departmentGroup);
     }
 
+    public function getDepartmentTree(){
+        return response()->success(Department::with('child_department','departmentpermission')->where('p_dep_id',0)->get());
+    }
     public function postNewDepartment(Request $request){
       $p_dep_id = $request['p_dep'];
       $active = $request['active'] ? '1' : '0';
