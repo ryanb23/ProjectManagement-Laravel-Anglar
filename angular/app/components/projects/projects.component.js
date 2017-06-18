@@ -11,17 +11,27 @@ class ProjectsController {
 
     this.departmentRoute = API.all('departments');
     this.departments = [];
+
+    this.projectRoute = API.all('projects');
+    this.projects = [];
+
   }
 
   getDepartment() {
-      this.API.all('departments').get('index').then((response) => {
+      this.API.all('departments').get('department-tree').then((response) => {
           var dep_list = response.plain().data
           this.departments = dep_list;
       })
   }
-
+  getProjects(){
+      this.projectRoute.get('by-date-group').then((response) => {
+          var result = response.plain().data
+          this.projects = result;
+      })
+  }
   $onInit() {
-      this.getDepartment()
+      this.getDepartment();
+      this.getProjects();
   }
 }
 

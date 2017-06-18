@@ -3,71 +3,32 @@
     <a ui-sref="app.projects.create" class="btn btn-complete btn-block btn-compose m-b-30">
 		<i calss="fa fa-plus"></i> Create
 	</a>
-    <p class="menu-title">All Departements</p>
+    <p class="menu-title">BY DEPARTMENT</p>
     <ul class="main-menu scroll-content scroll-scrolly_visible">
-        <li ng-class="" ng-repeat="dep_item in vm.departments">
-            <a href="#">
-				<span class="title">
-					<i class="fa fa-line-chart"></i> Finance
-				</span>
-				<span class="badge pull-right">1</span>
-			</a>
-        </li>
-        <li class="">
-            <a href="#">
-				<span class="title">
-					<i class="fa fa-line-chart"></i> Finance
-				</span>
-				<span class="badge pull-right">1</span>
-			</a>
-        </li>
         <li class="active">
-            <a href="#">
+            <a href="javascript:;">
 				<span class="title">
-					<i class="fa fa-desktop"></i> IT
+					<i class="fa fa-desktop"></i> All Department
 				</span>
-				<span class="badge pull-right">4</span>
+				<span class="badge pull-right">10</span>
+            </a>
+        </li>
+        <li ng-class="" ng-repeat="dep_item in vm.departments">
+            <a href="javascript:;">
+				<span class="title">
+					<i class="fa fa-desktop"></i> {{dep_item.name}}
+				</span>
+				<span class="badge pull-right">1</span>
 			</a>
-            <ul class="sub-menu no-padding">
-                <li>
-                    <a href="#">
-                        <span class="title">Important</span>
-                        <span class="badge pull-right">2</span>
-                    </a>
-                    <div style="clear:both"></div>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="title">Labeled</span>
+            <ul ng-if="dep_item.child_department" class="sub-menu no-padding">
+                <li ng-repeat="dep_child_item in dep_item.child_department">
+                    <a href="javascript:;">
+                        <span class="title">{{dep_child_item.name}}</span>
                         <span class="badge pull-right">2</span>
                     </a>
                     <div style="clear:both"></div>
                 </li>
             </ul>
-        </li>
-        <li>
-            <a href="#">
-				<span class="title">
-					<i class="pg-sent"></i> Procurement
-				</span>
-				<span class="badge pull-right">2</span>
-			</a>
-        </li>
-        <li>
-            <a href="#">
-				<span class="title">
-					<i class="fa fa-balance-scale"></i> Law
-				</span>
-				<span class="badge pull-right">2</span>
-			</a>
-        </li>
-        <li>
-            <a href="#">
-				<span class="title">
-					<i class="fa fa-briefcase"></i> Accounting
-				</span>
-				<span class="badge pull-right">3</span>
-			</a>
         </li>
     </ul>
     <p class="menu-title m-t-20 all-caps">Project Status</p>
@@ -90,14 +51,13 @@
         <div class="split-list">
             <a class="list-refresh" href="#"><i class="fa fa-refresh"></i></a>
             <div class="list-view">
-                <h2 class="list-view-fake-header">Today June 23</h2>
-                <div class="list-view-group-container">
-                    <div class="list-view-group-header"><span>Today June 23</span></div>
+                <div ng-repeat="(date,projectGroup) in vm.projects" class="list-view-group-container">
+                    <div class="list-view-group-header"><span>{{date}}</span></div>
                     <ul class="no-padding">
-                        <li class="item padding-15">
+                        <li ng-repeat="project in projectGroup" class="item padding-15">
                             <div class="m-l-15">
                                 <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">Jane Smith</a>, Web development
+                                    <a href="javascript:;">{{project.department_id}}</a>, Web development
                                 </p>
                                 <a class="subject no-margin" href="project.html">Pages - Multi-Purpose Admin Template Revolution Begins here!</a>
                                 <p class="body no-margin">
@@ -114,282 +74,6 @@
 								</span>
                             </div>
                             <div class="clearfix"></div>
-                        </li>
-                        <li class="item padding-15">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">Anne Simons</a>, UI design
-                                </p>
-                                <a class="subject no-margin" href="project.html">Your site has some very imaginative animation /movement, especially the Sluggo! </a>
-                                <p class="body no-margin"> Dear Kristen:I saw your listing on Craigslist.com for a website designer for your tee-shirt company.</p>
-                            </div>
-                            <div class="datetime">45 mins ago</div>
-                            <div class="clearfix"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 2331
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 444
-								</span>
-                            </div>
-                        </li>
-                        <li class="item padding-15">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">Herald Menster</a>, Finance
-                                </p>
-                                <a class="subject no-margin" href="project.html">Recently ordered a new pair of soccer cleats from your website on June 21</a>
-                                <p class="body no-margin"> Dear Colleagues:As some of you may already be aware, I will be leaving my job at Acme Corp shortly.</p>
-                            </div>
-                            <div class="datetime">1:33pm</div>
-                            <div class="clearfix"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 2213
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 4
-								</span>
-                            </div>
-                        </li>
-                        <li class="item padding-15">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">John Doe</a>, Accounting</p>
-                                <a class="subject no-margin" href="project.html">Everything here, Made Just for you :)</a>
-                                <p class="body no-margin"> Dear Ms. Hillman,Thank you for spending such quality time with me yesterday.</p>
-                            </div>
-                            <div class="datetime">11:23am</div>
-                            <div class="clearfix"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 602
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 45
-								</span>
-                            </div>
-                        </li>
-                        <li class="item padding-15">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">Alec talbac</a>, Human resource
-                                </p>
-                                <a class="subject no-margin" href="project.html">Simplicity is the ultimate sophistication</a>
-                                <p class="body no-margin"> A man's favorite donkey falls into a deep precipice; He can't pull it out no matter how hard he tries; </p>
-                            </div>
-                            <div class="datetime">10:33pm</div>
-                            <div class="clearfix"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 21
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 55
-								</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="list-view-group-container">
-                    <div class="list-view-group-header"><span>Yesterday June 22</span></div>
-                    <ul class="no-padding">
-                        <li class="item padding-15">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">James Simons</a>, Public relation
-                                </p>
-                                <a class="subject no-margin" href="project.html">Good design is obvious. Great design is transparent</a>
-                                <p class="body no-margin"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sodales, velit at laoreet hendrerit, tellus dui aliquet est, ac cursus velit erat et est. Quisque vitae tortor nibh.</p>
-                            </div>
-                            <div class="datetime">1:33pm</div>
-                            <div class="clearfix"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 13
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 9
-								</span>
-                            </div>
-                        </li>
-                        <li class="item padding-15">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">Albert Wang</a>, IT
-                                </p>
-                                <a class="subject no-margin" href="project.html">Your site has some very imaginative animation /movement, especially the Sluggo! </a>
-                                <p class="body no-margin"> Dear Kristen:I saw your listing on Craigslist.com for </p>
-                            </div>
-                            <div class="datetime">45 mins ago</div>
-                            <div class="clearfix"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 37
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 91
-								</span>
-                            </div>
-                        </li>
-                        <li class="item padding-15">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">Niel Paterson</a>, IT
-                                </p>
-                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
-                                <p class="body no-margin"> Morbi mauris dui, sollicitudin ut ipsum nec, porta malesuada justo.</p>
-                            </div>
-                            <div class="datetime">1:33pm</div>
-                            <div class="clearfix"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 16
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 55
-								</span>
-                            </div>
-                        </li>
-                        <li class="item padding-15">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">Philip Ville-neuve</a>, QA
-                                </p>
-                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
-                                <p class="body no-margin"> Donec metus ligula, cursus ut auctor ac, faucibus et eros. Mauris nec adipiscing purus, sollicitudin fermentum nunc. Nullam et elementum lectus. Duis lobortis commodo tellus quis rutrum. In sed interdum mauris.</p>
-                            </div>
-                            <div class="datetime">1:33pm</div>
-                            <div class="clearfix"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 53
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 13
-								</span>
-                            </div>
-                        </li>
-                        <li class="item padding-15">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">Chomenski Lou</a>, IT
-                                </p>
-                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
-                                <p class="body no-margin"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sodales, velit at laoreet hendrerit, tellus dui aliquet est, ac cursus velit erat et est. Quisque vitae tortor nibh. </p>
-                            </div>
-                            <div class="datetime">1:33pm</div>
-                            <div class="clearfix"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 7
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 3
-								</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="list-view-group-container">
-                    <div class="list-view-group-header"><span>Yesterday June 22 </span></div>
-                    <ul class="no-padding">
-                        <li class="item padding-15">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">Jason Tremblay</a>, Marketing
-                                </p>
-                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
-                                <p class="body no-margin"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sodales, velit at laoreet hendrerit, tellus dui aliquet est, ac cursus velit erat et est. Quisque vitae tortor nibh. Aliquam ornare, augue ac pulvinar euismod,
-                                    mi felis cursus nisl, non ultrices lacus turpis sit amet lacus. Vestibulum in lacus ut augue tincidunt lobortis id quis mauris.</p>
-                            </div>
-                            <div class="datetime">1:33pm</div>
-                            <div class="clearfix"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 23
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 21
-								</span>
-                            </div>
-                        </li>
-                        <li class="item padding-15">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">Alexender Wayne</a>, Public relation
-                                </p>
-                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
-                                <p class="body no-margin"> Aliquam est tellus, fringilla egestas fermentum quis, venenatis eu massa. Curabitur aliquet id metus a molestie.</p>
-                            </div>
-                            <div class="datetime">1:33pm</div>
-                            <div class="clearfix"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 16
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 7
-								</span>
-                            </div>
-                        </li>
-                        <li class="item padding-15">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">Jean Balmian</a>, UI design
-                                </p>
-                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
-                                <p class="body no-margin"> Morbi mauris dui, sollicitudin ut ipsum nec, porta malesuada justo. In eget tempor lacus. In dapibus,</p>
-                            </div>
-                            <div class="datetime">1:33pm</div>
-                            <div class="clearfix"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 13
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 2
-								</span>
-                            </div>
-                        </li>
-                        <li class="item padding-15">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">Richard Hendrix</a>, Software engineering
-                                </p>
-                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
-                                <p class="body no-margin"> Donec metus ligula, cursus ut auctor ac, faucibus et eros. Mauris nec adipiscing purus, sollicitudin fermentum nunc. Nullam et elementum lectus. Duis lobortis commodo tellus quis rutrum. In sed interdum mauris.</p>
-                            </div>
-                            <div class="datetime">1:33pm</div>
-                            <div class="clearfix"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 100
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 4
-								</span>
-                            </div>
-                        </li>
-                        <li class="item padding-15">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="profile.html">Simon Li</a>, Marketing
-                                </p>
-                                <a class="subject no-margin" href="project.html">Aliquam est tellus, fringilla egestas fermentum quis</a>
-                                <p class="body no-margin"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sodales, velit at laoreet hendrerit, tellus dui aliquet est, ac cursus velit erat et est. Quisque vitae tortor nibh.</p>
-                            </div>
-                            <div class="datetime">1:33pm</div>
-                            <div class="clearfix"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 27
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 5
-								</span>
-                            </div>
                         </li>
                     </ul>
                 </div>
