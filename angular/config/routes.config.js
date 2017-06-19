@@ -70,6 +70,18 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
             data: {
                 auth: true
             },
+            resolve: {
+                  deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                      return $ocLazyLoad.load([
+                            'select',
+                          ], {
+                              insertBefore: '#lazyload_placeholder'
+                          })
+                          .then(function() {
+                              angular.module('app.components', ['ui.select']);
+                          });
+                  }]
+            },
             views: {
                 'main@app': {
                     template: '<project-create></project-create>'
@@ -130,7 +142,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                               insertBefore: '#lazyload_placeholder'
                           })
                           .then(function() {
-                              angular.module('app.components', ['ui.grid','ui.select'])
+                               angular.module('app.components', ['ui.grid','ui.select'])
                           });
                   }]
             },
