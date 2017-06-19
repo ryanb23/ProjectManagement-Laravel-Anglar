@@ -5,42 +5,57 @@
 	</a>
     <p class="menu-title">BY DEPARTMENT</p>
     <ul class="main-menu scroll-content scroll-scrolly_visible">
-        <li class="active">
-            <a href="javascript:;">
+        <li ng-class="{active: vm.depSel == 'all'}">
+            <a href="javascript:;" ng-click="vm.getProjects({'type':'dep','value':'all'})">
+                <div>
 				<span class="title">
 					<i class="fa fa-desktop"></i> All Department
 				</span>
-				<span class="badge pull-right">10</span>
+				<span class="badge pull-right">{{vm.totalProject}}</span>
+                </div>
             </a>
         </li>
-        <li ng-class="" ng-repeat="dep_item in vm.departments">
-            <a href="javascript:;">
+        <li ng-class="{active: vm.depSel == dep_item.id}" ng-repeat="dep_item in vm.departments">
+            <a href="javascript:;" ng-click="vm.getProjects({'type':'dep','value':dep_item.id})">
+                <div>
 				<span class="title">
 					<i class="fa fa-desktop"></i> {{dep_item.name}}
 				</span>
-				<span class="badge pull-right">1</span>
+				<span class="badge pull-right">{{dep_item.project_count.project_count}}</span>
+                <div style="clear:both"></div>
+                </div>
 			</a>
             <ul ng-if="dep_item.child_department" class="sub-menu no-padding">
-                <li ng-repeat="dep_child_item in dep_item.child_department">
-                    <a href="javascript:;">
+                <li ng-class="{active: vm.depSel == dep_child_item.id}" ng-repeat="dep_child_item in dep_item.child_department">
+                    <a href="javascript:;" ng-click="vm.getProjects({'type':'dep','value':dep_child_item.id})">
+                        <div>
                         <span class="title">{{dep_child_item.name}}</span>
-                        <span class="badge pull-right">2</span>
+                        <span class="badge pull-right">{{dep_child_item.project_count.project_count}}</span>
+                        <div style="clear:both"></div>
+                        </div>
                     </a>
-                    <div style="clear:both"></div>
                 </li>
             </ul>
         </li>
     </ul>
     <p class="menu-title m-t-20 all-caps">Project Status</p>
     <ul class="sub-menu no-padding">
-        <li>
-            <a href="#">
+        <li ng-class="{active: vm.depSel == 'approved'}">
+            <a href="javascript:;" ng-click="vm.getProjects({'type':'status','value':'approved'})">
+                <div>
 				<span class="title">Approved Project</span>
+                <span class="badge pull-right">{{vm.countArr.approved}}</span>
+                <div style="clear:both"></div>
+                </div>
 			</a>
         </li>
-        <li>
-            <a href="#">
+        <li ng-class="{active: vm.depSel == 'dismissed'}">
+            <a href="javascript:;"  ng-click="vm.getProjects({'type':'status','value':'dismissed'})">
+                <div>
 				<span class="title">Dismissed Project</span>
+                <span class="badge pull-right">{{vm.countArr.dismissed}}</span>
+                <div style="clear:both"></div>
+                </div>
 			</a>
         </li>
     </ul>
@@ -57,11 +72,11 @@
                         <li ng-repeat="project in projectGroup" class="item padding-15">
                             <div class="m-l-15">
                                 <p class="recipients no-margin hint-text small">
-                                    <a href="javascript:;">{{project.department_id}}</a>, Web development
+                                    <a href="javascript:;">{{project.user.name}}</a>, <span class="user_dep" ng-repeat="user_department in project.user.departments">{{user_department.name}}</span>
                                 </p>
-                                <a class="subject no-margin" href="project.html">Pages - Multi-Purpose Admin Template Revolution Begins here!</a>
+                                <a class="subject no-margin" href="project.html">{{project.title}}</a>
                                 <p class="body no-margin">
-                                    have recently ordered a new pair of soccer cleats (item #6542951) from your website on June 21.
+                                    {{project.objective}}
                                 </p>
                             </div>
                             <div class="datetime">5 Mins ago</div>

@@ -9,29 +9,39 @@ class ProjectsController {
     this.$filter = $filter;
     this.API = API;
 
+    this.totalProject = 0;
+    this.countArr = {
+        'approved' : 0,
+        'dismissed' : 0
+    }
+
     this.departmentRoute = API.all('departments');
     this.departments = [];
 
     this.projectRoute = API.all('projects');
     this.projects = [];
 
+    this.depSel = 'all';
   }
 
   getDepartment() {
-      this.API.all('departments').get('department-tree').then((response) => {
-          var dep_list = response.plain().data
-          this.departments = dep_list;
+      this.departmentRoute.get('department-tree').then((response) => {
+        var dep_list = response.plain().data
+        this.departments = dep_list['treeData'];
+        this.countArr = dep_list['countArr'];
+        this.totalProject = dep_list['countArr']['approved'] + dep_list['countArr']['dismissed'];
       })
   }
-  getProjects(){
-      this.projectRoute.get('by-date-group').then((response) => {
+  getProjects(param){
+      this.depSel = param.value;
+      this.projectRoute.get('by-date-group',param).then((response) => {
           var result = response.plain().data
           this.projects = result;
       })
   }
   $onInit() {
       this.getDepartment();
-      this.getProjects();
+      this.getProjects({'type':'dep','value':this.depSel});
   }
 }
 
