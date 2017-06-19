@@ -27,6 +27,7 @@ class UserController extends Controller
                         ->roles()
                         ->select(['slug', 'roles.id', 'roles.name'])
                         ->get();
+        $user['department'] = $user->departments()->get();
         return response()->success($user);
     }
 
@@ -59,6 +60,21 @@ class UserController extends Controller
         return response()->success($result);
     }
 
+    public function getDepartmentUser(Request $request){
+        $user = Auth::user();
+        $user_dep = $user->departments()->get();
+
+        $dep_id_arr = array();
+        foreach($user_dep as $key => $value)
+        {
+            $dep_id_arr[] = ($value->p_dep_id == 0)?$value->id:$value->p_dep_id;
+        }
+        $result = User::with('departments')->whereHas('departments',function($query) use($dep_id_arr){
+            $query->whereIn('departments.id',$dep_id_arr);
+        })->where('users.id','<>',$user->id)->get();
+
+        return response()->success($result);
+    }
     /**
      * Create  new User.
      *
@@ -139,7 +155,7 @@ class UserController extends Controller
         }
         return response()->success('success');
     }
-    
+
     /**
      * Update user current context.
      *
