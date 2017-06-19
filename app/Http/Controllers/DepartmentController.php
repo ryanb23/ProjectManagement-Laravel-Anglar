@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\Department;
+use App\Models\Project;
 
 class DepartmentController extends Controller
 {
@@ -20,7 +21,38 @@ class DepartmentController extends Controller
     }
 
     public function getDepartmentTree(){
-        return response()->success(Department::with('child_department','departmentpermission')->where('p_dep_id',0)->get());
+
+        $result = array();
+        $result['countArr'] = array('approved'=>0,'dismissed'=>1);
+        $departmentTree = Department::with('child_department','departmentpermission','project_count','child_department.project_count')
+            ->where('p_dep_id',0)
+            ->get()->toArray();
+
+        foreach($departmentTree as &$deprtmentItem)
+        {
+            $project_count = isset($deprtmentItem['project_count']['project_count']) ? $deprtmentItem['project_count']['project_count'] : 0;
+            if(isset($deprtmentItem['child_department']))
+            {
+                foreach($deprtmentItem['child_department'] as $child_departmentItem)
+                {
+                    $project_count += isset($child_departmentItem['project_count']['project_count']) ? $child_departmentItem['project_count']['project_count'] : 0;
+                }
+            }
+            if(!isset($deprtmentItem['project_count']['project_count']))
+                $deprtmentItem['project_count'] = [];
+            $deprtmentItem['project_count']['project_count'] = $project_count;
+        }
+
+        $countArr = Project::selectRaw('status,count(*) as project_count')->groupBy('status')->get();
+        $result['treeData'] = $departmentTree;
+
+        foreach($countArr as $item)
+        {
+            $status = $item->status ? 'approved' : 'dismissed';
+            $result['countArr'][$status] = $item->project_count;
+        }
+        return response()->success($result);
+
     }
     public function postNewDepartment(Request $request){
       $p_dep_id = $request['p_dep'];

@@ -43,6 +43,7 @@
     <!--[if lt IE 9]>
             <link href="assets/plugins/mapplic/css/mapplic-ie.css" rel="stylesheet" type="text/css" />
     <![endif]-->
+
     <script type="text/javascript">
     window.onload = function() {
         // fix for windows 8
@@ -79,6 +80,7 @@
 
     <!-- ANGULAR -->
     <script src="{!! elixir('js/final.js') !!}"></script>
+
     <!-- <script type="text/javascript" src="assets/plugins/angular-ui-grid/ui-grid.min.js"></script> -->
     <!-- <script src="assets/plugins/angular-sanitize/angular-sanitize.min.js" type="text/javascript"></script> -->
     <!-- <script src="assets/plugins/angular-oc-lazyload/ocLazyLoad.min.js" type="text/javascript"></script> -->

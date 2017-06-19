@@ -1,4 +1,5 @@
 <?php
+use Psr\Http\Message\UploadedFileInterface;
 
 $api->group(['middleware' => ['api']], function ($api) {
     $api->controller('auth', 'Auth\AuthController');
@@ -8,7 +9,7 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->get('auth/password/verify', 'Auth\PasswordResetController@verify');
     $api->post('auth/password/reset', 'Auth\PasswordResetController@reset');
 
-    $api->get('test','UserController@test');
+    $api->post('images/upload', 'ProjectController@imageUpload');
 });
 
 $api->group(['middleware' => ['api', 'api.auth', 'role:admin.super|admin.user']], function ($api) {
@@ -25,5 +26,9 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     $api->controller('message','MessageController');
     $api->controller('projects','ProjectController');
     $api->controller('departments','DepartmentController');
+    $api->controller('labels','LabelController');
 
+    /**
+    ** Image UploadedFileInterface
+    **/
 });
