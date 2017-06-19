@@ -20,8 +20,8 @@
     "restangular": "~1.5.2",
     "angular-loading-bar": "~0.9.0",
     "satellizer": "^0.14.0",
-    "angular-acl": "^0.1.5"
-
+    "angular-acl": "^0.1.5",
+    "ng-dropzone": "ngdropzone#^2.0.2"
   },
   "resolutions": {
     "angular": "~1.5.x"
