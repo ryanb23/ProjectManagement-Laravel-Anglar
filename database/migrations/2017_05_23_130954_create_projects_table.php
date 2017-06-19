@@ -15,12 +15,14 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('department_id')->unsigned();
-            $table->integer('status')->unsigned();
+            $table->integer('creator_id')->unsigned();
+            $table->integer('status')->unsigned()->default(0);
             $table->string('title');
             $table->string('objective');
             $table->text('description');
 
             $table->foreign('department_id')->references('id')->on('departments');
+            $table->foreign('creator_id')->references('id')->on('users');
 
             $table->timestamps();
         });
