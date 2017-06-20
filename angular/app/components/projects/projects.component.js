@@ -38,7 +38,7 @@ class ProjectsController {
         var dep_list = response.plain().data
         this.departments = dep_list['treeData'];
         this.countArr = dep_list['countArr'];
-        this.totalProject = dep_list['countArr']['opened'] + dep_list['countArr']['approved'] + dep_list['countArr']['dismissed'];
+        this.totalProject = dep_list['countArr']['all'];
       })
   }
   getProjects(param){

@@ -23,7 +23,7 @@ class DepartmentController extends Controller
     public function getDepartmentTree(){
 
         $result = array();
-        $result['countArr'] = array('opened'=>0,'approved'=>0,'dismissed'=>0);
+        $result['countArr'] = array('all'=>0,'opened'=>0,'approved'=>0,'dismissed'=>0);
         $departmentTree = Department::with('child_department','departmentpermission','project_count','child_department.project_count')
             ->where('p_dep_id',0)
             ->get()->toArray();
@@ -53,6 +53,7 @@ class DepartmentController extends Controller
             $status = $item->status == 2 ? 'dismissed' : $status;
             $result['countArr'][$status] = $item->project_count;
         }
+        $result['countArr']['all'] = $result['countArr']['opened'] + $result['countArr']['approved'] + $result['countArr']['dismissed'];
         return response()->success($result);
 
     }
