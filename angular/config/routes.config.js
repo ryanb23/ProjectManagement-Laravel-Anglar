@@ -63,6 +63,9 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                 'main@app': {
                     template: '<projects></projects>'
                 }
+            },
+            params: {
+                status: null
             }
         })
         .state('app.projects.create', {
@@ -86,6 +89,32 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                 'main@app': {
                     template: '<project-create></project-create>'
                 }
+            }
+        })
+        .state('app.projects.view', {
+            url: '/:projectId',
+            data: {
+                auth: true
+            },
+            resolve: {
+                  deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                      return $ocLazyLoad.load([
+                            'select',
+                          ], {
+                              insertBefore: '#lazyload_placeholder'
+                          })
+                          .then(function() {
+                              angular.module('app.components', ['ui.select']);
+                          });
+                  }]
+            },
+            views: {
+                'main@app': {
+                    template: '<project-view></project-view>'
+                }
+            },
+            params: {
+                projectId: null
             }
         })
         .state('app.preference', {
