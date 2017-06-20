@@ -28,7 +28,7 @@
                                         <ui-select-match placeholder="Select Departments">{{$item.name}}</ui-select-match>
                                         <ui-select-choices repeat="dItem in vm.labels.list | propsFilter: {name: $select.search}">
                                             <span ng-if="dItem.p_dep_id != 0" style="margin-left:20px"></span>
-                                            <span ng-bind-html="vm.trustAsHtml((dItem.name | highlight: $select.search))"></span> -
+                                            <span ng-bind-html="vm.trustAsHtml((dItem.name | highlight: $select.search))"></span>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
