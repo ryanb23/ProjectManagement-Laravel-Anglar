@@ -24,7 +24,7 @@ class ProjectCreateController {
             departments: [],
             objective: '',
             contributors: [],
-            files: [],
+            newfiles: [],
             description: ''
         }
 
@@ -42,9 +42,9 @@ class ProjectCreateController {
 
         this.dzOptions = {
             url: '/api/images/upload',
-            paramName: 'photo',
+            paramName: 'file',
             maxFilesize: '10',
-            // acceptedFiles: 'image/jpeg, images/jpg, image/png',
+            acceptedFiles: 'image/jpeg, images/jpg, image/png',
             addRemoveLinks: true
         };
 
@@ -92,9 +92,9 @@ class ProjectCreateController {
             this.newProject.labels = this.labels.sel;
             this.newProject.departments = this.departments.sel;
             this.newProject.contributors = this.contributors.sel;
-            this.newProject.files = this.newFile;
+            this.newProject.newfiles = this.newFile;
             this.projectRoute.all('store').post(this.newProject).then(() => {
-                // this.$state.go('app.projects');
+                this.$state.go('app.projects');
             }).catch(this.createProjectFail.bind(this))
         } else {
             this.formSubmitted = true
