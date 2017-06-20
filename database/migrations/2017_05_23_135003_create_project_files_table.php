@@ -16,7 +16,9 @@ class CreateProjectFilesTable extends Migration
             $table->increments('id');
             $table->integer('project_id')->unsigned();
             $table->integer('uploader_id')->unsigned();
-            $table->string('path');
+            $table->string('org_filename');
+            $table->string('filename');
+            $table->string('filetype');
             $table->enum('type', ['1','0'])->default('0');
             $table->timestamps();
 
