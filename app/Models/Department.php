@@ -14,7 +14,7 @@ class Department extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'active', 'p_dep_id'
+        'name', 'description', 'active', 'p_dep_id', 'created_at', 'updated_at'
     ];
 
     public function departmentpermission(){
