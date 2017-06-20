@@ -162,7 +162,6 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                   deps: ['$ocLazyLoad', function($ocLazyLoad) {
                       return $ocLazyLoad.load([
                               'dataTables',
-                              'ui-grid',
                               'switchery',
                               'select',
 
@@ -170,7 +169,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                               insertBefore: '#lazyload_placeholder'
                           })
                           .then(function() {
-                               angular.module('app.components', ['ui.grid','ui.select'])
+                               angular.module('app.components', ['ui.select'])
                           });
                   }]
             },
