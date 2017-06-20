@@ -1,5 +1,5 @@
 class ProjectsController {
-  constructor (API, $scope, $sce, $compile, $filter) {
+  constructor (API, $state, $stateParams, $scope, $sce, $compile, $filter) {
     'ngInject'
 
     let that = this
@@ -7,10 +7,17 @@ class ProjectsController {
     this.$scope = $scope;
     this.$compile = $compile;
     this.$filter = $filter;
+    this.$state = $state;
     this.API = API;
+
+    this.status = null;
+    if ($stateParams.status) {
+      this.status = $stateParams.status;
+    }
 
     this.totalProject = 0;
     this.countArr = {
+        'opened' : 0,
         'approved' : 0,
         'dismissed' : 0
     }
@@ -23,13 +30,15 @@ class ProjectsController {
 
     this.depSel = 'all';
   }
-
+  detailView(project){
+      this.$state.go('app.projects.view', {projectId: project.id})
+  }
   getDepartment() {
       this.departmentRoute.get('department-tree').then((response) => {
         var dep_list = response.plain().data
         this.departments = dep_list['treeData'];
         this.countArr = dep_list['countArr'];
-        this.totalProject = dep_list['countArr']['approved'] + dep_list['countArr']['dismissed'];
+        this.totalProject = dep_list['countArr']['opened'] + dep_list['countArr']['approved'] + dep_list['countArr']['dismissed'];
       })
   }
   getProjects(param){
@@ -41,7 +50,15 @@ class ProjectsController {
   }
   $onInit() {
       this.getDepartment();
-      this.getProjects({'type':'dep','value':this.depSel});
+      let param = {'type':'dep','value':this.depSel}
+
+      if(this.status != null)
+      {
+          param.type = 'status';
+          param.value = this.status;
+
+      }
+      this.getProjects(param);
   }
 }
 

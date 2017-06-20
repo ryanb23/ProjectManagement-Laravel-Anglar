@@ -40,6 +40,15 @@
     </ul>
     <p class="menu-title m-t-20 all-caps">Project Status</p>
     <ul class="sub-menu no-padding">
+        <li ng-class="{active: vm.depSel == 'opened'}">
+            <a href="javascript:;" ng-click="vm.getProjects({'type':'status','value':'opened'})">
+                <div>
+				<span class="title">Opened Project</span>
+                <span class="badge pull-right">{{vm.countArr.opened}}</span>
+                <div style="clear:both"></div>
+                </div>
+			</a>
+        </li>
         <li ng-class="{active: vm.depSel == 'approved'}">
             <a href="javascript:;" ng-click="vm.getProjects({'type':'status','value':'approved'})">
                 <div>
@@ -69,12 +78,12 @@
                 <div ng-repeat="(date,projectGroup) in vm.projects" class="list-view-group-container">
                     <div class="list-view-group-header"><span>{{date}}</span></div>
                     <ul class="no-padding">
-                        <li ng-repeat="project in projectGroup" class="item padding-15">
+                        <li ng-repeat="project in projectGroup" class="item padding-15" ng-click="vm.detailView(project)">
                             <div class="m-l-15">
                                 <p class="recipients no-margin hint-text small">
                                     <a href="javascript:;">{{project.user.name}}</a>, <span class="user_dep" ng-repeat="user_department in project.user.departments">{{user_department.name}}</span>
                                 </p>
-                                <a class="subject no-margin" href="project.html">{{project.title}}</a>
+                                <a class="subject no-margin" href="javascript:;">{{project.title}}</a>
                                 <p class="body no-margin">
                                     {{project.objective}}
                                 </p>
