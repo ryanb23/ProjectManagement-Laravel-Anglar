@@ -23,6 +23,7 @@ class UserController extends Controller
     public function getMe()
     {
         $user = Auth::user();
+        $user['fullname'] = $user['firstname'].' '.$user['lastname']; 
         $user['role'] = $user
                         ->roles()
                         ->select(['slug', 'roles.id', 'roles.name'])
