@@ -233,6 +233,7 @@
 
     <!-- Plugin JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="//js.pusher.com/4.0/pusher.min.js"></script>
 
     <!-- Theme JavaScript -->
     <script src="dist/js/app.js"></script>
