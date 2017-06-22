@@ -35,8 +35,8 @@
     <link id="lazyload_placeholder">
     <!-- BEGIN Pages CSS-->
     <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
-    <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{!! elixir('css/final.css') !!}">
+    <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css" />
     <!--[if lte IE 9]>
         <link href="pages/css/ie9.css" rel="stylesheet" type="text/css" />
     <![endif]-->
