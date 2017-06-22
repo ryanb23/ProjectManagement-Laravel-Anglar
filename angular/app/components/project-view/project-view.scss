@@ -202,3 +202,32 @@
     }
   }
 }
+
+.todo-list-block {
+  .todo-list {
+    padding-top: 0px !important;
+    .task-item {
+      &:hover {
+        background: #daeffd;
+        cursor: pointer;
+        border-top-right-radius: 2px;
+        border-top-left-radius: 2px;
+      }
+      p {
+        float: left;
+        padding-top: 4px;
+        margin: 0px 0px 0px 10px !important;
+      }
+      .action-div {
+        float: right;
+      }
+    }
+  }
+  .btn-custom-xs {
+    padding: 0px 4px !important;
+  }
+  .remove-todo-btn
+  {
+    margin:7px 6px 0px 0px;
+  }
+}

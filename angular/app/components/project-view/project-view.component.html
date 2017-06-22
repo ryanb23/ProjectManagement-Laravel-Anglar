@@ -3,189 +3,420 @@
 <div class="container-fluid container-fixed-lg">
 	<!-- START PANEL -->
 	<h3 class="m-t-20 c_title">Project Details</h3>
-	<div class="row">
-		<div class="col-lg-4 col-md-12 ">
-			<!-- START PANEL -->
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<div class="panel-title">Attachments
-					</div>
+	<div class="col-md-4 ">
+		<!-- START PANEL -->
+		<div pg-portlet class="panel panel-default" progress='bar' progress-color='success'>
+			<div class="panel-heading">
+				<div class="panel-title">Additionals
 				</div>
-				<div class="panel-body">
-					<p>You can download attachments by clickig links below.</p>
-					<br>
-					<div class="row">
-						<div class="col-md-12">
-							<p ng-if="vm.images.length == 0">No Images</p>
-							<ul ng-if="vm.images.length != 0 " class="gallery gallery1">
-								<li ng-repeat="image in vm.images">
-									<a ng-click="vm.openLightboxModal($index)">
-								      <img ng-src="{{image.thumbUrl}}" class="img-thumbnail">
-								    </a>
-								</li>
-							</ul>
+				<div class="panel-controls">
+                    <ul>
+                        <li><a class="portlet-collapse" href="" data-toggle="collapse"><i class="portlet-icon portlet-icon-collapse"></i></a>
+                        </li>
+                        <li><a class="portlet-refresh" href="" data-toggle="refresh"><i class="portlet-icon portlet-icon-refresh"></i></a>
+                        </li>
+                        <li><a class="portlet-close" href="" data-toggle="close"><i class="portlet-icon portlet-icon-close"></i></a>
+                        </li>
+                    </ul>
+                </div>
+			</div>
+			<div class="panel-body">
+				<p>You can manage project pogress.</p>
+				<br/>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="btn-group">
+							<button type="button" class="btn btn-primary" ng-click="">
+								<span class="p-t-5 p-b-5">
+											<i class="fa fa-check fs-15"></i>
+										</span>
+								<br>
+								<span class="fs-11 font-montserrat text-uppercase">Assign Project Manager(s)</span>
+							</button>
 						</div>
 					</div>
 				</div>
+				<!-- END PANEL -->
 			</div>
-			<!-- END PANEL -->
 		</div>
-		<div class="col-lg-8 col-md-12 ">
-			<!-- START PANEL -->
-			<div class="panel panel-default project-datail">
-				<div class="panel-heading">
-					<div class="panel-title">Project Details
+		<div pg-portlet class="panel panel-default" progress='bar' progress-color='success'>
+			<div class="panel-heading">
+				<div class="panel-title">Status List
+				</div>
+				<div class="panel-controls">
+                    <ul>
+                        <li><a class="portlet-collapse" href="" data-toggle="collapse"><i class="portlet-icon portlet-icon-collapse"></i></a>
+                        </li>
+                        <li><a class="portlet-refresh" href="" data-toggle="refresh"><i class="portlet-icon portlet-icon-refresh"></i></a>
+                        </li>
+                        <li><a class="portlet-close" href="" data-toggle="close"><i class="portlet-icon portlet-icon-close"></i></a>
+                        </li>
+                    </ul>
+                </div>
+			</div>
+			<div class="panel-body">
+				<p>Todo list here.</p>
+				<div class="row">
+					<div class="col-md-12 m-t-10">
+						<uib-progressbar class="progress-striped" value="22" type="warning">22%</uib-progressbar>
+						<uib-progressbar class="progress-striped active" max="100" value="66" type="danger"><i>66 / 100</i></uib-progressbar>
 					</div>
 				</div>
-				<div class="panel-body">
-					<div class="panel panel-transparent m-t-15">
-						<div class="panel-body">
-							<div ng-if="vm.projectDetail.status == 0" class="btn-group" style="width:200px;">
-								<div class="btn-group btn-group-justified">
-									<div class="btn-group">
-										<button type="button" class="btn btn-danger" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'dismissed'})">
+				<!-- END PANEL -->
+			</div>
+		</div>
+		<div pg-portlet class="panel panel-default" progress='bar' progress-color='success'>
+			<div class="panel-heading">
+				<div class="panel-title">To Do List
+				</div>
+				<div class="panel-controls">
+                    <ul>
+                        <li><a class="portlet-collapse" href="" data-toggle="collapse"><i class="portlet-icon portlet-icon-collapse"></i></a>
+                        </li>
+                        <li><a class="portlet-refresh" href="" data-toggle="refresh"><i class="portlet-icon portlet-icon-refresh"></i></a>
+                        </li>
+                        <li><a class="portlet-close" href="" data-toggle="close"><i class="portlet-icon portlet-icon-close"></i></a>
+                        </li>
+                    </ul>
+                </div>
+			</div>
+			<div class="panel-body">
+				<p>Todo list here.</p>
+				<div class="row m-b-10">
+					<div class="col-sm-12">
+						<button class="btn btn-primary btn-sm m-t-10 pull-right" ng-click="vm.addTodoListModal()">
+	                        <span class="pull-left"><i class="fa fa-plus-circle"></i> </span><span class="bold">New</span>
+	                    </button>
+					</div>
+				</div>
+				<div class="panel-group todo-list-block" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default"  ng-repeat="item in vm.test">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                            <div class="pull-left">
+		                        <button class="btn btn-danger btn-xs btn-custom-xs remove-todo-btn"><i class="fa fa-remove"></i></button>
+                   			</div>
+                            <a ng-class="{collapsed:!collapseOne[item]}" ng-click="collapseOne[item]=!collapseOne[item]" aria-expanded="true" aria-controls="collapseOne">
+                             Todolist 1 
+                            </a>
+					
+                          </h4>
+                        </div>
+                        <div class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" ng-class="{in:collapseOne[item]}">
+                            <div class="panel-body todo-list">
+								<div class="task-item">
+									<p>asfsdfsd</p>
+									<div class="action-div">
+										<button class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></button>
+				                        <button class="btn btn-danger btn-xs"><i class="fa fa-remove"></i></button>
+									</div>
+									<div style="clear:both"></div>
+								</div>
+								<button class="btn btn-primary btn-xs pull-right m-t-10"><i class="fa fa-plus"></i> New Task</button>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+				<!-- END PANEL -->
+			</div>
+		</div>
+		<div pg-portlet id="portlet-linear-color" class="panel panel-default" progress='bar' progress-color='success' on-refresh="vm.refreshTest('#portlet-linear-color')">
+            <div class="panel-heading ">
+                <div class="panel-title">Activities
+                </div>
+                <div class="panel-controls">
+                    <ul>
+                        <li><a class="portlet-collapse" href="" data-toggle="collapse"><i class="portlet-icon portlet-icon-collapse"></i></a>
+                        </li>
+                        <li><a class="portlet-refresh" href="" data-toggle="refresh"><i class="portlet-icon portlet-icon-refresh"></i></a>
+                        </li>
+                        <li><a class="portlet-close" href="" data-toggle="close"><i class="portlet-icon portlet-icon-close"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body timeline-container top-circle">
+				<section class="timeline">
+		            <div class="timeline-block">
+		                <div class="timeline-point success">
+		                    <i class="pg-social"></i>
+		                </div>
+		                <!-- timeline-point -->
+		                <div class="timeline-content">
+							<div class="event-date">
+		                        <h6 class="font-montserrat all-caps hint-text m-t-0">Apple Inc</h6>
+		                        <small class="fs-12 hint-text">15 January 2015, 06:50 PM</small>
+		                    </div>
+		                    <div class="card share full-width">
+		                        <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
+		                        </div>
+		                        <div class="card-header clearfix">
+		                            <div class="user-pic">
+		                                <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/8x.jpg" data-src="assets/img/profiles/8.jpg" src="assets/img/profiles/8x.jpg">
+		                            </div>
+		                            <h5>Jeff Curtis</h5>
+		                            <h6>Shared a Tweet
+		                                <span class="location semi-bold"><i class="fa fa-map-marker"></i> SF, California</span>
+		                            </h6>
+		                        </div>
+		                        <div class="card-description">
+		                            <p>What you think, you become. What you feel, you attract. What you imagine, you create - Buddha. <a href="">#quote</a> </p>
+		                            <div class="via">via Twitter</div>
+		                        </div>
+		                    </div>
+		                </div>
+		                <!-- timeline-content -->
+		            </div>
+				</section>
+            </div>
+        </div>
+		<!-- START PANEL -->
+		<div pg-portlet class="panel panel-default" progress='bar' progress-color='success'>
+			<div class="panel-heading">
+				<div class="panel-title">Attachments
+				</div>
+				<div class="panel-controls">
+                    <ul>
+                        <li><a class="portlet-collapse" href="" data-toggle="collapse"><i class="portlet-icon portlet-icon-collapse"></i></a>
+                        </li>
+                        <li><a class="portlet-refresh" href="" data-toggle="refresh"><i class="portlet-icon portlet-icon-refresh"></i></a>
+                        </li>
+                        <li><a class="portlet-close" href="" data-toggle="close"><i class="portlet-icon portlet-icon-close"></i></a>
+                        </li>
+                    </ul>
+                </div>
+			</div>
+			<div class="panel-body">
+				<p>You can download attachments by clickig links below.</p>
+				<br>
+				<div class="row">
+					<div class="col-md-12">
+						<p ng-if="vm.images.length == 0">No Images</p>
+						<ul ng-if="vm.images.length != 0 " class="gallery gallery1">
+							<li ng-repeat="image in vm.images">
+								<a ng-click="vm.openLightboxModal($index)">
+								      <img ng-src="{{image.thumbUrl}}" class="img-thumbnail">
+								    </a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END PANEL -->
+	</div>
+	<div class="col-md-8">
+		<!-- START PANEL -->
+		<div class="panel panel-default project-datail">
+			<div class="panel-heading">
+				<div class="panel-title">Project Details
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="panel panel-transparent m-t-15">
+					<div class="panel-body">
+						<div ng-if="vm.projectDetail.status == 0" class="btn-group" style="width:200px;">
+							<div class="btn-group btn-group-justified">
+								<div class="btn-group">
+									<button type="button" class="btn btn-danger" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'dismissed'})">
                                         <span class="p-t-5 p-b-5">
                                                     <i class="fa fa-close fs-15"></i>
                                                 </span>
                                         <br>
                                         <span class="fs-11 font-montserrat text-uppercase">Dismiss</span>
                                     </button>
-									</div>
-									<div class="btn-group">
-										<button type="button" class="btn btn-primary" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'approved'})">
+								</div>
+								<div class="btn-group">
+									<button type="button" class="btn btn-primary" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'approved'})">
                                         <span class="p-t-5 p-b-5">
                                                     <i class="fa fa-save fs-15"></i>
                                                 </span>
                                         <br>
                                         <span class="fs-11 font-montserrat text-uppercase">Recognize</span>
                                     </button>
-									</div>
 								</div>
 							</div>
-							<div ng-if="vm.projectDetail.status == 1" class="btn-group" style="width:100px;">
-								<div class="btn-group btn-group-justified">
-									<div class="btn-group">
-										<button type="button" class="btn btn-complete" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'opened'})">
+						</div>
+						<div ng-if="vm.projectDetail.status == 1" class="btn-group" style="width:100px;">
+							<div class="btn-group btn-group-justified">
+								<div class="btn-group">
+									<button type="button" class="btn btn-complete" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'opened'})">
 	                                        <span class="p-t-5 p-b-5">
 	                                            <i class="fa fa-share fs-15"></i>
 	                                        </span>
 	                                        <br>
 	                                        <span class="fs-11 font-montserrat text-uppercase">Hold</span>
 	                                    </button>
-									</div>
 								</div>
 							</div>
-							<div ng-if="vm.projectDetail.status == 2" class="btn-group" style="width:100px;">
-								<div class="btn-group btn-group-justified">
-									<div class="btn-group">
-										<button type="button" class="btn btn-complete" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'0'})">
+						</div>
+						<div ng-if="vm.projectDetail.status == 2" class="btn-group" style="width:100px;">
+							<div class="btn-group btn-group-justified">
+								<div class="btn-group">
+									<button type="button" class="btn btn-complete" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'0'})">
 	                                        <span class="p-t-5 p-b-5">
 	                                            <i class="fa fa-share fs-15"></i>
 	                                        </span>
 	                                        <br>
 	                                        <span class="fs-11 font-montserrat text-uppercase">Reopen</span>
 	                                    </button>
-									</div>
 								</div>
 							</div>
-							<div ng-if="vm.projectDetail.status != 2" class="btn-group pull-right" style="width:100px;">
-								<div class="btn-group btn-group-justified">
-									<div class="btn-group">
-										<button type="button" class="btn btn-success">
+						</div>
+						<div ng-if="vm.projectDetail.status != 2" class="btn-group pull-right" style="width:100px;">
+							<div class="btn-group btn-group-justified">
+								<div class="btn-group">
+									<button type="button" class="btn btn-success">
                                         <span class="p-t-5 p-b-5">
                                                     <i class="fa fa-star fs-15"></i>
                                                 </span>
                                         <br>
                                         <span class="fs-11 font-montserrat text-uppercase">Favourite</span>
                                     </button>
-									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="panel panel-transparent m-t-15">
-						<div class="panel-heading">
-							<h3 class="pull-left text-primary no-margin project-title">{{vm.projectDetail.title}}</h3>
-							<div class="pull-right m-t-10 label-div">
-								<span class="label label-success" ng-style="{'background-color':item.color}" ng-repeat="item in vm.projectDetail.label">{{item.name}}</span>
+				</div>
+				<div class="panel panel-transparent m-t-15">
+					<div class="panel-heading">
+						<h3 class="pull-left text-primary no-margin project-title">{{vm.projectDetail.title}}</h3>
+						<div class="pull-right m-t-10 label-div">
+							<span class="label label-success" ng-style="{'background-color':item.color}" ng-repeat="item in vm.projectDetail.label">{{item.name}}</span>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-body">
+						<p class="">{{vm.projectDetail.ago_time}}</p>
+						<br/>
+						<a class="btn btn-default btn-cons btn-rounded btn-notification-style m-b-10 active">Objective: {{vm.projectDetail.objective}}</a>
+						<a class="btn btn-default btn-cons btn-rounded btn-notification-style m-b-10 active">Departments: {{vm.projectDetail.department.name}}</a>
+					</div>
+				</div>
+				<div class="panel panel-transparent">
+					<div class="panel-heading">
+						<div class="panel-title">Description
+						</div>
+					</div>
+					<div class="panel-body">
+						<p>{{vm.projectDetail.description}}</p>
+					</div>
+				</div>
+				<!-- END PANEL -->
+			</div>
+		</div>
+
+		<div class="panel panel-default project-datail">
+			<div class="panel-heading">
+				<div class="panel-title">Comments
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="comment-box m-t-20">
+					<div class="comment-item">
+						<div class="comment-item-header">
+							<div class="user-pic">
+								<img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" src="assets/img/profiles/4x.jpg">
+							</div>
+							<h5>Andy Young</h5>
+							<h6>Web Designer, QA
+	                                <span class="location semi-bold pull-right"> 14 mins ago</span>
+	                            </h6>
+						</div>
+						<div class="comment-item-body">
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+								It has survived not only five centuries.</p>
+						</div>
+					</div>
+					<div class="comment-item">
+						<div class="comment-item-header">
+							<div class="user-pic">
+								<img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" src="assets/img/profiles/4x.jpg">
+							</div>
+							<h5>Andy Young</h5>
+							<h6>Web Designer, QA
+	                                <span class="location semi-bold pull-right"> 14 mins ago</span>
+	                            </h6>
+						</div>
+						<div class="comment-item-body">
+							<p>What a lovely day! I think I should go and play outside.</p>
+						</div>
+					</div>
+				</div>
+				<div class="comment-input">
+					<div class="row">
+						<div class="form-group">
+							<label for="name" class="col-md-12 control-label">Comment</label>
+							<div class="col-md-12">
+								<textarea class="form-control" id="name" placeholder="Type the comment"></textarea>
 							</div>
 							<div class="clearfix"></div>
 						</div>
-						<div class="panel-body">
-							<p class="">{{vm.projectDetail.ago_time}}</p>
-							<br/>
-							<a class="btn btn-default btn-cons btn-rounded btn-notification-style m-b-10 active">Objective: {{vm.projectDetail.objective}}</a>
-							<a class="btn btn-default btn-cons btn-rounded btn-notification-style m-b-10 active">Departments: {{vm.projectDetail.department.name}}</a>
-						</div>
 					</div>
-					<div class="panel panel-transparent">
-						<div class="panel-heading">
-							<div class="panel-title">Description
-							</div>
-						</div>
-						<div class="panel-body">
-							<p>{{vm.projectDetail.description}}</p>
-						</div>
-					</div>
-					<!-- END PANEL -->
-				</div>
-			</div>
-
-			<div class="panel panel-default project-datail">
-				<div class="panel-heading">
-					<div class="panel-title">Comments
-					</div>
-				</div>
-				<div class="panel-body">
-					<div class="comment-box m-t-20">
-						<div class="comment-item">
-							<div class="comment-item-header">
-								<div class="user-pic">
-									<img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" src="assets/img/profiles/4x.jpg">
-								</div>
-								<h5>Andy Young</h5>
-								<h6>Web Designer, QA
-	                                <span class="location semi-bold pull-right"> 14 mins ago</span>
-	                            </h6>
-							</div>
-							<div class="comment-item-body">
-								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-									It has survived not only five centuries.</p>
-							</div>
-						</div>
-						<div class="comment-item">
-							<div class="comment-item-header">
-								<div class="user-pic">
-									<img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" src="assets/img/profiles/4x.jpg">
-								</div>
-								<h5>Andy Young</h5>
-								<h6>Web Designer, QA
-	                                <span class="location semi-bold pull-right"> 14 mins ago</span>
-	                            </h6>
-							</div>
-							<div class="comment-item-body">
-								<p>What a lovely day! I think I should go and play outside.</p>
-							</div>
-						</div>
-					</div>
-					<div class="comment-input">
-						<div class="row">
-							<div class="form-group">
-								<label for="name" class="col-md-12 control-label">Comment</label>
-								<div class="col-md-12">
-									<textarea class="form-control" id="name" placeholder="Type the comment"></textarea>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group">
-								<button class="btn btn-primary btn-cons pull-right m-r-20">Post</button>
-							</div>
+					<div class="row">
+						<div class="form-group">
+							<button class="btn btn-primary btn-cons pull-right m-r-20">Post</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
+
+<!-- Add Todo list Modal  -->
+<div class="modal fade stick-up" id="addTodoModal" tabindex="-1" role="dialog" aria-labelledby="addTodoModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header clearfix ">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                </button>
+                <h4 class="p-b-5"><span class="semi-bold">New</span> Todo List</h4>
+            </div>
+            <form role="form" name="vm.addTodolistForm" ng-submit="vm.addTodoList(vm.addTodolistForm.$valid)" novalidate>
+                <div class="modal-body">
+                    <p class="small-text">Create a New Todo List</p>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.addTodolistForm.name.$invalid && ( vm.formSubmitted || vm.addTodolistForm.name.$touched) }">
+                                <label>Title</label>
+                                <input id="departmentName" ng-model="vm.newTodoList.title" name="name" type="text" class="form-control" placeholder="Title" required>
+                            </div>
+                            <label class="error help-block" for="name" ng-show="vm.addTodolistForm.name.$error.required && ( vm.formSubmitted || vm.addTodolistForm.name.$touched)">This field is required.</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default">
+                                <label>Description</label>
+                                <input id="description" ng-model="vm.newTodoList.description" type="text" class="form-control" placeholder="Description">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div pg-form-group class="form-group form-group-default form-group-default-select required" ng-class="{ 'has-error': vm.managers.sel == null && ( vm.formSubmitted || vm.addTodolistForm.manager_sel.$touched) }">
+                                <label class="">Manager</label>
+                                <ui-select ng-model="vm.managers.sel" name="manager_sel" theme="bootstrap" ng-disabled="disabled" style="width:100%">
+                                    <ui-select-match placeholder="Select Manager">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="item in vm.managers.list | propsFilter: {name: $select.search}">
+                                        <span ng-bind-html="vm.trustAsHtml((item.name | highlight: $select.search))"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <label ng-show="vm.addTodolistForm.manager_sel.$invalid && (vm.formSubmitted || vm.errors.department)" class="error help-block">{{vm.errors.department}}</label>
+                            <label ng-show="vm.managers.sel == null && ( vm.formSubmitted || vm.addTodolistForm.manager_sel.$touched)" class="error help-block">Manager is required.</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary  btn-cons">Add</button>
+                    <button type="button" class="btn btn-cons" ng-click="vm.hideModal(1)">Close</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>

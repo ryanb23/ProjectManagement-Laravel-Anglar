@@ -99,12 +99,11 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
             resolve: {
                   deps: ['$ocLazyLoad', function($ocLazyLoad) {
                       return $ocLazyLoad.load([
-                            'select',
+
                           ], {
                               insertBefore: '#lazyload_placeholder'
                           })
                           .then(function() {
-                              angular.module('app.components', ['ui.select']);
                           });
                   }]
             },
@@ -136,14 +135,11 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
             resolve: {
                   deps: ['$ocLazyLoad', function($ocLazyLoad) {
                       return $ocLazyLoad.load([
-                              'dataTables',
-                              'switchery',
-                              'select'
+                              'switchery'
                           ], {
                               insertBefore: '#lazyload_placeholder'
                           })
                           .then(function() {
-                            angular.module('app.components', ['ui.select']);
                           });
                   }]
             },
@@ -161,15 +157,11 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
             resolve: {
                   deps: ['$ocLazyLoad', function($ocLazyLoad) {
                       return $ocLazyLoad.load([
-                              'dataTables',
-                              'switchery',
-                              'select',
-
+                              'switchery'
                           ], {
                               insertBefore: '#lazyload_placeholder'
                           })
                           .then(function() {
-                               angular.module('app.components', ['ui.select'])
                           });
                   }]
             },
