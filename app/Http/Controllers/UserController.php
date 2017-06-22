@@ -33,7 +33,7 @@ class UserController extends Controller
     }
 
     /**
-     * Get all users with same department permission
+     * Get all users chat users
      *
      * @return JSON
      */
@@ -60,7 +60,12 @@ class UserController extends Controller
 
         return response()->success($result);
     }
-
+    
+    /**
+     * Get all users with same department permission
+     *
+     * @return JSON
+     */
     public function getDepartmentUser(Request $request){
         $user = Auth::user();
         $user_dep = $user->departments()->get();
@@ -76,6 +81,24 @@ class UserController extends Controller
 
         return response()->success($result);
     }
+
+    /**
+     * Get all users with same department permission
+     *
+     * @return JSON
+     */
+    public function getProjectManagers(Request $request){
+        $user = Auth::user();
+        $user_dep = $user->departments()->get();
+
+        $result = User::with('roles','departments')->whereHas('roles',function($query){
+            $query->where('roles.id','=','4');
+        })->where('users.id','<>',$user->id)->get();
+
+        return response()->success($result);
+    }
+
+
     /**
      * Create  new User.
      *

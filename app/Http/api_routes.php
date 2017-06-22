@@ -27,6 +27,7 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     $api->controller('projects','ProjectController');
     $api->controller('departments','DepartmentController');
     $api->controller('labels','LabelController');
+    $api->controller('todos','TodosController');
 
     /**
     ** Image UploadedFileInterface
