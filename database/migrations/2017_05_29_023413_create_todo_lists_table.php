@@ -16,7 +16,12 @@ class CreateTodoListsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('description');
-            $table->integer('priority');
+            $table->integer('project_id')->unsigned();
+            $table->integer('pm_id')->unsigned();
+
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            $table->foreign('pm_id')->references('id')->on('users');
+
             $table->timestamps();
         });
     }
