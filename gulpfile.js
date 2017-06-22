@@ -4,6 +4,7 @@ require('./tasks/concatScripts.task.js')
 require('laravel-elixir-karma')
 require('./tasks/angular.task.js')
 require('./tasks/bower.task.js')
+require('./tasks/theme.task.js')
 require('./tasks/ngHtml2Js.task.js')
 
 if (!elixir.config.production) {
@@ -33,6 +34,7 @@ elixir(function (mix) {
     ],
     scripts = [
       './public/js/vendor.js',
+      './public/js/theme.js',
       './public/js/partials.js',
       './public/js/app.js',
       './public/dist/js/app.js',
@@ -42,6 +44,7 @@ elixir(function (mix) {
       './public/css/vendor.css',
       './public/css/app.css',
       './public/dist/css/custom.css',
+      './public/css/theme.css'
     ],
     karmaJsDir = [
       jsOutputFolder + '/vendor.js',
@@ -53,10 +56,11 @@ elixir(function (mix) {
   ]
   mix
     .bower()
+    .theme()
     .angular('./angular/')
     .ngHtml2Js('./angular/**/*.html')
-    .concatScripts(scripts, 'final.js')
     .sass('./angular/**/*.scss', 'public/css')
+    .concatScripts(scripts, 'final.js')
     .styles(styles, './public/css/final.css')
     .version(assets)
     .browserSync({
