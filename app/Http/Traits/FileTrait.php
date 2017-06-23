@@ -27,7 +27,8 @@ trait FileTrait
         $upload_dir = env('UPLOAD_DIR');
         $result = array();
         $path_parts = pathinfo($file['file']['name']);
-        $filename = $path_parts['filename'].'_'.time().'.'.$path_parts['extension'];
+        $file_extension = isset($path_parts['extension']) ? '.'.$path_parts['extension']:'';
+        $filename = $path_parts['filename'].'_'.time().$file_extension;
         $file_des = $upload_dir.'/tmp/'.$filename;
 
         if (!file_exists($upload_dir.'/tmp/')) {
@@ -42,5 +43,12 @@ trait FileTrait
             );
         }
         return $result;
+    }
+
+    public function removeFromTmp($filename)
+    {
+        $upload_dir = env('UPLOAD_DIR');
+        $file_des = $upload_dir.'/tmp/'.$filename;
+        return unlink($file_des);
     }
 }
