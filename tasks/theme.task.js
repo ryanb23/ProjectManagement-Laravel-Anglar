@@ -20,7 +20,9 @@ var themeScripts = [
     './public/assets/plugins/switchery/js/switchery.min.js',
     './public/assets/plugins/ng-switchery/ng-switchery.js',
     //Select
-    './public/assets/plugins/angular-ui-select/select.min.js'
+    './public/assets/plugins/angular-ui-select/select.min.js',
+    //datapicker
+    './public/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'
 ],
 themeStyles = [
     //Datatable Css
@@ -32,7 +34,9 @@ themeStyles = [
     //Select Css
     './public/assets/plugins/bootstrap-select2/select2.css',
     './public/assets/plugins/angular-ui-select/select.min.css',
-    './public/assets/plugins/angular-ui-select/pages-select2-old.css'
+    './public/assets/plugins/angular-ui-select/pages-select2-old.css',
+    //datapicker
+    './public/assets/plugins/bootstrap-datepicker/css/datepicker3.css'
 ];
 Elixir.extend('theme', function (jsOutputFile, jsOutputFolder, cssOutputFile, cssOutputFolder) {
   var cssFile = cssOutputFile || 'theme.css'

@@ -39,18 +39,25 @@ class ProjectCreateController {
         this.contributors = {}
         this.contributors.list = []
         this.contributors.sel = []
+        that.dropzoneObj = null
 
         this.dzOptions = {
             url: '/api/images/upload',
             paramName: 'file',
             maxFilesize: '10',
-            acceptedFiles: 'image/jpeg, images/jpg, image/png',
-            addRemoveLinks: true
+            // acceptedFiles: 'image/jpeg, images/jpg, image/png',
+            addRemoveLinks: true,
+            init : function(){
+                that.dropzoneObj = this;
+            }
         };
 
         this.dzCallbacks = {
             'addedfile': function(file) {
                 // console.log(file);
+            },
+            'removedfile':function(file){
+                that.removeFile(file);
             },
             'success': function(file, xhr) {
                 // console.log(file, xhr);
@@ -63,6 +70,19 @@ class ProjectCreateController {
         this.createProjectForm = null;
 
     }
+    removeFile(file){
+        for(var i=0; i<this.newFile.length; i++)
+        {
+            if(this.newFile[i].org_filename == file.name)
+            {
+                var filename = this.newFile[i].filename
+                this.projectRoute.all('remove-tmp').post({'filename':filename}).then((response)=>{
+                    this.newFile.splice(i,1);
+                });
+            }
+        }
+    }
+
     trustAsHtml(value) {
         return this.$sce.trustAsHtml(value);
     };

@@ -99,7 +99,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
             resolve: {
                   deps: ['$ocLazyLoad', function($ocLazyLoad) {
                       return $ocLazyLoad.load([
-
+                                'switchery'
                           ], {
                               insertBefore: '#lazyload_placeholder'
                           })
