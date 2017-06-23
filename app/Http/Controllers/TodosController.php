@@ -20,14 +20,32 @@ class TodosController extends Controller
 {
     use CustomTrait;
 
-    public function getIndex()
+    public function getIndex(Request $request)
     {
-        $todoList = Todolist::all();
+        $project_id = $request['id'];
+        $todoList = Todolist::with('tasks','tasks.department','tasks.contributor','tasks.file')->where('project_id','=',$project_id)->get();
         return response()->success($todoList);
     }
 
     public function postStore(Request $request)
     {
-        
+        $project_id = $request['project_id'];
+        $newTodoList = new Todolist();
+        $newTodoList->title = $request['title'];
+        $newTodoList->description = $request['description'];
+        $newTodoList->project_id = $request['project_id'];
+        $newTodoList->pm_id = $request['pm_id'];
+        $result = 'success';
+        if(!$newTodoList->save())
+            $result = 'false';
+        $todoList = Todolist::with('tasks')->where('project_id','=',$project_id)->get();
+        return response()->success($todoList);
+    }
+    public function deleteTodos(Request $request){
+        $project_id = $request['id'];
+        $todos = Todolist::find($project_id);
+        $todos->delete();
+        $todoList = Todolist::with('tasks')->where('project_id','=',$project_id)->get();
+        return response()->success($todoList);
     }
 }

@@ -12,6 +12,6 @@ class ProjectFile extends Model
      * @var array
      */
     protected $fillable = [
-        'project_id', 'uploader_id', 'filename', 'org_filename', 'filetype', 'type', 'created_at', 'updated_at'
+        'project_id', 'task_id', 'uploader_id', 'filename', 'org_filename', 'filetype', 'type', 'created_at', 'updated_at'
     ];
 }
