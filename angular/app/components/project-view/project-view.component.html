@@ -28,8 +28,8 @@
 						<div class="btn-group">
 							<button type="button" class="btn btn-primary" ng-click="">
 								<span class="p-t-5 p-b-5">
-											<i class="fa fa-check fs-15"></i>
-										</span>
+									<i class="fa fa-check fs-15"></i>
+								</span>
 								<br>
 								<span class="fs-11 font-montserrat text-uppercase">Assign Project Manager(s)</span>
 							</button>
@@ -58,14 +58,13 @@
 				<p>Todo list here.</p>
 				<div class="row">
 					<div class="col-md-12 m-t-10">
-						<uib-progressbar class="progress-striped" value="22" type="warning">22%</uib-progressbar>
-						<uib-progressbar class="progress-striped active" max="100" value="66" type="danger"><i>66 / 100</i></uib-progressbar>
+							<uib-progressbar class="progress-striped active" value="((item.progress))" type="{{vm.getProgressColor(item.progress)}}" ng-repeat="item in vm.progressDetail">{{item.progress}}%</uib-progressbar>
 					</div>
 				</div>
 				<!-- END PANEL -->
 			</div>
 		</div>
-		<div pg-portlet class="panel panel-default" progress='bar' progress-color='success'>
+		<div pg-portlet class="panel panel-default" id="portlet-todolist" progress='bar' progress-color='success'  on-refresh="vm.refreshEnd('#portlet-todolist')">
 			<div class="panel-heading">
 				<div class="panel-title">To Do List
 				</div>
@@ -81,7 +80,7 @@
                 </div>
 			</div>
 			<div class="panel-body">
-				<p>Todo list here.</p>
+				<p>You can manage your Todo list here.</p>
 				<div class="row m-b-10">
 					<div class="col-sm-12">
 						<button class="btn btn-primary btn-sm m-t-10 pull-right" ng-click="vm.addTodoListModal()">
@@ -90,29 +89,31 @@
 					</div>
 				</div>
 				<div class="panel-group todo-list-block" id="accordion" role="tablist" aria-multiselectable="true">
-                    <div class="panel panel-default"  ng-repeat="item in vm.test">
+                    <div class="panel panel-default"  ng-repeat="item in vm.todos">
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
                             <div class="pull-left">
-		                        <button class="btn btn-danger btn-xs btn-custom-xs remove-todo-btn"><i class="fa fa-remove"></i></button>
+		                        <button class="btn btn-danger btn-xs btn-custom-xs remove-todo-btn" ng-click="vm.deleteTodoList(item.id)"><i class="fa fa-trash"></i></button>
                    			</div>
-                            <a ng-class="{collapsed:!collapseOne[item]}" ng-click="collapseOne[item]=!collapseOne[item]" aria-expanded="true" aria-controls="collapseOne">
-                             Todolist 1 
+                            <a ng-class="{collapsed:!collapseOne[item.id]}" ng-click="collapseOne[item.id]=!collapseOne[item.id]" aria-expanded="true" aria-controls="collapseOne">
+                             {{item.title}}
                             </a>
-					
+
                           </h4>
                         </div>
-                        <div class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" ng-class="{in:collapseOne[item]}">
+                        <div class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" ng-class="{in:collapseOne[item.id]}">
                             <div class="panel-body todo-list">
-								<div class="task-item">
-									<p>asfsdfsd</p>
+								<div class="task-item" ng-repeat="task_item in item.tasks">
+									<p>{{task_item.title}}</p>
 									<div class="action-div">
-										<button class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></button>
-				                        <button class="btn btn-danger btn-xs"><i class="fa fa-remove"></i></button>
+										<button class="btn btn-success btn-xs btn-custom-xs" ng-click="vm.openSubmitTaskModal(task_item)"><i class="fa fa-check"></i>Submit</button>
+										<button class="btn btn-success btn-xs btn-custom-xs" ng-click="vm.openApproveTaskModal(task_item)"><i class="fa fa-check"></i></button>
+										<button class="btn btn-primary btn-xs btn-custom-xs" ng-click="vm.editTaskModal(task_item)"><i class="fa fa-edit"></i></button>
+				                        <button class="btn btn-danger btn-xs btn-custom-xs" ng-click="vm.deleteTask(task_item)"><i class="fa fa-trash"></i></button>
 									</div>
 									<div style="clear:both"></div>
 								</div>
-								<button class="btn btn-primary btn-xs pull-right m-t-10"><i class="fa fa-plus"></i> New Task</button>
+								<button class="btn btn-primary btn-xs pull-right m-t-10" ng-click="vm.openTaskModal(item.id)"><i class="fa fa-plus"></i> New Task</button>
                             </div>
                         </div>
                     </div>
@@ -120,7 +121,7 @@
 				<!-- END PANEL -->
 			</div>
 		</div>
-		<div pg-portlet id="portlet-linear-color" class="panel panel-default" progress='bar' progress-color='success' on-refresh="vm.refreshTest('#portlet-linear-color')">
+		<div pg-portlet id="portlet-linear-color" class="panel panel-default" progress='bar' progress-color='success' on-refresh="vm.refreshEnd('#portlet-linear-color')">
             <div class="panel-heading ">
                 <div class="panel-title">Activities
                 </div>
@@ -196,7 +197,7 @@
 							<li ng-repeat="image in vm.images">
 								<a ng-click="vm.openLightboxModal($index)">
 								      <img ng-src="{{image.thumbUrl}}" class="img-thumbnail">
-								    </a>
+								</a>
 							</li>
 						</ul>
 					</div>
@@ -364,6 +365,100 @@
 	</div>
 </div>
 
+<!-- Add New Task Modal  -->
+<div class="modal fade stick-up" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="addTaskModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header clearfix ">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                </button>
+                <h4 class="p-b-5"><span class="semi-bold">{{vm.formType == 'add'?'New':'Edit'}}</span> Task</h4>
+            </div>
+            <form role="form" name="vm.addTaskForm" ng-submit="vm.addTask(vm.addTaskForm.$valid)" novalidate>
+                <div class="modal-body">
+                    <p class="small-text">{{vm.formType == 'add'?'Create':'Edit'}} a Task</p>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.addTaskForm.name.$invalid && ( vm.formSubmitted || vm.addTaskForm.name.$touched) }">
+                                <label>Title</label>
+                                <input id="departmentName" ng-model="vm.newTask.title" name="name" type="text" class="form-control" placeholder="Title" required>
+                            </div>
+                            <label class="error help-block" for="name" ng-show="vm.addTaskForm.name.$error.required && ( vm.formSubmitted || vm.addTaskForm.name.$touched)">This field is required.</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div pg-form-group class="form-group form-group-default">
+                                <label>Description</label>
+                                <input id="description" ng-model="vm.newTask.description" type="text" class="form-control" placeholder="Description">
+                            </div>
+                        </div>
+                    </div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="col-md-8">
+								<div pg-form-group class="form-group form-group-default input-group">
+			                        <label>Deadline</label>
+			                        <input type="text" class="form-control" ng-model="vm.newTask.deadline" placeholder="Pick a date" name="deadline" ui-jq="datepicker" ui-options="vm.datapickerOption">
+			                        <span class="input-group-addon">
+		                              <i class="fa fa-calendar"></i>
+		                            </span>
+			                    </div>
+							</div>
+							<div class="col-md-4">
+	                            <div class="form-group form-group-default input-group">
+	                                <label class="inline">Assign Type</label>
+	                                <span class="input-group-addon bg-transparent">
+	                                  <input type="checkbox" class="js-switch" ng-model="vm.newTask.assign_type" ui-switch="{color: '#6d5cae',size : 'small'}"/>
+	                                </span>
+	                            </div>
+	                        </div>
+						</div>
+					</div>
+                    <div class="row" ng-if="vm.newTask.assign_type == 0">
+                        <div class="col-md-12">
+                            <div pg-form-group class="form-group form-group-default form-group-default-select required" ng-class="{ 'has-error': vm.managers.sel == null && ( vm.formSubmitted || vm.addTaskForm.manager_sel.$touched) }">
+                                <label class="">Manager</label>
+                                <ui-select ng-model="vm.managers.sel" name="manager_sel" theme="bootstrap" ng-disabled="disabled" style="width:100%">
+                                    <ui-select-match placeholder="Select Manager">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="item in vm.managers.list | propsFilter: {name: $select.search}">
+                                        <span ng-bind-html="vm.trustAsHtml((item.name | highlight: $select.search))"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <label ng-show="vm.addTaskForm.manager_sel.$invalid && (vm.formSubmitted || vm.errors.department)" class="error help-block">{{vm.errors.department}}</label>
+                            <label ng-show="vm.managers.sel == null && ( vm.formSubmitted || vm.addTaskForm.manager_sel.$touched)" class="error help-block">Manager is required.</label>
+                        </div>
+					</div>
+					<div class="row" ng-if="vm.newTask.assign_type == 1">
+						<div class="col-md-12">
+							<div pg-form-group class="form-group form-group-default form-group-default-select required" ng-class="{ 'has-error': vm.departments.sel == null && ( vm.formSubmitted || vm.createProjectForm.dep_sel.$touched) }">
+								<label class="">Department</label>
+								<ui-select ng-model="vm.departments.sel" name="dep_sel" theme="bootstrap" ng-disabled="disabled" style="width:100%">
+									<ui-select-match placeholder="Select Department">{{$select.selected.name}}</ui-select-match>
+									<ui-select-choices repeat="dItem in vm.departments.list | propsFilter: {name: $select.search, description: $select.search}">
+										<span ng-if="dItem.p_dep_id != 0" style="margin-left:20px"></span>
+										<span ng-bind-html="vm.trustAsHtml((dItem.name | highlight: $select.search))"></span> -
+										<small ng-bind-html="vm.trustAsHtml((dItem.description | highlight: $select.search))"></small>
+									</ui-select-choices>
+								</ui-select>
+							</div>
+							<label ng-show="vm.addTaskForm.dep_sel.$invalid && (vm.formSubmitted || vm.errors.department)" class="error help-block">{{vm.errors.department}}</label>
+							<label ng-show="vm.departments.sel == null && ( vm.formSubmitted || vm.addTaskForm.dep_sel.$touched)" class="error help-block">Department is required.</label>
+						</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary  btn-cons">{{vm.formType == 'add'?'Add':'Edit'}}</button>
+                    <button type="button" class="btn btn-cons" ng-click="vm.hideModal(2)">Close</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <!-- Add Todo list Modal  -->
 <div class="modal fade stick-up" id="addTodoModal" tabindex="-1" role="dialog" aria-labelledby="addTodoModal" aria-hidden="true">
     <div class="modal-dialog">
@@ -413,6 +508,115 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary  btn-cons">Add</button>
                     <button type="button" class="btn btn-cons" ng-click="vm.hideModal(1)">Close</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<!-- Approve Task Modal  -->
+<div class="modal fade stick-up" id="approveTaskModal" tabindex="-1" role="dialog" aria-labelledby="approveTaskModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header clearfix ">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                </button>
+                <h4 class="p-b-5"><span class="semi-bold">Approve</span> Task</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+					<h3>
+                    <span class="semi-bold">{{vm.newApproveTask.title}}</h3>
+	                <p>{{vm.newApproveTask.description}}</p>
+	                <br>
+	                <div>
+	                    <div class="profile-img-wrapper m-t-5 inline">
+	                        <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/avatar_small2x.jpg" data-src="assets/img/profiles/avatar_small.jpg" alt="" src="assets/img/profiles/avatar_small2x.jpg">
+	                        <div class="chat-status available">
+	                        </div>
+	                    </div>
+	                    <div class="inline m-l-10">
+	                        <p class="small hint-text m-t-5">VIA senior product manage
+	                            <br>for UI/UX at REVOX</p>
+	                    </div>
+	                </div>
+					<h5 ng-if="vm.newApproveTask.attachFiles.length == 0">No Attachment Files</h5>
+					<div ng-if="vm.newApproveTask.attachFiles.length != 0 ">
+						<h5>Attachment Files</h5>
+						<ul class="gallery gallery1">
+							<li ng-repeat="image in vm.newApproveTask.attachFiles">
+								<a>
+								  <img ng-src="{{image.thumbUrl}}" class="img-thumbnail">
+								</a>
+							</li>
+						</ul>
+					</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary  btn-cons" ng-click="vm.approveTask(1)">Approve</button>
+                    <button type="button" class="btn btn-danger" ng-click="vm.approveTask(2)">Dismiss</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- Submit Task Modal  -->
+<div class="modal fade stick-up" id="submitTaskModal" tabindex="-1" role="dialog" aria-labelledby="submitTaskModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header clearfix ">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                </button>
+                <h4 class="p-b-5"><span class="semi-bold">Submit</span> Task</h4>
+            </div>
+			<form role="form" name="vm.submitTaskForm" ng-submit="vm.submitTask(vm.submitTaskForm.$valid)" novalidate>
+                <div class="modal-body">
+                    <p class="small-text">Create a New Todo List</p>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.submitTaskForm.name.$invalid && ( vm.formSubmitted || vm.submitTaskForm.name.$touched) }">
+                                <label>Title</label>
+                                <input id="departmentName" ng-model="vm.newSubmitTask.title" name="name" type="text" class="form-control" placeholder="Title" required>
+                            </div>
+                            <label class="error help-block" for="name" ng-show="vm.submitTaskForm.name.$error.required && ( vm.formSubmitted || vm.submitTaskForm.name.$touched)">This field is required.</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default">
+                                <label>Description</label>
+                                <input id="description" ng-model="vm.newSubmitTask.description" type="text" class="form-control" placeholder="Description">
+                            </div>
+                        </div>
+                    </div>
+					<div class="row">
+						<div class="panel panel-transparent">
+	                        <div class="panel-heading">
+	                            <div class="panel-title">
+	                                Project Files
+	                            </div>
+	                            <div class="tools">
+	                                <a class="collapse" href="javascript:;"></a>
+	                                <a class="config" data-toggle="modal" href="#grid-config"></a>
+	                                <a class="reload" href="javascript:;"></a>
+	                                <a class="remove" href="javascript:;"></a>
+	                            </div>
+	                        </div>
+	                        <div class="panel-body no-scroll no-padding">
+	                            <ng-dropzone class="dropzone" options="vm.dzOptions" callbacks="vm.dzCallbacks" methods="vm.dzMethods"></ng-dropzone>
+	                        </div>
+	                    </div>
+					</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary  btn-cons">Add</button>
+                    <button type="button" class="btn btn-cons" ng-click="vm.hideModal(3)">Close</button>
                 </div>
             </form>
         </div>
