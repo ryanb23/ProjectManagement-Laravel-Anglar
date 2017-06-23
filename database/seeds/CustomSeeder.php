@@ -16,5 +16,18 @@ class CustomSeeder extends Seeder
             'name' => 'Undefined',
             'color' => 'red'
         ]);
+
+        DB::table('departments')->insert([
+            'id' => 1,
+            'p_dep_id' => 0,
+            'name' => 'IT',
+            'description' => 'des'
+        ]);
+        DB::table('departments')->insert([
+            'id' => 2,
+            'p_dep_id' => 1,
+            'name' => 'QA',
+            'description' => 'des'
+        ]);
     }
 }
