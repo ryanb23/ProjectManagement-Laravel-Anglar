@@ -15,6 +15,7 @@ class CreateProjectFilesTable extends Migration
         Schema::create('project_files', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('project_id')->unsigned();
+            $table->integer('task_id')->unsigned()->nullable() ;
             $table->integer('uploader_id')->unsigned();
             $table->string('org_filename');
             $table->string('filename');
@@ -23,6 +24,7 @@ class CreateProjectFilesTable extends Migration
             $table->timestamps();
 
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
             $table->foreign('uploader_id')->references('id')->on('users');
         });
     }

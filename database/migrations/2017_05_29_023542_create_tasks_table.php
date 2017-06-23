@@ -21,6 +21,9 @@ class CreateTasksTable extends Migration
             $table->integer('assign_type');
             $table->integer('contributor_id')->unsigned()->nullable();
             $table->integer('department_id')->unsigned()->nullable() ;
+            $table->string('submit_title');
+            $table->string('submit_description');
+            $table->enum('is_approved',['0','1','2'])->default('0');
             $table->timestamps();
 
             $table->foreign('todo_list_id')->references('id')->on('todo_lists')->onDelete('cascade');
