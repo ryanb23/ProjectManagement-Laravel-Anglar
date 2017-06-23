@@ -33,7 +33,7 @@ class Project extends Model
     }
 
     public function file(){
-        return $this->hasMany(ProjectFile::class,'project_id');
+        return $this->hasMany(ProjectFile::class,'project_id')->whereNull('task_id');
     }
 
     public function label(){

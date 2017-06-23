@@ -14,6 +14,7 @@ use Validator;
 use DB;
 
 use App\Models\Project;
+use App\Models\TodoList;
 use App\Models\Department;
 use App\Models\Label;
 
@@ -36,6 +37,30 @@ class ProjectController extends Controller
         return response()->success($result);
     }
 
+    public function postRemoveTmp(Request $request){
+        $result = $this->removeFromTmp($request['filename']);
+        return response()->success($result);
+    }
+
+    public function getProgress(Request $request){
+        $project_id = $request['id'];
+        $todoList = Todolist::with('tasks')->where('project_id','=',$project_id)->get()->toArray();
+        foreach($todoList as &$item)
+        {
+            $complete_cnt = 0;
+            $task_cnt = count($item['tasks']);
+            foreach($item['tasks'] as $task)
+            {
+                if($task['is_approved'] == 1)
+                    $complete_cnt ++;
+            }
+
+            $item['progress'] = round(($complete_cnt / $task_cnt * 100),0);
+            $item['task_cnt'] = $task_cnt;
+            $item['task_completed_cnt'] = $complete_cnt;
+        }
+        return response()->success($todoList);
+    }
     public function getByDateGroup(Request $request){
         $type = isset($request->type)?  $request->type :  'dep';
         if($type == 'dep')
