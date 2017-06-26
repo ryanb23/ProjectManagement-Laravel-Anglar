@@ -19,10 +19,12 @@ class ProjectViewController {
         this.addTaskModal = angular.element('#addTaskModal');
         this.approveTaskModal = angular.element('#approveTaskModal');
         this.submitTaskModal = angular.element('#submitTaskModal');
+        this.assignManagerModal = angular.element('#assignManagerModal');
 
         this.addTodolistForm = null
         this.addTaskForm = null
         this.approveTaskForm = null
+        this.assignManagerForm = null
         this.formSubmitted = false
         this.formType = 'add';
 
@@ -33,6 +35,10 @@ class ProjectViewController {
         this.managers = {}
         this.managers.list = []
         this.managers.sel = null
+
+        this.projectManagers = {}
+        this.projectManagers.list = []
+        this.projectManagers.sel = []
 
         this.progressDetail = []
 
@@ -192,6 +198,22 @@ class ProjectViewController {
         else
             type = 'danger';
         return type;
+    }
+    openAssignManagerModal(){
+        this.showModal(this.assignManagerModal)
+    }
+
+    assignManager(isValid){
+        if (this.projectManagers.sel.length != 0) {
+            this.hideModal(5);
+            this.newTodoList.project_id = this.projectId;
+            this.newTodoList.pm_id = this.managers.sel.id;
+            this.todosRoute.all('store').post(this.newTodoList).then(() => {
+                this.getTodos()
+            }).catch(this.addTodosFail.bind(this))
+        } else {
+            this.formSubmitted = true
+        }
     }
     addTodoListModal(){
          this.newTodoList = {
@@ -376,6 +398,7 @@ class ProjectViewController {
         this.userRoute.get('project-managers').then((response) => {
             var result = response.plain().data;
             this.managers.list = result;
+            this.projectManagers.list = result;
         })
     }
 
@@ -391,6 +414,8 @@ class ProjectViewController {
           this.submitTaskModal.modal('hide')
         else if(type == 4)
           this.approveTaskModal.modal('hide')
+        else if(type == 5)
+          this.assignManagerModal.modal('hide')
     }
 
     refreshEnd(portlet) {

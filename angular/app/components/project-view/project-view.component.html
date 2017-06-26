@@ -26,7 +26,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="btn-group">
-							<button type="button" class="btn btn-primary" ng-click="">
+							<button type="button" class="btn btn-primary" ng-click="vm.openAssignManagerModal()">
 								<span class="p-t-5 p-b-5">
 									<i class="fa fa-check fs-15"></i>
 								</span>
@@ -57,8 +57,12 @@
 			<div class="panel-body">
 				<p>Todo list here.</p>
 				<div class="row">
+					<p></p>
 					<div class="col-md-12 m-t-10">
-							<uib-progressbar class="progress-striped active" value="((item.progress))" type="{{vm.getProgressColor(item.progress)}}" ng-repeat="item in vm.progressDetail">{{item.progress}}%</uib-progressbar>
+						<div ng-repeat="item in vm.progressDetail">
+							<p>{{item.title}}</p>
+							<uib-progressbar class="progress-striped active" value="((item.progress))" type="{{vm.getProgressColor(item.progress)}}">{{item.progress}}%</uib-progressbar>
+						</div>
 					</div>
 				</div>
 				<!-- END PANEL -->
@@ -508,6 +512,46 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary  btn-cons">Add</button>
                     <button type="button" class="btn btn-cons" ng-click="vm.hideModal(1)">Close</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- Assign PM Modal  -->
+<div class="modal fade stick-up" id="assignManagerModal" tabindex="-1" role="dialog" aria-labelledby="assignManagerModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header clearfix ">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                </button>
+                <h4 class="p-b-5"><span class="semi-bold">Approve</span> Task</h4>
+            </div>
+			<form role="form" name="vm.assignManagerForm" ng-submit="vm.assignManager(vm.assignManagerForm.$valid)" novalidate>
+                <div class="modal-body">
+                    <p class="small-text">Assign Project Managers</p>
+                    <div class="row">
+						<div class="col-sm-12">
+							<div pg-form-group class="form-group form-group-default form-group-default-select required" ng-class="{ 'has-error': vm.projectManagers.sel.length == 0 && ( vm.formSubmitted || vm.assignManagerForm.projectManagers.$touched) }">
+                                <label class="">Project Manager(s)</label>
+                                <ui-select multiple ng-model="vm.projectManagers.sel" name="projectManagers" theme="select2" ng-disabled="disabled" style="width:100%">
+                                    <ui-select-match placeholder="Select Managers">{{$item.name}}</ui-select-match>
+                                    <ui-select-choices repeat="item in vm.projectManagers.list | propsFilter: {name: $select.search}">
+                                        <span ng-if="item.p_dep_id != 0" style="margin-left:20px"></span>
+                                        <span ng-bind-html="vm.trustAsHtml((item.name | highlight: $select.search))"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <label ng-show="vm.assignManagerForm.projectManagers.$invalid && (vm.formSubmitted || vm.errors.projectManager)" class="error help-block">{{vm.errors.projectManager}}</label>
+                            <label ng-show="vm.projectManagers.sel.length == 0 && ( vm.formSubmitted || vm.assignManagerForm.projectManagers.$touched)" class="error help-block">Manager is required.</label>
+						</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary  btn-cons">Add</button>
+                    <button type="button" class="btn btn-cons" ng-click="vm.hideModal(5)">Close</button>
                 </div>
             </form>
         </div>
