@@ -55,7 +55,7 @@ class ProjectController extends Controller
                     $complete_cnt ++;
             }
 
-            $item['progress'] = round(($complete_cnt / $task_cnt * 100),0);
+            $item['progress'] = $task_cnt != 0 ? round(($complete_cnt / $task_cnt * 100),0) : 0;
             $item['task_cnt'] = $task_cnt;
             $item['task_completed_cnt'] = $complete_cnt;
         }
