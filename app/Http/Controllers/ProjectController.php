@@ -144,6 +144,27 @@ class ProjectController extends Controller
         $project->save();
         return response()->success('success');
     }
+    public function postUpdatePorjectManagers(Request $request){
+        $id = $request['id'];
+        $project_id = $request['project_id'];
+        foreach($request['project_managers'] as $pm)
+        {
+            $row = DB::table('project_users')->where('project_id',$project_id)->where('user_id',$pm['id'])->get();
+            if (count($row) == 0)
+            {
+                DB::table('project_users')->insert(['project_id'=>$project_id,'user_id'=>$pm['id']]);
+            }
+
+        }
+
+        return response()->success('success');
+    }
+
+    public function getProjectManagers(Request $request){
+        $id = $request['id'];
+        $result = Project::with('manager')->where('projects.id',$id)->get();
+        return response()->success($result);
+    }
     public function postStore(Request $request)
     {
         $user = Auth::user();

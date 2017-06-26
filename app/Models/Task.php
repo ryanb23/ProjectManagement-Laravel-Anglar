@@ -15,7 +15,7 @@ class Task extends Model
      * @var array
      */
     protected $fillable = [
-        'todo_list_id', 'title', 'description', 'deadline', 'assign_type', 'contributor_id', 'department_id', 'created_at', 'udpdated_at'
+        'todo_list_id', 'title', 'is_submitted', 'is_approved', 'description', 'deadline', 'assign_type', 'contributor_id', 'department_id', 'created_at', 'udpdated_at'
     ];
 
     public function department(){

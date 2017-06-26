@@ -13,7 +13,7 @@ $api->group(['middleware' => ['api']], function ($api) {
 });
 
 $api->group(['middleware' => ['api', 'api.auth', 'role:admin.super|admin.user']], function ($api) {
-    $api->controller('users', 'UserController');
+
 });
 
 $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
@@ -23,6 +23,7 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     /**
     ** Message Api
     **/
+    $api->controller('users', 'UserController');
     $api->controller('message','MessageController');
     $api->controller('projects','ProjectController');
     $api->controller('departments','DepartmentController');

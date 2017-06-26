@@ -15,6 +15,9 @@ use Illuminate\Database\Eloquent\Model;
 use Bican\Roles\Models\Role;
 use App\Models\Message;
 use App\Models\Department;
+use App\Models\Project;
+use App\Models\TodoList;
+use App\Models\Task;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasRoleAndPermissionContract
 {
@@ -47,5 +50,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
     public function departments(){
         return $this->belongsToMany(Department::class, 'department_user','user_id','department_id');
+    }
+    public function projects(){
+        return $this->belongsToMany(Project::class, 'project_users','user_id','project_id');
+    }
+
+    public function todos(){
+        return $this->hasMany(TodoList::class, 'pm_id');
+    }
+
+    public function tasks(){
+        return $this->hasMany(Task::class, 'contributor_id');
     }
 }

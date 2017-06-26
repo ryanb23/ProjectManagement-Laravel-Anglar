@@ -39,4 +39,8 @@ class Project extends Model
     public function label(){
         return $this->belongsToMany(Label::class,'project_label','project_id','label_id');
     }
+
+    public function manager(){
+        return $this->belongsToMany(User::class,'project_users','project_id','user_id');
+    }
 }

@@ -23,12 +23,15 @@ class UserController extends Controller
     public function getMe()
     {
         $user = Auth::user();
-        $user['fullname'] = $user['firstname'].' '.$user['lastname']; 
+        $user['fullname'] = $user['firstname'].' '.$user['lastname'];
         $user['role'] = $user
                         ->roles()
                         ->select(['slug', 'roles.id', 'roles.name'])
                         ->get();
         $user['department'] = $user->departments()->get();
+        $user['projects'] = $user->projects()->get();
+        $user['todos'] = $user->todos()->get();
+        $user['tasks'] = $user->tasks()->get();
         return response()->success($user);
     }
 
@@ -60,7 +63,7 @@ class UserController extends Controller
 
         return response()->success($result);
     }
-    
+
     /**
      * Get all users with same department permission
      *
