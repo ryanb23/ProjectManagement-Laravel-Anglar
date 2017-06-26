@@ -216,7 +216,7 @@ class ProjectViewController {
             this.newProjectManager.project_id = this.projectId;
             this.newProjectManager.project_managers = this.projectManagers.sel;
             this.projectRoute.all('update-porject-managers').post(this.newProjectManager).then(() => {
-
+                this.getProjectManagers();
             }).catch(this.addAssignManagerFail.bind(this))
         } else {
             this.formSubmitted = true
