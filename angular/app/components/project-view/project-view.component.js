@@ -1,16 +1,18 @@
 class ProjectViewController {
-    constructor(API, $state, $stateParams, $timeout, $scope, $sce, $compile, $filter, Lightbox) {
+    constructor(API, $state, $stateParams, $timeout, $scope, $rootScope, $sce, $compile, $filter, Lightbox, ContextService) {
         'ngInject'
 
         let that = this
 
-        this.projectId = $stateParams.projectId;
+        this.projectId = parseInt($stateParams.projectId);
         this.$sce = $sce;
         this.$scope = $scope;
+        this.$rootScope = $rootScope;
         this.$compile = $compile;
         this.$filter = $filter;
         this.$state = $state;
         this.$timeout = $timeout;
+        this.service = ContextService;
         this.API = API;
         this.Lightbox = Lightbox;
         this.datapickerOption = { format: 'yyyy-mm-dd' }
@@ -41,7 +43,7 @@ class ProjectViewController {
         this.projectManagers.sel = []
 
         this.progressDetail = []
-
+        this.progressManagerList = []
         this.todos = {}
 
         this.newFile = [];
@@ -80,6 +82,11 @@ class ProjectViewController {
            attachFiles: []
         }
 
+        this.newProjectManager={
+            id: null,
+            project_id: this.projectId,
+            project_managers :[]
+        }
         this.options = {
             "sDom": "<'table-responsive't><'row'<p i>>",
 
@@ -206,14 +213,18 @@ class ProjectViewController {
     assignManager(isValid){
         if (this.projectManagers.sel.length != 0) {
             this.hideModal(5);
-            this.newTodoList.project_id = this.projectId;
-            this.newTodoList.pm_id = this.managers.sel.id;
-            this.todosRoute.all('store').post(this.newTodoList).then(() => {
-                this.getTodos()
-            }).catch(this.addTodosFail.bind(this))
+            this.newProjectManager.project_id = this.projectId;
+            this.newProjectManager.project_managers = this.projectManagers.sel;
+            this.projectRoute.all('update-porject-managers').post(this.newProjectManager).then(() => {
+
+            }).catch(this.addAssignManagerFail.bind(this))
         } else {
             this.formSubmitted = true
         }
+    }
+
+    addAssignManagerFail(){
+
     }
     addTodoListModal(){
          this.newTodoList = {
@@ -286,6 +297,9 @@ class ProjectViewController {
         this.newApproveTask.id = item.id;
         this.newApproveTask.title = item.submit_title;
         this.newApproveTask.description = item.submit_description;
+        this.newApproveTask.todolist_id = item.todo_list_id;
+        this.newApproveTask.attachFiles = [];
+
         for(var i=0; i<item.file.length; i++)
         {
             this.newApproveTask.attachFiles.push({
@@ -357,6 +371,7 @@ class ProjectViewController {
         }
         this.taskRoute.all('approve').post(param).then(() => {
             this.getProgress();
+            this.getTasks(this.newApproveTask.todolist_id)
         }).catch(this.approveTaskFail.bind(this))
     }
     approveTaskFail(){
@@ -384,6 +399,7 @@ class ProjectViewController {
                 }
             }
             this.todos[index].tasks = result;
+            console.log(result);
             this.getProgress();
         })
     }
@@ -393,7 +409,12 @@ class ProjectViewController {
             this.departments.list = result;
         })
     }
-
+    getProjectManagers(){
+        this.projectRoute.get('project-managers',{'id':this.projectId}).then((response) => {
+            var result = response.plain().data;
+            this.progressManagerList = result[0].manager;
+        })
+    }
     getManagers(){
         this.userRoute.get('project-managers').then((response) => {
             var result = response.plain().data;
@@ -429,12 +450,14 @@ class ProjectViewController {
 
     init()
     {   this.getProjectDetail()
+        this.getProjectManagers()
         this.getDepartments()
         this.getManagers()
         this.getTodos()
     }
     $onInit() {
         this.init()
+        console.log(this.$rootScope)
     }
 }
 

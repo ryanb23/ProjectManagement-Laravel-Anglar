@@ -3,11 +3,11 @@
 <div class="container-fluid container-fixed-lg">
 	<!-- START PANEL -->
 	<h3 class="m-t-20 c_title">Project Details</h3>
-	<div class="col-md-4 ">
+	<div class="col-md-3 ">
 		<!-- START PANEL -->
 		<div pg-portlet class="panel panel-default" progress='bar' progress-color='success'>
 			<div class="panel-heading">
-				<div class="panel-title">Additionals
+				<div class="panel-title">Managers
 				</div>
 				<div class="panel-controls">
                     <ul>
@@ -21,19 +21,26 @@
                 </div>
 			</div>
 			<div class="panel-body">
-				<p>You can manage project pogress.</p>
+				<p>You can manage project managers.</p>
 				<br/>
 				<div class="row">
 					<div class="col-md-12">
-						<div class="btn-group">
-							<button type="button" class="btn btn-primary" ng-click="vm.openAssignManagerModal()">
-								<span class="p-t-5 p-b-5">
-									<i class="fa fa-check fs-15"></i>
-								</span>
-								<br>
-								<span class="fs-11 font-montserrat text-uppercase">Assign Project Manager(s)</span>
-							</button>
+
+						<div class="user-header" ng-repeat="item in vm.progressManagerList">
+							<div class="user-pic">
+								<img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" src="assets/img/profiles/4x.jpg">
+							</div>
+							<h5>{{item.firstname + ' ' + item.lastname}}</h5>
+							<h6>Web Designer, QA</h6>
+							<div class="clearfix"></div>
 						</div>
+						<button type="button" class="btn btn-primary pull-right" ng-click="vm.openAssignManagerModal()"   ng-if="vm.service.hasRole(['user.decision_maker'],vm.$rootScope.me.role)">
+							<span class="p-t-5 p-b-5">
+								<i class="fa fa-check fs-15"></i>
+							</span>
+							<br>
+							<span class="fs-11 font-montserrat text-uppercase">Assign Project Manager(s)</span>
+						</button>
 					</div>
 				</div>
 				<!-- END PANEL -->
@@ -86,7 +93,7 @@
 			<div class="panel-body">
 				<p>You can manage your Todo list here.</p>
 				<div class="row m-b-10">
-					<div class="col-sm-12">
+					<div class="col-sm-12" ng-if="vm.service.hasRole(['user.project_manager'],vm.$rootScope.me.role) && vm.service.hasProject([vm.projectId],vm.$rootScope.me.projects)">
 						<button class="btn btn-primary btn-sm m-t-10 pull-right" ng-click="vm.addTodoListModal()">
 	                        <span class="pull-left"><i class="fa fa-plus-circle"></i> </span><span class="bold">New</span>
 	                    </button>
@@ -110,14 +117,16 @@
 								<div class="task-item" ng-repeat="task_item in item.tasks">
 									<p>{{task_item.title}}</p>
 									<div class="action-div">
-										<button class="btn btn-success btn-xs btn-custom-xs" ng-click="vm.openSubmitTaskModal(task_item)"><i class="fa fa-check"></i>Submit</button>
-										<button class="btn btn-success btn-xs btn-custom-xs" ng-click="vm.openApproveTaskModal(task_item)"><i class="fa fa-check"></i></button>
+										<button ng-class="{'btn-primary':task_item.is_submitted == 1,'btn-success':task_item.is_submitted != 1}" ng-if="vm.service.hasTask(task_item,vm.$rootScope.me.tasks)" class="btn btn-xs btn-custom-xs" ng-click="vm.openSubmitTaskModal(task_item)"><i class="fa fa-check"></i>Submit</button>
+										<span ng-if="vm.service.hasProject([vm.projectId],vm.$rootScope.me.projects) || vm.service.hasTodos([item.id],vm.$rootScope.me.todos)" >
+										<button ng-if="task_item.is_submitted == 1" ng-class="{'btn-primary':task_item.is_approved == 1,'btn-success':task_item.is_approved != 1}" class="btn btn-xs btn-custom-xs" ng-click="vm.openApproveTaskModal(task_item)"><i class="fa fa-check"></i></button>
 										<button class="btn btn-primary btn-xs btn-custom-xs" ng-click="vm.editTaskModal(task_item)"><i class="fa fa-edit"></i></button>
 				                        <button class="btn btn-danger btn-xs btn-custom-xs" ng-click="vm.deleteTask(task_item)"><i class="fa fa-trash"></i></button>
+										</span>
 									</div>
 									<div style="clear:both"></div>
 								</div>
-								<button class="btn btn-primary btn-xs pull-right m-t-10" ng-click="vm.openTaskModal(item.id)"><i class="fa fa-plus"></i> New Task</button>
+								<button  ng-if="vm.service.hasProject([vm.projectId],vm.$rootScope.me.projects) || vm.service.hasTodos([item.id],vm.$rootScope.me.todos)" class="btn btn-primary btn-xs pull-right m-t-10" ng-click="vm.openTaskModal(item.id)"><i class="fa fa-plus"></i> New Task</button>
                             </div>
                         </div>
                     </div>
@@ -153,20 +162,15 @@
 		                        <small class="fs-12 hint-text">15 January 2015, 06:50 PM</small>
 		                    </div>
 		                    <div class="card share full-width">
-		                        <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
-		                        </div>
 		                        <div class="card-header clearfix">
 		                            <div class="user-pic">
 		                                <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/8x.jpg" data-src="assets/img/profiles/8.jpg" src="assets/img/profiles/8x.jpg">
 		                            </div>
 		                            <h5>Jeff Curtis</h5>
-		                            <h6>Shared a Tweet
-		                                <span class="location semi-bold"><i class="fa fa-map-marker"></i> SF, California</span>
-		                            </h6>
+		                            <h6>Shared a Tweet</h6>
 		                        </div>
 		                        <div class="card-description">
-		                            <p>What you think, you become. What you feel, you attract. What you imagine, you create - Buddha. <a href="">#quote</a> </p>
-		                            <div class="via">via Twitter</div>
+		                            <p>User Created task 1</p>
 		                        </div>
 		                    </div>
 		                </div>
@@ -210,7 +214,7 @@
 		</div>
 		<!-- END PANEL -->
 	</div>
-	<div class="col-md-8">
+	<div class="col-md-9">
 		<!-- START PANEL -->
 		<div class="panel panel-default project-datail">
 			<div class="panel-heading">
@@ -220,51 +224,53 @@
 			<div class="panel-body">
 				<div class="panel panel-transparent m-t-15">
 					<div class="panel-body">
-						<div ng-if="vm.projectDetail.status == 0" class="btn-group" style="width:200px;">
-							<div class="btn-group btn-group-justified">
-								<div class="btn-group">
-									<button type="button" class="btn btn-danger" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'dismissed'})">
-                                        <span class="p-t-5 p-b-5">
-                                                    <i class="fa fa-close fs-15"></i>
-                                                </span>
-                                        <br>
-                                        <span class="fs-11 font-montserrat text-uppercase">Dismiss</span>
-                                    </button>
-								</div>
-								<div class="btn-group">
-									<button type="button" class="btn btn-primary" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'approved'})">
-                                        <span class="p-t-5 p-b-5">
-                                                    <i class="fa fa-save fs-15"></i>
-                                                </span>
-                                        <br>
-                                        <span class="fs-11 font-montserrat text-uppercase">Recognize</span>
-                                    </button>
+						<div ng-if="vm.service.hasProject([vm.projectId],vm.$rootScope.me.projects) || vm.service.hasTodos([item.id],vm.$rootScope.me.todos)">
+							<div ng-if="vm.projectDetail.status == 0" class="btn-group" style="width:200px;">
+								<div class="btn-group btn-group-justified">
+									<div class="btn-group">
+										<button type="button" class="btn btn-danger" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'dismissed'})">
+	                                        <span class="p-t-5 p-b-5">
+	                                                    <i class="fa fa-close fs-15"></i>
+	                                                </span>
+	                                        <br>
+	                                        <span class="fs-11 font-montserrat text-uppercase">Dismiss</span>
+	                                    </button>
+									</div>
+									<div class="btn-group">
+										<button type="button" class="btn btn-primary" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'approved'})">
+	                                        <span class="p-t-5 p-b-5">
+	                                                    <i class="fa fa-save fs-15"></i>
+	                                                </span>
+	                                        <br>
+	                                        <span class="fs-11 font-montserrat text-uppercase">Recognize</span>
+	                                    </button>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div ng-if="vm.projectDetail.status == 1" class="btn-group" style="width:100px;">
-							<div class="btn-group btn-group-justified">
-								<div class="btn-group">
-									<button type="button" class="btn btn-complete" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'opened'})">
-	                                        <span class="p-t-5 p-b-5">
-	                                            <i class="fa fa-share fs-15"></i>
-	                                        </span>
-	                                        <br>
-	                                        <span class="fs-11 font-montserrat text-uppercase">Hold</span>
-	                                    </button>
+							<div ng-if="vm.projectDetail.status == 1" class="btn-group" style="width:100px;">
+								<div class="btn-group btn-group-justified">
+									<div class="btn-group">
+										<button type="button" class="btn btn-complete" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'opened'})">
+		                                        <span class="p-t-5 p-b-5">
+		                                            <i class="fa fa-share fs-15"></i>
+		                                        </span>
+		                                        <br>
+		                                        <span class="fs-11 font-montserrat text-uppercase">Hold</span>
+		                                    </button>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div ng-if="vm.projectDetail.status == 2" class="btn-group" style="width:100px;">
-							<div class="btn-group btn-group-justified">
-								<div class="btn-group">
-									<button type="button" class="btn btn-complete" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'0'})">
-	                                        <span class="p-t-5 p-b-5">
-	                                            <i class="fa fa-share fs-15"></i>
-	                                        </span>
-	                                        <br>
-	                                        <span class="fs-11 font-montserrat text-uppercase">Reopen</span>
-	                                    </button>
+							<div ng-if="vm.projectDetail.status == 2" class="btn-group" style="width:100px;">
+								<div class="btn-group btn-group-justified">
+									<div class="btn-group">
+										<button type="button" class="btn btn-complete" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'0'})">
+		                                        <span class="p-t-5 p-b-5">
+		                                            <i class="fa fa-share fs-15"></i>
+		                                        </span>
+		                                        <br>
+		                                        <span class="fs-11 font-montserrat text-uppercase">Reopen</span>
+		                                    </button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -319,22 +325,7 @@
 			<div class="panel-body">
 				<div class="comment-box m-t-20">
 					<div class="comment-item">
-						<div class="comment-item-header">
-							<div class="user-pic">
-								<img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" src="assets/img/profiles/4x.jpg">
-							</div>
-							<h5>Andy Young</h5>
-							<h6>Web Designer, QA
-	                                <span class="location semi-bold pull-right"> 14 mins ago</span>
-	                            </h6>
-						</div>
-						<div class="comment-item-body">
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-								It has survived not only five centuries.</p>
-						</div>
-					</div>
-					<div class="comment-item">
-						<div class="comment-item-header">
+						<div class="user-header">
 							<div class="user-pic">
 								<img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" src="assets/img/profiles/4x.jpg">
 							</div>
