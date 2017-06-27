@@ -43,23 +43,22 @@ class UserController extends Controller
     public function getAllChatUser(){
         $user = Auth::user();
         // $user_level = $user->roles()->first()->level;
-        // $result = $user->belongsToMany('role')->wherePivot('level', 1);
+        // $result = $user->belongsToMany('roles')->wherePivot('level', 1);
 
-        // $result = User::whereHas('roles',function($query){
-        //   $query->where('level','>',0);
-        // })
+        $result = User::with('departments')->whereHas('roles',function($query){
+          $query->where('level','>',0);
+        })
         // ->orHas('roles','=',0)
-        // ->where('email_verified','=',1)
-        // ->whereNotIn('id',[$user->id])
-        // ->get([
-        //   'id',
-        //   'name',
-        //   'active',
-        //   'avatar',
-        //   'firstname',
-        //   'lastname'
-        // ]);
-        $result = User::whereNotIn('id',[$user->id])->get();
+        ->where('users.email_verified','=',1)
+        ->where('users.id','<>',2)
+        ->get([
+          'id',
+          'name',
+          'active',
+          'avatar',
+          'firstname',
+          'lastname'
+        ]);
 
         return response()->success($result);
     }

@@ -35,7 +35,7 @@
                 <tr ng-repeat="item in vm.users" on-finish-render="initDataTable">
                     <td>{{item.id}}</td>
                     <td class="v-align-middle">
-                        <p>{{item.fullname}}</p>
+                        <p>{{item.name}}</p>
                     </td>
                     <td class="v-align-middle">
                         <a ng-repeat="uDepItem in item.departments" href="" class="btn btn-tag">{{uDepItem.name}}</a>

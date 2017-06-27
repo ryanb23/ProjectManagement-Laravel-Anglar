@@ -1,0 +1,12 @@
+.chat-users{
+    span.text-master{
+        > span{
+            &::after{
+                content:',';
+            }
+            &:last-of-type::after{
+                content: '';
+            }
+        }
+    }
+}
