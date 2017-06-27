@@ -103,9 +103,9 @@
                             <div class="list-view-group-header text-uppercase">Users</div>
                             <ul>
                                 <!-- BEGIN Chat User List Item  !-->
-                                <li class="chat-user-list clearfix" ng-repeat="(key, userInfo) in  vm.chatUsers" ng-click="alert()">
+                                <li class="chat-user-list clearfix" ng-repeat="(key, userInfo) in  vm.chatUsers" ng-click="vm.openChanel(userInfo)">
                                     <a data-view-animation="push-parrallax" data-view-port="#chat" pg-navigate class="" href="">
-                                        <span class="col-xs-height col-middle">
+                                        <span class="col-xs-height col-middle" ng-click="alert()">
                                             <span class="thumbnail-wrapper d32 circular bg-success">
                                                 <img width="34" height="34" alt="" ui-jq="unveil" data-src-retina="assets/img/profiles/1x.jpg" data-src="assets/img/profiles/1.jpg" src="assets/img/profiles/1x.jpg" class="col-top">
                                             </span>
@@ -144,21 +144,14 @@
                         <!-- BEGIN From Me Message  !-->
 
                         <div class="message clearfix" ng-repeat="(key, messageItem) in  vm.messageList">
-                            <div class="chat-bubble from-me">
-                                Hello there
+                            <div class="profile-img-wrapper m-t-5 inline" ng-if="vm.userInfo.id != messageItem.user.id">
+                                <img class="col-top" width="30" height="30" src="assets/img/profiles/avatar_small.jpg" alt="" data-src="assets/img/profiles/avatar_small.jpg" ui-jq="unveil" data-src-retina="assets/img/profiles/avatar_small2x.jpg">
+                            </div>
+                            <div class="chat-bubble" ng-class="{'from-me':vm.userInfo.id == messageItem.user.id, 'from-them':vm.userInfo.id != messageItem.user.id}">
+                                {{messageItem.message}}
                             </div>
                         </div>
                         <!-- END From Me Message  !-->
-                        <!-- BEGIN From Them Message  !-->
-                        <div class="message clearfix">
-                            <div class="profile-img-wrapper m-t-5 inline">
-                                <img class="col-top" width="30" height="30" src="assets/img/profiles/avatar_small.jpg" alt="" data-src="assets/img/profiles/avatar_small.jpg" ui-jq="unveil" data-src-retina="assets/img/profiles/avatar_small2x.jpg">
-                            </div>
-                            <div class="chat-bubble from-them">
-                                Hey
-                            </div>
-                        </div>
-                        <!-- END From Them Message  !-->
                     </div>
                     <!-- BEGIN Conversation  !-->
                     <!-- BEGIN Chat Input  !-->

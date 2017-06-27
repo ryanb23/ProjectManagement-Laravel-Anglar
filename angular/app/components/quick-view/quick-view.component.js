@@ -5,6 +5,7 @@ class QuickViewController {
     this.userRoute = API.all('users');
 
     this.API = API
+    this.scope = $scope
     this.message = ''
     this.userRoute.get('all-chat-user').then((response) => {
         this.chatUsers = response.plain().data
@@ -33,9 +34,8 @@ class QuickViewController {
   addMessage(message) {
       this.messageList.push(message)
   }
-
   openChanel(userInfo) {
-      console.log(1);
+      console.log(userInfo);
       console.log(userInfo)
       this.openChanelId = userInfo.id
       this.API.one('message', 'message-with').get({

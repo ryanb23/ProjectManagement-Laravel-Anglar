@@ -15,6 +15,7 @@ function pgNavigate() {
                     $($(this).attr('data-toggle-view')).show();
                 }
                 $(el).toggleClass($(this).attr('data-view-animation'));
+                $(this).parent().trigger('click');
                 return false;
             });
 
