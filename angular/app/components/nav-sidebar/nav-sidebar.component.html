@@ -16,19 +16,19 @@
         <ul class="menu-items">
             <li class="m-t-30 ">
                 <a ui-sref="app.landing">
-							<span class="title">Dashboard</span>
-						</a>
+					<span class="title">Dashboard</span>
+				</a>
                 <span class="bg-success icon-thumbnail">
-							<i class="fa fa-dashboard"></i>
-						</span>
+					<i class="fa fa-dashboard"></i>
+				</span>
             </li>
-            <li class="">
+            <li class="active">
                 <a ui-sref="app.organiztion">
-							<span class="title">Organization</span>
-						</a>
+					<span class="title">Organization</span>
+				</a>
                 <span class="icon-thumbnail">
-							<i class="fa fa-institution"></i>
-						</span>
+					<i class="fa fa-institution"></i>
+				</span>
             </li>
             <li>
                 <a href="javascript:;">
@@ -57,7 +57,7 @@
 						</a>
                 <span class="icon-thumbnail"><i class="fa fa-sliders"></i></span>
             </li>
-            <li>
+            <li class="" ng-if="vm.hasAnyRole(['admin.super','admin.admin'])">
                 <a href="javascript:;">
 							<span class="title">Administration</span>
 							<span class="arrow"></span>
@@ -65,19 +65,19 @@
                 <span class="icon-thumbnail"><i class="fa fa-server"></i></span>
                 <ul class="sub-menu">
                     <li class="">
-                        <a ui-sref="app.users">Users</a>
+                        <a ui-sref="app.admin.users">Users</a>
                         <span class="icon-thumbnail">
 									<i class="fa fa-users"></i>
 								</span>
                     </li>
                     <li class="">
-                        <a ui-sref="app.departments">Departement</a>
+                        <a ui-sref="app.admin.departments">Departement</a>
                         <span class="icon-thumbnail">
 									<i class="fa fa-sitemap"></i>
 								</span>
                     </li>
                     <li class="">
-                        <a href="reward-management.html">Reward settings</a>
+                        <a ui-sref="app.admin.reward_management">Reward settings</a>
                         <span class="icon-thumbnail">
 									<i class="fa fa-pie-chart"></i>
 								</span>
@@ -85,7 +85,7 @@
                 </ul>
             </li>
             <li class="">
-                <a href="help.html">
+                <a ui-sref="app.help">
 							<span class="title">Help</span>
 						</a>
                 <span class="icon-thumbnail"><i class="fa fa-info-circle"></i></span>

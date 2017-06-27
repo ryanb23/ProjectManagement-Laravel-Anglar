@@ -37,6 +37,8 @@ import { OrganizationComponent } from './app/components/organization/organizatio
 import { PreferenceComponent } from './app/components/preference/preference.component'
 import { UserManagementComponent } from './app/components/user-management/user-management.component'
 import { DepartmentManagementComponent } from './app/components/department-management/department-management.component'
+import { RewardManagementComponent } from './app/components/reward-management/reward-management.component'
+import { HelpComponent } from './app/components/help/help.component'
 
 angular.module('app.components')
   // .component('tablesSimple', TablesSimpleComponent)
@@ -78,3 +80,5 @@ angular.module('app.components')
   .component('preference', PreferenceComponent)
   .component('userManagement', UserManagementComponent)
   .component('departmentManagement', DepartmentManagementComponent)
+  .component('rewardManagement', RewardManagementComponent)
+  .component('helpPage', HelpComponent)
