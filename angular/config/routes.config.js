@@ -127,11 +127,19 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                 }
             }
         })
-        .state('app.users', {
-            url: '/users',
+        .state('app.admin', {
+            abstract: true,
+            url:'/admin',
+            views: {
+
+            },
             data: {
                 auth: true
             },
+            roles: ['admin.super','admin.admin']
+        })
+        .state('app.admin.users', {
+            url: '/users',
             resolve: {
                   deps: ['$ocLazyLoad', function($ocLazyLoad) {
                       return $ocLazyLoad.load([
@@ -147,13 +155,10 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                 'main@app': {
                     template: '<user-management></user-management>'
                 }
-            },
+            }
         })
-        .state('app.departments', {
+        .state('app.admin.departments', {
             url: '/departments',
-            data: {
-                auth: true
-            },
             resolve: {
                   deps: ['$ocLazyLoad', function($ocLazyLoad) {
                       return $ocLazyLoad.load([
@@ -169,16 +174,38 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                 'main@app': {
                     template: '<department-management></department-management>'
                 }
-            },
+            }
         })
-        .state('app.chat', {
-            url: '/chat',
-            data: {
-                auth: true
+        .state('app.admin.reward_management', {
+            url: '/rewards',
+            resolve: {
+                  deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                      return $ocLazyLoad.load([
+                              'switchery'
+                          ], {
+                              insertBefore: '#lazyload_placeholder'
+                          })
+                          .then(function() {
+                          });
+                  }]
             },
             views: {
                 'main@app': {
-                    template: '<chat></chat>'
+                    template: '<reward-management></reward-management>'
+                }
+            }
+        })
+        .state('app.help', {
+            url: '/help',
+            data: {
+                auth: true
+            },
+            resolve: {
+
+            },
+            views: {
+                'main@app': {
+                    template: '<help-page></help-page>'
                 }
             }
         })
