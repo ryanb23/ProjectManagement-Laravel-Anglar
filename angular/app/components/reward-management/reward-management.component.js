@@ -1,4 +1,4 @@
-class DepartmentManagementController  {
+class RewardManagementController {
     constructor(API, $scope, $sce, $compile, $filter) {
         'ngInject'
         this.$sce = $sce;
@@ -147,9 +147,9 @@ class DepartmentManagementController  {
     }
 }
 
-export const DepartmentManagementComponent = {
-    templateUrl: './views/app/components/department-management/department-management.component.html',
-    controller: DepartmentManagementController,
+export const RewardManagementComponent = {
+    templateUrl: './views/app/components/reward-management/reward-management.component.html',
+    controller: RewardManagementController,
     controllerAs: 'vm',
     bindings: {}
 }
