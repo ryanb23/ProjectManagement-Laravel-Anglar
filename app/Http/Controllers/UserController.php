@@ -50,7 +50,7 @@ class UserController extends Controller
         })
         // ->orHas('roles','=',0)
         ->where('users.email_verified','=',1)
-        ->where('users.id','<>',2)
+        ->where('users.id','<>',$user->id)
         ->get([
           'id',
           'name',
