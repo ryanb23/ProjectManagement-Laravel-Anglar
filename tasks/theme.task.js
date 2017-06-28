@@ -22,7 +22,9 @@ var themeScripts = [
     //Select
     './public/assets/plugins/angular-ui-select/select.min.js',
     //datapicker
-    './public/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'
+    './public/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js',
+    //tabcollapse
+    './public/assets/plugins/bootstrap-collapse/bootstrap-tabcollapse.js'
 ],
 themeStyles = [
     //Datatable Css

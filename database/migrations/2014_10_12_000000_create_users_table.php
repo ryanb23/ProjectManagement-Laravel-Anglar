@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->string('firstname',30);
             $table->string('lastname',30);
-            $table->string('middlename',30);
+            $table->text('about_me');
             $table->integer('score');
             $table->string('salt');
             $table->enum('active',['1','0'])->default('1');
