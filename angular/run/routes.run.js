@@ -13,15 +13,7 @@ export function RoutesRun($rootScope, $state, $auth, AclService, $timeout, API, 
         }
 
         if (toState.roles) {
-            // let valid = false;
             let statRoles = toState.roles;
-            // let userRoles = AclService.getRoles();
-            // for(var i=0; i<statRoles.length; i++)
-            // {
-            //     if(userRoles.indexOf(statRoles[i]) >=0)
-            //         valid = true;
-            // }
-
             if(!AclService.hasAnyRole(statRoles))
             {
                 event.preventDefault()

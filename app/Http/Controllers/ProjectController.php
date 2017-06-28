@@ -17,6 +17,9 @@ use App\Models\Project;
 use App\Models\TodoList;
 use App\Models\Department;
 use App\Models\Label;
+use App\Models\ProjectComment;
+
+use App\Events\CommentPostEvent;
 
 use App\Http\Traits\FileTrait;
 use App\Http\Traits\CustomTrait;
@@ -42,6 +45,34 @@ class ProjectController extends Controller
         return response()->success($result);
     }
 
+    public function getCommentList(Request $request)
+    {
+        $project_id = $request['id'];
+        $commentList = ProjectComment::with('user','user.departments')->where('project_id',$project_id)->get();
+        foreach($commentList as &$commentItem)
+        {
+            $commentItem['time_ago'] = $this->time_elapsed_string($commentItem['created_at']);
+        }
+        return response()->success($commentList);
+    }
+
+    public function postComment(Request $request)
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $project_id = $request['project_id'];
+        $comment = $request['comment'];
+
+        $newComment = new ProjectComment();
+        $newComment->project_id = $project_id;
+        $newComment->user_id = $user_id;
+        $newComment->comment = $request['comment'];
+        $newComment->save();
+
+        $time_ago = $newComment->created_at;
+        event(new CommentPostEvent($comment, $project_id, $this->time_elapsed_string($time_ago)));
+        return response()->success('success');
+    }
     public function getProgress(Request $request){
         $project_id = $request['id'];
         $todoList = Todolist::with('tasks')->where('project_id','=',$project_id)->get()->toArray();

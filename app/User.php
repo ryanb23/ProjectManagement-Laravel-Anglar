@@ -51,6 +51,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function departments(){
         return $this->belongsToMany(Department::class, 'department_user','user_id','department_id');
     }
+
     public function projects(){
         return $this->belongsToMany(Project::class, 'project_users','user_id','project_id');
     }
