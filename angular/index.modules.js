@@ -17,5 +17,5 @@ angular.module('app.components', [
   'ui.router', 'angular-loading-bar',
   'restangular', 'ngStorage', 'satellizer',
   'mm.acl','oc.lazyLoad','ui.utils','thatisuday.dropzone',
-  'bootstrapLightbox','ui.select','ui.bootstrap'
+  'bootstrapLightbox','ui.select','ui.bootstrap','angularMoment'
 ])

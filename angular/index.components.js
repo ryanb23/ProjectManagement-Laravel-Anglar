@@ -19,6 +19,7 @@ import { DepartmentManagementComponent } from './app/components/department-manag
 import { RewardManagementComponent } from './app/components/reward-management/reward-management.component'
 import { ProjectCommentComponent } from './app/components/project-comment/project-comment.component'
 import { HelpComponent } from './app/components/help/help.component'
+import { UserProfileComponent } from './app/components/user-profile/user-profile.component'
 
 angular.module('app.components')
     .component('loginLoader', LoginLoaderComponent)
@@ -42,3 +43,4 @@ angular.module('app.components')
     .component('rewardManagement', RewardManagementComponent)
     .component('projectComment', ProjectCommentComponent)
     .component('helpPage', HelpComponent)
+    .component('userProfile', UserProfileComponent)

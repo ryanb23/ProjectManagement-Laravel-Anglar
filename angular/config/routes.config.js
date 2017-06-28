@@ -43,6 +43,21 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                 }
             }
         })
+        .state('app.user',{
+            abstract: true,
+            url: '/user',
+            data: {
+                auth: true
+            },
+        })
+        .state('app.user.profile',{
+            url: '/profile',
+            views: {
+                'main@app': {
+                    template: '<user-profile></user-profile>'
+                }
+            }
+        })
         .state('app.organiztion', {
             url: '/organiztion',
             data: {
