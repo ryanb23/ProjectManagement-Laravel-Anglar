@@ -50,11 +50,12 @@ class ProjectCommentController {
         }
 
         this.projectRoute.all('comment').post(newComment).then((response) => {
+            let data = response.plain().data;
             this.addComment({
                 comment: comment,
                 project_id: this.projectId,
                 user: this.userInfo,
-                time_ago : '1 second ago'
+                created_at : data.date
             })
         })
     }

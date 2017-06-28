@@ -12,7 +12,7 @@
                     </div>
                     <h5>{{item.user.name}}</h5>
                     <h6><p class="pull-left"><span class="user_dep" ng-repeat="user_department in item.user.departments">{{user_department.name}}</span></p>
-                            <span class="location semi-bold pull-right"> {{item.time_ago}}</span>
+                            <span class="location semi-bold pull-right" am-time-ago="item.created_at | amUtc | amLocal"></span>
                     </h6>
                     <div class="clearfix"></div>
                 </div>
