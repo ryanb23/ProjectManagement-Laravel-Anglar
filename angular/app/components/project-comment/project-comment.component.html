@@ -1,0 +1,41 @@
+<div class="panel panel-default project-datail">
+    <div class="panel-heading">
+        <div class="panel-title">Comments
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="comment-box m-t-20">
+            <div class="comment-item" ng-repeat="item in vm.commentList" scroll-to-bottom="vm.commentList">
+                <div class="user-header">
+                    <div class="user-pic">
+                        <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" src="assets/img/profiles/4x.jpg">
+                    </div>
+                    <h5>{{item.user.name}}</h5>
+                    <h6><p class="pull-left"><span class="user_dep" ng-repeat="user_department in item.user.departments">{{user_department.name}}</span></p>
+                            <span class="location semi-bold pull-right"> {{item.time_ago}}</span>
+                    </h6>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="comment-item-body">
+                    <p>{{item.comment}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="comment-input">
+            <div class="row">
+                <div class="form-group">
+                    <label for="name" class="col-md-12 control-label">Comment</label>
+                    <div class="col-md-12">
+                        <textarea ng-model = "vm.comment" class="form-control" id="name" placeholder="Type the comment"  ng-keyup="$event.keyCode == 13 && vm.postComment(vm.comment)"></textarea>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <button ng-click="vm.postComment(vm.comment)" class="btn btn-primary btn-cons pull-right m-r-20">Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
