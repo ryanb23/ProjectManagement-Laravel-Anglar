@@ -5,7 +5,8 @@ class NavHeaderController {
     let navHeader = this
     this.$rootscope = $rootScope;
     ContextService.me(function (data) {
-      navHeader.userData = data
+        if(data != null)
+            navHeader.userData = data
     })
   }
   showSearchOverlay(){
