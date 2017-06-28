@@ -9,7 +9,7 @@ class HelpController {
 }
 
 export const HelpComponent = {
-    templateUrl: './views/app/components/home/home.component.html',
+    templateUrl: './views/app/components/help/help.component.html',
     controller: HelpController,
     controllerAs: 'vm',
     bindings: {}

@@ -298,7 +298,7 @@
 						<div class="clearfix"></div>
 					</div>
 					<div class="panel-body">
-						<p class="">{{vm.projectDetail.ago_time}}</p>
+						<p class="" project am-time-ago="vm.projectDetail.created_at | amUtc | amLocal"></p>
 						<br/>
 						<a class="btn btn-default btn-cons btn-rounded btn-notification-style m-b-10 active">Objective: {{vm.projectDetail.objective}}</a>
 						<a class="btn btn-default btn-cons btn-rounded btn-notification-style m-b-10 active">Departments: {{vm.projectDetail.department.name}}</a>
