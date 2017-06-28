@@ -45,14 +45,18 @@ class ProjectController extends Controller
         return response()->success($result);
     }
 
+    public function getUserProjects(Request $request)
+    {
+        $user_id = $request['id'];
+        $user = User::find($user_id);
+        $projectList = $user->user_projects()->with('department')->get();
+        return response()->success($projectList);
+    }
+
     public function getCommentList(Request $request)
     {
         $project_id = $request['id'];
         $commentList = ProjectComment::with('user','user.departments')->where('project_id',$project_id)->get();
-        foreach($commentList as &$commentItem)
-        {
-            $commentItem['time_ago'] = $this->time_elapsed_string($commentItem['created_at']);
-        }
         return response()->success($commentList);
     }
 
@@ -69,9 +73,9 @@ class ProjectController extends Controller
         $newComment->comment = $request['comment'];
         $newComment->save();
 
-        $time_ago = $newComment->created_at;
-        event(new CommentPostEvent($comment, $project_id, $this->time_elapsed_string($time_ago)));
-        return response()->success('success');
+        $created_at = $newComment->created_at;
+        event(new CommentPostEvent($comment, $project_id, $created_at));
+        return response()->success($created_at);
     }
     public function getProgress(Request $request){
         $project_id = $request['id'];
@@ -152,7 +156,6 @@ class ProjectController extends Controller
     {
         $projectId = $request['id'];
         $projectDetail = Project::with(['file','label','department'])->find($projectId);
-        $projectDetail['ago_time'] = $this->time_elapsed_string($projectDetail['created_at']);
         return response()->success($projectDetail);
     }
 
