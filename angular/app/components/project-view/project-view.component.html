@@ -34,7 +34,7 @@
 							<h6>Web Designer, QA</h6>
 							<div class="clearfix"></div>
 						</div>
-						<button type="button" class="btn btn-primary pull-right" ng-click="vm.openAssignManagerModal()"   ng-if="vm.service.hasRole(['user.decision_maker'],vm.$rootScope.me.role)">
+						<button type="button" class="btn btn-primary pull-right m-t-20" ng-click="vm.openAssignManagerModal()"   ng-if="vm.service.hasRole(['user.decision_maker'],vm.userInfo.role)">
 							<span class="p-t-5 p-b-5">
 								<i class="fa fa-check fs-15"></i>
 							</span>
@@ -93,7 +93,7 @@
 			<div class="panel-body">
 				<p>You can manage your Todo list here.</p>
 				<div class="row m-b-10">
-					<div class="col-sm-12" ng-if="vm.service.hasRole(['user.project_manager'],vm.$rootScope.me.role) && vm.service.hasProject([vm.projectId],vm.$rootScope.me.projects)">
+					<div class="col-sm-12" ng-if="vm.service.hasRole(['user.project_manager'],vm.userInfo.role) && vm.service.hasProject([vm.projectId],vm.userInfo.projects)">
 						<button class="btn btn-primary btn-sm m-t-10 pull-right" ng-click="vm.addTodoListModal()">
 	                        <span class="pull-left"><i class="fa fa-plus-circle"></i> </span><span class="bold">New</span>
 	                    </button>
@@ -114,11 +114,11 @@
                         </div>
                         <div class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" ng-class="{in:collapseOne[item.id]}">
                             <div class="panel-body todo-list">
-								<div class="task-item" ng-repeat="task_item in item.tasks">
-									<p>{{task_item.title}}</p>
+								<div class="task-item" ng-repeat="task_item in item.tasks" ng-class="{'alert-success':task_item.is_approved == 1, 'alert-danger':task_item.is_approved == 2}">
+									<p ng-class="{'task-approved':task_item.is_approved == 1}">{{task_item.title}}</p>
 									<div class="action-div">
-										<button ng-class="{'btn-primary':task_item.is_submitted == 1,'btn-success':task_item.is_submitted != 1}" ng-if="vm.service.hasTask(task_item,vm.$rootScope.me.tasks)" class="btn btn-xs btn-custom-xs" ng-click="vm.openSubmitTaskModal(task_item)"><i class="fa fa-check"></i>Submit</button>
-										<span ng-if="vm.service.hasProject([vm.projectId],vm.$rootScope.me.projects) || vm.service.hasTodos([item.id],vm.$rootScope.me.todos)" >
+										<button ng-class="{'btn-primary':task_item.is_submitted == 1,'btn-success':task_item.is_submitted != 1}" ng-if="vm.service.hasTask(task_item,vm.userInfo.tasks)" class="btn btn-xs btn-custom-xs" ng-click="vm.openSubmitTaskModal(task_item)"><i class="fa fa-check"></i>Submit</button>
+										<span ng-if="vm.service.hasProject([vm.projectId],vm.userInfo.projects) || vm.service.hasTodos([item.id],vm.userInfo.todos)" >
 										<button ng-if="task_item.is_submitted == 1" ng-class="{'btn-primary':task_item.is_approved == 1,'btn-success':task_item.is_approved != 1}" class="btn btn-xs btn-custom-xs" ng-click="vm.openApproveTaskModal(task_item)"><i class="fa fa-check"></i></button>
 										<button class="btn btn-primary btn-xs btn-custom-xs" ng-click="vm.editTaskModal(task_item)"><i class="fa fa-edit"></i></button>
 				                        <button class="btn btn-danger btn-xs btn-custom-xs" ng-click="vm.deleteTask(task_item)"><i class="fa fa-trash"></i></button>
@@ -126,7 +126,7 @@
 									</div>
 									<div style="clear:both"></div>
 								</div>
-								<button  ng-if="vm.service.hasProject([vm.projectId],vm.$rootScope.me.projects) || vm.service.hasTodos([item.id],vm.$rootScope.me.todos)" class="btn btn-primary btn-xs pull-right m-t-10" ng-click="vm.openTaskModal(item.id)"><i class="fa fa-plus"></i> New Task</button>
+								<button  ng-if="vm.service.hasProject([vm.projectId],vm.userInfo.projects) || vm.service.hasTodos([item.id],vm.userInfo.todos)" class="btn btn-primary btn-xs pull-right m-t-10" ng-click="vm.openTaskModal(item.id)"><i class="fa fa-plus"></i> New Task</button>
                             </div>
                         </div>
                     </div>
@@ -224,7 +224,7 @@
 			<div class="panel-body">
 				<div class="panel panel-transparent m-t-15">
 					<div class="panel-body">
-						<div ng-if="vm.service.hasProject([vm.projectId],vm.$rootScope.me.projects) || vm.service.hasTodos([item.id],vm.$rootScope.me.todos)">
+						<div ng-if="vm.service.hasProject([vm.projectId],vm.userInfo.projects) || vm.service.hasTodos([item.id],vm.userInfo.todos)">
 							<div ng-if="vm.projectDetail.status == 0" class="btn-group" style="width:200px;">
 								<div class="btn-group btn-group-justified">
 									<div class="btn-group">
@@ -317,46 +317,7 @@
 			</div>
 		</div>
 
-		<div class="panel panel-default project-datail">
-			<div class="panel-heading">
-				<div class="panel-title">Comments
-				</div>
-			</div>
-			<div class="panel-body">
-				<div class="comment-box m-t-20">
-					<div class="comment-item">
-						<div class="user-header">
-							<div class="user-pic">
-								<img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" src="assets/img/profiles/4x.jpg">
-							</div>
-							<h5>Andy Young</h5>
-							<h6>Web Designer, QA
-	                                <span class="location semi-bold pull-right"> 14 mins ago</span>
-	                            </h6>
-						</div>
-						<div class="comment-item-body">
-							<p>What a lovely day! I think I should go and play outside.</p>
-						</div>
-					</div>
-				</div>
-				<div class="comment-input">
-					<div class="row">
-						<div class="form-group">
-							<label for="name" class="col-md-12 control-label">Comment</label>
-							<div class="col-md-12">
-								<textarea class="form-control" id="name" placeholder="Type the comment"></textarea>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-							<button class="btn btn-primary btn-cons pull-right m-r-20">Post</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<project-comment></project-comment>
 	</div>
 </div>
 

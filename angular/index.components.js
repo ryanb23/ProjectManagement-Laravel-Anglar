@@ -1,36 +1,15 @@
-// import { TablesSimpleComponent } from './app/components/tables-simple/tables-simple.component'
-// import { UiModalComponent } from './app/components/ui-modal/ui-modal.component'
-// import { UiTimelineComponent } from './app/components/ui-timeline/ui-timeline.component'
-// import { UiButtonsComponent } from './app/components/ui-buttons/ui-buttons.component'
-// import { UiIconsComponent } from './app/components/ui-icons/ui-icons.component'
-// import { UiGeneralComponent } from './app/components/ui-general/ui-general.component'
-// import { FormsGeneralComponent } from './app/components/forms-general/forms-general.component'
-// import { ChartsChartjsComponent } from './app/components/charts-chartjs/charts-chartjs.component'
-// import { WidgetsComponent } from './app/components/widgets/widgets.component'
-// import { UserProfileComponent } from './app/components/user-profile/user-profile.component'
-// import { UserVerificationComponent } from './app/components/user-verification/user-verification.component'
-// import { ComingSoonComponent } from './app/components/coming-soon/coming-soon.component'
-// import { UserEditComponent } from './app/components/user-edit/user-edit.component'
-// import { UserPermissionsEditComponent } from './app/components/user-permissions-edit/user-permissions-edit.component'
-// import { UserPermissionsAddComponent } from './app/components/user-permissions-add/user-permissions-add.component'
-// import { UserPermissionsComponent } from './app/components/user-permissions/user-permissions.component'
-// import { UserRolesEditComponent } from './app/components/user-roles-edit/user-roles-edit.component'
-// import { UserRolesAddComponent } from './app/components/user-roles-add/user-roles-add.component'
-// import { UserRolesComponent } from './app/components/user-roles/user-roles.component'
-// import { UserListsComponent } from './app/components/user-lists/user-lists.component'
-import { ChatComponent } from './app/components/chat/chat.component'
-import { ProjectCreateComponent } from './app/components/project-create/project-create.component'
-import { ProjectsComponent } from './app/components/projects/projects.component'
-import { ProjectViewComponent } from './app/components/project-view/project-view.component'
-import { ContactsComponent } from './app/components/contacts/contacts.component'
-import { DashboardComponent } from './app/components/dashboard/dashboard.component'
-import { NavSidebarComponent } from './app/components/nav-sidebar/nav-sidebar.component'
-import { NavHeaderComponent } from './app/components/nav-header/nav-header.component'
 import { LoginLoaderComponent } from './app/components/login-loader/login-loader.component'
 import { ResetPasswordComponent } from './app/components/reset-password/reset-password.component'
 import { ForgotPasswordComponent } from './app/components/forgot-password/forgot-password.component'
 import { LoginFormComponent } from './app/components/login-form/login-form.component'
 import { RegisterFormComponent } from './app/components/register-form/register-form.component'
+import { NavSidebarComponent } from './app/components/nav-sidebar/nav-sidebar.component'
+import { NavHeaderComponent } from './app/components/nav-header/nav-header.component'
+import { ProjectCreateComponent } from './app/components/project-create/project-create.component'
+import { ProjectsComponent } from './app/components/projects/projects.component'
+import { ProjectViewComponent } from './app/components/project-view/project-view.component'
+import { ContactsComponent } from './app/components/contacts/contacts.component'
+import { DashboardComponent } from './app/components/dashboard/dashboard.component'
 import { QuickSearchComponent } from './app/components/quick-search/quick-search.component'
 import { QuickViewComponent } from './app/components/quick-view/quick-view.component'
 import { OrganizationComponent } from './app/components/organization/organization.component'
@@ -38,47 +17,28 @@ import { PreferenceComponent } from './app/components/preference/preference.comp
 import { UserManagementComponent } from './app/components/user-management/user-management.component'
 import { DepartmentManagementComponent } from './app/components/department-management/department-management.component'
 import { RewardManagementComponent } from './app/components/reward-management/reward-management.component'
+import { ProjectCommentComponent } from './app/components/project-comment/project-comment.component'
 import { HelpComponent } from './app/components/help/help.component'
 
 angular.module('app.components')
-  // .component('tablesSimple', TablesSimpleComponent)
-  // .component('uiModal', UiModalComponent)
-  // .component('uiTimeline', UiTimelineComponent)
-  // .component('uiButtons', UiButtonsComponent)
-  // .component('uiIcons', UiIconsComponent)
-  // .component('uiGeneral', UiGeneralComponent)
-  // .component('formsGeneral', FormsGeneralComponent)
-  // .component('chartsChartjs', ChartsChartjsComponent)
-  // .component('widgets', WidgetsComponent)
-  // .component('userProfile', UserProfileComponent)
-  // .component('userVerification', UserVerificationComponent)
-  // .component('comingSoon', ComingSoonComponent)
-  // .component('userEdit', UserEditComponent)
-  // .component('userPermissionsEdit', UserPermissionsEditComponent)
-  // .component('userPermissionsAdd', UserPermissionsAddComponent)
-  // .component('userPermissions', UserPermissionsComponent)
-  // .component('userRolesEdit', UserRolesEditComponent)
-  // .component('userRolesAdd', UserRolesAddComponent)
-  // .component('userRoles', UserRolesComponent)
-  // .component('userLists', UserListsComponent)
-  .component('chat', ChatComponent)
-  .component('projectView', ProjectViewComponent)
-  .component('projectCreate', ProjectCreateComponent)
-  .component('projects', ProjectsComponent)
-  .component('contacts', ContactsComponent)
-  .component('dashboard', DashboardComponent)
-  .component('navSidebar', NavSidebarComponent)
-  .component('navHeader', NavHeaderComponent)
-  .component('loginLoader', LoginLoaderComponent)
-  .component('resetPassword', ResetPasswordComponent)
-  .component('forgotPassword', ForgotPasswordComponent)
-  .component('loginForm', LoginFormComponent)
-  .component('registerForm', RegisterFormComponent)
-  .component('quickSearch', QuickSearchComponent)
-  .component('quickView', QuickViewComponent)
-  .component('organization', OrganizationComponent)
-  .component('preference', PreferenceComponent)
-  .component('userManagement', UserManagementComponent)
-  .component('departmentManagement', DepartmentManagementComponent)
-  .component('rewardManagement', RewardManagementComponent)
-  .component('helpPage', HelpComponent)
+    .component('loginLoader', LoginLoaderComponent)
+    .component('resetPassword', ResetPasswordComponent)
+    .component('forgotPassword', ForgotPasswordComponent)
+    .component('loginForm', LoginFormComponent)
+    .component('registerForm', RegisterFormComponent)
+    .component('navSidebar', NavSidebarComponent)
+    .component('navHeader', NavHeaderComponent)
+    .component('projectView', ProjectViewComponent)
+    .component('projectCreate', ProjectCreateComponent)
+    .component('projects', ProjectsComponent)
+    .component('contacts', ContactsComponent)
+    .component('dashboard', DashboardComponent)
+    .component('quickSearch', QuickSearchComponent)
+    .component('quickView', QuickViewComponent)
+    .component('organization', OrganizationComponent)
+    .component('preference', PreferenceComponent)
+    .component('userManagement', UserManagementComponent)
+    .component('departmentManagement', DepartmentManagementComponent)
+    .component('rewardManagement', RewardManagementComponent)
+    .component('projectComment', ProjectCommentComponent)
+    .component('helpPage', HelpComponent)

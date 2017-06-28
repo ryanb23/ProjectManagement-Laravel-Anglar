@@ -38,7 +38,7 @@
     }
 }
 .user-header {
-  padding-bottom:15px;
+  // margin-bottom:15px;
   // border-bottom: 1px solid #daeffd;
   &:hover {
     background: #daeffd;
@@ -75,138 +75,18 @@
     opacity: .45;
   }
 }
-.comment-item {
-  border-bottom: 1px solid #d5dadb;
-  &:last-of-type {
-    border-bottom: none;
-  }
-  .comment-item-body {
-    padding: 12px 16px 11px 60px;
-    font-size: 14px;
-    line-height: 21px;
-    margin: 0;
-    p {
-      margin-bottom: 4px;
-    }
-    .via {
-      opacity: .45;
-      display: block;
-      font-size: 12px;
-      font-family: arial;
-    }
-  }
-  .card-content {
-    position: relative;
-    .buttons {
-      left: 17px;
-      padding: 0;
-      position: absolute;
-      top: 10px;
-      li {
-        display: inline-block;
-        list-style: none;
-        margin-right: 10px;
-        a {
-          color: #fff;
-        }
-      }
-    }
-  }
-  .card-feed {
-    overflow: hidden;
-    position: relative;
-    max-height: 400px;
-    &:hover .buttons {
-      opacity: 1;
-    }
-    .buttons {
-      position: absolute;
-      top: 5px;
-      right: 0;
-      opacity: 0;
-      li {
-        display: inline-block;
-        list-style: none;
-        a {
-          color: #fff;
-          opacity: 0.8;
-          padding: 5px;
-        }
-      }
-    }
-    > * {
-      max-width: 100%;
-    }
-  }
-  .card-footer {
-    padding: 14px 16px 11px;
-    font-size: 12px !important;
-    &:hover {
-      background: #daeffd;
-      cursor: pointer;
-      .reactions, .time {
-        opacity: .8;
-      }
-    }
-    .time {
-      float: left;
-      opacity: .45;
-      font-family: arial;
-      margin-top: 1px;
-    }
-    .reactions {
-      float: right;
-      margin: 0;
-      padding: 0;
-      opacity: .45;
-      li {
-        display: inline-block;
-        list-style: none;
-        a {
-          color: inherit;
-        }
-      }
-    }
-  }
-  .comment-item-body, .card-feed, .card-footer {
-    border-color: transparent;
-    border-style: solid;
-  }
-  .comment-item-body {
-    border-width: 1px;
-  }
-  .card-feed {
-    border-width: 0 1px;
-    margin-top: -2px;
-  }
-  .card-footer {
-    border-width: 0 1px 1px 1px;
-  }
-  &.share-other {
-    .comment-item-body {
-      padding-bottom: 0;
-    }
-    .card-footer {
-      padding-top: 0;
-      border-radius: 0;
-      &:hover {
-        background: #fff;
-      }
-    }
-    .comment-item-header {
-      border-top: 1px solid #daeffd;
-    }
-    .circle {
-      background: #f8d053;
-    }
-  }
-}
 
 .todo-list-block {
   .todo-list {
     padding-top: 0px !important;
     .task-item {
       margin-bottom:5px;
+      .task-approved{
+          text-decoration: line-through;
+      }
+      .task-dismissed{
+          color: #933432;
+      }
       &:hover {
         background: #daeffd;
         cursor: pointer;
@@ -215,6 +95,7 @@
       }
       p {
         float: left;
+        font-weight: bold;
         padding-top: 4px;
         margin: 0px 0px 0px 10px !important;
       }

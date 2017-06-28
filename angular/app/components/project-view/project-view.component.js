@@ -1,13 +1,18 @@
 class ProjectViewController {
     constructor(API, $state, $stateParams, $timeout, $scope, $rootScope, $sce, $compile, $filter, Lightbox, ContextService) {
         'ngInject'
-
         let that = this
 
         this.projectId = parseInt($stateParams.projectId);
         this.$sce = $sce;
         this.$scope = $scope;
-        this.$rootScope = $rootScope;
+
+        this.userInfo = []
+        ContextService.me(function(data){
+            if(data != null)
+                that.userInfo = data
+        })
+
         this.$compile = $compile;
         this.$filter = $filter;
         this.$state = $state;
@@ -457,7 +462,6 @@ class ProjectViewController {
     }
     $onInit() {
         this.init()
-        console.log(this.$rootScope)
     }
 }
 
