@@ -12,7 +12,7 @@ class CommentPostEvent extends Event implements ShouldBroadcast
 {
     use SerializesModels;
 
-    public $comment, $project_id, $time_ago;
+    public $comment, $project_id, $created_at;
     public $user;
     /**
      * Create a new event instance.
@@ -20,13 +20,13 @@ class CommentPostEvent extends Event implements ShouldBroadcast
      * @return void
      */
 
-    public function __construct($comment,$project_id,$time_ago)
+    public function __construct($comment,$project_id,$created_at)
     {
         //
         $user = Auth::user();
         $this->user = $user;
         $this->comment = $comment;
-        $this->time_ago = $time_ago;
+        $this->created_at = $created_at;
         $this->project_id = $project_id;
     }
 
