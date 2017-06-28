@@ -7,8 +7,8 @@
                 </header>
                 <hr class="widget-separator">
                 <div class="chat-wrapper">
-                    <div class="chat convo" scroll-to-bottom="vm.messageList">
-                        <ul class="chat-body">
+                    <div class="chat convo">
+                        <ul class="chat-body"  scroll-to-bottom="vm.messageList">
                             <li ng-repeat="(key, messageItem) in  vm.messageList" class="answer" ng-class="{right:vm.userInfo.id == messageItem.user.id, left:vm.userInfo.id != messageItem.user.id}">
                                 <div class="avatar">
                                     <img alt="User name" src="eficos/img/208.jpg">

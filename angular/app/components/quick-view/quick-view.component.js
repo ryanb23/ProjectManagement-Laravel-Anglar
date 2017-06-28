@@ -2,32 +2,35 @@ class QuickViewController {
   constructor (API, $state, $stateParams, $timeout, $scope, $rootScope, $sce, $filter, ContextService) {
     'ngInject'
 
-    this.userRoute = API.all('users');
-
+    let that = this
     this.API = API
     this.scope = $scope
+    this.ContextService = ContextService
+
+    this.userRoute = API.all('users');
     this.message = ''
+
     this.userRoute.get('all-chat-user').then((response) => {
         this.chatUsers = response.plain().data
     })
 
-    this.userRoute.get('me').then((response) => {
-        let data = response.plain().data
-        this.userInfo = data
-
-        //Subscribe to the channel we specified in our Laravel Event
-        console.log('chat-channel-' + data.id)
-        let channel = pusher.subscribe('chat-channel-' + data.id)
-        let that = this
-        //Bind a function to a Event (the full Laravel class)
-        channel.bind('App\\Events\\MessagePostEvent', function(messageData) {
-            console.log(messageData)
-            console.log(that.openChanelId)
-            if (messageData.user.id == that.openChanelId) {
-                that.addMessage(messageData)
-                $scope.$apply()
-            }
-        })
+    ContextService.me(function(data){
+        if(data != null)
+        {
+            that.userInfo = data
+            //Subscribe to the channel we specified in our Laravel Event
+            console.log('chat-channel-' + data.id)
+            let channel = pusher.subscribe('chat-channel-' + data.id)
+            //Bind a function to a Event (the full Laravel class)
+            channel.bind('App\\Events\\MessagePostEvent', function(messageData) {
+                console.log(messageData)
+                console.log(that.openChanelId)
+                if (messageData.user.id == that.openChanelId) {
+                    that.addMessage(messageData)
+                    $scope.$apply()
+                }
+            })
+        }
     })
   }
 
