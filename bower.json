@@ -23,7 +23,8 @@
     "angular-acl": "^0.1.5",
     "ng-dropzone": "ngdropzone#^2.0.2",
     "angular-bootstrap-lightbox": "^0.12.0",
-    "angular-bootstrap": "^2.5.0"
+    "angular-bootstrap": "^2.5.0",
+    "angular-moment": "^1.0.1"
   },
   "resolutions": {
     "angular": "~1.5.x"
