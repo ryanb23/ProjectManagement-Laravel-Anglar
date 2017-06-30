@@ -13,6 +13,7 @@ use Validator;
 use DB;
 
 use App\Http\Traits\FileTrait;
+use App\Models\Department;
 
 class UserController extends Controller
 {
@@ -156,6 +157,14 @@ class UserController extends Controller
 
         return response()->success('success');
     }
+
+    public function getDepartmentUsers(Request $request)
+    {
+        $id = $request['id'];
+        $users = Department::with('users')->where('id',$id)->get();
+        return response()->success($users);
+    }
+
     public function postUserUpdate(Request $request)
     {
         $user_id = $request['id'];
@@ -239,7 +248,7 @@ class UserController extends Controller
             ];
 
             $validator = app('validator')->make($payload, $rules, $messages);
-        
+
             if ($validator->fails()) {
                 return response()->error($validator->errors());
             } else {
@@ -332,14 +341,17 @@ class UserController extends Controller
      *
      * @return JSON
      */
-    public function getShow($id)
+    public function getShow(Request $request)
     {
+        $id = $request['id'];
         $user = User::find($id);
+        $user['fullname'] = $user['firstname'].' '.$user['lastname'];
         $user['role'] = $user
                         ->roles()
                         ->select(['slug', 'roles.id', 'roles.name'])
                         ->get();
-
+        $user['department'] = $user->departments()->get();
+        $user['projects'] = $user->projects()->get();
         return response()->success($user);
     }
 

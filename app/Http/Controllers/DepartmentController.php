@@ -57,6 +57,34 @@ class DepartmentController extends Controller
         return response()->success($result);
 
     }
+
+    public function getDepartmentTreeWithUsers(){
+
+        $result = array();
+        $departmentTree = Department::with('child_department','user_count','child_department.user_count')
+            ->where('p_dep_id',0)
+            ->get()->toArray();
+
+        foreach($departmentTree as &$deprtmentItem)
+        {
+            $user_count = isset($deprtmentItem['user'][0]['user_count']) ? $deprtmentItem['user'][0]['user_count'] : 0;
+            if(isset($deprtmentItem['child_department']))
+            {
+                foreach($deprtmentItem['child_department'] as $child_departmentItem)
+                {
+                    $user_count += isset($child_departmentItem['user'][0]['user_count']) ? $child_departmentItem['user'][0]['user_count'] : 0;
+                }
+            }
+            if(!isset($deprtmentItem['user'][0]['user_count']))
+                $deprtmentItem['user'][0] = [];
+            $deprtmentItem['user'][0]['user_count'] = $user_count;
+        }
+
+        $result['treeData'] = $departmentTree;
+        return response()->success($result);
+
+    }
+
     public function postNewDepartment(Request $request){
       $p_dep_id = $request['p_dep'];
       $active = $request['active'] ? '1' : '0';

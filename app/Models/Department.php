@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Project;
+use App\User;
 
 class Department extends Model
 {
@@ -27,6 +28,14 @@ class Department extends Model
 
     public function child_department(){
         return $this->hasMany(Department::class,'p_dep_id');
+    }
+
+    public function users(){
+        return $this->belongsToMany(User::class,'department_user','department_id','user_id');
+    }
+
+    public function user_count(){
+        return $this->belongsToMany(User::class,'department_user','department_id','user_id')->selectRaw('department_id,user_id,count(*) as user_count')->groupBy('department_id');
     }
 
     public function project_count(){
