@@ -1,0 +1,138 @@
+<!-- START PAGE CONTENT -->
+<!-- START CONTAINER FLUID -->
+<div class="container-fluid container-fixed-lg">
+    <ul class="breadcrumb">
+        <li>
+            <a>Home</a>
+        </li>
+        <li>>Profie</a>
+        </li>
+        <li><a class="active">Edit</a>
+        </li>
+    </ul>
+    <!-- END BREADCRUMB -->
+    <!-- START PANEL -->
+    <div class="panel panel-default col-md-8 col-md-offset-2 user_profile_edit_div">
+        <div class="panel-heading">
+            <div class="panel-title">Profile Edit</div>
+        </div>
+        <div class="panel-body">
+            <div class="row user_profile_pic_div">
+                <div class="profile_img m-t-5" ng-click="vm.showModal()">
+                    <img src="{{vm.userInfo.avatar}}" width="150" height="150">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="user_detail_div m-t-20">
+                <form role="form" name="vm.editUserProfile" ng-submit="vm.editProfile(vm.editUserProfile.$valid)" novalidate>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.editUserProfile.name.$invalid && ( vm.formSubmitted || vm.editUserProfile.name.$touched) }">
+                                <label>User Name</label>
+                                <input ng-model="vm.userInfo.name" name="name" type="text" class="form-control" placeholder="User Name" required>
+                            </div>
+                            <label class="error help-block" for="name" ng-show="vm.editUserProfile.name.$error.required && ( vm.formSubmitted || vm.editUserProfile.name.$touched)">Username is required.</label>
+                            <label class="error help-block" for="name" ng-show="vm.editUserProfile.name.$invalid && (vm.formSubmitted || vm.errors.name)">{{vm.errors.name}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.editUserProfile.firstname.$invalid && ( vm.formSubmitted || vm.editUserProfile.firstname.$touched) }">
+                                <label>First Name</label>
+                                <input ng-model="vm.userInfo.firstname" name="firstname" type="text" class="form-control" placeholder="First Name" required>
+                            </div>
+                            <label class="error help-block" for="firstname" ng-show="vm.editUserProfile.firstname.$error.required && ( vm.formSubmitted || vm.editUserProfile.firstname.$touched)">First Name is required.</label>
+                            <label class="error help-block" for="firstname" ng-show="vm.editUserProfile.firstname.$invalid && (vm.formSubmitted || vm.errors.firstname)">{{vm.errors.firstname}}</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.editUserProfile.lastname.$invalid && ( vm.formSubmitted || vm.editUserProfile.lastname.$touched) }">
+                                <label>Last Name</label>
+                                <input ng-model="vm.userInfo.lastname" name="lastname" type="text" class="form-control" placeholder="Last Name" required>
+                            </div>
+                            <label class="error help-block" for="lastname" ng-show="vm.editUserProfile.lastname.$error.required && ( vm.formSubmitted || vm.editUserProfile.lastname.$touched)">First Name is required.</label>
+                            <label class="error help-block" for="lastname" ng-show="vm.editUserProfile.lastname.$invalid && (vm.formSubmitted || vm.errors.lastname)">{{vm.errors.lastname}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.editUserProfile.about_me.$invalid && ( vm.formSubmitted || vm.editUserProfile.about_me.$touched) }">
+                                <label>About Me</label>
+                                <textarea ng-model="vm.userInfo.about_me" name="about_me" class="form-control" placeholder="About Me"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.editUserProfile.email.$invalid && ( vm.formSubmitted || vm.editUserProfile.email.$touched) }">
+                                <label>Email</label>
+                                <input ng-model="vm.userInfo.email" name="email" type="email" class="form-control" placeholder="Email" ng-maxlength="30" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+                            </div>
+                            <label ng-show="vm.editUserProfile.email.$invalid && (vm.formSubmitted || vm.errors.email)" class="error help-block">{{vm.errors.email}}</label>
+                            <label ng-show="vm.editUserProfile.email.$error.required && ( vm.formSubmitted || vm.editUserProfile.email.$touched)" class="error help-block">Email is required.</label>
+                            <label ng-show="vm.editUserProfile.email.$error.email && vm.editUserProfile.email.$touched" class="error help-block">This is not a valid email.</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default form-group-default-select required" ng-class="{ 'has-error': vm.department_sel.length == 0 && ( vm.formSubmitted || vm.editUserProfile.department_sel.$touched) }">
+                                <label class="">Departements</label>
+                                <ui-select multiple ng-model="vm.department_sel" name="department_sel" theme="select2" ng-disabled="disabled" style="width:100%">
+                                    <ui-select-match placeholder="Select Departments">{{$item.name}}</ui-select-match>
+                                    <ui-select-choices repeat="dItem in vm.departments | propsFilter: {name: $select.search, description: $select.search}">
+                                        <span ng-if="dItem.p_dep_id != 0" style="margin-left:20px"></span>
+                                        <span ng-bind-html="vm.trustAsHtml((dItem.name | highlight: $select.search))"></span> -
+                                        <small ng-bind-html="vm.trustAsHtml((dItem.description | highlight: $select.search))"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <label ng-show="vm.editUserProfile.department_sel.$invalid && (vm.formSubmitted || vm.errors.department)" class="error help-block">{{vm.errors.department}}</label>
+                            <label ng-show="vm.department_sel.length == 0 && ( vm.formSubmitted || vm.editUserProfile.department_sel.$touched)" class="error help-block">Department is required.</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-danger btn-cons" ng-click="vm.backToprofile()">Back to Profile</button>
+                            <button type="submit" class="btn btn-primary  btn-cons" ng-click="">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL STICK UP  -->
+<div class="modal fade stick-up" id="profileImgModal" tabindex="-1" role="dialog" aria-labelledby="profileImgModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header clearfix ">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                </button>
+                <h4 class="p-b-5"><span class="semi-bold">Change</span> Avatar</h4>
+            </div>
+
+            <div class="modal-body user_profile_edit_div">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5>Select an image file</h5>
+                        <input type="file" style="display:none" id="fileInput" />
+                        <div class="cropArea">
+                            <img-crop image="uploadedImage" result-image="userProfileImg" result-image-size="150" ng-dblclick="vm.openFileSelector()"></img-crop>
+                        </div>
+                    </div>
+                    <div class=" user_profile_pic_div col-md-4">
+                        <h5>Preview Profile Image</h5>
+                        <div class="profile_img m-t-5"><img ng-src="{{userProfileImg}}" /></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary  btn-cons" ng-click="vm.saveAvatar(userProfileImg)">Save</button>
+                <button type="button" class="btn btn-danger btn-cons" ng-click="vm.hideModal()">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
