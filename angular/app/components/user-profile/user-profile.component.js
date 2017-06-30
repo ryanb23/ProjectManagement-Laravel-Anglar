@@ -6,20 +6,17 @@ class UserProfileController {
         this.userInfo = null
         this.projects = []
         this.$state = $state
+        this.ContextService = ContextService
 
         this.projectRoute = API.all('projects')
-
-        ContextService.me(function(data){
-            if(data != null)
-            {
-                that.userInfo = data
-                that.getProjectList();
-            }
-        })
     }
 
     detailView(project){
         this.$state.go('app.projects.view', {projectId: project.id})
+    }
+
+    editProfile(){
+        this.$state.go('app.user.profile-edit')
     }
 
     getProjectList(){
@@ -29,7 +26,14 @@ class UserProfileController {
     }
 
     $onInit() {
-
+        let that = this
+        this.ContextService.me(function(data){
+            if(data != null)
+            {
+                that.userInfo = data
+                that.getProjectList();
+            }
+        })
     }
 }
 
