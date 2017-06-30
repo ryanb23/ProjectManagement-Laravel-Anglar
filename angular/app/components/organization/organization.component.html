@@ -1,45 +1,27 @@
 <nav class="secondary-sidebar padding-30" style="">
-    <p class="menu-title">All Departements</p>
+    <p class="menu-title">BY DEPARTMENT</p>
     <ul class="main-menu scroll-content scroll-scrolly_visible">
-        <li class="">
-            <a href="#">
+        <li ng-class="{active: vm.depSel == dep_item.id}" ng-repeat="dep_item in vm.departments">
+            <a href="javascript:;" ng-click="vm.getUsers()">
+                <div>
 				<span class="title">
-					<i class="fa fa-line-chart"></i> Finance
+					<i class="fa fa-desktop"></i> {{dep_item.name}}
 				</span>
-				<span class="badge pull-right">1</span>
+				<span class="badge pull-right">{{dep_item.project_count.project_count}}</span>
+                <div style="clear:both"></div>
+                </div>
 			</a>
-        </li>
-        <li class="active">
-            <a href="#">
-				<span class="title">
-					<i class="fa fa-desktop"></i> IT
-				</span>
-				<span class="badge pull-right">4</span>
-			</a>
-        </li>
-        <li>
-            <a href="#">
-				<span class="title">
-					<i class="pg-sent"></i> Procurement
-				</span>
-				<span class="badge pull-right">2</span>
-			</a>
-        </li>
-        <li>
-            <a href="#">
-				<span class="title">
-					<i class="fa fa-balance-scale"></i> Law
-				</span>
-				<span class="badge pull-right">2</span>
-			</a>
-        </li>
-        <li>
-            <a href="#">
-				<span class="title">
-					<i class="fa fa-briefcase"></i> Accounting
-				</span>
-				<span class="badge pull-right">3</span>
-			</a>
+            <ul ng-if="dep_item.child_department" class="sub-menu no-padding">
+                <li ng-class="{active: vm.depSel == dep_child_item.id}" ng-repeat="dep_child_item in dep_item.child_department">
+                    <a href="javascript:;" ng-click="vm.getUsers()">
+                        <div>
+                        <span class="title">{{dep_child_item.name}}</span>
+                        <span class="badge pull-right">{{dep_child_item.project_count.project_count}}</span>
+                        <div style="clear:both"></div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </nav>

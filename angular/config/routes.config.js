@@ -58,6 +58,22 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                 }
             }
         })
+        .state('app.user.profile-edit',{
+            url: '/profile-edit',
+            views: {
+                'main@app': {
+                    template: '<user-profile-edit></user-profile-edit>'
+                }
+            }
+        })
+        .state('app.user.password',{
+            url: '/password',
+            views: {
+                'main@app': {
+                    template: '<user-password-edit></user-password-edit>'
+                }
+            }
+        })
         .state('app.organiztion', {
             url: '/organiztion',
             data: {

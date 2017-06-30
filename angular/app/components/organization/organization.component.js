@@ -1,18 +1,34 @@
 class OrganizationController {
-  constructor ($scope) {
+  constructor (API, $state, $stateParams, $scope, $sce, $compile, $filter) {
     'ngInject'
 
-    $scope.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-    $scope.series = ['Series A', 'Series B']
-    $scope.data = [
-      [65, 59, 80, 81, 56, 55, 40],
-      [28, 48, 40, 19, 86, 27, 90]
-    ]
+    let that = this
+    this.$sce = $sce;
+    this.$scope = $scope;
+    this.$compile = $compile;
+    this.$filter = $filter;
+    this.$state = $state;
+    this.API = API;
 
-    $scope.onClick = function () {}
+    this.departmentRoute = API.all('departments');
+    this.departments = [];
+    this.depSel = null;
+  }
 
-    $scope.pieLabels = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales']
-    $scope.pieData = [300, 500, 100]
+  getDepartment() {
+      this.departmentRoute.get('department-tree').then((response) => {
+        var dep_list = response.plain().data
+        this.departments = dep_list['treeData'];
+        this.depSel  = this.departments[0]['id']
+      })
+  }
+
+  getUsers(){
+
+  }
+
+  $onInit() {
+      this.getDepartment();
   }
 }
 
