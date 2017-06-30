@@ -24,7 +24,8 @@
     "ng-dropzone": "ngdropzone#^2.0.2",
     "angular-bootstrap-lightbox": "^0.12.0",
     "angular-bootstrap": "^2.5.0",
-    "angular-moment": "^1.0.1"
+    "angular-moment": "^1.0.1",
+    "ng-img-crop": "ngImgCrop#^0.3.2"
   },
   "resolutions": {
     "angular": "~1.5.x"
