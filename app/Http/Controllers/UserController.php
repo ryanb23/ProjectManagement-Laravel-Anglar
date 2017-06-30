@@ -12,9 +12,11 @@ use Input;
 use Validator;
 use DB;
 
+use App\Http\Traits\FileTrait;
+
 class UserController extends Controller
 {
-
+    use FileTrait;
     /**
      * Get user current context.
      *
@@ -143,7 +145,17 @@ class UserController extends Controller
             $user->attachRole($role['id']);
         return response()->success('success');
     }
+    public function postUpdateAvatar(Request $request)
+    {
+        $img = $request['data'];
+        $user = Auth::user();
+        $user_id = $user->id;
+        $avatar_url = $this->base64_to_png($img, $user_id);
+        $user->avatar = $avatar_url;
+        $user->save();
 
+        return response()->success('success');
+    }
     public function postUserUpdate(Request $request)
     {
         $user_id = $request['id'];
@@ -182,6 +194,63 @@ class UserController extends Controller
         return response()->success('success');
     }
 
+    public function postUpdateMe(Request $request)
+    {
+        $user = Auth::user();
+
+        $user_id = $user->id;
+
+        $user->firstname = trim($request->firstname);
+        $user->lastname = trim($request->lastname);
+        $user->name = trim($request->name);
+        $user->about_me = trim($request->about_me);
+        $user->email = trim(strtolower($request->email));
+        $user->save();
+
+        $departments = $request['department'];
+        $dep_data = array_map(function($dep_item) use ($user_id){
+            return ['user_id'=>$user_id,'department_id'=>$dep_item['id']];
+        }, $departments);
+        DB::table('department_user')->where('user_id','=',$user_id)->delete();
+        DB::table('department_user')->insert($dep_data);
+
+        return response()->success('success');
+    }
+
+    public function postUpdatePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($request->has('current_password')) {
+            Validator::extend('hashmatch', function ($attribute, $value, $parameters) {
+                return Hash::check($value, Auth::user()->password);
+            });
+
+            $rules = [
+                'current_password' => 'required|hashmatch:current_password',
+                'password' => 'required|min:8|confirmed',
+                'password_confirmation' => 'required|min:8',
+            ];
+
+            $payload = app('request')->only('current_password', 'password', 'password_confirmation');
+
+            $messages = [
+                'hashmatch' => 'Invalid Password',
+            ];
+
+            $validator = app('validator')->make($payload, $rules, $messages);
+        
+            if ($validator->fails()) {
+                return response()->error($validator->errors());
+            } else {
+                $user->password = Hash::make($request['password']);
+            }
+        }
+
+        $user->save();
+
+        return response()->success('success');
+    }
     /**
      * Update user current context.
      *
