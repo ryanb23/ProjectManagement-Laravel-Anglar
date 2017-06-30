@@ -1,0 +1,101 @@
+<!-- START PAGE CONTENT -->
+<!-- START CONTAINER FLUID -->
+<div class="container-fluid container-fixed-lg">
+    <ul class="breadcrumb">
+        <li>
+            <a>Home</a>
+        </li>
+        <li><a class="active">Profie</a>
+        </li>
+    </ul>
+    <!-- END BREADCRUMB -->
+    <!-- START PANEL -->
+    <div class="panel panel-default col-md-8 col-md-offset-2 user_profile_div">
+        <div class="panel-heading">
+        </div>
+        <div class="panel-body">
+            <div class="row user_profile_pic_div">
+                <div class="profile_img m-t-5">
+                    <img check-image src="{{vm.userInfo.avatar}}" alt=""  width="150" height="150">
+                </div>
+                <div class="clearfix"></div>
+                <h2 class="m-t-30 title_p">{{vm.userInfo.fullname}}</h2>
+            </div>
+            <div class="user_detail_div">
+                <div class="row">
+                    <h5>Roles</h5>
+                    <a class="btn btn-default btn-cons btn-rounded btn-notification-style m-b-10 active ng-binding" ng-repeat="role_item in vm.userInfo.role">{{role_item.name}}</a>
+                </div>
+                <div class="row">
+                    <h5>Departments</h5>
+                    <span class="label label-success m-r-10" ng-repeat="dep_item in vm.userInfo.department">{{dep_item.name}}</span>
+                </div>
+                <div class="row">
+                    <h5>About Me</h5>
+                    <p>{{vm.userInfo.about_me}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-tranparent col-md-8 col-md-offset-2 user_project_div">
+        <div class="panel">
+            <ul class="nav nav-tabs nav-tabs-simple" role="tablist" ui-jq="tabCollapse">
+                <li><a href="#stream" data-toggle="tab" pg-tab role="tab">Stream</a>
+                </li>
+                <li class="active"><a href="#projects" data-toggle="tab" pg-tab role="tab">Projects</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane" id="stream">
+                    <div class="row column-seperation">
+                        <div class="comment-item" scroll-to-bottom="vm.commentList">
+                            <div class="user-header">
+                                <div class="user-pic">
+                                    <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" src="assets/img/profiles/4x.jpg">
+                                </div>
+                                <h5>test</h5>
+                                <h6><p class="pull-left"><span class="user_dep" ng-repeat="user_department in item.user.departments">test</span></p>
+                                        <span class="location semi-bold pull-right" am-time-ago="item.created_at | amUtc | amLocal"></span>
+                                </h6>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="comment-item-body">
+                                <p>A style represents visual customizations on top of a layout. By editing a style, you can use Squarespace's visual interface to customize your...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane user_projects active " id="projects">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="no-padding">
+                                <li ng-repeat="project in vm.projects" class="item padding-15" ng-click="vm.detailView(project)">
+                                    <div class="m-l-15">
+                                        <p class="recipients no-margin hint-text small">
+                                            <a href="javascript:;">{{vm.userInfo.name}}</a>, <span class="user_dep" ng-repeat="user_department in vm.userInfo.department">{{user_department.name}}</span>
+                                        </p>
+                                        <a class="subject no-margin" href="javascript:;">{{project.title}}</a>
+                                        <p class="body no-margin">
+                                            {{project.objective}}
+                                        </p>
+                                    </div>
+                                    <div class="datetime" am-time-ago="project.created_at | amUtc | amLocal"></div>
+                                    <div class="pull-left m-l-15">
+                                        <span>
+        									<i class="fa fa-heart" aria-hidden="true"></i> 9423
+        								</span>
+                                        <span>
+        									<i class="fa fa-comments-o" aria-hidden="true"></i> 13
+        								</span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
