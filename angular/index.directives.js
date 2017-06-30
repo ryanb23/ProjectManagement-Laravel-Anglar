@@ -45,3 +45,15 @@ angular.module('app.components')
           }
       };
   })
+  .directive('checkImage', function () {
+      return {
+         link: function(scope, element, attrs) {
+             console.log(element.attr('src'))
+            if(typeof element.attr('src') == 'undefined' || element.attr('src') == '')
+                element.attr('src', 'dist/img/default.jpeg'); // set default image
+            element.bind('error', function() {
+                element.attr('src', 'dist/img/default.jpeg'); // set default image
+            });
+          }
+      }
+  });

@@ -22,6 +22,7 @@ import { HelpComponent } from './app/components/help/help.component'
 import { UserProfileComponent } from './app/components/user-profile/user-profile.component'
 import { UserProfileEditComponent } from './app/components/user-profile-edit/user-profile-edit.component'
 import { UserPasswordEditComponent } from './app/components/user-password-edit/user-password-edit.component'
+import { UserProfileOtherComponent } from './app/components/user-profile-other/user-profile-other.component'
 
 angular.module('app.components')
     .component('loginLoader', LoginLoaderComponent)
@@ -46,5 +47,6 @@ angular.module('app.components')
     .component('projectComment', ProjectCommentComponent)
     .component('helpPage', HelpComponent)
     .component('userProfile', UserProfileComponent)
+    .component('userProfileOther', UserProfileOtherComponent)
     .component('userProfileEdit', UserProfileEditComponent)
     .component('userPasswordEdit', UserPasswordEditComponent)
