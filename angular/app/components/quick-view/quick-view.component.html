@@ -140,10 +140,10 @@
                     </div>
                     <!-- END Header  !-->
                     <!-- BEGIN Conversation  !-->
-                    <div class="chat-inner" id="my-conversation">
+                    <div class="chat-inner" id="my-conversation"  scroll-to-bottom="vm.messageList">
                         <!-- BEGIN From Me Message  !-->
 
-                        <div class="message clearfix" ng-repeat="(key, messageItem) in  vm.messageList" scroll-to-bottom="vm.messageList">
+                        <div class="message clearfix" ng-repeat="(key, messageItem) in  vm.messageList">
                             <div class="profile-img-wrapper m-t-5 inline" ng-if="vm.userInfo.id != messageItem.user.id">
                                 <img class="col-top" width="30" height="30" src="assets/img/profiles/avatar_small.jpg" alt="" data-src="assets/img/profiles/avatar_small.jpg" ui-jq="unveil" data-src-retina="assets/img/profiles/avatar_small2x.jpg">
                             </div>
