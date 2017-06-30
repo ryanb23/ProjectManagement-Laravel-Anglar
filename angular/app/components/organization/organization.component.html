@@ -2,21 +2,21 @@
     <p class="menu-title">BY DEPARTMENT</p>
     <ul class="main-menu scroll-content scroll-scrolly_visible">
         <li ng-class="{active: vm.depSel == dep_item.id}" ng-repeat="dep_item in vm.departments">
-            <a href="javascript:;" ng-click="vm.getUsers()">
+            <a href="javascript:;" ng-click="vm.getUsers(dep_item)">
                 <div>
 				<span class="title">
 					<i class="fa fa-desktop"></i> {{dep_item.name}}
 				</span>
-				<span class="badge pull-right">{{dep_item.project_count.project_count}}</span>
+				<span class="badge pull-right">{{dep_item.user_count[0].user_count}}</span>
                 <div style="clear:both"></div>
                 </div>
 			</a>
             <ul ng-if="dep_item.child_department" class="sub-menu no-padding">
                 <li ng-class="{active: vm.depSel == dep_child_item.id}" ng-repeat="dep_child_item in dep_item.child_department">
-                    <a href="javascript:;" ng-click="vm.getUsers()">
+                    <a href="javascript:;" ng-click="vm.getUsers(dep_child_item)">
                         <div>
                         <span class="title">{{dep_child_item.name}}</span>
-                        <span class="badge pull-right">{{dep_child_item.project_count.project_count}}</span>
+                        <span class="badge pull-right">{{dep_child_item.user_count[0].user_count}}</span>
                         <div style="clear:both"></div>
                         </div>
                     </a>
@@ -63,245 +63,21 @@
 
                     <div class="panel panel-default">
                         <div class="panel-heading bg-white">
-                            <p class="panel-title text-muted">About 512 results (.03 second)</p>
+                            <p class="panel-title text-muted">About 512 results</p>
                         </div>
                         <div class="panel-body">
                             <div class="row m-b-lg">
-                                <div class="col-md-4 col-sm-6">
+                                <div class="col-md-4 col-sm-6" ng-repeat="item in vm.users">
                                     <div class="p-t-25">
-                                        <a href="profile.html">
+                                        <a ng-click="vm.viewProfile(item)">
 											<span>
 												<div class="thumbnail-wrapper d32 circular bordered b-danger">
-													<img alt="" data-src-retina="assets/img/profiles/1x.jpg" data-src="assets/img/profiles/1.jpg" src="assets/img/profiles/1.jpg" width="40" height="40">
+													<img check-image alt="" src="{{item.avatar}}" width="40" height="40">
 												</div>
 											</span>
 											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">Eva Flores</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Web development</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="p-t-25">
-                                        <a href="profile.html">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-success">
-													<img alt="" data-src-retina="assets/img/profiles/3x.jpg" data-src="assets/img/profiles/3.jpg" src="assets/img/profiles/3.jpg" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">Elizabeth Taylor</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Public relation</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="p-t-25">
-                                        <a href="profile.html">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-success">
-													<img alt="" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" src="assets/img/profiles/4.jpg" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">James Paterson</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Marketing</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="p-t-25">
-                                        <a href="profile.html">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-success">
-													<img alt="" data-src-retina="assets/img/profiles/6x.jpg" data-src="assets/img/profiles/6.jpg" src="assets/img/profiles/6.jpg" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">Brian Hertley</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Sale</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="p-t-25">
-                                        <a href="profile.html">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-success">
-													<img alt="" data-src-retina="assets/img/profiles/avatar2x.jpg" data-src="assets/img/profiles/avatar.jpg" src="assets/img/profiles/avatar.jpg" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">Peter Chen Louis</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Web development</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="p-t-25">
-                                        <a href="profile.html">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-success">
-													<img alt="" data-src-retina="assets/img/profiles/5x.jpg" data-src="assets/img/profiles/5.jpg" src="assets/img/profiles/5.jpg" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">Bella Giovanna</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Legal</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="p-t-25">
-                                        <a href="profile.html">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-danger">
-													<img alt="" data-src-retina="assets/img/profiles/8x.jpg" data-src="assets/img/profiles/8x.jpg" src="assets/img/profiles/8x.jpg" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">Simon Tremblay</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Finance</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="p-t-25">
-                                        <a href="profile.html">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-warning">
-													<img alt="" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4x.jpg" src="assets/img/profiles/4x.jpg" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">William Nguyen</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">SEO/SMM</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="p-t-25">
-                                        <a href="profile.html">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-success">
-													<img alt="" data-src-retina="assets/img/profiles/2x.jpg" data-src="assets/img/profiles/2x.jpg" src="assets/img/profiles/2x.jpg" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">Walid Chelou</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Web development</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="p-t-25">
-                                        <a href="profile.html">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-success">
-													<img alt="" data-src-retina="assets/img/profiles/5x.jpg" data-src="assets/img/profiles/5x.jpg" src="assets/img/profiles/5x.jpg" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">Celia Noor</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Public relation</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="p-t-25">
-                                        <a href="profile.html">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-warning">
-													<img alt="" data-src-retina="assets/img/profiles/6x.jpg" data-src="assets/img/profiles/6x.jpg" src="assets/img/profiles/6x.jpg" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">Gerome Dubois</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">QA</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="p-t-25">
-                                        <a href="profile.html">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-success">
-													<img alt="" data-src-retina="assets/img/profiles/8x.jpg" data-src="assets/img/profiles/8x.jpg" src="assets/img/profiles/8x.jpg" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">Rahul Parpikan</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Marketing</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="p-t-25">
-                                        <a href="profile.html">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-success">
-													<img alt="" data-src-retina="assets/img/profiles/6x.jpg" data-src="assets/img/profiles/6x.jpg" src="assets/img/profiles/6x.jpg" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">Fionna Xiang</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Web design</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="p-t-25">
-                                        <a href="profile.html">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-success">
-													<img alt="" data-src-retina="assets/img/profiles/9x.jpg" data-src="assets/img/profiles/9x.jpg" src="assets/img/profiles/9x.jpg" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">Mohamed Izabe</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Sale</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="p-t-25">
-                                        <a href="profile.html">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-danger">
-													<img alt="" data-src-retina="assets/img/profiles/8x.jpg" data-src="assets/img/profiles/8x.jpg" src="assets/img/profiles/8x.jpg" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">Reginal Louis</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Legal</p>
+												<h5 class="no-margin overflow-ellipsis ">{{item.name}}</h5>
+												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Web Developer</p>
 											</div>
 											<div class="clearfix"></div>
 										</a>

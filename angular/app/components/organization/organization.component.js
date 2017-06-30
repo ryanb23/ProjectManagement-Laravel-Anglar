@@ -11,22 +11,35 @@ class OrganizationController {
     this.API = API;
 
     this.departmentRoute = API.all('departments');
+    this.userRoute = API.all('users');
+
     this.departments = [];
     this.depSel = null;
+
+    this.uesrs = []
   }
 
   getDepartment() {
-      this.departmentRoute.get('department-tree').then((response) => {
+      this.departmentRoute.get('department-tree-with-users').then((response) => {
         var dep_list = response.plain().data
         this.departments = dep_list['treeData'];
         this.depSel  = this.departments[0]['id']
+        this.getUsers(this.departments[0])
       })
   }
 
-  getUsers(){
-
+  getUsers(dep){
+      this.depSel  = dep['id']
+      this.userRoute.get('department-users',{'id':dep['id']}).then((response) => {
+          this.users = response.plain().data[0].users
+      });
   }
 
+  viewProfile(user)
+  {
+      let $state = this.$state
+      $state.go('app.user.other-profile',{userId:user.id})
+  }
   $onInit() {
       this.getDepartment();
   }
