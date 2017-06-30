@@ -82,6 +82,7 @@ class ProjectViewController {
 
         this.newApproveTask = {
            id: null,
+           userinfo: [],
            is_approved : null,
            todolist_id: null,
            attachFiles: []
@@ -303,6 +304,7 @@ class ProjectViewController {
         this.newApproveTask.title = item.submit_title;
         this.newApproveTask.description = item.submit_description;
         this.newApproveTask.todolist_id = item.todo_list_id;
+        this.newApproveTask.userinfo = item.contributor;
         this.newApproveTask.attachFiles = [];
 
         for(var i=0; i<item.file.length; i++)

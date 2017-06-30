@@ -28,7 +28,7 @@
 
 						<div class="user-header" ng-repeat="item in vm.progressManagerList">
 							<div class="user-pic">
-								<img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" src="assets/img/profiles/4x.jpg">
+								<img alt="Profile Image" width="33" height="33" check-image src="item.avatar">
 							</div>
 							<h5>{{item.firstname + ' ' + item.lastname}}</h5>
 							<h6>Web Designer, QA</h6>
@@ -164,7 +164,7 @@
 		                    <div class="card share full-width">
 		                        <div class="card-header clearfix">
 		                            <div class="user-pic">
-		                                <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/8x.jpg" data-src="assets/img/profiles/8.jpg" src="assets/img/profiles/8x.jpg">
+		                                <img alt="Profile Image" width="33" height="33" check-image src="">
 		                            </div>
 		                            <h5>Jeff Curtis</h5>
 		                            <h6>Shared a Tweet</h6>
@@ -530,13 +530,13 @@
 	                <br>
 	                <div>
 	                    <div class="profile-img-wrapper m-t-5 inline">
-	                        <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/avatar_small2x.jpg" data-src="assets/img/profiles/avatar_small.jpg" alt="" src="assets/img/profiles/avatar_small2x.jpg">
+							<img width="35" height="35"  alt="" src="{{vm.newApproveTask.userinfo.name}}" check-image>
 	                        <div class="chat-status available">
 	                        </div>
 	                    </div>
 	                    <div class="inline m-l-10">
-	                        <p class="small hint-text m-t-5">VIA senior product manage
-	                            <br>for UI/UX at REVOX</p>
+	                        <p class="small hint-text m-t-5">{{vm.newApproveTask.userinfo.name}}
+	                            <br>Web Developer</p>
 	                    </div>
 	                </div>
 					<h5 ng-if="vm.newApproveTask.attachFiles.length == 0">No Attachment Files</h5>

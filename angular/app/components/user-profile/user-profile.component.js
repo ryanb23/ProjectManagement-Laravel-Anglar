@@ -3,6 +3,8 @@ class UserProfileController {
         'ngInject'
 
         let that = this
+
+        console.log(this.userId)
         this.userInfo = null
         this.projects = []
         this.$state = $state
