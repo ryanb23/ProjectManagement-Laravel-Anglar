@@ -105,7 +105,6 @@ class UserManagementController {
         }
     }
 
-
     addNewUserFail(response) {
         if (response.status === 422) {
           for (var error in response.data.errors) {
