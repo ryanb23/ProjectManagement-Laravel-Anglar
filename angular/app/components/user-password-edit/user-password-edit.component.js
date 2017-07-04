@@ -35,6 +35,10 @@ class UserPasswordEditController {
         }
     }
 
+    backToprofile(){
+        this.$state.go('app.user.profile');
+    }
+
     $onInit() {
 
     }
