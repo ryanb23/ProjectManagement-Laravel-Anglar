@@ -19,8 +19,15 @@ class ProjectCommentController {
                 let channel = pusher.subscribe('project-channel-' + that.projectId)
                 //Bind a function to a Event (the full Laravel class)
                 channel.bind('App\\Events\\CommentPostEvent', function(commentData) {
+                    console.log(1)
                     if (commentData.project_id == that.projectId && commentData.user.id != that.userInfo.id) {
-                        that.addComment(commentData)
+                        console.log(2)
+                        that.addComment({
+                            comment: commentData.comment,
+                            project_id: commentData.project_id,
+                            user: commentData.user,
+                            created_at : commentData.created_at.date
+                        })
                         $scope.$apply()
                     }
                 })
@@ -49,14 +56,14 @@ class ProjectCommentController {
             comment: comment
         }
 
-        this.projectRoute.all('comment').post(newComment).then((response) => {
-            let data = response.plain().data;
-            this.addComment({
-                comment: comment,
-                project_id: this.projectId,
-                user: this.userInfo,
-                created_at : data.date
-            })
+        this.addComment({
+            comment: comment,
+            project_id: this.projectId,
+            user: this.userInfo,
+            created_at : new Date().getTime()
+        })
+        this.projectRoute.all('comment').post(newComment).then(() => {
+
         })
     }
 }

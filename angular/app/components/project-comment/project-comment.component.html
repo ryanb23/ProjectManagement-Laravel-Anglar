@@ -8,7 +8,7 @@
             <div class="comment-item" ng-repeat="item in vm.commentList" scroll-to-bottom="vm.commentList">
                 <div class="user-header">
                     <div class="user-pic">
-                        <img alt="Profile Image" width="33" height="33"  src="{{item.user.avatar}}" check-image>
+                        <img alt="Profile Image" width="33" height="33"  ng-src="{{item.user.avatar}}" check-image>
                     </div>
                     <h5>{{item.user.name}}</h5>
                     <h6><p class="pull-left"><span class="user_dep" ng-repeat="user_department in item.user.departments">{{user_department.name}}</span></p>
