@@ -163,6 +163,17 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
             data: {
                 auth: true
             },
+            resolve: {
+                  deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                      return $ocLazyLoad.load([
+                                'switchery'
+                          ], {
+                              insertBefore: '#lazyload_placeholder'
+                          })
+                          .then(function() {
+                          });
+                  }]
+            },
             views: {
                 'main@app': {
                     template: '<preference></preference>'
