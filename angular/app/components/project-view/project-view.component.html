@@ -224,7 +224,7 @@
 			<div class="panel-body">
 				<div class="panel panel-transparent m-t-15">
 					<div class="panel-body">
-						<div ng-if="vm.service.hasProject([vm.projectId],vm.userInfo.projects) || vm.service.hasTodos([item.id],vm.userInfo.todos)">
+						<div ng-if="vm.service.hasRole(['user.decision_maker'],vm.userInfo.role)">
 							<div ng-if="vm.projectDetail.status == 0" class="btn-group" style="width:200px;">
 								<div class="btn-group btn-group-justified">
 									<div class="btn-group">
