@@ -31,7 +31,7 @@ class OrganizationController {
   getUsers(dep){
       this.depSel  = dep['id']
       this.userRoute.get('department-users',{'id':dep['id']}).then((response) => {
-          this.users = response.plain().data[0].users
+          this.users = response.plain().data
       });
   }
 
