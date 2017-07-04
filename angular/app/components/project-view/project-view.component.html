@@ -28,7 +28,7 @@
 
 						<div class="user-header" ng-repeat="item in vm.progressManagerList">
 							<div class="user-pic">
-								<img alt="Profile Image" width="33" height="33" check-image src="item.avatar">
+								<img alt="Profile Image" width="33" height="33" check-image ng-src="{{item.avatar}}">
 							</div>
 							<h5>{{item.firstname + ' ' + item.lastname}}</h5>
 							<h6>Web Designer, QA</h6>

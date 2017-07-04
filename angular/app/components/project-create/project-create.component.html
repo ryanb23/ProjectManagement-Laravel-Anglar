@@ -70,9 +70,9 @@
                                 <div pg-form-group class="form-group form-group-default form-group-default-select">
                                     <label class="">Contributors</label>
                                     <ui-select multiple ng-model="vm.contributors.sel" name="cont_sel" theme="select2" ng-disabled="disabled" style="width:100%">
-                                        <ui-select-match placeholder="Select Departments">{{$item.name}}</ui-select-match>
+                                        <ui-select-match placeholder="Select Contributors">{{$item.name}}</ui-select-match>
                                         <ui-select-choices repeat="dItem in vm.contributors.list | propsFilter: {name: $select.search}">
-                                            <span ng-bind-html="vm.trustAsHtml((dItem.name | highlight: $select.search))"></span> -
+                                            <span ng-bind-html="vm.trustAsHtml((dItem.name | highlight: $select.search))"></span>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
