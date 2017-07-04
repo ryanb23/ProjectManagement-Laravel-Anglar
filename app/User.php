@@ -18,6 +18,7 @@ use App\Models\Department;
 use App\Models\Project;
 use App\Models\TodoList;
 use App\Models\Task;
+use App\Models\UserSetting;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasRoleAndPermissionContract
 {
@@ -65,5 +66,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function tasks(){
         return $this->hasMany(Task::class, 'contributor_id');
+    }
+
+    public function setting(){
+        return $this->hasOne(UserSetting::class, 'user_id');
     }
 }
