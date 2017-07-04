@@ -9,6 +9,7 @@ class QuickViewController {
 
     this.userRoute = API.all('users');
     this.message = ''
+    this.openChanelId = null
 
     this.userRoute.get('all-chat-user').then((response) => {
         this.chatUsers = response.plain().data
@@ -28,6 +29,8 @@ class QuickViewController {
                 if (messageData.user.id == that.openChanelId) {
                     that.addMessage(messageData)
                     $scope.$apply()
+                }else{
+                    
                 }
             })
         }
@@ -39,13 +42,15 @@ class QuickViewController {
   }
   openChanel(userInfo) {
       console.log(userInfo);
-      console.log(userInfo)
       this.openChanelId = userInfo.id
       this.API.one('message', 'message-with').get({
           with_id: this.openChanelId
       }).then((response) => {
           this.messageList = response.plain().data
       })
+  }
+  leftChannel(){
+      this.openChanelId = null;
   }
 
   sendMessage(message) {

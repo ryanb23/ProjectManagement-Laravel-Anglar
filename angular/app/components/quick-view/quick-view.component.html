@@ -9,7 +9,7 @@
             <a href="#quickview-chat" data-toggle="tab" pg-tab>Chat</a>
         </li>
     </ul>
-    <a class="btn-link quickview-toggle" data-toggle-element="#quickview" data-toggle="quickview"><i class="pg-close"></i></a>
+    <a class="btn-link quickview-toggle" data-toggle-element="#quickview" data-toggle="quickview"  ng-click="vm.leftChannel()"><i class="pg-close"></i></a>
     <!-- Tab panes -->
     <div class="tab-content">
         <!-- BEGIN Alerts !-->
@@ -81,11 +81,6 @@
                     <!-- BEGIN View Header !-->
                     <div class="navbar navbar-default">
                         <div class="navbar-inner">
-                            <!-- BEGIN Header Controler !-->
-                            <a href="javascript:;" class="inline action p-l-10 link text-master" pg-navigate data-view-port="#chat" data-view-animation="push-parrallax">
-                                <i class="pg-plus"></i>
-                            </a>
-                            <!-- END Header Controler !-->
                             <div class="view-heading">
                                 Chat List
                                 <div class="fs-11">Show All</div>
@@ -126,7 +121,7 @@
                     <!-- BEGIN Header  !-->
                     <div class="navbar navbar-default">
                         <div class="navbar-inner">
-                            <a href="javascript:;" class="link text-master inline action p-l-10" pg-navigate data-view-port="#chat" data-view-animation="push-parrallax">
+                            <a href="javascript:;" class="link text-master inline action p-l-10" pg-navigate data-view-port="#chat" data-view-animation="push-parrallax" ng-click="vm.leftChannel()">
                                 <i class="pg-arrow_left"></i>
                             </a>
                             <div class="view-heading">
