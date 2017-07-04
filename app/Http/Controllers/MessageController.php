@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \Config;
 
-use App\User;
-use App\Models\Message;
-use App\Events\MessagePostEvent;
 use Auth;
 use Bican\Roles\Models\Permission;
 use Bican\Roles\Models\Role;
@@ -14,9 +12,13 @@ use Hash;
 use Input;
 use Validator;
 
+use App\User;
+use App\Models\Message;
+use App\Events\MessagePostEvent;
+
 class MessageController extends Controller
 {
-    
+
     public function postCreate(Request $request)
     {
         $user = Auth::user();
@@ -46,9 +48,5 @@ class MessageController extends Controller
             ->whereIn('to_id', [$user_id,$to_id])
             ->get();
         return response()->success($messages);
-    }
-
-    public function test()
-    {
     }
 }

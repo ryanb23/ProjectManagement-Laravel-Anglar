@@ -67,17 +67,17 @@ class DepartmentController extends Controller
 
         foreach($departmentTree as &$deprtmentItem)
         {
-            $user_count = isset($deprtmentItem['user'][0]['user_count']) ? $deprtmentItem['user'][0]['user_count'] : 0;
+            $user_count = isset($deprtmentItem['user_count'][0]['user_count']) ? $deprtmentItem['user_count'][0]['user_count'] : 0;
             if(isset($deprtmentItem['child_department']))
             {
                 foreach($deprtmentItem['child_department'] as $child_departmentItem)
                 {
-                    $user_count += isset($child_departmentItem['user'][0]['user_count']) ? $child_departmentItem['user'][0]['user_count'] : 0;
+                    $user_count += isset($child_departmentItem['user_count'][0]['user_count']) ? $child_departmentItem['user_count'][0]['user_count'] : 0;
                 }
             }
-            if(!isset($deprtmentItem['user'][0]['user_count']))
-                $deprtmentItem['user'][0] = [];
-            $deprtmentItem['user'][0]['user_count'] = $user_count;
+            if(!isset($deprtmentItem['user_count'][0]['user_count']))
+                $deprtmentItem['user_count'][0] = [];
+            $deprtmentItem['user_count'][0]['user_count'] = $user_count;
         }
 
         $result['treeData'] = $departmentTree;

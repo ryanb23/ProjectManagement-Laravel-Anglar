@@ -14,6 +14,7 @@ use DB;
 
 use App\Http\Traits\FileTrait;
 use App\Models\Department;
+use App\Models\UserSetting;
 
 class UserController extends Controller
 {
@@ -67,6 +68,68 @@ class UserController extends Controller
     }
 
     /**
+     * Get User Setting
+     *
+     * @return JSON
+     */
+    public function getUserSetting(){
+        $user = Auth::user();
+        // $user_level = $user->roles()->first()->level;
+        // $result = $user->belongsToMany('roles')->wherePivot('level', 1);
+
+        $result = $user->setting()->get();
+
+        return response()->success($result);
+    }
+
+    /**
+     * Get User Setting
+     *
+     * @return boolean
+     */
+    public function postUserSetting(Request $request){
+
+        $user = Auth::user();
+        $user_id = $user->id;
+        $data = $request['data'];
+        $row_id = isset($data['id']) ? $data['id'] : null;
+
+        if(is_null($row_id))
+        {
+            $user_setting = new UserSetting();
+            $user_setting->user_id = $user_id;
+        }else{
+            $user_setting = UserSetting::find($row_id);
+        }
+        $user_setting->post         = $data['post']? 1 : 0;
+        $user_setting->upvote       = $data['upvote']? 1 : 0;
+        $user_setting->comment      = $data['comment']? 1 : 0;
+        $user_setting->popular      = $data['popular']? 1 : 0;
+        $user_setting->approved     = $data['approved']? 1 : 0;
+        $user_setting->dismissed    = $data['dismissed']? 1 : 0;
+
+        $user_setting->timestamps = false;
+
+        if($user_setting->save())
+            return response()->success('success');
+        else
+            return response()->success('fail');
+    }
+
+    /**
+     * Get User Setting By ID
+     *
+     * @return JSON
+     */
+    public function getUserSettingById(Request $request){
+        $user_id = $request['id'];
+        $user = User::find($user_id);
+        $result = $user->setting()->get();
+
+        return response()->success($result);
+    }
+
+    /**
      * Get all users with same department permission
      *
      * @return JSON
@@ -80,6 +143,12 @@ class UserController extends Controller
         {
             $dep_id_arr[] = ($value->p_dep_id == 0)?$value->id:$value->p_dep_id;
         }
+        $depatment_arr = Department::whereIn('p_dep_id',$dep_id_arr)->get();
+        foreach($depatment_arr as $key => $value)
+        {
+            $dep_id_arr[] = $value->id;
+        }
+
         $result = User::with('departments')->whereHas('departments',function($query) use($dep_id_arr){
             $query->whereIn('departments.id',$dep_id_arr);
         })->where('users.id','<>',$user->id)->get();
@@ -133,6 +202,11 @@ class UserController extends Controller
         $user->active = $active;
         $user->save();
         $user_id = $user->id;
+
+        $userSetting = new UserSetting();
+        $userSetting->user_id = $user_id;
+        $userSetting->save();
+
         $departments = $request['department'];
         $roles = $request['role'];
 
@@ -161,7 +235,13 @@ class UserController extends Controller
     public function getDepartmentUsers(Request $request)
     {
         $id = $request['id'];
-        $users = Department::with('users')->where('id',$id)->get();
+        $sub_dep_ids = Department::where('p_dep_id',$id)->get(['id'])->toArray();
+        $dep_ids = array_map(function($v){return $v['id'];},$sub_dep_ids);
+        $dep_ids[] = $id;
+
+        $users = User::with('departments')->whereHas('departments',function($query) use($dep_ids){
+            $query->whereIn('departments.id',$dep_ids);
+        })->get();
         return response()->success($users);
     }
 

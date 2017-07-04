@@ -11,6 +11,8 @@ use JWTAuth;
 use Mail;
 use Socialite;
 
+use App\Models\UserSetting;
+
 class AuthController extends Controller
 {
     /**
@@ -201,6 +203,11 @@ class AuthController extends Controller
         $user->password = bcrypt($request->password);
         $user->email_verification_code = $verificationCode;
         $user->save();
+        $user_id = $user->id;
+
+        $userSetting = new UserSetting();
+        $userSetting->user_id = $user_id;
+        $userSetting->save();
 
         $token = JWTAuth::fromUser($user);
 

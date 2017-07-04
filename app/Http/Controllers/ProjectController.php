@@ -12,22 +12,28 @@ use Hash;
 use Input;
 use Validator;
 use DB;
+use \Config;
+use \Lang;
 
 use App\Models\Project;
 use App\Models\TodoList;
 use App\Models\Department;
 use App\Models\Label;
 use App\Models\ProjectComment;
+use App\Models\ProjectContributor;
+use App\Models\UserSetting;
 
 use App\Events\CommentPostEvent;
 
 use App\Http\Traits\FileTrait;
 use App\Http\Traits\CustomTrait;
+use App\Http\Traits\NotificationTrait;
 
 class ProjectController extends Controller
 {
     use FileTrait;
     use CustomTrait;
+    use NotificationTrait;
 
     public function getIndex()
     {
@@ -60,8 +66,35 @@ class ProjectController extends Controller
         return response()->success($commentList);
     }
 
+    /** get project relators **/
+    public function getProjectRelators($param)
+    {
+        $project_id = $param['id'];
+        $project_creator = Project::where('id',$project_id)->get(['creator_id as id'])->toArray();
+        $project_contributors = ProjectContributor::where('project_id',$project_id)->get(['contributor_id as id'])->toArray();
+
+        $projectRelators = array_merge($project_creator,$project_contributors);
+        $projectRelators = array_map(function($v){return $v['id'];},$projectRelators);
+        return array_values($projectRelators);
+    }
+
+    /** get comment notification users**/
+    public function getCommentNotificationUsers($user_ids)
+    {
+        $result = User::whereHas('setting',function($query){
+          $query->where('comment',1);
+        })->whereIn('id',$user_ids)->get(['id'])->toArray();
+
+        $result = array_map(function($v){return $v['id'];},$result);
+        return array_values($result);
+    }
+
     public function postComment(Request $request)
     {
+        $this->validate($request, [
+            'project_id'       => 'required|exists:projects,id',
+            'comment'       => 'required'
+        ]);
         $user = Auth::user();
         $user_id = $user->id;
         $project_id = $request['project_id'];
@@ -72,9 +105,14 @@ class ProjectController extends Controller
         $newComment->user_id = $user_id;
         $newComment->comment = $request['comment'];
         $newComment->save();
+        $comment_id = $newComment->id;
 
         $created_at = $newComment->created_at;
         event(new CommentPostEvent($comment, $project_id, $created_at));
+        $relator_ids = self::getProjectRelators(array('id'=>$project_id));
+        $comment_notificaiton_user_ids = self::getCommentNotificationUsers($relator_ids);
+
+        $this->createNotification($user->id, Config::get('custom.notification_project_comment'), $comment_id, $comment_notificaiton_user_ids);
         return response()->success($created_at);
     }
     public function getProgress(Request $request){
