@@ -98,7 +98,7 @@
                             <div class="list-view-group-header text-uppercase">Users</div>
                             <ul>
                                 <!-- BEGIN Chat User List Item  !-->
-                                <li class="chat-user-list clearfix" ng-repeat="(key, userInfo) in  vm.chatUsers" ng-click="vm.openChanel(userInfo)">
+                                <li class="chat-user-list clearfix" ng-repeat="(key, userInfo) in  vm.chatUsers" ng-click="vm.openChanel(userInfo)" ng-class="{'has-message':vm.unreadMessage[userInfo.id]}">
                                     <a data-view-animation="push-parrallax" data-view-port="#chat" pg-navigate class="" href="">
                                         <span class="col-xs-height col-middle" ng-click="alert()">
                                             <span class="thumbnail-wrapper d32 circular bg-success">
@@ -109,6 +109,7 @@
                                             <span class="text-master">{{userInfo.name}}</span>
                                             <span class="block text-master hint-text fs-12"><span ng-repeat="item in userInfo.departments">{{item.name}}</span></span>
                                         </p>
+                                        <i class="fa fa-circle new-message" ng-if="vm.unreadMessage[userInfo.id]"></i>
                                     </a>
                                 </li>
                                 <!-- END Chat User List Item  !-->

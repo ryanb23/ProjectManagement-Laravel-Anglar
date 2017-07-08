@@ -1,4 +1,16 @@
 .chat-users{
+    .has-message{
+        background-color: #eae6f5;
+    }
+    .chat-user-list{
+        position: relative;
+        i.new-message{
+            font-size: 10px;
+            position: absolute;
+            right: 13px;
+            top: 44%;
+        }
+    }
     span.text-master{
         > span{
             &::after{

@@ -4,12 +4,14 @@ class QuickViewController {
 
     let that = this
     this.API = API
-    this.scope = $scope
+    this.$scope = $scope
+    this.$rootScope = $rootScope
     this.ContextService = ContextService
 
     this.userRoute = API.all('users');
     this.message = ''
     this.openChanelId = null
+    this.unreadMessage = [];
 
     this.userRoute.get('all-chat-user').then((response) => {
         this.chatUsers = response.plain().data
@@ -24,14 +26,21 @@ class QuickViewController {
             let channel = pusher.subscribe('chat-channel-' + data.id)
             //Bind a function to a Event (the full Laravel class)
             channel.bind('App\\Events\\MessagePostEvent', function(messageData) {
-                console.log(messageData)
                 console.log(that.openChanelId)
+
                 if (messageData.user.id == that.openChanelId) {
                     that.addMessage(messageData)
-                    $scope.$apply()
                 }else{
-                    
+                    that.$rootScope.$emit("newNotification",{messageData})
+                    let from_id = messageData.user.id
+                    if(typeof that.unreadMessage[from_id] == 'undefined'){
+                        that.unreadMessage[from_id] = 1
+                    }
+                    else {
+                        that.unreadMessage[from_id] ++
+                    }
                 }
+                $scope.$apply()
             })
         }
     })
@@ -41,8 +50,8 @@ class QuickViewController {
       this.messageList.push(message)
   }
   openChanel(userInfo) {
-      console.log(userInfo);
       this.openChanelId = userInfo.id
+      this.unreadMessage[userInfo.id] = 0;
       this.API.one('message', 'message-with').get({
           with_id: this.openChanelId
       }).then((response) => {
