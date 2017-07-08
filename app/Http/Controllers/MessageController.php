@@ -47,6 +47,11 @@ class MessageController extends Controller
             ->whereIn('user_id', [$user_id,$to_id])
             ->whereIn('to_id', [$user_id,$to_id])
             ->get();
+
+        Message::with('user')
+            ->whereIn('user_id', [$user_id,$to_id])
+            ->whereIn('to_id', [$user_id,$to_id])
+            ->update(['is_read' => 1]);
         return response()->success($messages);
     }
 }

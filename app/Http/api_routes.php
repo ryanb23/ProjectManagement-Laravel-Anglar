@@ -30,6 +30,7 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     $api->controller('labels','LabelController');
     $api->controller('todos','TodosController');
     $api->controller('tasks','TaskController');
+    $api->controller('notifications','NotificationController');
 
     /**
     ** Image UploadedFileInterface
