@@ -31,7 +31,19 @@ class NotificationController extends Controller
     }
 
     private function getMessageNotificationCount($user_id){
-        $result = Message::where('to_id',$user_id)->selectRaw('count(*) as cnt')->get('cnt');
+        $result = Message::where('to_id',$user_id)->where('is_read',0)->selectRaw('count(*) as cnt')->get('cnt');
         return $result;
+    }
+
+    public function getChatNotificationList(){
+        $user = Auth::user();
+        $user_id = $user->id;
+        $result = Message::where('to_id',$user_id)->where('is_read',0)->selectRaw('count(*) as cnt,user_id')->groupby('user_id')->get()->toArray();
+        foreach($result as $key=>$value)
+        {
+            $result[$value['user_id']] = $value['cnt'];
+            unset($result[$key]);
+        }
+        return response()->success($result);
     }
 }
