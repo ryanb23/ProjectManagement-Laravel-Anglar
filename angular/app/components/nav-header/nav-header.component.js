@@ -1,23 +1,22 @@
 class NavHeaderController {
-  constructor ($rootScope, $scope, ContextService) {
+  constructor ($rootScope, $scope, ContextService, API) {
     'ngInject'
 
     let navHeader = this
     this.$scope = $scope;
     this.$rootScope = $rootScope;
-    this.unreadMessage = [];
-    this.unreadMessageTotal = 0;
+    this.notificationTotal = 0;
 
-    this.notificationRoute = API.all('users');
+    this.notificationRoute = API.all('notifications');
 
-    function  updateUnreadMessage(event, args) {
-        navHeader.unreadMessageTotal ++;
+    function  updateNotification(event, args) {
+        navHeader.notificationTotal ++;
         navHeader.$scope.$apply()
     }
 
-    this.$rootScope.$on("newNotification", updateUnreadMessage);
+    this.$rootScope.$on("newNotification", updateNotification);
     var eventFunc = {
-        updateUnreadMessage: updateUnreadMessage
+        updateNotification: updateNotification
     }
 
     angular.extend(navHeader, eventFunc);
@@ -27,13 +26,19 @@ class NavHeaderController {
             navHeader.userData = data
     })
   }
-
+  updateNotificationNumber(){
+      this.notificationRoute.get('all-number').then((response)=>{
+          this.notificationTotal = response.plain().data
+      })
+  }
   showSearchOverlay(){
     this.$rootscope.$broadcast('toggleSearchOverlay', {
         show: true
     })
   }
-  $onInit () {}
+  $onInit () {
+      this.updateNotificationNumber()
+  }
 }
 
 export const NavHeaderComponent = {
