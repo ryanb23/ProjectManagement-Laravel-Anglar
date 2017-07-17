@@ -9,6 +9,8 @@ class QuickViewController {
     this.ContextService = ContextService
 
     this.userRoute = API.all('users');
+    this.notificationRoute = API.all('notifications');
+
     this.message = ''
     this.openChanelId = null
     this.unreadMessage = [];
@@ -80,7 +82,14 @@ class QuickViewController {
       })
   }
 
-  $onInit () {}
+  getChatNotificationList(){
+      this.notificationRoute.get('chat-notification-list').then((response) => {
+          this.unreadMessage = response.plain().data
+      })
+  }
+  $onInit () {
+      this.getChatNotificationList()
+  }
 }
 
 export const QuickViewComponent = {
