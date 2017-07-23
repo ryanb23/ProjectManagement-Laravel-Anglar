@@ -77,21 +77,21 @@
                                 <div class="tab-pane active" id="project">
                                     <div class="split-view">
                                         <div class="split-list">
-                                            <a class="list-refresh" href="#"><i class="fa fa-refresh"></i></a>
+                                            <a class="list-refresh" href="javascript:;"><i class="fa fa-refresh"></i></a>
                                             <div class="list-view">
                                                 <div class="list-view-group-container">
                                                     <ul class="no-padding">
-                                                        <li class="item padding-15">
+                                                        <li class="item padding-15" ng-repeat="item in vm.myProjects" ng-click="vm.detailView(item)">
                                                             <div class="m-l-15">
                                                                 <p class="recipients no-margin hint-text small">
-                                                                    <a href="profile.html">Jane Smith</a>, Web development
+                                                                    <a href="profile.html">{{item.user.name}}</a>,  <span class="user_dep" ng-repeat="user_department in item.user.departments">{{user_department.name}}</span>
                                                                 </p>
-                                                                <a class="subject no-margin" href="project.html">Pages - Multi-Purpose Admin Template Revolution Begins here!</a>
+                                                                <a class="subject no-margin" href="javascript:;">{{item.title}}</a>
                                                                 <p class="body no-margin">
-                                                                    have recently ordered a new pair of soccer cleats (item #6542951) from your website on June 21.
+                                                                    {{item.objective}}
                                                                 </p>
                                                             </div>
-                                                            <div class="datetime">5 Mins ago</div>
+                                                            <div class="datetime" am-time-ago="item.created_at | amUtc | amLocal"></div>
                                                             <div class="pull-left m-l-15">
                                                                 <span>
 																		<i class="fa fa-heart" aria-hidden="true"></i> 9423
@@ -102,29 +102,6 @@
                                                             </div>
                                                             <div class="clearfix"></div>
                                                         </li>
-                                                        <li class="item padding-15">
-                                                            <div class="m-l-15">
-                                                                <p class="recipients no-margin hint-text small">
-                                                                    <a href="profile.html">Anne Simons</a>, UI design
-                                                                </p>
-                                                                <a class="subject no-margin" href="project.html">
-																		Your site has some very imaginative animation /movement, especially the Sluggo!
-																	</a>
-                                                                <p class="body no-margin">
-                                                                    Dear Kristen:I saw your listing on Craigslist.com for a website designer for your tee-shirt company.
-                                                                </p>
-                                                            </div>
-                                                            <div class="datetime">45 mins ago</div>
-                                                            <div class="clearfix"></div>
-                                                            <div class="pull-left m-l-15">
-                                                                <span>
-																		<i class="fa fa-heart" aria-hidden="true"></i> 2331
-																	</span>
-                                                                <span>
-																		<i class="fa fa-comments-o" aria-hidden="true"></i> 444
-																	</span>
-                                                            </div>
-                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -134,32 +111,30 @@
                                 <div class="tab-pane no-padding" id="contributed">
                                     <div class="split-view">
                                         <div class="split-list">
-                                            <a class="list-refresh" href="#"><i class="fa fa-refresh"></i></a>
+                                            <a class="list-refresh" href="javascript:;"><i class="fa fa-refresh"></i></a>
                                             <div class="list-view">
                                                 <div class="list-view-group-container">
                                                     <ul class="no-padding">
-                                                        <li class="item padding-15">
+                                                        <li class="item padding-15" ng-repeat="item in vm.myContributedProjects" ng-click="vm.detailView(item)">
                                                             <div class="m-l-15">
                                                                 <p class="recipients no-margin hint-text small">
-                                                                    <a href="profile.html">Anne Simons</a>, UI design
+                                                                    <a href="profile.html">{{item.user.name}}</a>,  <span class="user_dep" ng-repeat="user_department in item.user.departments">{{user_department.name}}</span>
                                                                 </p>
-                                                                <a class="subject no-margin" href="project.html">
-																		Your site has some very imaginative animation /movement, especially the Sluggo!
-																	</a>
+                                                                <a class="subject no-margin" href="javascript:;">{{item.title}}</a>
                                                                 <p class="body no-margin">
-                                                                    Dear Kristen:I saw your listing on Craigslist.com for a website designer for your tee-shirt company.
+                                                                    {{item.objective}}
                                                                 </p>
                                                             </div>
-                                                            <div class="datetime">45 mins ago</div>
-                                                            <div class="clearfix"></div>
+                                                            <div class="datetime" am-time-ago="item.created_at | amUtc | amLocal"></div>
                                                             <div class="pull-left m-l-15">
                                                                 <span>
-																		<i class="fa fa-heart" aria-hidden="true"></i> 2331
+																		<i class="fa fa-heart" aria-hidden="true"></i> 9423
 																	</span>
                                                                 <span>
-																		<i class="fa fa-comments-o" aria-hidden="true"></i> 444
+																		<i class="fa fa-comments-o" aria-hidden="true"></i> 13
 																	</span>
                                                             </div>
+                                                            <div class="clearfix"></div>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -329,94 +304,42 @@
                                             <p>Theres way too much things happening inside sledom too pleople..</p>
 
                                             <div class="clearfix">
-                                                <div class="pull-left small hint-text">2 mins ago</div>
-                                                <div class="pull-right fs-12">
-                                                    <a href="#" class="small hint-text text-black m-r-5">Like</a>
-                                                    <a href="#" class="small hint-text text-black">Reply</a>
-                                                </div>
+                                                <div class="pull-right small hint-text">2 mins ago</div>
                                             </div>
 
                                         </div>
 
                                     </div>
+                                    <div class="row p-l-20 p-r-20 p-b-30">
 
-
-                                    <div class="row p-l-20 p-r-20">
-
-                                        <div class="thumbnail-wrapper d32 circular b-white m-r-10 sm-m-b-5 b-a b-white">
-                                            <img data-src-retina="../assets/img/profiles/2x.jpg" data-src="../assets/img/profiles/2.jpg" alt="" src="../assets/img/profiles/2.jpg" width="30" height="30">
+                                        <div class="thumbnail-wrapper d32 circular b-white m-r-10 b-a b-white">
+                                            <img data-src-retina="../assets/img/profiles/1x.jpg" data-src="../assets/img/profiles/1.jpg" alt="" src="../assets/img/profiles/1.jpg" width="30" height="30">
                                         </div>
-
 
                                         <div class="col-sm-10 col-xs-12 no-padding">
-
-                                            <span class="text-black">Carlos Roberts</span>
-
-
+                                            <span class="text-black">Ellan Grants</span>
                                             <p>Theres way too much things happening inside sledom too pleople..</p>
-
                                             <div class="clearfix">
-                                                <div class="pull-left small hint-text">2 mins ago</div>
-                                                <div class="pull-right fs-12">
-                                                    <a href="#" class="small hint-text text-black m-r-5">Like</a>
-                                                    <a href="#" class="small hint-text text-black">Reply</a>
-                                                </div>
+                                                <div class="pull-right small hint-text">2 mins ago</div>
                                             </div>
-
-                                            <div class="row p-b-30 p-t-20 sm-p-l-15">
-
-                                                <div class="thumbnail-wrapper d24 circular b-white m-r-10 sm-m-b-5 b-a b-white">
-                                                    <img data-src-retina="../assets/img/profiles/3x.jpg" data-src="../assets/img/profiles/3.jpg" alt="" src="../assets/img/profiles/3.jpg" width="24" height="24">
-                                                </div>
-
-
-                                                <div class="col-sm-10 col-xs-12 no-padding">
-
-                                                    <span class="text-black">Carlos Roberts</span>
-
-
-                                                    <p>Check out more of our work at <br>
-                                                        <a href="#">www.revox.io</a></p>
-
-                                                    <div class="clearfix">
-                                                        <div class="pull-left small hint-text text-black">2 mins ago</div>
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-
                                         </div>
-
                                     </div>
 
                                     <div class="row b-t b-grey p-t-20 p-l-20 p-r-20">
-
-
                                         <div class="thumbnail-wrapper d32 circular b-white m-r-10  b-a b-white">
                                             <img data-src-retina="../assets/img/profiles/avatar_small2x.jpg" data-src="../assets/img/profiles/avatar.jpg" alt="" src="../assets/img/profiles/avatar.jpg" width="30" height="30">
                                         </div>
-
-
                                         <div class="col-sm-10 no-padding">
-
-                                            <span class="text-black">David Nester</span>
-
-
+                                            <span class="text-black">{{vm.userInfo.fullname}}</span>
                                             <div class="input-group transparent no-border full-width">
                                                 <textarea rows="2" placeholder="Write a comment.." class="no-border fs-14 p-l-0 p-t-5 p-b-10 full-width"></textarea>
                                             </div>
-
                                             <div class="clearfix">
                                                 <div class="pull-right">
                                                     <a href="#" class="btn btn-link font-montserrat text-uppercase text-complete fs-12">Comment</a>
                                                 </div>
                                             </div>
-
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
