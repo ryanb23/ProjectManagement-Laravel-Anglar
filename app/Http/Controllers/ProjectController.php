@@ -197,6 +197,36 @@ class ProjectController extends Controller
         return response()->success($projectDetail);
     }
 
+    public function getMyProjects(Request $request)
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+
+        $projects = Project::with(array('user'=>function($query){
+            $query->select(['id','name','avatar','firstname','lastname']);
+        },
+        'user.departments' => function($query){
+            $query->select();
+        }))->where('projects.creator_id',$user_id)->orderBy('projects.created_at','desc')->get();
+        return response()->success($projects);
+    }
+
+    public function getMyContributedProjects(Request $request)
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+
+        $userProjectIds = ProjectContributor::where('contributor_id',$user_id)->get(['project_id as id'])->toArray();
+
+        $projects = Project::with(array('user'=>function($query){
+            $query->select(['id','name','avatar','firstname','lastname']);
+        },
+        'user.departments' => function($query){
+            $query->select();
+        }))->whereIn('projects.id',$userProjectIds)->orderBy('projects.created_at','desc')->get();
+        return response()->success($projects);
+    }
+
     public function postStatusUpdate(Request $request){
         $projectId = $request['id'];
         $status = $request['status'];
