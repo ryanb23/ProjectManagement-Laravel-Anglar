@@ -1,18 +1,35 @@
 class DashboardController {
-  constructor ($scope) {
+  constructor (API, $state, $stateParams, $timeout, $scope, $rootScope, $sce, $filter, ContextService) {
     'ngInject'
+    this.projectRoute = API.all('projects')
+    this.$state = $state
+    this.myProjects = []
+    this.myContributedProjects = []
+    this.userInfo = null
+    let that = this
 
-    $scope.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-    $scope.series = ['Series A', 'Series B']
-    $scope.data = [
-      [65, 59, 80, 81, 56, 55, 40],
-      [28, 48, 40, 19, 86, 27, 90]
-    ]
+    ContextService.me(function (data) {
+        if(data != null)
+            that.userInfo = data
+    })
+  }
 
-    $scope.onClick = function () {}
-
-    $scope.pieLabels = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales']
-    $scope.pieData = [300, 500, 100]
+  getMyProject(){
+      this.projectRoute.get('my-projects').then((response) => {
+          this.myProjects = response.plain().data
+      })
+  }
+  getMyContributedProject(){
+      this.projectRoute.get('my-contributed-projects').then((response) => {
+          this.myContributedProjects = response.plain().data
+      })
+  }
+  detailView(project){
+      this.$state.go('app.projects.view', {projectId: project.id})
+  }
+  $onInit () {
+      this.getMyProject()
+      this.getMyContributedProject()
   }
 }
 
