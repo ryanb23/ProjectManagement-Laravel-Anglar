@@ -22,6 +22,7 @@ use App\Models\Label;
 use App\Models\ProjectComment;
 use App\Models\ProjectContributor;
 use App\Models\UserSetting;
+use App\Models\ProjectUpvote;
 
 use App\Events\CommentPostEvent;
 
@@ -49,6 +50,16 @@ class ProjectController extends Controller
     public function postRemoveTmp(Request $request){
         $result = $this->removeFromTmp($request['filename']);
         return response()->success($result);
+    }
+
+    public function postUpvote(Request $request){
+        $project_id = $request['project_id'];
+        $user = Auth::user();
+        $upvote = new ProjectUpvote();
+        $upvote->user_id = $user->id;
+        $upvote->project_id = $project_id;
+        $upvote->save();
+        return response()->success('success');
     }
 
     public function getUserProjects(Request $request)
@@ -193,7 +204,10 @@ class ProjectController extends Controller
     public function getProject(Request $request)
     {
         $projectId = $request['id'];
+        $user = Auth::user();
         $projectDetail = Project::with(['file','label','department'])->find($projectId);
+        $is_upvote = ProjectUpvote::where(['project_id'=>$projectId,'user_id'=>$user->id])->count();
+        $projectDetail['is_upvote'] = $is_upvote;
         return response()->success($projectDetail);
     }
 

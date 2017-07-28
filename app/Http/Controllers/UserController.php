@@ -15,6 +15,8 @@ use DB;
 use App\Http\Traits\FileTrait;
 use App\Models\Department;
 use App\Models\UserSetting;
+use App\Models\Feed;
+use App\Models\ProjectUpvote;
 
 class UserController extends Controller
 {
@@ -37,6 +39,45 @@ class UserController extends Controller
         $user['todos'] = $user->todos()->get();
         $user['tasks'] = $user->tasks()->get();
         return response()->success($user);
+    }
+
+    /**
+     * Post feed
+     *
+     * @return JSON
+     */
+    public function postFeed(Request $request)
+    {
+        $user = Auth::user();
+        $feed = $request['feed'];
+        $feed_item = new Feed();
+        $feed_item->user_id = $user->id;
+        $feed_item->message = $feed;
+        $feed_item->save();
+        return response()->success('success');
+    }
+
+    /**
+     * Get feeds
+     *
+     * @return JSON
+     */
+    public function getFeeds()
+    {
+        $feeds = Feed::with('user')->get()->take(30);
+        return response()->success($feeds);
+    }
+
+    /**
+     * Get upvotes
+     *
+     * @return JSON
+     */
+    public function getUpvote()
+    {
+        $user = Auth::user();
+        $count = ProjectUpvote::where('user_id',$user->id)->count();
+        return response()->success($count);
     }
 
     /**
