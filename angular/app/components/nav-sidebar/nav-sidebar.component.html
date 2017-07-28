@@ -14,15 +14,15 @@
     <div class="sidebar-menu">
         <!-- BEGIN SIDEBAR MENU ITEMS-->
         <ul class="menu-items">
-            <li class="m-t-30 ">
+            <li class="m-t-30" ui-sref-active="active">
                 <a ui-sref="app.landing">
 					<span class="title">Dashboard</span>
 				</a>
-                <span class="bg-success icon-thumbnail">
+                <span class="icon-thumbnail">
 					<i class="fa fa-dashboard"></i>
 				</span>
             </li>
-            <li class="active">
+            <li  ui-sref-active="active">
                 <a ui-sref="app.organiztion">
 					<span class="title">Organization</span>
 				</a>
@@ -30,20 +30,20 @@
 					<i class="fa fa-institution"></i>
 				</span>
             </li>
-            <li>
+            <li >
                 <a href="javascript:;">
 							<span class="title">Innovate</span>
 							<span class=" arrow"></span>
 						</a>
                 <span class="icon-thumbnail"><i class="fa fa-lightbulb-o"></i></span>
                 <ul class="sub-menu">
-                    <li class="">
+                    <li ui-sref-active="active">
                         <a ui-sref="app.projects">Discover</a>
                         <span class="icon-thumbnail">
 									<i class="fa fa-search"></i>
 								</span>
                     </li>
-                    <li class="">
+                    <li ui-sref-active="active">
                         <a ui-sref="app.projects.create">Create</a>
                         <span class="icon-thumbnail">
 									<i class="fa fa-plus"></i>
@@ -51,13 +51,13 @@
                     </li>
                 </ul>
             </li>
-            <li class="">
+            <li  ui-sref-active="active">
                 <a ui-sref="app.preference">
 							<span class="title">Preferences</span>
 						</a>
                 <span class="icon-thumbnail"><i class="fa fa-sliders"></i></span>
             </li>
-            <li class="" ng-if="vm.hasAnyRole(['admin.super','admin.admin'])">
+            <li  ui-sref-active="active" ng-if="vm.hasAnyRole(['admin.super','admin.admin'])">
                 <a href="javascript:;">
 							<span class="title">Administration</span>
 							<span class="arrow"></span>
@@ -84,7 +84,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="">
+            <li  ui-sref-active="active">
                 <a ui-sref="app.help">
 							<span class="title">Help</span>
 						</a>

@@ -171,7 +171,7 @@
                             <div class="row-xs-height">
                                 <div class="col-xs-height col-top">
                                     <div class="p-l-20 p-t-15">
-                                        <h3 class="no-margin p-b-5 text-white">10</h3>
+                                        <h3 class="no-margin p-b-5 text-white">{{vm.upvote}}</h3>
                                         <a href="#" class="btn-circle-arrow text-white"><i class="pg-arrow_minimize"></i>
 </a>
                                         <span class="small hint-text">65% lower than last month</span>
@@ -182,93 +182,7 @@
                                 <div class="col-xs-height col-bottom">
                                     <div class="progress progress-small m-b-20">
 
-                                        <div class="progress-bar progress-bar-white" style="width:45%"></div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END WIDGET -->
-                </div>
-
-                <div class="col-md-4 m-b-10">
-                    <!-- START WIDGET widget_realtimeWidget-->
-                    <div class="widget-9 panel no-border bg-success no-margin widget-loader-bar">
-                        <div class="container-xs-height full-height">
-                            <div class="row-xs-height">
-                                <div class="col-xs-height col-top">
-                                    <div class="panel-heading  top-left top-right">
-                                        <div class="panel-title text-black">
-                                            <span class="font-montserrat fs-11 all-caps">Weekly project
-</span>
-                                        </div>
-                                        <div class="panel-controls">
-                                            <ul>
-                                                <li><a href="#" class="portlet-refresh text-black" data-toggle="refresh"><i class="portlet-icon portlet-icon-refresh"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row-xs-height">
-                                <div class="col-xs-height col-top">
-                                    <div class="p-l-20 p-t-15">
-                                        <h3 class="no-margin p-b-5 text-white">7</h3>
-                                        <a href="#" class="btn-circle-arrow text-white"><i class="pg-arrow_minimize"></i>
-</a>
-                                        <span class="small hint-text">15% more than last month</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row-xs-height">
-                                <div class="col-xs-height col-bottom">
-                                    <div class="progress progress-small m-b-20">
-
                                         <div class="progress-bar progress-bar-white" style="width:15%"></div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END WIDGET -->
-                </div>
-                <div class="col-md-4 m-b-10">
-                    <!-- START WIDGET widget_realtimeWidget-->
-                    <div class="widget-9 panel no-border bg-master no-margin widget-loader-bar">
-                        <div class="container-xs-height full-height">
-                            <div class="row-xs-height">
-                                <div class="col-xs-height col-top">
-                                    <div class="panel-heading  top-left top-right">
-                                        <div class="panel-title text-black">
-                                            <span class="font-montserrat fs-11 all-caps">Weekly comment</span>
-                                        </div>
-                                        <div class="panel-controls">
-                                            <ul>
-                                                <li><a href="#" class="portlet-refresh text-black" data-toggle="refresh"><i class="portlet-icon portlet-icon-refresh"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row-xs-height">
-                                <div class="col-xs-height col-top">
-                                    <div class="p-l-20 p-t-15">
-                                        <h3 class="no-margin p-b-5 text-white">50</h3>
-                                        <a href="#" class="btn-circle-arrow text-white"><i class="pg-arrow_minimize"></i>
-</a>
-                                        <span class="small hint-text">20% lower than last month</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row-xs-height">
-                                <div class="col-xs-height col-bottom">
-                                    <div class="progress progress-small m-b-20">
-
-                                        <div class="progress-bar progress-bar-white" style="width:20%"></div>
 
                                     </div>
                                 </div>
@@ -288,55 +202,39 @@
                         <div class="panel">
                             <div class="panel-body no-padding">
                                 <div class="p-t-40 p-b-20">
+                                    <div class="feed-div" scroll-to-bottom="vm.feed_list" >
+                                        <div class="row p-l-20 p-r-20 p-b-30" ng-repeat="item in vm.feed_list">
+                                            <div class="thumbnail-wrapper d32 circular b-white m-r-10 b-a b-white">
+                                                <img check-image  ng-src="{{item.user.avatar}}" alt=""  width="30" height="30">
+                                            </div>
+                                            <div class="col-sm-10 col-xs-12 no-padding">
 
-                                    <div class="row p-l-20 p-r-20 p-b-30">
-
-                                        <div class="thumbnail-wrapper d32 circular b-white m-r-10 b-a b-white">
-                                            <img data-src-retina="../assets/img/profiles/1x.jpg" data-src="../assets/img/profiles/1.jpg" alt="" src="../assets/img/profiles/1.jpg" width="30" height="30">
-                                        </div>
-
-
-                                        <div class="col-sm-10 col-xs-12 no-padding">
-
-                                            <span class="text-black">Ellan Grants</span>
+                                                <span class="text-black">{{item.user.name}}</span>
 
 
-                                            <p>Theres way too much things happening inside sledom too pleople..</p>
+                                                <p>{{item.message}}</p>
 
-                                            <div class="clearfix">
-                                                <div class="pull-right small hint-text">2 mins ago</div>
+                                                <div class="clearfix">
+                                                    <span class="pull-right small hint-text" am-time-ago="item.created_at | amUtc | amLocal"></span>
+                                                </div>
+
                                             </div>
 
-                                        </div>
-
-                                    </div>
-                                    <div class="row p-l-20 p-r-20 p-b-30">
-
-                                        <div class="thumbnail-wrapper d32 circular b-white m-r-10 b-a b-white">
-                                            <img data-src-retina="../assets/img/profiles/1x.jpg" data-src="../assets/img/profiles/1.jpg" alt="" src="../assets/img/profiles/1.jpg" width="30" height="30">
-                                        </div>
-
-                                        <div class="col-sm-10 col-xs-12 no-padding">
-                                            <span class="text-black">Ellan Grants</span>
-                                            <p>Theres way too much things happening inside sledom too pleople..</p>
-                                            <div class="clearfix">
-                                                <div class="pull-right small hint-text">2 mins ago</div>
-                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row b-t b-grey p-t-20 p-l-20 p-r-20">
                                         <div class="thumbnail-wrapper d32 circular b-white m-r-10  b-a b-white">
-                                            <img data-src-retina="../assets/img/profiles/avatar_small2x.jpg" data-src="../assets/img/profiles/avatar.jpg" alt="" src="../assets/img/profiles/avatar.jpg" width="30" height="30">
+                                            <img check-image  ng-src="{{vm.userInfo.avatar}}" alt=""  width="30" height="30">
                                         </div>
                                         <div class="col-sm-10 no-padding">
-                                            <span class="text-black">{{vm.userInfo.fullname}}</span>
+                                            <span class="text-black">{{vm.userInfo.name}}</span>
                                             <div class="input-group transparent no-border full-width">
-                                                <textarea rows="2" placeholder="Write a comment.." class="no-border fs-14 p-l-0 p-t-5 p-b-10 full-width"></textarea>
+                                                <textarea rows="2" ng-model="vm.feed" placeholder="Write a comment.." class="no-border fs-14 p-l-0 p-t-5 p-b-10 full-width"></textarea>
                                             </div>
                                             <div class="clearfix">
                                                 <div class="pull-right">
-                                                    <a href="#" class="btn btn-link font-montserrat text-uppercase text-complete fs-12">Comment</a>
+                                                    <a href="javascript:;" ng-click="vm.postFeed(vm.feed)" class="btn btn-link font-montserrat text-uppercase text-complete fs-12">Comment</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -349,7 +247,7 @@
             </div>
         </div>
         <!-- Filler -->
-        <div class="visible-xlg col-xlg-3">
+        <div class="visible-xlg col-xlg-3" style="display:none">
             <div class="ar-2-3">
                 <!-- START WIDGET widget_tableWidget-->
                 <div class="widget-11 panel no-border  no-margin widget-loader-bar">
@@ -387,114 +285,6 @@
                                     </td>
                                     <td>
                                         <span class="font-montserrat fs-18">$27</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-montserrat all-caps fs-12">Purchase CODE #2345</td>
-                                    <td class="text-right">
-                                        <span class="hint-text small">johnsmith</span>
-                                    </td>
-                                    <td class="text-right b-r b-dashed b-grey">
-                                        <span class="hint-text small">Qty 1</span>
-                                    </td>
-                                    <td>
-                                        <span class="font-montserrat fs-18 text-primary">$1000</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-montserrat all-caps fs-12">Purchase CODE #2345</td>
-                                    <td class="text-right">
-                                        <span class="hint-text small">janedrooler</span>
-                                    </td>
-                                    <td class="text-right b-r b-dashed b-grey">
-                                        <span class="hint-text small">Qty 1</span>
-                                    </td>
-                                    <td>
-                                        <span class="font-montserrat fs-18">$27</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-montserrat all-caps fs-12">Purchase CODE #2345</td>
-                                    <td class="text-right">
-                                        <span class="hint-text small">johnsmith</span>
-                                    </td>
-                                    <td class="text-right b-r b-dashed b-grey">
-                                        <span class="hint-text small">Qty 1</span>
-                                    </td>
-                                    <td>
-                                        <span class="font-montserrat fs-18 text-primary">$1000</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-montserrat all-caps fs-12">Purchase CODE #2345</td>
-                                    <td class="text-right">
-                                        <span class="hint-text small">dewdrops</span>
-                                    </td>
-                                    <td class="text-right b-r b-dashed b-grey">
-                                        <span class="hint-text small">Qty 1</span>
-                                    </td>
-                                    <td>
-                                        <span class="font-montserrat fs-18">$27</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-montserrat all-caps fs-12">Purchase CODE #2345</td>
-                                    <td class="text-right">
-                                        <span class="hint-text small">johnsmith</span>
-                                    </td>
-                                    <td class="text-right b-r b-dashed b-grey">
-                                        <span class="hint-text small">Qty 1</span>
-                                    </td>
-                                    <td>
-                                        <span class="font-montserrat fs-18 text-primary">$1000</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-montserrat all-caps fs-12">Purchase CODE #2345</td>
-                                    <td class="text-right">
-                                        <span class="hint-text small">dewdrops</span>
-                                    </td>
-                                    <td class="text-right b-r b-dashed b-grey">
-                                        <span class="hint-text small">Qty 1</span>
-                                    </td>
-                                    <td>
-                                        <span class="font-montserrat fs-18">$27</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-montserrat all-caps fs-12">Purchase CODE #2345</td>
-                                    <td class="text-right">
-                                        <span class="hint-text small">johnsmith</span>
-                                    </td>
-                                    <td class="text-right b-r b-dashed b-grey">
-                                        <span class="hint-text small">Qty 1</span>
-                                    </td>
-                                    <td>
-                                        <span class="font-montserrat fs-18 text-primary">$1000</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-montserrat all-caps fs-12">Purchase CODE #2345</td>
-                                    <td class="text-right">
-                                        <span class="hint-text small">dewdrops</span>
-                                    </td>
-                                    <td class="text-right b-r b-dashed b-grey">
-                                        <span class="hint-text small">Qty 1</span>
-                                    </td>
-                                    <td>
-                                        <span class="font-montserrat fs-18">$27</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-montserrat all-caps fs-12">Purchase CODE #2345</td>
-                                    <td class="text-right">
-                                        <span class="hint-text small">johnsmith</span>
-                                    </td>
-                                    <td class="text-right b-r b-dashed b-grey">
-                                        <span class="hint-text small">Qty 1</span>
-                                    </td>
-                                    <td>
-                                        <span class="font-montserrat fs-18 text-primary">$1000</span>
                                     </td>
                                 </tr>
                             </tbody>

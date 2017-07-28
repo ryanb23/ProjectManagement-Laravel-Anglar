@@ -274,10 +274,10 @@
 								</div>
 							</div>
 						</div>
-						<div ng-if="vm.projectDetail.status != 2" class="btn-group pull-right" style="width:100px;">
+						<div ng-if="vm.projectDetail.status != 2 && !vm.is_upvote" class="btn-group pull-right" style="width:100px;">
 							<div class="btn-group btn-group-justified">
 								<div class="btn-group">
-									<button type="button" class="btn btn-success">
+									<button type="button" class="btn btn-success"  ng-click="vm.upvote()">
                                         <span class="p-t-5 p-b-5">
                                                     <i class="fa fa-star fs-15"></i>
                                                 </span>

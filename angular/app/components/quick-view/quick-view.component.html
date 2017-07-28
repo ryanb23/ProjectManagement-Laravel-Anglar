@@ -100,9 +100,9 @@
                                 <!-- BEGIN Chat User List Item  !-->
                                 <li class="chat-user-list clearfix" ng-repeat="(key, userInfo) in  vm.chatUsers" ng-click="vm.openChanel(userInfo)" ng-class="{'has-message':vm.unreadMessage[userInfo.id]}">
                                     <a data-view-animation="push-parrallax" data-view-port="#chat" pg-navigate class="" href="">
-                                        <span class="col-xs-height col-middle" ng-click="alert()">
+                                        <span class="col-xs-height col-middle">
                                             <span class="thumbnail-wrapper d32 circular bg-success">
-                                                <img width="34" height="34" alt="" ui-jq="unveil" data-src-retina="assets/img/profiles/1x.jpg" data-src="assets/img/profiles/1.jpg" src="assets/img/profiles/1x.jpg" class="col-top">
+                                                <img check-image ng-src="{{userInfo.avatar}}" alt=""  width="32" height="32">
                                             </span>
                                         </span>
                                         <p class="p-l-10 col-xs-height col-middle col-xs-12">

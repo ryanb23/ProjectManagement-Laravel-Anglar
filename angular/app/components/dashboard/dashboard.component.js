@@ -2,10 +2,14 @@ class DashboardController {
   constructor (API, $state, $stateParams, $timeout, $scope, $rootScope, $sce, $filter, ContextService) {
     'ngInject'
     this.projectRoute = API.all('projects')
+    this.userRoute = API.all('users')
     this.$state = $state
     this.myProjects = []
     this.myContributedProjects = []
     this.userInfo = null
+    this.feed = ''
+    this.feed_list = []
+    this.upvote = 0;
     let that = this
 
     ContextService.me(function (data) {
@@ -27,9 +31,32 @@ class DashboardController {
   detailView(project){
       this.$state.go('app.projects.view', {projectId: project.id})
   }
+
+  postFeed(feed){
+      if(feed == '')
+        return;
+      this.userRoute.all('feed').post({'feed':feed}).then((response) => {
+          this.feed = ''
+          this.getFeeds()
+      })
+  }
+
+  getFeeds(){
+      this.userRoute.get('feeds').then((response) => {
+          this.feed_list = response.plain().data
+      })
+  }
+
+  getUpvotes(){
+      this.userRoute.get('upvote').then((response) => {
+          this.upvote = response.plain().data
+      })
+  }
   $onInit () {
       this.getMyProject()
       this.getMyContributedProject()
+      this.getFeeds()
+      this.getUpvotes()
   }
 }
 
