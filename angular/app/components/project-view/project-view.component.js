@@ -141,7 +141,7 @@ class ProjectViewController {
 
         this.dzMethods = {};
 
-        this.is_upvote = 1;
+        this.is_upvote = null;
     }
 
     removeFile(file){
@@ -182,7 +182,13 @@ class ProjectViewController {
 
     upvote(){
         this.projectRoute.all('upvote').post({'project_id':this.projectId}).then((response) => {
-            this.is_upvote != this.is_upvote;
+            this.is_upvote = 1;
+        })
+    }
+
+    downvote(){
+        this.projectRoute.all('downvote').post({'project_id':this.projectId}).then((response) => {
+            this.is_upvote = 0;
         })
     }
 

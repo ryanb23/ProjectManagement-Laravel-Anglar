@@ -155,9 +155,8 @@
 		                <div class="timeline-point success">
 		                    <i class="pg-social"></i>
 		                </div>
-		                <!-- timeline-point -->
 		                <div class="timeline-content">
-							<div class="event-date">
+							<!-- <div class="event-date">
 		                        <h6 class="font-montserrat all-caps hint-text m-t-0">Apple Inc</h6>
 		                        <small class="fs-12 hint-text">15 January 2015, 06:50 PM</small>
 		                    </div>
@@ -172,9 +171,8 @@
 		                        <div class="card-description">
 		                            <p>User Created task 1</p>
 		                        </div>
-		                    </div>
+		                    </div> -->
 		                </div>
-		                <!-- timeline-content -->
 		            </div>
 				</section>
             </div>
@@ -274,15 +272,22 @@
 								</div>
 							</div>
 						</div>
-						<div ng-if="vm.projectDetail.status != 2 && !vm.is_upvote" class="btn-group pull-right" style="width:100px;">
+						<div ng-if="vm.projectDetail.status != 2" class="btn-group pull-right" style="width:100px;">
 							<div class="btn-group btn-group-justified">
 								<div class="btn-group">
-									<button type="button" class="btn btn-success"  ng-click="vm.upvote()">
+									<button type="button" ng-if="vm.is_upvote == 1" class="btn btn-success"  ng-click="vm.downvote()">
                                         <span class="p-t-5 p-b-5">
-                                                    <i class="fa fa-star fs-15"></i>
-                                                </span>
+                                            <i class="fa fa-star fs-15"></i>
+                                        </span>
                                         <br>
-                                        <span class="fs-11 font-montserrat text-uppercase">Favourite</span>
+                                        <span class="fs-11 font-montserrat text-uppercase">Dislike</span>
+                                    </button>
+									<button type="button" ng-if="vm.is_upvote == 0" class="btn btn-success"  ng-click="vm.upvote()">
+                                        <span class="p-t-5 p-b-5">
+                                            <i class="fa fa-star-o fs-15"></i>
+                                        </span>
+                                        <br>
+                                        <span class="fs-11 font-montserrat text-uppercase">Like</span>
                                     </button>
 								</div>
 							</div>
