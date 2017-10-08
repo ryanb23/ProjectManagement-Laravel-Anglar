@@ -19,9 +19,7 @@ class ProjectCommentController {
                 let channel = pusher.subscribe('project-channel-' + that.projectId)
                 //Bind a function to a Event (the full Laravel class)
                 channel.bind('App\\Events\\CommentPostEvent', function(commentData) {
-                    console.log(1)
                     if (commentData.project_id == that.projectId && commentData.user.id != that.userInfo.id) {
-                        console.log(2)
                         that.addComment({
                             comment: commentData.comment,
                             project_id: commentData.project_id,
