@@ -35,7 +35,7 @@ class UserController extends Controller
                         ->select(['slug', 'roles.id', 'roles.name'])
                         ->get();
         $user['department'] = $user->departments()->get();
-        $user['projects'] = $user->projects()->get();
+        $user['projects'] = $user->user_projects()->get();
         $user['todos'] = $user->todos()->get();
         $user['tasks'] = $user->tasks()->get();
         return response()->success($user);
