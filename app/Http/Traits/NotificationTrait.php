@@ -3,6 +3,7 @@
 namespace App\Http\Traits;
 
 use App\Models\Notification;
+use Auth;
 
 trait NotificationTrait
 {
@@ -13,17 +14,23 @@ trait NotificationTrait
      */
     public function createNotification($sender_id, $notification_type, $resource_id, $users, $extra_data=array())
     {
-        $notification_data = array_map(function($user_id) use($sender_id,$notification_type,$resource_id,$extra_data){
-            return array(
+        $user = Auth::user();
+        $current_user_id = $user['id'];
+        foreach($users as $user_id)
+        {
+            if($current_user_id == $user_id)
+                continue;
+            $data = array(
                 'sender_id'         => $sender_id,
                 'to_id'             => $user_id,
                 'notification_type' => $notification_type,
                 'resource_id'       => $resource_id,
                 'is_read'           => 0,
-                "created_at" =>  \Carbon\Carbon::now(),
-                "updated_at" => \Carbon\Carbon::now()
-            );
-        },$users);
-        return Notification::insert($notification_data);
+                );
+            $notification_item = Notification::firstOrNew($data);
+            $notification_item->updated_at = \Carbon\Carbon::now();
+            $notification_item->save();
+        }
+        return true;
     }
 }
