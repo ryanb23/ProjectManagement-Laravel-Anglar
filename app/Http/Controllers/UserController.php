@@ -91,7 +91,7 @@ class UserController extends Controller
         // $result = $user->belongsToMany('roles')->wherePivot('level', 1);
 
         $result = User::with('departments')->whereHas('roles',function($query){
-          $query->where('level','>',0);
+          $query->where('level','>=',0);
         })
         // ->orHas('roles','=',0)
         ->where('users.email_verified','=',1)

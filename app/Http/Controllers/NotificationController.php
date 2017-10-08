@@ -38,7 +38,7 @@ class NotificationController extends Controller
     }
     public function postUpdateNotifications(Request $request)
     {
-        $result = Notification::where(array(
+        Notification::where(array(
             'sender_id' => $request['user']['id'],
             'notification_type' => $request['type'],
             'resource_id' => $request['resource_id'],
