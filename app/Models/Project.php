@@ -8,6 +8,8 @@ use App\Models\Department;
 use App\User;
 use App\Models\ProjectFile;
 use App\Models\Label;
+use App\Models\ProjectUpvote;
+use App\Models\ProjectComment;
 
 class Project extends Model
 {
@@ -42,5 +44,13 @@ class Project extends Model
 
     public function manager(){
         return $this->belongsToMany(User::class,'project_users','project_id','user_id');
+    }
+
+    public function votes(){
+        return $this->hasMany(ProjectUpvote::class,'project_id');
+    }
+
+    public function comments(){
+        return $this->hasMany(ProjectComment::class,'project_id');
     }
 }
