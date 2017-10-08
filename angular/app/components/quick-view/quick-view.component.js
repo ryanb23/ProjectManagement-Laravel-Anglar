@@ -28,12 +28,12 @@ class QuickViewController {
             let channel = pusher.subscribe('chat-channel-' + data.id)
             //Bind a function to a Event (the full Laravel class)
             channel.bind('App\\Events\\MessagePostEvent', function(messageData) {
-                console.log(that.openChanelId)
+                console.log(messageData)
 
                 if (messageData.user.id == that.openChanelId) {
                     that.addMessage(messageData)
                 }else{
-                    that.$rootScope.$emit("newNotification",{messageData})
+                    that.$rootScope.$emit("MessageEmit",{messageData})
                     let from_id = messageData.user.id
                     if(typeof that.unreadMessage[from_id] == 'undefined'){
                         that.unreadMessage[from_id] = 1
@@ -53,6 +53,7 @@ class QuickViewController {
   }
   openChanel(userInfo) {
       this.openChanelId = userInfo.id
+      this.$rootScope.$emit("MessageRead",this.unreadMessage[userInfo.id])
       this.unreadMessage[userInfo.id] = 0;
       this.API.one('message', 'message-with').get({
           with_id: this.openChanelId
