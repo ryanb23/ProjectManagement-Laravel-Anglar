@@ -7,10 +7,10 @@ return [
      |--------------------------------------------------------------------------
      */
      /*** Notification Types ****/
-     'notification_new_post' => 1,
-     'notification_project_upvote' => 2,
-     'notification_project_comment' => 3,
-     'notification_project_popular' => 4,
-     'notification_project_approved' => 5,
-     'notification_project_dismissed' => 6
+     '1' => ' created new post',
+     '2' => ' upvoted your project',
+     '3' => ' left comment on your project',
+     '4' => 'your project reached popular level',
+     '5' => ' approved your project',
+     '6' => ' dismissed your project'
 ];
