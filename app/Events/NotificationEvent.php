@@ -5,14 +5,18 @@ namespace App\Events;
 use App\Events\Event;
 use App\User;
 use Auth;
+use \Config;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+
+use App\Http\Traits\NotificationTrait;
 
 class NotificationEvent extends Event implements ShouldBroadcast
 {
     use SerializesModels;
+    use NotificationTrait;
 
-    public $message, $to_id;
+    public $data, $to_ids;
     public $user;
     /**
      * Create a new event instance.
@@ -20,12 +24,22 @@ class NotificationEvent extends Event implements ShouldBroadcast
      * @return void
      */
 
-    public function __construct($message,$to_id)
+    public function __construct($sender_id, $notification_type, $resource_id, $user_ids, $extra_data=array())
     {
-        //
-        $this->message = $message;
         $user = Auth::user();
-        $this->to_id = $to_id;
+
+        $this->createNotification($sender_id, $notification_type, $resource_id, $user_ids, $extra_data=array());
+        $message = Config::get("notificaitonMessages.{$notification_type}");
+
+        $this->data = [
+            'type' => $notification_type,
+            'user' => $user,
+            'resource_id' => $resource_id,
+            'message' => $message,
+            'updateTime' => \Carbon\Carbon::now()->toDateTimeString(),
+        ];
+
+        $this->to_ids = $user_ids;
         $this->user = $user;
     }
 
