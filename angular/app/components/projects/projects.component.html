@@ -5,7 +5,7 @@
 	</a>
     <p class="menu-title">BY DEPARTMENT</p>
     <ul class="main-menu scroll-content scroll-scrolly_visible">
-        <li ng-class="{active: vm.depSel == 'all'}">
+        <li ng-class="{active: vm.depSel.value == 'all'}">
             <a href="javascript:;" ng-click="vm.getProjects({'type':'dep','value':'all'})">
                 <div>
 				<span class="title">
@@ -15,7 +15,7 @@
                 </div>
             </a>
         </li>
-        <li ng-class="{active: vm.depSel == dep_item.id}" ng-repeat="dep_item in vm.departments">
+        <li ng-class="{active: vm.depSel.value == dep_item.id}" ng-repeat="dep_item in vm.departments">
             <a href="javascript:;" ng-click="vm.getProjects({'type':'dep','value':dep_item.id})">
                 <div>
 				<span class="title">
@@ -26,7 +26,7 @@
                 </div>
 			</a>
             <ul ng-if="dep_item.child_department" class="sub-menu no-padding">
-                <li ng-class="{active: vm.depSel == dep_child_item.id}" ng-repeat="dep_child_item in dep_item.child_department">
+                <li ng-class="{active: vm.depSel.value == dep_child_item.id}" ng-repeat="dep_child_item in dep_item.child_department">
                     <a href="javascript:;" ng-click="vm.getProjects({'type':'dep','value':dep_child_item.id})">
                         <div>
                         <span class="title">{{dep_child_item.name}}</span>
@@ -40,7 +40,7 @@
     </ul>
     <p class="menu-title m-t-20 all-caps">Project Status</p>
     <ul class="sub-menu no-padding">
-        <li ng-class="{active: vm.depSel == 'opened'}">
+        <li ng-class="{active: vm.depSel.value == 'opened'}">
             <a href="javascript:;" ng-click="vm.getProjects({'type':'status','value':'opened'})">
                 <div>
 				<span class="title">Opened Project</span>
@@ -49,7 +49,7 @@
                 </div>
 			</a>
         </li>
-        <li ng-class="{active: vm.depSel == 'approved'}">
+        <li ng-class="{active: vm.depSel.value == 'approved'}">
             <a href="javascript:;" ng-click="vm.getProjects({'type':'status','value':'approved'})">
                 <div>
 				<span class="title">Approved Project</span>
@@ -58,7 +58,7 @@
                 </div>
 			</a>
         </li>
-        <li ng-class="{active: vm.depSel == 'dismissed'}">
+        <li ng-class="{active: vm.depSel.value == 'dismissed'}">
             <a href="javascript:;"  ng-click="vm.getProjects({'type':'status','value':'dismissed'})">
                 <div>
 				<span class="title">Dismissed Project</span>
@@ -73,7 +73,7 @@
 <div class="inner-content full-height">
     <div class="split-view">
         <div class="split-list">
-            <a class="list-refresh" href="#"><i class="fa fa-refresh"></i></a>
+            <a class="list-refresh" href="javascript:;" ng-click="vm.getProjects(vm.depSel)"><i class="fa fa-refresh"></i></a>
             <div class="list-view">
                 <div ng-repeat="(date,projectGroup) in vm.projects" class="list-view-group-container">
                     <div class="list-view-group-header"><span>{{date}}</span></div>
@@ -91,10 +91,10 @@
                             <div class="datetime" am-time-ago="project.created_at | amUtc | amLocal"></div>
                             <div class="pull-left m-l-15">
                                 <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> 9423
+									<i class="fa fa-heart" aria-hidden="true"></i> {{project.votes.length}}
 								</span>
                                 <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> 13
+									<i class="fa fa-comments-o" aria-hidden="true"></i> {{project.comments.length}}
 								</span>
                             </div>
                             <div class="clearfix"></div>

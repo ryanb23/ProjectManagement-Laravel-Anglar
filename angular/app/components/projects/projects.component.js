@@ -28,7 +28,7 @@ class ProjectsController {
     this.projectRoute = API.all('projects');
     this.projects = [];
 
-    this.depSel = 'all';
+    this.depSel = {'type':'dep','value': 'all'};
   }
   detailView(project){
       this.$state.go('app.projects.view', {projectId: project.id})
@@ -42,7 +42,7 @@ class ProjectsController {
       })
   }
   getProjects(param){
-      this.depSel = param.value;
+      this.depSel = param;
       this.projectRoute.get('by-date-group',param).then((response) => {
           var result = response.plain().data
           this.projects = result;
@@ -50,7 +50,7 @@ class ProjectsController {
   }
   $onInit() {
       this.getDepartment();
-      let param = {'type':'dep','value':this.depSel}
+      let param = this.depSel;
 
       if(this.status != null)
       {
