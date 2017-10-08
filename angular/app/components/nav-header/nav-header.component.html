@@ -32,7 +32,7 @@
                 <li class="p-r-15 inline">
                     <div class="dropdown">
                         <a href="javascript:;" id="notification-center" class="icon-set globe-fill" data-toggle="dropdown">
-                            <span class="bubble"></span>
+                            <span class="bubble" ng-if="vm.notificaitonList.length"></span>
                         </a>
                         <div class="dropdown-menu notification-toggle" role="menu" aria-labelledby="notification-center">
                             <div class="notification-panel">
@@ -41,17 +41,16 @@
             ignoreOverlay: false
         }">
                                     <!-- START Notification Item-->
-                                    <div class="notification-item  clearfix">
+                                    <div ng-repeat="(index,data) in vm.notificaitonList" ng-click="vm.redirectNotifciation(data)" class="notification-item unread clearfix">
                                         <div class="heading">
-                                            <a href="" class="text-danger">
-                                                <i class="fa fa-exclamation-triangle m-r-10"></i>
-                                                <span class="bold">98% Server Load</span>
-                                                <span class="fs-12 m-l-10">Take Action</span>
+                                            <div class="thumbnail-wrapper d24 circular b-white m-r-5 b-a b-white m-t-10 m-r-10">
+                                                <img width="30" height="30" check-image ng-src="{{data.user.avatar}}" alt="">
+                                            </div>
+                                            <a href="#" class="text-complete pull-left">
+                                                <span class="bold">{{data.user.name}}</span>
+                                                <span class="fs-12 m-l-10">{{data.message}}</span>
                                             </a>
-                                            <span class="pull-right time">2 mins ago</span>
-                                        </div>
-                                        <div class="option">
-                                            <a href="" class="mark"></a>
+                                            <span class="pull-right time" am-time-ago="data.updateTime | amUtc | amLocal"></span>
                                         </div>
                                     </div>
                                     <!-- END Notification Item-->
@@ -69,12 +68,6 @@
                         </div>
                     </div>
                 </li>
-                <li class="p-r-15 inline">
-                    <a href="" class="icon-set clip "></a>
-                </li>
-                <li class="p-r-15 inline">
-                    <a href="" class="icon-set grid-box"></a>
-                </li>
             </ul>
             <!-- END NOTIFICATION DROPDOWN -->
             <a class="search-link" ng-click="vm.showSearchOverlay()"><i class="pg-search"></i>Type anywhere to <span class="bold">search</span></a>
@@ -83,7 +76,7 @@
     <div class=" pull-right">
         <div class="header-inner">
             <a href="" class="btn-link icon-set menu-hambuger-plus m-l-20 sm-no-margin hidden-sm hidden-xs" data-toggle="quickview" data-toggle-element="#quickview"></a>
-            <span class="badge badge-danger chat_notification" ng-if="vm.notificationTotal">{{vm.notificationTotal}}</span>
+            <span class="badge badge-danger chat_notification" ng-if="vm.chatNotificationTotal">{{vm.chatNotificationTotal}}</span>
         </div>
     </div>
     <div class=" pull-right">
