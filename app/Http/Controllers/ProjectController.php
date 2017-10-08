@@ -25,16 +25,16 @@ use App\Models\UserSetting;
 use App\Models\ProjectUpvote;
 
 use App\Events\CommentPostEvent;
+use App\Events\NotificationEvent;
 
 use App\Http\Traits\FileTrait;
 use App\Http\Traits\CustomTrait;
-use App\Http\Traits\NotificationTrait;
+
 
 class ProjectController extends Controller
 {
     use FileTrait;
     use CustomTrait;
-    use NotificationTrait;
 
     public function getIndex()
     {
@@ -55,10 +55,28 @@ class ProjectController extends Controller
     public function postUpvote(Request $request){
         $project_id = $request['project_id'];
         $user = Auth::user();
-        $upvote = new ProjectUpvote();
-        $upvote->user_id = $user->id;
-        $upvote->project_id = $project_id;
-        $upvote->save();
+        $upvote = ProjectUpvote::where(['user_id'=>$user->id, 'project_id'=>$project_id])->count();
+        if(!$upvote)
+        {
+            $upvote = new ProjectUpvote();
+            $upvote->user_id = $user->id;
+            $upvote->project_id = $project_id;
+            $upvote->save();
+        }
+
+        $relator_ids = self::getProjectRelators(array('id'=>$project_id));
+        $comment_notificaiton_user_ids = self::getAllowedNotificationUsers('upvote',$relator_ids);
+
+        event(new NotificationEvent($user->id, Config::get('custom.notification_project_upvote'), $project_id, $comment_notificaiton_user_ids));
+
+        return response()->success('success');
+    }
+
+    public function postDownvote(Request $request){
+        $project_id = $request['project_id'];
+        $user = Auth::user();
+        $upvote = ProjectUpvote::where(['user_id'=>$user->id, 'project_id'=>$project_id])->delete();
+
         return response()->success('success');
     }
 
@@ -80,20 +98,24 @@ class ProjectController extends Controller
     /** get project relators **/
     public function getProjectRelators($param)
     {
+        $user = Auth::user();
+        $user_id = $user->id;
+
         $project_id = $param['id'];
-        $project_creator = Project::where('id',$project_id)->get(['creator_id as id'])->toArray();
-        $project_contributors = ProjectContributor::where('project_id',$project_id)->get(['contributor_id as id'])->toArray();
+        $project_creator = Project::where('id',$project_id)->whereNotIn('creator_id',[$user_id])->get(['creator_id as id'])->toArray();
+        $project_contributors = ProjectContributor::where('project_id',$project_id)->whereNotIn('contributor_id',[$user_id])->get(['contributor_id as id'])->toArray();
 
         $projectRelators = array_merge($project_creator,$project_contributors);
         $projectRelators = array_map(function($v){return $v['id'];},$projectRelators);
         return array_values($projectRelators);
     }
 
-    /** get comment notification users**/
-    public function getCommentNotificationUsers($user_ids)
+
+    /** get allowed notification users**/
+    public function getAllowedNotificationUsers($type ,$user_ids)
     {
-        $result = User::whereHas('setting',function($query){
-          $query->where('comment',1);
+        $result = User::whereHas('setting',function($query) use($type){
+          $query->where($type,1);
         })->whereIn('id',$user_ids)->get(['id'])->toArray();
 
         $result = array_map(function($v){return $v['id'];},$result);
@@ -121,9 +143,9 @@ class ProjectController extends Controller
         $created_at = $newComment->created_at;
         event(new CommentPostEvent($comment, $project_id, $created_at));
         $relator_ids = self::getProjectRelators(array('id'=>$project_id));
-        $comment_notificaiton_user_ids = self::getCommentNotificationUsers($relator_ids);
+        $comment_notificaiton_user_ids = self::getAllowedNotificationUsers('comment',$relator_ids);
 
-        $this->createNotification($user->id, Config::get('custom.notification_project_comment'), $comment_id, $comment_notificaiton_user_ids);
+        event(new NotificationEvent($user->id, Config::get('custom.notification_project_comment'), $project_id, $comment_notificaiton_user_ids));
         return response()->success($created_at);
     }
     public function getProgress(Request $request){
@@ -151,7 +173,11 @@ class ProjectController extends Controller
         {
             $dep_id = isset($request->value)?  $request->value :  'all';
             $dep_id_arr = [$dep_id];
-            $db_result = Project::with(array('user'=>function($query){
+            $db_result = Project::with(array('votes' => function($query){
+                },
+                'comments' => function($query){
+                },
+                'user'=>function($query){
                     $query->select(['id','name','avatar','firstname','lastname']);
                 },
                 'user.departments' => function($query){
@@ -183,7 +209,11 @@ class ProjectController extends Controller
                     $status = 2;
                     break;
             }
-            $db_result = Project::with(array('user'=>function($query){
+            $db_result = Project::with(array('votes' => function($query){
+                },
+                'comments' => function($query){
+                },
+                'user'=>function($query){
                     $query->select(['id','name','avatar','firstname','lastname']);
                 },
                 'user.departments' => function($query){
@@ -216,7 +246,7 @@ class ProjectController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
 
-        $projects = Project::with(array('user'=>function($query){
+        $projects = Project::with(array('votes','comments','user'=>function($query){
             $query->select(['id','name','avatar','firstname','lastname']);
         },
         'user.departments' => function($query){
@@ -232,7 +262,7 @@ class ProjectController extends Controller
 
         $userProjectIds = ProjectContributor::where('contributor_id',$user_id)->get(['project_id as id'])->toArray();
 
-        $projects = Project::with(array('user'=>function($query){
+        $projects = Project::with(array('votes','comments','user'=>function($query){
             $query->select(['id','name','avatar','firstname','lastname']);
         },
         'user.departments' => function($query){
@@ -242,22 +272,42 @@ class ProjectController extends Controller
     }
 
     public function postStatusUpdate(Request $request){
-        $projectId = $request['id'];
+
+        $user = Auth::user();
+        $project_id = $request['id'];
         $status = $request['status'];
-        $project = Project::find($projectId);
+        $project = Project::find($project_id);
+        $notification_type = null;
+        $usersetting_type = null;
         switch($status)
         {
             case 'opened':
-                $status = 0;break;
+                $status = 0;
+                break;
             case 'approved':
-                $status = 1;break;
+                $status = 1;
+                $usersetting_type = 'approved';
+                $notification_type = 'notification_project_approved';
+                break;
             case 'dismissed':
-                $status = 2;break;
+                $usersetting_type = 'dismissed';
+                $notification_type = 'notification_project_dismissed';
+                $status = 2;
+                break;
             default:
+                $notification_type = null;
                 $status = 0;break;
         }
         $project->status = $status;
         $project->save();
+
+        if($notification_type)
+        {
+            $relator_ids = self::getProjectRelators(array('id'=>$project_id));
+            $comment_notificaiton_user_ids = self::getAllowedNotificationUsers($usersetting_type,$relator_ids);
+
+            event(new NotificationEvent($user->id, Config::get("custom.{$notification_type}"), $project_id, $comment_notificaiton_user_ids));
+        }
         return response()->success('success');
     }
     public function postUpdatePorjectManagers(Request $request){
