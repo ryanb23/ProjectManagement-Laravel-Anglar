@@ -77,7 +77,7 @@ class ProjectCreateController {
             {
                 var filename = this.newFile[i].filename
                 this.projectRoute.all('remove-tmp').post({'filename':filename}).then((response)=>{
-                    this.newFile.splice(i,1);
+                    this.newFile = this.newFile.splice(i,1);
                 });
             }
         }

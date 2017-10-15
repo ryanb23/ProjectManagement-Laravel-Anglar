@@ -2,8 +2,7 @@
 <!-- START CONTAINER FLUID -->
 <div class="container-fluid container-fixed-lg">
 	<!-- START PANEL -->
-	<h3 class="m-t-20 c_title">Project Details</h3>
-	<div class="col-md-3 ">
+	<div class="col-md-3 no-padding">
 		<!-- START PANEL -->
 		<div pg-portlet class="panel panel-default" progress='bar' progress-color='success'>
 			<div class="panel-heading">
@@ -25,22 +24,19 @@
 				<br/>
 				<div class="row">
 					<div class="col-md-12">
-
-						<div class="user-header" ng-repeat="item in vm.progressManagerList">
+						<div class="user-header m-b-10" ng-repeat="item in vm.progressManagerList">
 							<div class="user-pic">
 								<img alt="Profile Image" width="33" height="33" check-image ng-src="{{item.avatar}}">
 							</div>
-							<h5>{{item.firstname + ' ' + item.lastname}}</h5>
-							<h6>Web Designer, QA</h6>
+							<div class="pull-left">
+								<h5>{{item.firstname + ' ' + item.lastname}}</h5>
+								<h6 class="m-t-5">Web Designer, QA</h6>
+							</div>
 							<div class="clearfix"></div>
 						</div>
-						<button type="button" class="btn btn-primary pull-right m-t-20" ng-click="vm.openAssignManagerModal()"   ng-if="vm.service.hasRole(['user.decision_maker'],vm.userInfo.role)">
-							<span class="p-t-5 p-b-5">
-								<i class="fa fa-check fs-15"></i>
-							</span>
-							<br>
-							<span class="fs-11 font-montserrat text-uppercase">Assign Project Manager(s)</span>
-						</button>
+						<button type="button"  ng-click="vm.openAssignManagerModal()" ng-if="vm.service.hasRole(['user.decision_maker'],vm.userInfo.role)" class="btn btn-primary btn-cons btn-animated from-top fa fa-check fs-15">
+                            <span class="fs-11 font-montserrat text-uppercase">Assign Project Manager(s)</span>
+                        </button>
 					</div>
 				</div>
 				<!-- END PANEL -->
@@ -94,9 +90,9 @@
 				<p>You can manage your Todo list here.</p>
 				<div class="row m-b-10">
 					<div class="col-sm-12" ng-if="vm.service.hasRole(['user.project_manager'],vm.userInfo.role) && vm.service.hasProject([vm.projectId],vm.userInfo.projects)">
-						<button class="btn btn-primary btn-sm m-t-10 pull-right" ng-click="vm.addTodoListModal()">
-	                        <span class="pull-left"><i class="fa fa-plus-circle"></i> </span><span class="bold">New</span>
-	                    </button>
+						<button type="button"  ng-click="vm.addTodoListModal()" class="btn btn-primary btn-cons btn-animated from-top fa fa-plus-circle fs-15">
+                            <span class="fs-11 font-montserrat text-uppercase">New Todos</span>
+                        </button>
 					</div>
 				</div>
 				<div class="panel-group todo-list-block" id="accordion" role="tablist" aria-multiselectable="true">
@@ -212,79 +208,64 @@
 		</div>
 		<!-- END PANEL -->
 	</div>
-	<div class="col-md-9">
+	<div class="col-md-9 no-padding">
 		<!-- START PANEL -->
 		<div class="panel panel-default project-datail">
-			<div class="panel-heading">
-				<div class="panel-title">Project Details
+			<div class="panel-heading clearfix project-detail-heading">
+				<div class="panel-title pull-left">Project Details
+				</div>
+				<div class="likes-div pull-right">
+					<span class="p-t-5 p-b-5 p-r-5">
+						<i class="fa fa-heart fs-20"></i>
+					</span>
+					<span>{{vm.projectDetail.vote_count}} likes</span>
 				</div>
 			</div>
 			<div class="panel-body">
 				<div class="panel panel-transparent m-t-15">
-					<div class="panel-body">
-						<div ng-if="vm.service.hasRole(['user.decision_maker'],vm.userInfo.role)">
-							<div ng-if="vm.projectDetail.status == 0" class="btn-group" style="width:200px;">
-								<div class="btn-group btn-group-justified">
-									<div class="btn-group">
-										<button type="button" class="btn btn-danger" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'dismissed'})">
-	                                        <span class="p-t-5 p-b-5">
-	                                                    <i class="fa fa-close fs-15"></i>
-	                                                </span>
-	                                        <br>
-	                                        <span class="fs-11 font-montserrat text-uppercase">Dismiss</span>
-	                                    </button>
-									</div>
-									<div class="btn-group">
-										<button type="button" class="btn btn-primary" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'approved'})">
-	                                        <span class="p-t-5 p-b-5">
-	                                                    <i class="fa fa-save fs-15"></i>
-	                                                </span>
-	                                        <br>
-	                                        <span class="fs-11 font-montserrat text-uppercase">Recognize</span>
-	                                    </button>
-									</div>
-								</div>
-							</div>
-							<div ng-if="vm.projectDetail.status == 1" class="btn-group" style="width:100px;">
-								<div class="btn-group btn-group-justified">
-									<div class="btn-group">
-										<button type="button" class="btn btn-complete" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'opened'})">
-		                                        <span class="p-t-5 p-b-5">
-		                                            <i class="fa fa-share fs-15"></i>
-		                                        </span>
-		                                        <br>
-		                                        <span class="fs-11 font-montserrat text-uppercase">Hold</span>
-		                                    </button>
-									</div>
-								</div>
-							</div>
-							<div ng-if="vm.projectDetail.status == 2" class="btn-group" style="width:100px;">
-								<div class="btn-group btn-group-justified">
-									<div class="btn-group">
-										<button type="button" class="btn btn-complete" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'0'})">
-		                                        <span class="p-t-5 p-b-5">
-		                                            <i class="fa fa-share fs-15"></i>
-		                                        </span>
-		                                        <br>
-		                                        <span class="fs-11 font-montserrat text-uppercase">Reopen</span>
-		                                    </button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div ng-if="vm.projectDetail.status != 2" class="btn-group pull-right" style="width:100px;">
-							<div class="btn-group btn-group-justified">
-								<div class="btn-group">
-									<button type="button" ng-if="vm.is_upvote == 1" class="btn btn-success"  ng-click="vm.downvote()">
+					<div class="panel-body custom-action-div">
+						<div class="btn-group pull-right">
+							<div class="btn-group">
+								<div class="btn-group" ng-if="vm.service.hasRole(['user.decision_maker'],vm.userInfo.role) && vm.projectDetail.status == 0">
+									<button type="button"  style="width:100px" class="btn btn-success" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'approved'})">
                                         <span class="p-t-5 p-b-5">
-                                            <i class="fa fa-star fs-15"></i>
+                                            <i class="fa fa-check fs-15"></i>
                                         </span>
                                         <br>
-                                        <span class="fs-11 font-montserrat text-uppercase">Dislike</span>
+                                        <span class="fs-11 font-montserrat text-uppercase">Recognize</span>
                                     </button>
-									<button type="button" ng-if="vm.is_upvote == 0" class="btn btn-success"  ng-click="vm.upvote()">
+								</div>
+								<div class="btn-group" ng-if="vm.service.hasRole(['user.decision_maker'],vm.userInfo.role) && vm.projectDetail.status == 0">
+									<button type="button"  class="btn btn-success" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'dismissed'})">
                                         <span class="p-t-5 p-b-5">
-                                            <i class="fa fa-star-o fs-15"></i>
+                                            <i class="fa fa-close fs-15"></i>
+                                        </span>
+                                        <br>
+                                        <span class="fs-11 font-montserrat text-uppercase">Dismiss</span>
+                                    </button>
+								</div>
+								<div class="btn-group" ng-if="vm.service.hasRole(['user.decision_maker'],vm.userInfo.role) && vm.projectDetail.status == 1">
+									<button type="button" class="btn btn-success" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'opened'})">
+                                        <span class="p-t-5 p-b-5">
+                                            <i class="fa fa-share fs-15"></i>
+                                        </span>
+                                        <br>
+                                        <span class="fs-11 font-montserrat text-uppercase">Hold</span>
+                                    </button>
+								</div>
+								<div class="btn-group" ng-if="vm.service.hasRole(['user.decision_maker'],vm.userInfo.role) && vm.projectDetail.status == 2">
+									<button type="button" class="btn btn-success" ng-click="vm.postProjectStatusUpdate({'id':vm.projectId,'status':'0'})">
+                                        <span class="p-t-5 p-b-5">
+                                            <i class="fa fa-share fs-15"></i>
+                                        </span>
+                                        <br>
+                                        <span class="fs-11 font-montserrat text-uppercase">Reopen</span>
+                                    </button>
+								</div>
+								<div class="btn-group">
+									<button type="button"  class="btn btn-success"  ng-click="vm.toggleVote()">
+                                        <span class="p-t-5 p-b-5">
+                                            <i class="fa fs-15" ng-class="{'fa-heart': vm.projectDetail.is_upvote, 'fa-heart-o': !vm.projectDetail.is_upvote}" ></i>
                                         </span>
                                         <br>
                                         <span class="fs-11 font-montserrat text-uppercase">Like</span>
@@ -296,26 +277,38 @@
 				</div>
 				<div class="panel panel-transparent m-t-15">
 					<div class="panel-heading">
-						<h3 class="pull-left text-primary no-margin project-title">{{vm.projectDetail.title}}</h3>
-						<div class="pull-right m-t-10 label-div">
-							<span class="label label-success" ng-style="{'background-color':item.color}" ng-repeat="item in vm.projectDetail.label">{{item.name}}</span>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="panel-body">
-						<p class="" project am-time-ago="vm.projectDetail.created_at | amUtc | amLocal"></p>
-						<br/>
-						<a class="btn btn-default btn-cons btn-rounded btn-notification-style m-b-10 active">Objective: {{vm.projectDetail.objective}}</a>
-						<a class="btn btn-default btn-cons btn-rounded btn-notification-style m-b-10 active">Departments: {{vm.projectDetail.department.name}}</a>
-					</div>
-				</div>
-				<div class="panel panel-transparent">
-					<div class="panel-heading">
-						<div class="panel-title">Description
+						<h2 class="no-margin project-title">{{vm.projectDetail.title}}</h2>
+						<div class="project-object-div">
+							<p class="p-objective">{{vm.projectDetail.objective}}</p>
+							<div class="m-t-10 label-div">
+								<span class="label label-success" ng-style="{'background-color':item.color}" ng-repeat="item in vm.projectDetail.label">{{item.name}}</span>
+							</div>
 						</div>
 					</div>
 					<div class="panel-body">
-						<p>{{vm.projectDetail.description}}</p>
+						<div class="user-div">
+							<img src="img/custom/time-clock.png" alt="img" class="brand">
+							<span class="m-l-5 datetime" am-time-ago="vm.projectDetail.created_at | amUtc | amLocal"></span>
+							<span class="m-l-5 m-r-5"> by </span>
+							<img class="user-img" width="25px" height="25px"  alt="" src="{{vm.projectDetail.user.avatar}}" check-image>
+							<span class="user-name">{{vm.projectDetail.user.name}}</span>
+							<span class="m-l-5 m-r-5"> in </span>
+							<span class="badge badge-success m-l-5" ng-repeat="dep_item in vm.projectDetail.user.departments">{{dep_item.name}}</span>
+						</div>
+
+						<div class="attachment-div">
+							<span>Attachments</span>
+							<div ng-repeat="(index,file_item) in vm.projectDetail.file" class="attachment-item">
+								<a class="attachment-info" href="{{vm.getImageUrl(vm.projectDetail.id,file_item.filename)}}" download>
+									<img src="img/custom/attachment.png" alt="img" class="brand"> <span>  {{file_item.org_filename}}</span>
+								</a>
+							</div>
+						</div>
+
+						<div class="description-div">
+							<span>Description</span>
+							<p class="m-t-10">{{vm.projectDetail.description}}</p>
+						</div>
 					</div>
 				</div>
 				<!-- END PANEL -->
@@ -541,7 +534,7 @@
 	                    </div>
 	                    <div class="inline m-l-10">
 	                        <p class="small hint-text m-t-5">{{vm.newApproveTask.userinfo.name}}
-	                            <br>Web Developer</p>
+	                        <br>Web Developer</p>
 	                    </div>
 	                </div>
 					<h5 ng-if="vm.newApproveTask.attachFiles.length == 0">No Attachment Files</h5>

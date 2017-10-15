@@ -67,6 +67,7 @@ class ProjectViewController {
            deadline: '',
            assign_type:0,
            todolist_id: null,
+           project_id: this.projectId,
            contributor_id: null,
            department_id:null
         }
@@ -141,7 +142,6 @@ class ProjectViewController {
 
         this.dzMethods = {};
 
-        this.is_upvote = null;
     }
 
     removeFile(file){
@@ -179,17 +179,23 @@ class ProjectViewController {
             });
         }
     }
-
-    upvote(){
-        this.projectRoute.all('upvote').post({'project_id':this.projectId}).then((response) => {
-            this.is_upvote = 1;
-        })
+    toggleVote(){
+        if(this.projectDetail['is_upvote'])
+        {
+            this.projectRoute.all('downvote').post({'project_id':this.projectId}).then((response) => {
+                this.projectDetail['is_upvote'] = false;
+                this.projectDetail.vote_count --;
+            })
+        }else{
+            this.projectRoute.all('upvote').post({'project_id':this.projectId}).then((response) => {
+                this.projectDetail['is_upvote'] = true;
+                this.projectDetail.vote_count ++;
+            })
+        }
     }
 
-    downvote(){
-        this.projectRoute.all('downvote').post({'project_id':this.projectId}).then((response) => {
-            this.is_upvote = 0;
-        })
+    getImageUrl(project_id, filename){
+        return 'pro_imgs/' + project_id+ '/' + filename
     }
 
     getProjectDetail() {
@@ -197,7 +203,6 @@ class ProjectViewController {
         this.projectRoute.get('project', param).then((response) => {
             var result = response.plain().data
             this.projectDetail = result;
-            this.is_upvote = result['is_upvote']
             this.setImageUrls(result.file);
         })
     }
@@ -236,7 +241,7 @@ class ProjectViewController {
             this.hideModal(5);
             this.newProjectManager.project_id = this.projectId;
             this.newProjectManager.project_managers = this.projectManagers.sel;
-            this.projectRoute.all('update-porject-managers').post(this.newProjectManager).then(() => {
+            this.projectRoute.all('update-project-managers').post(this.newProjectManager).then(() => {
                 this.getProjectManagers();
             }).catch(this.addAssignManagerFail.bind(this))
         } else {

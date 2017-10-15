@@ -1,3 +1,9 @@
+.panel{
+    margin-bottom: 0px !important;
+}
+.panel-default{
+    border-top: 0px !important;
+}
 .gallery {
   padding: 0;
   li {
@@ -28,6 +34,28 @@
 }
 .project-datail
 {
+    .custom-action-div{
+        .btn{
+            width: 100px;
+        }
+    }
+    .panel-body{
+        .panel-heading, .panel-body{
+            padding-left: 0px !important;
+        }
+    }
+    .project-detail-heading{
+        border-bottom: 1px solid rgba(0, 0, 0, 0.07) !important;
+        padding: 24px 24px 20px 20px !important;
+        .likes-div{
+            color: #929292;
+            font-size: 15px;
+            i{
+                font-size: 16px;
+                color: #f76f83 !important;
+            }
+        }
+    }
     .project-title{
         font-weight:500 !important;
     }
@@ -36,19 +64,75 @@
             margin-right:5px;
         }
     }
+    .project-object-div{
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        .p-objective{
+            font-size: 19px;
+            line-height: 23px;
+            margin-top: 11px;
+        }
+    }
+    .project-creator-div{
+        width: 25px;
+        height: 25px;
+        display: block;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    .attachment-div{
+        padding: 5px 0px;
+        >span{
+            text-transform: uppercase;
+            color: #333;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .attachment-item{
+            .attachment-info{
+                display: flex;
+                align-items: center;
+                padding: 10px 0px 10px;
+                font-size: 16px;
+                display: block;
+            }
+        }
+    }
+    .description-div{
+        padding: 5px 0px;
+        >span{
+            text-transform: uppercase;
+            color: #333;
+            font-size: 12px;
+            font-weight: 500;
+        }
+    }
+    .project-description{
+        text-transform: uppercase;
+        color: #333;
+        font-size: 12px;
+        font-weight: 500;
+    }
+    .user-div{
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+        font-size: 15px;
+        .user-img{
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0px 5px;
+        }
+        .user-name{
+            color: #3a8fc8;
+            font-weight: 500;
+        }
+    }
 }
 .user-header {
   // margin-bottom:15px;
   // border-bottom: 1px solid #daeffd;
-  &:hover {
-    background: #daeffd;
-    cursor: pointer;
-    border-top-right-radius: 2px;
-    border-top-left-radius: 2px;
-    h6 {
-      opacity: .6;
-    }
-  }
   .user-pic {
     float: left;
     border-radius: 50%;
