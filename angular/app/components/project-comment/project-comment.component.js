@@ -1,14 +1,22 @@
 class ProjectCommentController {
-    constructor(API, $scope, $rootScope,  $stateParams, AclService, ContextService, $anchorScroll) {
+    constructor(API, $scope, $state, $rootScope,  $stateParams, AclService, ContextService, $anchorScroll) {
         'ngInject'
         let that = this
         this.API = API
         this.ContextService = ContextService
+        this.$state = $state
 
         this.projectId = parseInt($stateParams.projectId)
-        this.commentList  = []
+        this.commentList  = [];
         this.comment = ''
         this.projectRoute = API.all('projects');
+
+        this.pagination ={
+            'lastID'  : null,
+            'count' : 10,
+            'busy'  : true,
+            'end'   : false
+        }
 
         this.ContextService.me(function(data){
             if(data != null)
@@ -33,16 +41,50 @@ class ProjectCommentController {
         })
     }
 
+    viewProfile(user)
+    {
+        let $state = this.$state
+        $state.go('app.user.other-profile',{userId:user.id})
+    }
+
     $onInit() {
         this.getCommentList();
     }
     getCommentList(){
-        this.projectRoute.get('comment-list',{'id':this.projectId}).then((response) => {
-            this.commentList = response.plain().data
+
+        this.pagination ={
+            'lastID'  : null,
+            'count' : 10,
+            'busy'  : true,
+            'end'   : false
+        }
+        this.commentList = [];
+        this.loadCommments();
+    }
+    loadCommments(){
+        let param = {
+            'id' : this.projectId,
+            'pagination' : this.pagination
+        }
+
+        if(!this.pagination['end'])
+          this.pagination['busy'] = true;
+
+        this.projectRoute.get('comment-list',param).then((response) => {
+            let result = response.plain().data;
+            if(result.length)
+            {
+                this.commentList = this.commentList.concat(result);
+                this.pagination['lastID'] = result[result.length - 1]['id'];
+            }else{
+                this.pagination['end'] = true;
+            }
+            this.pagination['busy'] = false;
         })
+
     }
     addComment(comment) {
-        this.commentList.push(comment)
+        this.commentList.unshift(comment);
     }
 
     postComment(comment) {

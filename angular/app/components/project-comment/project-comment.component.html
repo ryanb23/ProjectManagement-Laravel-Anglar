@@ -1,32 +1,11 @@
 <div class="panel panel-default project-datail">
-    <div class="panel-heading">
-        <div class="panel-title">Comments
-        </div>
-    </div>
-    <div class="panel-body">
-        <div class="comment-box m-t-20">
-            <div class="comment-item" ng-repeat="item in vm.commentList" scroll-to-bottom="vm.commentList">
-                <div class="user-header">
-                    <div class="user-pic">
-                        <img alt="Profile Image" width="33" height="33"  ng-src="{{item.user.avatar}}" check-image>
-                    </div>
-                    <h5>{{item.user.name}}</h5>
-                    <h6><p class="pull-left"><span class="user_dep" ng-repeat="user_department in item.user.departments">{{user_department.name}}</span></p>
-                            <span class="location semi-bold pull-right" am-time-ago="item.created_at | amUtc | amLocal"></span>
-                    </h6>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="comment-item-body">
-                    <p>{{item.comment}}</p>
-                </div>
-            </div>
-        </div>
+    <div class="panel-heading project-comment-title">
         <div class="comment-input">
-            <div class="row">
+            <div class="row m-t-20">
                 <div class="form-group">
-                    <label for="name" class="col-md-12 control-label">Comment</label>
+                    <label for="name" class="col-md-12 control-label m-b-10">Add Comment</label>
                     <div class="col-md-12">
-                        <textarea ng-model = "vm.comment" class="form-control" id="name" placeholder="Type the comment"  ng-keyup="$event.keyCode == 13 && vm.postComment(vm.comment)"></textarea>
+                        <textarea ng-model = "vm.comment" class="form-control" id="name" placeholder="Start typing here"  ng-keyup="$event.keyCode == 13 && vm.postComment(vm.comment)"></textarea>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -36,6 +15,41 @@
                     <button ng-click="vm.postComment(vm.comment)" class="btn btn-primary btn-cons pull-right m-r-20">Post</button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="panel-heading project-comment-title">
+        <div class="panel-title">Comments
+        </div>
+        <div class="comments-div">
+            <span class="p-r-5">
+                <img src="img/custom/comment-bg.png" alt="img" class="brand">
+            </span>
+            <span>{{vm.commentList.length}} comments</span>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="comment-box" infinite-scroll='vm.loadCommments()' infinite-scroll-disabled='vm.pagination.busy || vm.pagination.end' infinite-scroll-distance='0'>
+            <div class="comment-item p-t-20" ng-repeat="item in vm.commentList" scroll-to-bottom="vm.commentList">
+                <div class="user-header clearfix">
+                    <div class="user-pic">
+                        <img alt="Profile Image" width="33" height="33"  ng-src="{{item.user.avatar}}" check-image>
+                    </div>
+                    <h5 ng-click="vm.viewProfile(item.user)" class="user-name">{{item.user.name}}</h5>
+                    <div class="m-t-5 label-div pull-left">
+                        <span class="label" ng-repeat="item in item.user.departments">{{item.name}}</span>
+                    </div>
+                    <div class="pull-right">
+                        <img src="img/custom/time-clock.png" alt="img" class="brand">
+                        <span class="location semi-bold m-l-5" am-time-ago="item.created_at | amUtc | amLocal"></span>
+                    </div>
+                </div>
+                <div class="comment-item-body">
+                    <p>{{item.comment}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="loading-div" ng-show="vm.pagination.busy">
+            Load More...
         </div>
     </div>
 </div>
