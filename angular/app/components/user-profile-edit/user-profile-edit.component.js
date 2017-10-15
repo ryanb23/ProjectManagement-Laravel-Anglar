@@ -90,8 +90,8 @@ class UserProfileEditController {
     setUserDepartment(){
         let userDepArr = []
         this.department_sel = []
-        for(var i=0; i<this.userInfo.department.length; i++)
-            userDepArr.push(this.userInfo.department[i].id);
+        for(var i=0; i<this.userInfo.departments.length; i++)
+            userDepArr.push(this.userInfo.departments[i].id);
 
         for(var i=0; i<this.departments.length; i++ )
         {

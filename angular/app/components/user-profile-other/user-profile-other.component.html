@@ -28,7 +28,7 @@
                 </div>
                 <div class="row">
                     <h5>Departments</h5>
-                    <span class="label label-success m-r-10" ng-repeat="dep_item in vm.userInfo.department">{{dep_item.name}}</span>
+                    <span class="label label-success m-r-10" ng-repeat="dep_item in vm.userInfo.departments">{{dep_item.name}}</span>
                 </div>
                 <div class="row">
                     <h5>About Me</h5>
@@ -73,7 +73,7 @@
                                 <li ng-repeat="project in vm.projects" class="item padding-15" ng-click="vm.detailView(project)">
                                     <div class="m-l-15">
                                         <p class="recipients no-margin hint-text small">
-                                            <a href="javascript:;">{{vm.userInfo.name}}</a>, <span class="user_dep" ng-repeat="user_department in vm.userInfo.department">{{user_department.name}}</span>
+                                            <a href="javascript:;">{{vm.userInfo.name}}</a>, <span class="user_dep" ng-repeat="user_department in vm.userInfo.departments">{{user_department.name}}</span>
                                         </p>
                                         <a class="subject no-margin" href="javascript:;">{{project.title}}</a>
                                         <p class="body no-margin">
