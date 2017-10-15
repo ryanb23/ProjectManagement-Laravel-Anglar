@@ -11,10 +11,14 @@ use Bican\Roles\Models\Role;
 use Hash;
 use Input;
 use Validator;
+use \Config;
 use DB;
+
+use App\Events\NotificationEvent;
 
 use App\Models\TodoList;
 use App\Http\Traits\CustomTrait;
+
 
 class TodosController extends Controller
 {
@@ -30,6 +34,8 @@ class TodosController extends Controller
     public function postStore(Request $request)
     {
         $project_id = $request['project_id'];
+        $user = Auth::user();
+
         $newTodoList = new Todolist();
         $newTodoList->title = $request['title'];
         $newTodoList->description = $request['description'];
@@ -39,6 +45,10 @@ class TodosController extends Controller
         if(!$newTodoList->save())
             $result = 'false';
         $todoList = Todolist::with('tasks')->where('project_id','=',$project_id)->get();
+
+        $notificaiton_user_ids = array($request['pm_id']);
+        event(new NotificationEvent($user->id, Config::get("custom.notification_new_task"), $project_id, $notificaiton_user_ids));
+
         return response()->success($todoList);
     }
     public function deleteTodos(Request $request){

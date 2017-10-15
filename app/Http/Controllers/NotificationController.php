@@ -54,7 +54,7 @@ class NotificationController extends Controller
         $user_id = $user->id;
         $notifications = Notification::with(array('sender' => function($query){
                 $query->select(['id','name','avatar','firstname','lastname']);
-            }))->where('to_id',$user_id)->where('is_read',0)->get()->toArray();
+            }))->where('to_id',$user_id)->where('is_read',0)->orderBy('updated_at','desc')->get()->toArray();
 
         $result = array_map(function($item){
             return array(
@@ -83,5 +83,12 @@ class NotificationController extends Controller
             $result[$value['user_id']] = $value['cnt'];
         }
         return response()->success($result);
+    }
+
+    public function postReadAll(){
+        $user = Auth::user();
+        $user_id = $user->id;
+        $result = Message::where('to_id',$user_id)->where('is_read',0)->update(['is_read' => 1]);
+        return $result;
     }
 }

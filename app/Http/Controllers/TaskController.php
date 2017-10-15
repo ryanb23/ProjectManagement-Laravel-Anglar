@@ -11,7 +11,10 @@ use Bican\Roles\Models\Role;
 use Hash;
 use Input;
 use Validator;
+use \Config;
 use DB;
+
+use App\Events\NotificationEvent;
 
 use App\Models\Task;
 use App\Http\Traits\FileTrait;
@@ -68,6 +71,8 @@ class TaskController extends Controller
     {
         $task_id = $request['id'];
         $todo_id = $request['todolist_id'];
+        $user = Auth::user();
+        $project_id = $request['project_id'];
         if($task_id == null)
             $newTask = new Task();
         else
@@ -82,6 +87,10 @@ class TaskController extends Controller
         $result = 'success';
         if(!$newTask->save())
             $result = 'false';
+
+        $notificaiton_user_ids = array($request['contributor_id']);
+        event(new NotificationEvent($user->id, Config::get("custom.notification_new_task"), $project_id, $notificaiton_user_ids));
+
         return response()->success($result);
     }
 

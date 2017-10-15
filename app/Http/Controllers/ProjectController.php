@@ -91,7 +91,12 @@ class ProjectController extends Controller
     public function getCommentList(Request $request)
     {
         $project_id = $request['id'];
-        $commentList = ProjectComment::with('user','user.departments')->where('project_id',$project_id)->get();
+        $pagination = json_decode($request['pagination']);
+        $commentList = ProjectComment::with('user','user.departments')
+            ->where('project_id',$project_id);
+        if($pagination->lastID)
+            $commentList = $commentList->where('id','<',$pagination->lastID);
+        $commentList = $commentList->orderBy('created_at','desc')->take($pagination->count)->get();
         return response()->success($commentList);
     }
 
@@ -167,15 +172,22 @@ class ProjectController extends Controller
         }
         return response()->success($todoList);
     }
-    public function getByDateGroup(Request $request){
-        $type = isset($request->type)?  $request->type :  'dep';
+    public function getAll(Request $request){
+        $user = Auth::user();
+        $user_id = $user->id;
+        $depParam = json_decode($request['depParam']);
+        $pagination = json_decode($request['pagination']);
+
+        $type = isset($depParam->type)?  $depParam->type :  'dep';
         if($type == 'dep')
         {
-            $dep_id = isset($request->value)?  $request->value :  'all';
+            $dep_id = isset($depParam->value)?  $depParam->value :  'all';
             $dep_id_arr = [$dep_id];
             $db_result = Project::with(array('votes' => function($query){
                 },
                 'comments' => function($query){
+                },
+                'file' => function($query){
                 },
                 'user'=>function($query){
                     $query->select(['id','name','avatar','firstname','lastname']);
@@ -192,11 +204,13 @@ class ProjectController extends Controller
                 }
                 $db_result = $db_result->whereIn('department_id',$dep_id_arr);
             }
-            $db_result = $db_result->orderBy('created_at','desc')->get();
+            if($pagination->lastID)
+                $db_result = $db_result->where('id','<',$pagination->lastID);
+            $db_result = $db_result->orderBy('created_at','desc')->take($pagination->count)->get();
         }
         if($type == 'status')
         {
-            $status = isset($request->value)?  $request->value :  'opened';
+            $status = isset($depParam->value)?  $depParam->value :  'opened';
             switch($status)
             {
                 case 'opened':
@@ -213,21 +227,37 @@ class ProjectController extends Controller
                 },
                 'comments' => function($query){
                 },
+                'file' => function($query){
+                },
                 'user'=>function($query){
                     $query->select(['id','name','avatar','firstname','lastname']);
                 },
                 'user.departments' => function($query){
                     $query->select();
-                }))->where('status',$status)->orderBy('created_at','desc')->get();
+                }))->where('status',$status);
+            if($pagination->lastID)
+                $db_result = $db_result->where('id','<',$pagination->lastID);
+            $db_result = $db_result->orderBy('created_at','desc')->take($pagination->count)->get();
         }
 
         $projects = array();
         foreach($db_result as $db_item)
         {
-            $date = explode(" ",$db_item->created_at);
-            $date = $date[0];
-            $projects[$date][] = $db_item;
-
+            $item = $db_item;
+            $is_vote = $is_comment = false;
+            foreach ($db_item['votes'] as $value) {
+                if($value['user_id'] == $user_id)
+                    $is_vote = true;
+            }
+            foreach ($db_item['comments'] as $value) {
+                if($value['user_id'] == $user_id)
+                    $is_comment = true;
+            }
+            $item['vote_count'] = count($db_item['votes']);
+            $item['comment_count'] = count($db_item['comments']);
+            $item['is_vote'] = $is_vote;
+            $item['is_comment'] = $is_comment;
+            $projects[] = $db_item;
         }
         return response()->success($projects);
     }
@@ -235,9 +265,17 @@ class ProjectController extends Controller
     {
         $projectId = $request['id'];
         $user = Auth::user();
-        $projectDetail = Project::with(['file','label','department'])->find($projectId);
+        $projectDetail = Project::with(array('votes','comments','file','label','department',
+            'user'=>function($query){
+                $query->select(['id','name','avatar','firstname','lastname']);
+            },
+            'user.departments' => function($query){
+                $query->select();
+            }))->find($projectId);
         $is_upvote = ProjectUpvote::where(['project_id'=>$projectId,'user_id'=>$user->id])->count();
         $projectDetail['is_upvote'] = $is_upvote;
+        $projectDetail['vote_count'] = $projectDetail->votes->count();
+        $projectDetail['comment_count'] = $projectDetail->comments->count();
         return response()->success($projectDetail);
     }
 
@@ -310,9 +348,11 @@ class ProjectController extends Controller
         }
         return response()->success('success');
     }
-    public function postUpdatePorjectManagers(Request $request){
+    public function postUpdateProjectManagers(Request $request){
         $id = $request['id'];
         $project_id = $request['project_id'];
+        $user = Auth::user();
+
         foreach($request['project_managers'] as $pm)
         {
             $row = DB::table('project_users')->where('project_id',$project_id)->where('user_id',$pm['id'])->get();
@@ -320,8 +360,10 @@ class ProjectController extends Controller
             {
                 DB::table('project_users')->insert(['project_id'=>$project_id,'user_id'=>$pm['id']]);
             }
-
         }
+
+        $notificaiton_user_ids = array_map(function($v){return $v['id'];},$request['project_managers']);
+        event(new NotificationEvent($user->id, Config::get("custom.notification_project_manager_assign"), $project_id, $notificaiton_user_ids));
 
         return response()->success('success');
     }
