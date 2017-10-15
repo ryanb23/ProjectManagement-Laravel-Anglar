@@ -86,6 +86,7 @@ class ProjectCommentController {
     }
     addComment(comment) {
         this.commentList.unshift(comment);
+        this.commentcount++;
     }
 
     postComment(comment) {
