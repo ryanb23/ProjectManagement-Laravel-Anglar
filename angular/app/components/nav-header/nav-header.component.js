@@ -49,10 +49,13 @@ class NavHeaderController {
   addNotificaiton(notification){
       let user_id = this.userInfo['id'];
       let to_ids = notification['to_ids'];
-      if(to_ids.indexOf(user_id) > -1)
+      let is_new = !this.notificaitonList.find(function(item){
+          return item['type'] == notification['data']['type'] && item['resource_id'] == notification['data']['resource_id']
+      })
+      if(to_ids.indexOf(user_id) > -1 && is_new)
       {
           let data = notification['data'];
-          this.notificaitonList.push(data);
+          this.notificaitonList.unshift(data);
       }
   }
 
@@ -72,6 +75,12 @@ class NavHeaderController {
   updateNotificationNumber(){
       this.notificationRoute.get('all-number').then((response)=>{
           this.chatNotificationTotal = response.plain().data
+      })
+  }
+
+  readAllNotification(){
+      this.notificationRoute.all('read-all').post().then((response)=>{
+          this.notificaitonList = []
       })
   }
 

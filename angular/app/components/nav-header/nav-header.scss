@@ -1,7 +1,28 @@
-.header-inner{
+.header{
     .chat_notification{
         position: absolute;
         bottom: 10px;
         right: -7px;
+    }
+    .brand{
+        width: 315px !important;
+        span{
+            font-size: 24px;
+            text-align: center;
+            color: #222;
+            font-weight: 500;
+        }
+    }
+    .search-link{
+        margin-left: 0px !important;
+        padding: 5px 15px;
+        border-left: 1px solid #e6e6e6;
+    }
+    .notification-list{
+        float: left;
+        margin: 10px !important
+    }
+    .notification-toggle{
+        left: -200px !important;
     }
 }
