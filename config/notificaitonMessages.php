@@ -12,5 +12,7 @@ return [
      '3' => ' left comment on your project',
      '4' => 'your project reached popular level',
      '5' => ' approved your project',
-     '6' => ' dismissed your project'
+     '6' => ' dismissed your project',
+     '7' => ' assigned you as project manager',
+     '8' => ' assigned a new task'
 ];
