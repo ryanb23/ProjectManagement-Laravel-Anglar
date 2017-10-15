@@ -7,31 +7,29 @@
     <ul class="main-menu scroll-content scroll-scrolly_visible">
         <li ng-class="{active: vm.depSel.value == 'all'}">
             <a href="javascript:;" ng-click="vm.getProjects({'type':'dep','value':'all'})">
-                <div>
+                <div class="menu-itme-div">
 				<span class="title">
-					<i class="fa fa-desktop"></i> All Department
+					<i class="fa fa-arrow-right"></i> All Department
 				</span>
-				<span class="badge pull-right">{{vm.totalProject}}</span>
+				<span class="badge badge-success pull-right">{{vm.totalProject}}</span>
                 </div>
             </a>
         </li>
         <li ng-class="{active: vm.depSel.value == dep_item.id}" ng-repeat="dep_item in vm.departments">
             <a href="javascript:;" ng-click="vm.getProjects({'type':'dep','value':dep_item.id})">
-                <div>
+                <div class="menu-itme-div">
 				<span class="title">
-					<i class="fa fa-desktop"></i> {{dep_item.name}}
+					<i class="fa fa-arrow-right"></i> {{dep_item.name}}
 				</span>
-				<span class="badge pull-right">{{dep_item.project_count.project_count}}</span>
-                <div style="clear:both"></div>
+				<span class="badge badge-success pull-right">{{dep_item.project_count.project_count}}</span>
                 </div>
 			</a>
             <ul ng-if="dep_item.child_department" class="sub-menu no-padding">
                 <li ng-class="{active: vm.depSel.value == dep_child_item.id}" ng-repeat="dep_child_item in dep_item.child_department">
                     <a href="javascript:;" ng-click="vm.getProjects({'type':'dep','value':dep_child_item.id})">
-                        <div>
+                        <div class="menu-itme-div">
                         <span class="title">{{dep_child_item.name}}</span>
-                        <span class="badge pull-right">{{dep_child_item.project_count.project_count}}</span>
-                        <div style="clear:both"></div>
+                        <span class="badge badge-success pull-right">{{dep_child_item.project_count.project_count}}</span>
                         </div>
                     </a>
                 </li>
@@ -39,31 +37,34 @@
         </li>
     </ul>
     <p class="menu-title m-t-20 all-caps">Project Status</p>
-    <ul class="sub-menu no-padding">
+    <ul class="main-menu scroll-content scroll-scrolly_visible no-padding">
         <li ng-class="{active: vm.depSel.value == 'opened'}">
             <a href="javascript:;" ng-click="vm.getProjects({'type':'status','value':'opened'})">
-                <div>
-				<span class="title">Opened Project</span>
+                <div class="menu-itme-div">
+				<span class="title">
+                    <i class="fa fa-arrow-right"></i> Opened Project
+                </span>
                 <span class="badge pull-right">{{vm.countArr.opened}}</span>
-                <div style="clear:both"></div>
                 </div>
 			</a>
         </li>
         <li ng-class="{active: vm.depSel.value == 'approved'}">
             <a href="javascript:;" ng-click="vm.getProjects({'type':'status','value':'approved'})">
-                <div>
-				<span class="title">Approved Project</span>
+                <div class="menu-itme-div">
+				<span class="title">
+                    <i class="fa fa-arrow-right"></i> Approved Project
+                </span>
                 <span class="badge pull-right">{{vm.countArr.approved}}</span>
-                <div style="clear:both"></div>
                 </div>
 			</a>
         </li>
         <li ng-class="{active: vm.depSel.value == 'dismissed'}">
             <a href="javascript:;"  ng-click="vm.getProjects({'type':'status','value':'dismissed'})">
-                <div>
-				<span class="title">Dismissed Project</span>
+                <div class="menu-itme-div">
+				<span class="title">
+                    <i class="fa fa-arrow-right"></i> Dismissed Project
+                </span>
                 <span class="badge pull-right">{{vm.countArr.dismissed}}</span>
-                <div style="clear:both"></div>
                 </div>
 			</a>
         </li>
@@ -71,35 +72,160 @@
 </nav>
 <!-- DISPLAY PROJECT LIST -->
 <div class="inner-content full-height">
+    <div class="statistic-div">
+        <div class="row no-margin ">
+                <div class="col-lg-2 col-md-4 col-sm-6 m-b-10 no-padding no-margin">
+                <div class=" custom-widget no-border bg-purple">
+                    <div class="container-height full-height">
+                        <div class="pull-left">
+                            <span class="title">Traffic</span>
+                            <span class="number">234,234</span>
+                        </div>
+                        <div class="img-div pull-right">
+                            <img src="img/custom/statistic1.png" alt="img" class="brand">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 m-b-10 no-padding no-margin">
+                <div class=" custom-widget no-border bg-green">
+                    <div class="container-height full-height">
+                        <div class="pull-left">
+                            <span class="title">Profit</span>
+                            <span class="number">$234,234</span>
+                        </div>
+                        <div class="img-div pull-right">
+                            <img src="img/custom/statistic2.png" alt="img" class="brand">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 m-b-10 no-padding no-margin">
+                <div class=" custom-widget no-border bg-orange">
+                    <div class="container-height full-height">
+                        <div class="pull-left">
+                            <span class="title">Weekly Upvotes</span>
+                            <span class="number">1,234</span>
+                        </div>
+                        <div class="img-div pull-right">
+                            <img src="img/custom/statistic3.png" alt="img" class="brand">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 m-b-10 no-padding no-margin">
+                <div class=" custom-widget no-border bg-pink">
+                    <div class="container-height full-height">
+                        <div class="pull-left">
+                            <span class="title">Visitors</span>
+                            <span class="number">234,234</span>
+                        </div>
+                        <div class="img-div pull-right">
+                            <img src="img/custom/statistic4.png" alt="img" class="brand">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 m-b-10 no-padding no-margin">
+                <div class=" custom-widget no-border bg-light-pink">
+                    <div class="container-height full-height">
+                        <div class="pull-left">
+                            <span class="title">Visitors</span>
+                            <span class="number">234,234</span>
+                        </div>
+                        <div class="img-div pull-right">
+                            <img src="img/custom/statistic5.png" alt="img" class="brand">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 m-b-10 no-padding no-margin">
+                <div class=" custom-widget no-border bg-blue">
+                    <div class="container-height full-height">
+                        <div class="pull-left">
+                            <span class="title">Visitors</span>
+                            <span class="number">234,234</span>
+                        </div>
+                        <div class="img-div pull-right">
+                            <img src="img/custom/statistic6.png" alt="img" class="brand">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="split-view">
         <div class="split-list">
-            <a class="list-refresh" href="javascript:;" ng-click="vm.getProjects(vm.depSel)"><i class="fa fa-refresh"></i></a>
-            <div class="list-view">
-                <div ng-repeat="(date,projectGroup) in vm.projects" class="list-view-group-container">
-                    <div class="list-view-group-header"><span>{{date}}</span></div>
-                    <ul class="no-padding">
-                        <li ng-repeat="project in projectGroup" class="item padding-15" ng-click="vm.detailView(project)">
-                            <div class="m-l-15">
-                                <p class="recipients no-margin hint-text small">
-                                    <a href="javascript:;">{{project.user.name}}</a>, <span class="user_dep" ng-repeat="user_department in project.user.departments">{{user_department.name}}</span>
-                                </p>
-                                <a class="subject no-margin" href="javascript:;">{{project.title}}</a>
-                                <p class="body no-margin">
-                                    {{project.objective}}
-                                </p>
+            <div class="filter-option-div  col-lg-8 col-lg-offset-2  col-md-10 col-md-offset-1 col-sm-12 m-t-30 m-b-20">
+                <div class="form-group filter-form">
+                    <label>Filter</label>
+                    <ui-select ng-model="vm.filterName" theme="bootstrap" class="m-l-20 filter-select">
+                        <ui-select-match placeholder="Filter...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in vm.filterTypes | filter: $select.search">
+                            <div ng-bind-html="vm.trustAsHtml((item.name | highlight: $select.search))"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <a class="project-list-refresh" href="javascript:;" ng-click="vm.getProjects(vm.depSel)"><i class="fa fa-refresh"></i></a>
+            </div>
+            <div class="projects-view" infinite-scroll='vm.loadProjects(vm.depSel)' infinite-scroll-disabled='vm.projectPagination.busy || vm.projectPagination.end' infinite-scroll-distance='0'>
+                <div ng-repeat="project in vm.projects" class="row m-b-60">
+                    <div class="project-detail-view col-lg-8 col-lg-offset-2  col-md-10 col-md-offset-1 col-sm-12">
+                        <div class="main-content">
+                            <div class="user-info clearfix">
+                                <div class="user-avatar pull-left">
+                                    <img width="50px" height="50px"  alt="" src="{{project.user.avatar}}" check-image>
+                                </div>
+                                <div class="user-detail pull-left">
+                                    <p><span class="user-name" ng-click="vm.viewProfile(project.user)">{{project.user.name}}</span> in
+                                        <span ng-repeat="(index, user_dep_item) in project.user.departments" class="badge badge-success m-l-5">{{user_dep_item.name}}</span>
+                                    </p>
+                                    <p><img src="img/custom/time-clock.png" alt="img" class="brand"> &nbsp;<span class="datetime" am-time-ago="project.created_at | amUtc | amLocal"></span></p>
+                                </div>
                             </div>
-                            <div class="datetime" am-time-ago="project.created_at | amUtc | amLocal"></div>
-                            <div class="pull-left m-l-15">
-                                <span>
-									<i class="fa fa-heart" aria-hidden="true"></i> {{project.votes.length}}
-								</span>
-                                <span>
-									<i class="fa fa-comments-o" aria-hidden="true"></i> {{project.comments.length}}
-								</span>
+                            <div class="project-content">
+                                <a class="project-title" href="javascript:;"  ng-click="vm.detailView(project)">{{project.title}}</a>
+                                <p class="project-description">
+                                    {{project.description}}
+                                </p>
+                                <div class="attachment-div">
+                                    <span>Attachments</span>
+                                    <div ng-repeat="(index,file_item) in project.file" class="attachment-item">
+                                        <a class="attachment-info" href="{{vm.getImageUrl(project.id,file_item.filename)}}" download>
+                                            <img src="img/custom/attachment.png" alt="img" class="brand"> <span>  {{file_item.org_filename}}</span>
+                                        </a>
+                                        <div class="image-div" style="background-image: url({{vm.getImageUrl(project.id,file_item.filename)}})"></div>
+                                    </div>
+                                </div>
+                                <div class="status-div">
+                                    <div class="likes-div">
+                                        <span class="p-t-5 p-b-5 p-r-5">
+            								<i class="fa fa-heart fs-20"></i>
+            							</span>
+                                        <span>{{project.vote_count}} Likes</span>
+                                    </div>
+                                    <div class="comments-div">
+                                        <span class="p-r-5">
+                                            <img src="img/custom/comment-bg.png" alt="img" class="brand">
+                                        </span>
+                                        <span>{{project.comment_count}} comments</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="clearfix"></div>
-                        </li>
-                    </ul>
+                        </div>
+                        <div class="status-action-div">
+                            <div class="p-t-5 p-b-5 p-r-15 like-div" ng-click="vm.toggleVote(project.id,project.is_vote)">
+                                <i class="fa fs-20" ng-class="{'fa-heart-o': !project.is_vote, 'fa-heart': project.is_vote}"></i> Like
+                            </div>
+                            <div class="p-t-5 p-b-5 p-r-5 comment-action-div" ng-click="vm.detailView(project)">
+                                <span class="comment-image" ng-class="{'on': project.is_comment}"></span> <span class="p-l-5">Comment</span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="loading-div" ng-show = "vm.projectPagination.busy">
+                    Load More...
                 </div>
             </div>
         </div>
