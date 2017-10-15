@@ -392,7 +392,6 @@ body.rtl [class*="col-"] {
   clear: both;
 }
 .page-sidebar .sidebar-menu .menu-items > li > a {
-  font-family: Arial, sans-serif;
   display: inline-block;
   padding: 0 3px;
   padding-left: 32px;
@@ -510,7 +509,6 @@ body.rtl [class*="col-"] {
   display: inline-block;
   padding: 5px 0px;
   font-size: 13px;
-  font-family: Arial, sans-serif;
   white-space: normal;
 }
 .page-sidebar .sidebar-menu .menu-items > li ul.sub-menu > li .icon-thumbnail {
@@ -622,11 +620,11 @@ body.rtl [class*="col-"] {
 }
 .secondary-sidebar .main-menu > li a {
   font-size: 14px;
-  color: #788195;
+  color: #2d2d2d;
   line-height: 37px;
 }
 .secondary-sidebar .main-menu > li a:hover {
-  color: #fff;
+  color: #717171;
 }
 .secondary-sidebar .main-menu > li a > .title i {
   margin-right: 6px;
@@ -640,21 +638,14 @@ body.rtl [class*="col-"] {
   padding: 0;
 }
 .secondary-sidebar .sub-menu li.active a {
-  color: #fff !important;
+  color: #717171 !important;
 }
 .secondary-sidebar .sub-menu li a {
-  color: rgba(120, 129, 149, 0.5);
+  color: #2d2d2d;
   line-height: 25px;
 }
 .secondary-sidebar .sub-menu li a:hover {
-  color: #fff;
-}
-.secondary-sidebar .sub-menu li a .badge,
-.secondary-sidebar .main-menu li a .badge {
-  background: transparent;
-  font-size: 13px;
-  color: #788195;
-  line-height: 25px;
+  color: #717171;
 }
 .split-view {
   position: relative;
@@ -1077,7 +1068,6 @@ body.rtl [class*="col-"] {
   /* Content holder */
   z-index: 10;
   padding-top: 60px;
-  padding-bottom: 72px;
   min-height: 100%;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
@@ -2801,7 +2791,7 @@ hr.dotted {
 @media (max-width: 1400px) {
   body,
   p {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 20px;
   }
   h1 {
@@ -3798,13 +3788,12 @@ Misc buttons
 */
 .badge {
   text-shadow: none;
+  text-transform: uppercase;
   font-family: wf_segoe-ui_light, wf_segoe-ui_normal, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 600;
   background-color: #e6e6e6;
   font-size: 11px;
-  padding-left: 6px;
-  padding-right: 6px;
-  padding-bottom: 4px;
+  padding: 5px 10px;
   color: #626262;
 }
 .badge-success {

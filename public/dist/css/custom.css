@@ -1,8 +1,8 @@
 body {
-    font-family: Raleway, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif !important;
     font-size: 14px;
     line-height: 1.428571429;
-    color: #6a6c6f;
+    color: #929292 !important;
 }
 .simple-page {
     background-color: #188ae2;
