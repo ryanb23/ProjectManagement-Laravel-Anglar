@@ -37,7 +37,7 @@ class ProjectsController {
 
     this.projectPagination ={
         'lastID'  : null,
-        'count' : 1,
+        'count' : 5,
         'busy'  : true,
         'end'   : false
     }
@@ -66,7 +66,7 @@ class ProjectsController {
       this.depSel =  depParam;
       this.projectPagination ={
           'lastID'  : null,
-          'count' : 1,
+          'count' : 5,
           'busy'  : true,
           'end'   : false
       }
