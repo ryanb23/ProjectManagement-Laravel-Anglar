@@ -48,6 +48,7 @@ class ProjectCommentController {
     }
 
     $onInit() {
+        console.log(this.commentCount)
         this.getCommentList();
     }
     getCommentList(){
@@ -112,5 +113,7 @@ export const ProjectCommentComponent = {
     templateUrl: './views/app/components/project-comment/project-comment.component.html',
     controller: ProjectCommentController,
     controllerAs: 'vm',
-    bindings: {}
+    bindings: {
+        commentcount: '<'
+    }
 }
