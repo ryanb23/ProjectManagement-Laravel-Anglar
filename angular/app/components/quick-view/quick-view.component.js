@@ -13,7 +13,7 @@ class QuickViewController {
 
     this.message = ''
     this.openChanelId = null
-    this.unreadMessage = [];
+    this.unreadMessage = {};
 
     this.userRoute.get('all-chat-user').then((response) => {
         this.chatUsers = response.plain().data
@@ -28,12 +28,10 @@ class QuickViewController {
             let channel = pusher.subscribe('chat-channel-' + data.id)
             //Bind a function to a Event (the full Laravel class)
             channel.bind('App\\Events\\MessagePostEvent', function(messageData) {
-                console.log(messageData)
-
                 if (messageData.user.id == that.openChanelId) {
                     that.addMessage(messageData)
                 }else{
-                    that.$rootScope.$emit("MessageEmit",{messageData})
+                    that.$rootScope.$emit("MessageUpdate",{messageData})
                     let from_id = messageData.user.id
                     if(typeof that.unreadMessage[from_id] == 'undefined'){
                         that.unreadMessage[from_id] = 1
@@ -53,12 +51,15 @@ class QuickViewController {
   }
   openChanel(userInfo) {
       this.openChanelId = userInfo.id
-      this.$rootScope.$emit("MessageRead",this.unreadMessage[userInfo.id])
-      this.unreadMessage[userInfo.id] = 0;
       this.API.one('message', 'message-with').get({
           with_id: this.openChanelId
       }).then((response) => {
           this.messageList = response.plain().data
+          if(this.unreadMessage[userInfo.id])
+          {
+            this.unreadMessage[userInfo.id] = 0;
+            this.$rootScope.$emit("MessageUpdate",this.unreadMessage[userInfo.id])
+          }
       })
   }
   leftChannel(){

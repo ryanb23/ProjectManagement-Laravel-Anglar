@@ -12,20 +12,13 @@ class NavHeaderController {
     this.notificationRoute = API.all('notifications');
 
     function  updateChatNotification(event, args) {
-        navHeader.chatNotificationTotal ++;
-        navHeader.$scope.$apply()
+        navHeader.updateNotificationNumber()
     }
 
-    function  readChatNotification(event, args) {
-        navHeader.chatNotificationTotal -= args;
-    }
-
-    this.$rootScope.$on("MessageEmit", updateChatNotification);
-    this.$rootScope.$on("MessageRead", readChatNotification);
+    this.$rootScope.$on("MessageUpdate", updateChatNotification);
 
     var eventFunc = {
-        updateChatNotification: updateChatNotification,
-        readChatNotification: readChatNotification,
+        updateChatNotification: updateChatNotification
     }
 
     angular.extend(navHeader, eventFunc);
