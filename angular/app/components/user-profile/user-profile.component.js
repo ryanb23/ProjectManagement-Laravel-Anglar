@@ -27,6 +27,10 @@ class UserProfileController {
         })
     }
 
+    getImageUrl(project_id, filename){
+        return 'pro_imgs/' + project_id+ '/' + filename
+    }
+
     $onInit() {
         let that = this
         this.ContextService.me(function(data){
