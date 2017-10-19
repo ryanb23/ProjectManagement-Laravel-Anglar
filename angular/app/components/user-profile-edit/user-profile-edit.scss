@@ -1,40 +1,42 @@
-
-.profile_img:hover{
-    cursor: pointer;
-}
-
-.user_profile_edit_div{
-    h5{
-        text-align: center;
+.user-profile-edit{
+    .profile_img:hover{
+        cursor: pointer;
     }
-    .text-right{
-        text-align: right;
-    }
-    .user_profile_pic_div{
-        text-align: center;
-        .profile_img{
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 0 auto;
-            overflow: hidden;
+
+    .user_profile_edit_div{
+        h5{
+            text-align: center;
         }
-    }
-    .cropArea {
-      background: #E4E4E4;
-      overflow: hidden;
-      width:350px;
-      height:350px;
-      margin: auto;
+        .text-right{
+            text-align: right;
+        }
+        .user_profile_pic_div{
+            padding-left: 0px !important;
+            text-align: center;
+            .profile_img{
+                width: 180px;
+                height: 180px;
+                border-radius: 50%;
+                margin: 0 auto;
+                overflow: hidden;
+            }
+        }
+        .cropArea {
+          background: #E4E4E4;
+          overflow: hidden;
+          width:350px;
+          height:350px;
+          margin: auto;
+        }
+        .user_detail_div{
+            h5{
+                font-weight: 500
+            }
+        }
     }
     .user_detail_div{
-        h5{
-            font-weight: 500
+        textarea[name="about_me"]{
+            height:200px;
         }
-    }
-}
-.user_detail_div{
-    textarea[name="about_me"]{
-        height:200px;
     }
 }

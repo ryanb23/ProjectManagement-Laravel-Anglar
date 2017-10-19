@@ -1,6 +1,6 @@
 <!-- START PAGE CONTENT -->
 <!-- START CONTAINER FLUID -->
-<div class="container-fluid container-fixed-lg">
+<div class="container-fluid container-fixed-lg user-profile-edit">
     <ul class="breadcrumb">
         <li>
             <a>Home</a>
@@ -19,7 +19,7 @@
         <div class="panel-body">
             <div class="row user_profile_pic_div">
                 <div class="profile_img m-t-5" ng-click="vm.showModal()">
-                    <img check-image src="{{vm.userInfo.avatar}}" width="150" height="150">
+                    <img check-image src="{{vm.userInfo.avatar}}" width="180" height="180">
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -100,39 +100,38 @@
             </div>
         </div>
     </div>
-</div>
+    <!-- MODAL STICK UP  -->
+    <div class="modal fade stick-up" id="profileImgModal" tabindex="-1" role="dialog" aria-labelledby="profileImgModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header clearfix ">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                    </button>
+                    <h4 class="p-b-5"><span class="semi-bold">Change</span> Avatar</h4>
+                </div>
 
-<!-- MODAL STICK UP  -->
-<div class="modal fade stick-up" id="profileImgModal" tabindex="-1" role="dialog" aria-labelledby="profileImgModal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header clearfix ">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
-                </button>
-                <h4 class="p-b-5"><span class="semi-bold">Change</span> Avatar</h4>
-            </div>
-
-            <div class="modal-body user_profile_edit_div">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h5>Select an image file</h5>
-                        <input type="file" style="display:none" id="fileInput" />
-                        <div class="cropArea">
-                            <img-crop image="uploadedImage" result-image="userProfileImg" result-image-size="150" ng-dblclick="vm.openFileSelector()"></img-crop>
+                <div class="modal-body user_profile_edit_div">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>Select an image file</h5>
+                            <input type="file" style="display:none" id="fileInput" />
+                            <div class="cropArea">
+                                <img-crop image="uploadedImage" result-image="userProfileImg" result-image-size="180" ng-dblclick="vm.openFileSelector()"></img-crop>
+                            </div>
+                        </div>
+                        <div class=" user_profile_pic_div col-md-4">
+                            <h5>Preview Profile Image</h5>
+                            <div class="profile_img m-t-5"><img ng-src="{{userProfileImg}}" /></div>
                         </div>
                     </div>
-                    <div class=" user_profile_pic_div col-md-4">
-                        <h5>Preview Profile Image</h5>
-                        <div class="profile_img m-t-5"><img ng-src="{{userProfileImg}}" /></div>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary  btn-cons" ng-click="vm.saveAvatar(userProfileImg)">Save</button>
+                    <button type="button" class="btn btn-danger btn-cons" ng-click="vm.hideModal()">Close</button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary  btn-cons" ng-click="vm.saveAvatar(userProfileImg)">Save</button>
-                <button type="button" class="btn btn-danger btn-cons" ng-click="vm.hideModal()">Close</button>
-            </div>
+            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
