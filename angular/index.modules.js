@@ -18,5 +18,5 @@ angular.module('app.components', [
   'restangular', 'ngStorage', 'satellizer',
   'mm.acl','oc.lazyLoad','ui.utils','thatisuday.dropzone',
   'bootstrapLightbox','ui.select','ui.bootstrap','angularMoment',
-  'ngImgCrop','infinite-scroll'
+  'ngImgCrop','infinite-scroll','angularjs-dropdown-multiselect'
 ])
