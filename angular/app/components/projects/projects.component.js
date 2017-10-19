@@ -1,5 +1,5 @@
 class ProjectsController {
-  constructor (API, $state, $stateParams, $scope, $sce, $compile, $filter) {
+  constructor (API, $state, $stateParams, $scope, $sce, $compile, $filter,$location) {
     'ngInject'
 
     let that = this
@@ -8,6 +8,7 @@ class ProjectsController {
     this.$compile = $compile;
     this.$filter = $filter;
     this.$state = $state;
+    this.$location = $location;
     this.API = API;
 
     this.status = null;
@@ -124,6 +125,14 @@ class ProjectsController {
               project.is_vote = false;
           });
       }
+  }
+  shareYammer(item){
+      let url = this.$location.absUrl().split('?')[0]
+      var options = {
+        defaultMessage: item.title, //optionally pass a message to prepopulate your post
+        pageUrl: url + '/' + item.id //current browser url is used by default. You can pass your own url if you want to generate the OG object from a different URL.
+      };
+      yam.platform.yammerShareOpenPopup(options);
   }
 
   $onInit() {

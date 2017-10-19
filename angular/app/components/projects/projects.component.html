@@ -213,12 +213,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="status-action-div">
-                            <div class="p-t-5 p-b-5 p-r-15 like-div" ng-click="vm.toggleVote(project.id,project.is_vote)">
-                                <i class="fa fs-20" ng-class="{'fa-heart-o': !project.is_vote, 'fa-heart': project.is_vote}"></i> Like
+                        <div class="status-action-div cleafix">
+                            <div class="social-left-div">
+                                <div class="p-t-5 p-b-5 p-r-15 like-div" ng-click="vm.toggleVote(project.id,project.is_vote)">
+                                    <i class="fa fs-20" ng-class="{'fa-heart-o': !project.is_vote, 'fa-heart': project.is_vote}"></i> Like
+                                </div>
+                                <div class="p-t-5 p-b-5 p-r-5 comment-action-div" ng-click="vm.detailView(project)">
+                                    <span class="comment-image" ng-class="{'on': project.is_comment}"></span> <span class="p-l-5">Comment</span>
+                                </div>
                             </div>
-                            <div class="p-t-5 p-b-5 p-r-5 comment-action-div" ng-click="vm.detailView(project)">
-                                <span class="comment-image" ng-class="{'on': project.is_comment}"></span> <span class="p-l-5">Comment</span>
+                            <div class="pull-right p-t-5 p-b-5 p-r-5 share-action-div" ng-click="vm.shareYammer(project)">
+                                <i class="fa fa-share-alt fs-20 p-r-5"></i> Share
                             </div>
                         </div>
                         <div class="clearfix"></div>

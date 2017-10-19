@@ -1,3 +1,5 @@
+@import "./angular/material/project";
+
 .secondary-sidebar{
     background: #ffffff !important;
     border-right: 1px solid #e6e6e6;
@@ -227,6 +229,11 @@
                 padding: 15px 30px;
                 display: flex;
                 align-items: center;
+                justify-content: space-between;
+                .social-left-div{
+                    display: flex;
+                    align-items: center;
+                }
                 .like-div{
                     cursor: pointer;
                     i{
@@ -251,6 +258,14 @@
                             background: url(/img/custom/comment-bg.png) no-repeat;
                         }
                         background: url(/img/custom/comment.png) no-repeat;
+                    }
+                }
+                .share-action-div{
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    i{
+                        color: $primary;
                     }
                 }
             }
