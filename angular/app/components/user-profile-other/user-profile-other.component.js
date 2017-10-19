@@ -23,6 +23,10 @@ class UserProfileOtherController {
             this.projects = response.plain().data
         })
     }
+    
+    getImageUrl(project_id, filename){
+        return 'pro_imgs/' + project_id+ '/' + filename
+    }
 
     $onInit() {
         let that = this

@@ -1,6 +1,6 @@
 <!-- START PAGE CONTENT -->
 <!-- START CONTAINER FLUID -->
-<div class="container-fluid container-fixed-lg">
+<div class="container-fluid container-fixed-lg user-profile-other">
     <ul class="breadcrumb">
         <li>
             <a>Home</a>
@@ -10,88 +10,137 @@
     </ul>
     <!-- END BREADCRUMB -->
     <!-- START PANEL -->
-    <div class="panel panel-default col-md-8 col-md-offset-2 user_profile_div">
-        <div class="panel-heading">
+    <div class="panel panel-default col-md-10 col-md-offset-1 user_profile_div">
+        <div class="panel-heading button-div">
+            <a class=""  ng-click="vm.editProfile()"><i class="fa fa-envelope"></i></a>
+            <a class=""  ng-click="vm.editProfile()"><i class="fa fa-star"></i></a>
+            <div class="clearfix"></div>
         </div>
         <div class="panel-body">
             <div class="row user_profile_pic_div">
                 <div class="profile_img m-t-5">
-                    <img check-image src="{{vm.userInfo.avatar}}" alt=""  width="150" height="150">
+                    <img ng-click="vm.editProfile()" check-image src="{{vm.userInfo.avatar}}" alt=""  width="180" height="180">
                 </div>
                 <div class="clearfix"></div>
-                <h2 class="m-t-30 title_p">{{vm.userInfo.fullname}}</h2>
+                <div class="user-info-div">
+                    <p class="user-name">{{vm.userInfo.fullname}}</p>
+                    <p class="user-role"><span ng-repeat="role_item in vm.userInfo.role">{{role_item.name}}</span></p>
+                    <span class="user-department">Departments</span><span ng-repeat="(index, user_dep_item) in vm.userInfo.departments" class="badge badge-success m-l-5">{{user_dep_item.name}}</span>
+                </div>
             </div>
-            <div class="user_detail_div">
-                <div class="row">
-                    <h5>Roles</h5>
-                    <a class="btn btn-default btn-cons btn-rounded btn-notification-style m-b-10 active ng-binding" ng-repeat="role_item in vm.userInfo.role">{{role_item.name}}</a>
+        </div>
+        <div class="user_detail_div">
+            <div class="row metric-div">
+                <div class="post-div">
+                    <span class="p-r-5 icon">
+                        <img src="img/custom/comment-bg.png" alt="img" class="brand">
+                    </span>
+                    <span class="number">{{vm.userInfo.post_count}}</span>
+                    <span>Posts</span>
                 </div>
-                <div class="row">
-                    <h5>Departments</h5>
-                    <span class="label label-success m-r-10" ng-repeat="dep_item in vm.userInfo.departments">{{dep_item.name}}</span>
+                <div class="like-div">
+                    <span class="p-r-5 icon">
+                        <i class="fa fa-heart fs-20"></i>
+                    </span>
+                    <span class="number">{{vm.userInfo.like_count}}</span>
+                    <span>Likes</span>
                 </div>
-                <div class="row">
+                <div class="point-div">
+                    <span class="p-r-5 icon">
+                        <img src="img/custom/point-icon.png" alt="img" class="brand">
+                    </span>
+                    <span class="number">126</span>
+                    <span>Points</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 about-me">
                     <h5>About Me</h5>
                     <p>{{vm.userInfo.about_me}}</p>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="panel panel-tranparent col-md-8 col-md-offset-2 user_project_div">
-        <div class="panel">
-            <ul class="nav nav-tabs nav-tabs-simple" role="tablist" ui-jq="tabCollapse">
-                <li><a href="#stream" data-toggle="tab" pg-tab role="tab">Stream</a>
-                </li>
-                <li class="active"><a href="#projects" data-toggle="tab" pg-tab role="tab">Projects</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane" id="stream">
-                    <div class="row column-seperation">
-                        <div class="comment-item" scroll-to-bottom="vm.commentList">
-                            <div class="user-header">
-                                <div class="user-pic">
-                                    <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" src="assets/img/profiles/4x.jpg">
-                                </div>
-                                <h5>test</h5>
-                                <h6><p class="pull-left"><span class="user_dep" ng-repeat="user_department in item.user.departments">test</span></p>
-                                        <span class="location semi-bold pull-right" am-time-ago="item.created_at | amUtc | amLocal"></span>
-                                </h6>
-                                <div class="clearfix"></div>
+        <div class="more-div row">
+            <div class="col-md-5 activity-div">
+                <h5>Activities</h5>
+                <div class="timeline-container top-circle">
+                    <section class="timeline">
+                        <img class="user-photo" check-image   ng-src="{{vm.userInfo.avatar}}" alt=""  width="40" height="40">
+                        <div class="timeline-block">
+                            <div class="timeline-point pink">
+                                <i class="fa fa-heart"></i>
                             </div>
-                            <div class="comment-item-body">
-                                <p>A style represents visual customizations on top of a layout. By editing a style, you can use Squarespace's visual interface to customize your...</p>
+                            <div class="timeline-content">
+                                <div class="event-date">
+                                    <p class="title">You liked post <img class="m-l-10" src="img/custom/point-icon.png" alt="img" class="brand"> <span>5 points</span></p>
+                                    <p><img src="img/custom/time-clock.png" alt="img" class="brand"> &nbsp;<span class="datetime" am-time-ago="project.created_at | amUtc | amLocal"></span></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="timeline-block">
+                            <div class="timeline-point success">
+                                <i class="fa fa-envelope"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="event-date">
+                                    <p class="title">Comment <img class="m-l-10" src="img/custom/point-icon.png" alt="img" class="brand"> <span>5 points</span></p>
+                                    <p><img src="img/custom/time-clock.png" alt="img" class="brand"> &nbsp;<span class="datetime" am-time-ago="project.created_at | amUtc | amLocal"></span></p>
+                                </div>
+                                <div class="card share full-width">
+                                    <div class="card-description">
+                                        <p>User Created task 1 User Created task 1 User Created task 1 User Created task 1</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
-                <div class="tab-pane user_projects active " id="projects">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <ul class="no-padding">
-                                <li ng-repeat="project in vm.projects" class="item padding-15" ng-click="vm.detailView(project)">
-                                    <div class="m-l-15">
-                                        <p class="recipients no-margin hint-text small">
-                                            <a href="javascript:;">{{vm.userInfo.name}}</a>, <span class="user_dep" ng-repeat="user_department in vm.userInfo.departments">{{user_department.name}}</span>
-                                        </p>
-                                        <a class="subject no-margin" href="javascript:;">{{project.title}}</a>
-                                        <p class="body no-margin">
-                                            {{project.objective}}
-                                        </p>
+            </div>
+            <div class="col-md-7 mypost-div">
+                <h5>My Posts</h5>
+                <div ng-repeat="project in vm.projects" class="row m-b-60">
+                    <div class="project-detail-view col-md-12">
+                        <div class="main-content">
+                            <div class="user-info clearfix">
+                                <div class="user-avatar pull-left">
+                                    <img width="50px" height="50px"  alt="" src="{{vm.userInfo.avatar}}" check-image>
+                                </div>
+                                <div class="user-detail pull-left">
+                                    <p><span class="user-name">{{vm.userInfo.name}}</span> in
+                                        <span ng-repeat="(index, user_dep_item) in vm.userInfo.departments" class="badge badge-success m-l-5">{{user_dep_item.name}}</span>
+                                    </p>
+                                    <p><img src="img/custom/time-clock.png" alt="img" class="brand"> &nbsp;<span class="datetime" am-time-ago="project.created_at | amUtc | amLocal"></span></p>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <a class="project-title" href="javascript:;"  ng-click="vm.detailView(project)">{{project.title}}</a>
+                                <p class="project-description">
+                                    {{project.description}}
+                                </p>
+                                <div class="attachment-div">
+                                    <span>Attachments</span>
+                                    <div ng-repeat="(index,file_item) in project.file" class="attachment-item">
+                                        <a class="attachment-info" href="{{vm.getImageUrl(project.id,file_item.filename)}}" download>
+                                            <img src="img/custom/attachment.png" alt="img" class="brand"> <span>  {{file_item.org_filename}}</span>
+                                        </a>
+                                        <div class="image-div" style="background-image: url({{vm.getImageUrl(project.id,file_item.filename)}})"></div>
                                     </div>
-                                    <div class="datetime" am-time-ago="project.created_at | amUtc | amLocal"></div>
-                                    <div class="pull-left m-l-15">
-                                        <span>
-        									<i class="fa fa-heart" aria-hidden="true"></i> 9423
-        								</span>
-                                        <span>
-        									<i class="fa fa-comments-o" aria-hidden="true"></i> 13
-        								</span>
+                                </div>
+                                <div class="status-div">
+                                    <div class="likes-div">
+                                        <span class="p-t-5 p-b-5 p-r-5">
+            								<i class="fa fa-heart fs-20"></i>
+            							</span>
+                                        <span>{{project.vote_count}} Likes</span>
                                     </div>
-                                    <div class="clearfix"></div>
-                                </li>
-                            </ul>
+                                    <div class="comments-div">
+                                        <span class="p-r-5">
+                                            <img src="img/custom/comment-bg.png" alt="img" class="brand">
+                                        </span>
+                                        <span>{{project.comment_count}} comments</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
