@@ -38,6 +38,15 @@ class UserController extends Controller
         $user['projects'] = $user->projects()->get();
         $user['todos'] = $user->todos()->get();
         $user['tasks'] = $user->tasks()->get();
+
+        $user_projects = $user->user_projects()->withCount('votes')->get();
+        $user['post_count'] = $user->user_projects()->count();
+        $like_count = 0;
+        foreach($user_projects as $item)
+        {
+            $like_count += $item->votes_count;
+        }
+        $user['like_count'] = $like_count;
         return response()->success($user);
     }
 
@@ -213,6 +222,44 @@ class UserController extends Controller
         return response()->success($result);
     }
 
+    /**
+     * Get all users within filter option
+     *
+     * @return JSON
+     */
+    public function getFilterUsers(Request $request){
+        $departments = $request['departments'];
+        $roles = $request['roles'];
+        $depIds = explode(",", $departments);
+        $roleIds = explode(",", $roles);
+
+        $sub_dep_ids = Department::whereIn('p_dep_id',$depIds)->get(['id'])->toArray();
+        $dep_ids = array_map(function($v){return $v['id'];},$sub_dep_ids);
+        $dep_ids = array_merge($depIds, $dep_ids);
+
+        $users = User::with(array('departments','roles'));
+        if($departments)
+        {
+            $users = $users->whereHas('departments',function($query) use($dep_ids){
+                $query->whereIn('departments.id',$dep_ids);
+            });
+        }
+
+        if($roles)
+        {
+            $users = $users->whereHas('roles',function($query) use($roleIds){
+                $query->whereIn('roles.id',$roleIds)->where('roles.level','>',0);
+            });
+        }else{
+            $users = $users->whereHas('roles',function($query) use($roleIds){
+                $query->where('roles.level','>',0);
+            });
+        }
+        $users = $users->get();
+
+        return response()->success($users);
+    }
+
 
     /**
      * Create  new User.
@@ -279,6 +326,21 @@ class UserController extends Controller
         $sub_dep_ids = Department::where('p_dep_id',$id)->get(['id'])->toArray();
         $dep_ids = array_map(function($v){return $v['id'];},$sub_dep_ids);
         $dep_ids[] = $id;
+
+        $users = User::with('departments')->whereHas('departments',function($query) use($dep_ids){
+            $query->whereIn('departments.id',$dep_ids);
+        })->get();
+        return response()->success($users);
+    }
+
+    public function getDepartmentsUsers(Request $request)
+    {
+        $departments = $request['departments'];
+        $ids = explode(",", $departments);
+
+        $sub_dep_ids = Department::whereIn('p_dep_id',$ids)->get(['id'])->toArray();
+        $dep_ids = array_map(function($v){return $v['id'];},$sub_dep_ids);
+        $dep_ids = array_merge($ids, $dep_ids);
 
         $users = User::with('departments')->whereHas('departments',function($query) use($dep_ids){
             $query->whereIn('departments.id',$dep_ids);
@@ -471,8 +533,18 @@ class UserController extends Controller
                         ->roles()
                         ->select(['slug', 'roles.id', 'roles.name'])
                         ->get();
-        $user['department'] = $user->departments()->get();
+        $user['departments'] = $user->departments()->get();
         $user['projects'] = $user->projects()->get();
+
+        $user_projects = $user->user_projects()->withCount('votes')->get();
+        $user['post_count'] = $user->user_projects()->count();
+        $like_count = 0;
+        foreach($user_projects as $item)
+        {
+            $like_count += $item->votes_count;
+        }
+        $user['like_count'] = $like_count;
+
         return response()->success($user);
     }
 

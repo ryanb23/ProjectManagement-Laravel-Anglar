@@ -84,8 +84,16 @@ class ProjectController extends Controller
     {
         $user_id = $request['id'];
         $user = User::find($user_id);
-        $projectList = $user->user_projects()->with('department')->get();
-        return response()->success($projectList);
+        $projectList = $user->user_projects()->with(array('department','votes','comments','file'))->get()->toArray();
+        $projects = array();
+        foreach($projectList as $db_item)
+        {
+            $item = $db_item;
+            $item['vote_count'] = count($db_item['votes']);
+            $item['comment_count'] = count($db_item['comments']);
+            $projects[] = $item;
+        }
+        return response()->success($projects);
     }
 
     public function getCommentList(Request $request)
@@ -257,7 +265,7 @@ class ProjectController extends Controller
             $item['comment_count'] = count($db_item['comments']);
             $item['is_vote'] = $is_vote;
             $item['is_comment'] = $is_comment;
-            $projects[] = $db_item;
+            $projects[] = $item;
         }
         return response()->success($projects);
     }
