@@ -54,6 +54,9 @@ trait FileTrait
 
     public function base64_to_png($base64_string, $user_id) {
         $upload_dir = env('UPLOAD_DIR');
+        if (!file_exists($upload_dir.'/profile/')) {
+            mkdir($upload_dir.'/profile/', 0777, true);
+        }
         $output_file = $upload_dir.'/profile/'.$user_id.'_'.time().'png';
         // open the output file for writing
         $ifp = fopen( $output_file, 'wb' );
