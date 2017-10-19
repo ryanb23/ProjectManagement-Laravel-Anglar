@@ -1,0 +1,50 @@
+@import "./angular/material/project";
+
+.contact-page{
+    .inner-contact-div{
+        .filter-div{
+            .dropdown-multiselect{
+                width: 100% !important;
+            }
+            button{
+                width: 100% !important;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+        .contact-search-div{
+            display: flex;
+            align-items: center;
+            i{
+                position: absolute !important;
+                left: 23px;
+            }
+            input{
+                padding-left: 30px;
+            }
+        }
+        .user-profie-div{
+            text-align: center;
+            .user-avatar{
+                width: 130px;
+                height: 130px;
+                border-radius: 50%;
+                overflow: hidden;
+                margin: auto;
+            }
+            .user-name{
+                color: $blue;
+                font-size: 23px;
+                font-weight: 500;
+                padding: 10px 0px;
+            }
+            .user-title{
+                color: $grey;
+            }
+        }
+        .users-div{
+            box-shadow: 0 0 8px #eee;
+        }
+    }
+}

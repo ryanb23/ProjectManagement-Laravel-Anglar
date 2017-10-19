@@ -1,88 +1,99 @@
-<nav class="secondary-sidebar padding-30" style="">
-    <p class="menu-title">BY DEPARTMENT</p>
-    <ul class="main-menu scroll-content scroll-scrolly_visible">
-        <li ng-class="{active: vm.depSel == dep_item.id}" ng-repeat="dep_item in vm.departments">
-            <a href="javascript:;" ng-click="vm.getUsers(dep_item)">
-                <div>
-				<span class="title">
-					<i class="fa fa-desktop"></i> {{dep_item.name}}
-				</span>
-				<span class="badge pull-right">{{dep_item.user_count[0].user_count}}</span>
-                <div style="clear:both"></div>
-                </div>
-			</a>
-            <ul ng-if="dep_item.child_department" class="sub-menu no-padding">
-                <li ng-class="{active: vm.depSel == dep_child_item.id}" ng-repeat="dep_child_item in dep_item.child_department">
-                    <a href="javascript:;" ng-click="vm.getUsers(dep_child_item)">
-                        <div>
-                        <span class="title">{{dep_child_item.name}}</span>
-                        <span class="badge pull-right">{{dep_child_item.user_count[0].user_count}}</span>
-                        <div style="clear:both"></div>
-                        </div>
-                    </a>
-                </li>
-            </ul>
+<div class="container-fluid container-fixed-lg contact-page">
+    <ul class="breadcrumb">
+        <li>
+            <a>Home</a>
+        </li>
+        <li><a class="active">Contacts</a>
         </li>
     </ul>
-</nav>
-<!-- DISPLAY PROJECT LIST -->
-<div class="inner-content full-height">
-    <div class="split-view">
-        <div class="split-list">
-
-            <div class="m-t-15">
-                <div class="col-md-12">
-                    <div class="mail-toolbar m-b-lg">
-                        <div role="group" class="btn-group pull-left">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter
-														<span class="caret"></span>
-													</button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Date</a></li>
-                                <li><a href="#">Involvement</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="btn-group pull-left col-md-9">
-                            <div class="form-group"><input class="form-control promo-search-field" placeholder="What are you looking for" type="search"></div>
-                        </div>
-                        <div class="btn-group pull-right" role="group">
-                            <a href="#" class="btn btn-default">
-								<i class="fa fa-chevron-left"></i>
-							</a>
-                            <a href="#" class="btn btn-default">
-								<i class="fa fa-chevron-right"></i>
-							</a>
-                        </div>
+    <!-- <nav class="secondary-sidebar padding-30" style="">
+        <p class="menu-title">BY DEPARTMENT</p>
+        <ul class="main-menu scroll-content scroll-scrolly_visible">
+            <li ng-class="{active: vm.depSel == dep_item.id}" ng-repeat="dep_item in vm.departments">
+                <a href="javascript:;" ng-click="vm.getUsers(dep_item)">
+                    <div>
+    				<span class="title">
+    					<i class="fa fa-desktop"></i> {{dep_item.name}}
+    				</span>
+    				<span class="badge pull-right">{{dep_item.user_count[0].user_count}}</span>
+                    <div style="clear:both"></div>
+                    </div>
+    			</a>
+                <ul ng-if="dep_item.child_department" class="sub-menu no-padding">
+                    <li ng-class="{active: vm.depSel == dep_child_item.id}" ng-repeat="dep_child_item in dep_item.child_department">
+                        <a href="javascript:;" ng-click="vm.getUsers(dep_child_item)">
+                            <div>
+                            <span class="title">{{dep_child_item.name}}</span>
+                            <span class="badge pull-right">{{dep_child_item.user_count[0].user_count}}</span>
+                            <div style="clear:both"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav> -->
+    <div class="row inner-contact-div">
+        <div class="panel panel-transparent col-md-10 col-md-offset-1">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs nav-tabs-fillup" pg-tab-dropdownfx>
+                <li class="active">
+                    <a data-toggle="tab" pg-tab href="#tab-fillup1"><span>All Contacts</span></a>
+                </li>
+                <li>
+                    <a data-toggle="tab" pg-tab href="#tab-fillup2"><span>Favorites</span></a>
+                </li>
+            </ul>
+            <div class="row m-t-10">
+                <div class="col-md-2">
+                    <div class="form-group filter-div">
+                        <div ng-dropdown-multiselect="" translation-texts="{buttonDefaultText: 'Departments'}" events="vm.departments.event_setting" extra-settings="vm.departments.setting" options="vm.departments.list" selected-model="vm.departments.sel"></div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group filter-div">
+                        <div ng-dropdown-multiselect="" translation-texts="{buttonDefaultText: 'Permissions'}" events="vm.permissions.event_setting" extra-settings="vm.permissions.setting" options="vm.permissions.list" selected-model="vm.permissions.sel"></div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group contact-search-div">
+                        <i class="pg-search"></i>
+                        <input class="form-control promo-search-field " ng-model="vm.searchName" placeholder="Search in Contacts" type="search">
                     </div>
                 </div>
             </div>
-            <div class="list-view">
-
-                <div class="col-md-12">
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading bg-white">
-                            <p class="panel-title text-muted">About 512 results</p>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row m-b-lg">
-                                <div class="col-md-4 col-sm-6" ng-repeat="item in vm.users">
-                                    <div class="p-t-25">
-                                        <a ng-click="vm.viewProfile(item)">
-											<span>
-												<div class="thumbnail-wrapper d32 circular bordered b-danger">
-													<img check-image alt="" ng-src="{{item.avatar}}" width="40" height="40">
-												</div>
-											</span>
-											<div class="pull-left m-t-10 m-l-10">
-												<h5 class="no-margin overflow-ellipsis ">{{item.name}}</h5>
-												<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Web Developer</p>
-											</div>
-											<div class="clearfix"></div>
-										</a>
+            <!-- Tab panes -->
+            <div class="tab-content users-div">
+                <div class="tab-pane active" id="tab-fillup1">
+                    <div class="row column-seperation">
+                        <div class="col-md-3 col-sm-4 col-xs-6 user-profie-div" ng-repeat="item in vm.users" ng-if="vm.filterByName(item)">
+                            <div class="p-t-25">
+                                <a ng-click="vm.viewProfile(item)">
+                                    <div class="user-avatar">
+                                        <img check-image alt="" ng-src="{{item.avatar}}" width="130" height="130">
                                     </div>
-                                </div>
+                                    <div class="m-t-10">
+                                        <h5 class="no-margin overflow-ellipsis user-name">{{item.name}}</h5>
+                                        <p class="hint-text all-caps user-title small no-margin overflow-ellipsis ">UI/UX Designer</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab-fillup2">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4 col-xs-6 user-profie-div" ng-repeat="item in vm.users" ng-if="vm.filterByName(item)">
+                            <div class="p-t-25">
+                                <a ng-click="vm.viewProfile(item)">
+                                    <div class="user-avatar">
+                                        <img check-image alt="" ng-src="{{item.avatar}}" width="130" height="130">
+                                    </div>
+                                    <div class="m-t-10">
+                                        <h5 class="no-margin overflow-ellipsis user-name">{{item.name}}</h5>
+                                        <p class="hint-text all-caps user-title small no-margin overflow-ellipsis ">UI/UX Designer</p>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>
