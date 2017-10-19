@@ -62,7 +62,9 @@
     <div route-bodyclass ui-view="layout" class="full-height">
     </div>
 
+    <!-- Pusher JS-->
     <script src="//js.pusher.com/4.0/pusher.min.js"></script>
+
     <!-- BEGIN VENDOR JS -->
     <!-- JQUERY -->
     <!-- <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script> -->
@@ -88,6 +90,9 @@
     <!-- END VENDOR JS -->
     <!-- BEGIN CORE TEMPLATE JS -->
     <!-- END CORE TEMPLATE JS -->
+
+    <!-- Yummer JS-->
+    <script type="text/javascript" src="https://s0.assets-yammer.com/assets/platform_social_buttons.min.js"></script>
 
 </body>
 </html>
