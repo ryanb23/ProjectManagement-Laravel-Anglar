@@ -49,7 +49,7 @@
                     <span class="p-r-5 icon">
                         <img src="img/custom/point-icon.png" alt="img" class="brand">
                     </span>
-                    <span class="number">126</span>
+                    <span class="number">{{vm.userInfo.point}}</span>
                     <span>Points</span>
                 </div>
             </div>
@@ -66,29 +66,97 @@
                 <div class="timeline-container top-circle">
                     <section class="timeline">
                         <img class="user-photo" check-image   ng-src="{{vm.userInfo.avatar}}" alt=""  width="40" height="40">
-                        <div class="timeline-block">
-                            <div class="timeline-point pink">
-                                <i class="fa fa-heart"></i>
-                            </div>
-                            <div class="timeline-content">
-                                <div class="event-date">
-                                    <p class="title">You liked post <img class="m-l-10" src="img/custom/point-icon.png" alt="img" class="brand"> <span>5 points</span></p>
-                                    <p><img src="img/custom/time-clock.png" alt="img" class="brand"> &nbsp;<span class="datetime" am-time-ago="project.created_at | amUtc | amLocal"></span></p>
+                        <div class="timeline-block" ng-repeat="(index, activity_item) in vm.userActivities">
+                            <div class="" ng-if="activity_item.activity_type == 'post.like'">
+                                <div class="timeline-point pink">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="event-date">
+                                        <p class="title">You liked post <img class="m-l-10" src="img/custom/point-icon.png" alt="img" class="brand"> <span>{{activity_item.point}} points</span></p>
+                                        <p><img src="img/custom/time-clock.png" alt="img" class="brand"> &nbsp;<span class="datetime" am-time-ago="activity_item.created_at | amUtc | amLocal"></span></p>
+                                    </div>
+                                    <div class="">
+                                        <a href="javascript:;" ng-click="vm.detailView(activity_item)">{{activity_item.title}}</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="timeline-block">
-                            <div class="timeline-point success">
-                                <i class="fa fa-envelope"></i>
-                            </div>
-                            <div class="timeline-content">
-                                <div class="event-date">
-                                    <p class="title">Comment <img class="m-l-10" src="img/custom/point-icon.png" alt="img" class="brand"> <span>5 points</span></p>
-                                    <p><img src="img/custom/time-clock.png" alt="img" class="brand"> &nbsp;<span class="datetime" am-time-ago="project.created_at | amUtc | amLocal"></span></p>
+                            <div class="" ng-if="activity_item.activity_type == 'comment.new'">
+                                <div class="timeline-point complete">
+                                    <i class="fa fa-envelope"></i>
                                 </div>
-                                <div class="card share full-width">
-                                    <div class="card-description">
-                                        <p>User Created task 1 User Created task 1 User Created task 1 User Created task 1</p>
+                                <div class="timeline-content">
+                                    <div class="event-date">
+                                        <p class="title">Comment <img class="m-l-10" src="img/custom/point-icon.png" alt="img" class="brand">
+                                        <span>{{activity_item.point}} points</span></p>
+                                        <p><img src="img/custom/time-clock.png" alt="img" class="brand"> &nbsp;<span class="datetime" am-time-ago="activity_item.created_at | amUtc | amLocal"></span></p>
+                                    </div>
+                                    <div class="card share full-width">
+                                        <div class="card-description">
+                                            <p>{{activity_item.comment}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="" ng-if="activity_item.activity_type == 'post.create'">
+                                <div class="timeline-point success">
+                                    <i class="fa fa-send"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="event-date">
+                                        <p class="title">You created a new post <img class="m-l-10" src="img/custom/point-icon.png" alt="img" class="brand">
+                                        <span>{{activity_item.point}} points</span></p>
+                                        <p><img src="img/custom/time-clock.png" alt="img" class="brand"> &nbsp;<span class="datetime" am-time-ago="activity_item.created_at | amUtc | amLocal"></span></p>
+                                    </div>
+                                    <div class="m-b-20">
+                                        <a href="javascript:;" ng-click="vm.detailView(activity_item)">{{activity_item.title}}</a>
+                                    </div>
+                                    <div class="card share full-width">
+                                        <div class="card-description">
+                                            <p>{{activity_item.description}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="" ng-if="activity_item.activity_type == 'post.liked'">
+                                <div class="timeline-point">
+                                    <img ng-click="vm.viewProfile(activity_item.user.user)"  class="user-photo" check-image   ng-src="{{activity_item.user.user.avatar}}" alt=""  width="40" height="40">
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="event-date">
+                                        <p class="title"> liked your post <img class="m-l-10" src="img/custom/point-icon.png" alt="img" class="brand">
+                                        <span>{{activity_item.point}} points</span></p>
+                                        <p><img src="img/custom/time-clock.png" alt="img" class="brand"> &nbsp;<span class="datetime" am-time-ago="activity_item.created_at | amUtc | amLocal"></span></p>
+                                    </div>
+                                    <div class="m-b-20">
+                                        <a href="javascript:;" ng-click="vm.detailView(activity_item)">{{activity_item.title}}</a>
+                                    </div>
+                                    <div class="card share full-width">
+                                        <div class="card-description">
+                                            <p>{{activity_item.description}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="" ng-if="activity_item.activity_type == 'comment.get'">
+                                <div class="timeline-point complete">
+                                    <img ng-click="vm.viewProfile(activity_item.user.user)" class="user-photo" check-image   ng-src="{{activity_item.user.user.avatar}}" alt=""  width="40" height="40">
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="event-date">
+                                        <p class="title"> let comment on your project <img class="m-l-10" src="img/custom/point-icon.png" alt="img" class="brand">
+                                        <span>{{activity_item.point}} points</span></p>
+                                        <p><img src="img/custom/time-clock.png" alt="img" class="brand"> &nbsp;<span class="datetime" am-time-ago="activity_item.created_at | amUtc | amLocal"></span></p>
+                                    </div>
+                                    <div class="m-b-20">
+                                        <a href="javascript:;" ng-click="vm.detailView(activity_item)">{{activity_item.title}}</a>
+                                    </div>
+                                    <div class="card share full-width">
+                                        <div class="card-description">
+                                            <p>{{activity_item.comment}}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
