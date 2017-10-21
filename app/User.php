@@ -16,6 +16,8 @@ use Bican\Roles\Models\Role;
 use App\Models\Message;
 use App\Models\Department;
 use App\Models\Project;
+use App\Models\ProjectUpvote;
+use App\Models\ProjectComment;
 use App\Models\TodoList;
 use App\Models\Task;
 use App\Models\UserSetting;
@@ -60,6 +62,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function user_projects(){
         return $this->hasMany(Project::class, 'creator_id');
     }
+
+    public function user_upvote(){
+        return $this->belongsToMany(Project::class, 'project_upvotes','user_id','project_id');
+    }
+
+    public function user_comment(){
+        return $this->hasMany(ProjectComment::class, 'user_id');
+    }
+
     public function todos(){
         return $this->hasMany(TodoList::class, 'pm_id');
     }
