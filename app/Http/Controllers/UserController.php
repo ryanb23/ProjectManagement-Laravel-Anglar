@@ -17,6 +17,7 @@ use App\Models\Department;
 use App\Models\UserSetting;
 use App\Models\Feed;
 use App\Models\ProjectUpvote;
+use App\Models\Reward;
 
 class UserController extends Controller
 {
@@ -258,6 +259,147 @@ class UserController extends Controller
         $users = $users->get();
 
         return response()->success($users);
+    }
+
+    /**
+     * Get all users activities
+     *
+     * @return JSON
+     */
+    public function getUserActivities(Request $request){
+
+        $user_id = $request['id'];
+        $user = User::find($user_id);
+
+        $rewards = self::allRewards();
+
+        $projectList = $user->user_projects()->orderby('created_at','desc')->get()->toArray();
+        $upvoteList = $user->user_upvote()->orderby('created_at','desc')->get()->toArray();
+        $commentList = $user->user_comment()->orderby('created_at','desc')->get()->toArray();
+        $upvotedList = $user->user_projects()
+            ->with(array('votes.user'=>function($query) use($user_id){
+                $query->where('id','<>',$user_id);
+            }))->get()->toArray();
+        $commentedList = $user->user_projects()
+            ->with(array('comments.user'=>function($query) use($user_id){
+                $query->where('id','<>',$user_id);
+            }))->get()->toArray();
+
+        $projectList = array_map(function($item) use($rewards){
+            $item['activity_type'] = 'post.create';
+            $item['point'] = $rewards['post.create'];
+            return $item;
+        },$projectList);
+
+        $upvoteList = array_map(function($item) use($rewards){
+            $item['activity_type'] = 'post.like';
+            $item['point'] = $rewards['post.like'];
+            return $item;
+        },$upvoteList);
+
+        $commentList = array_map(function($item) use($rewards){
+            $item['activity_type'] = 'comment.new';
+            $item['point'] = $rewards['comment.new'];
+            return $item;
+        },$commentList);
+
+        $upvotedListFinal = [];
+        foreach($upvotedList as $item){
+            foreach($item['votes'] as $user_item)
+            {
+                if($user_item['user_id'] != $user_id)
+                {
+                    $tmp = $item;
+                    $tmp['votes'] = null;
+                    $tmp['user'] = $user_item;
+                    $tmp['activity_type'] = 'post.liked';
+                    $tmp['point'] = $rewards['post.liked'];
+                    $tmp['created_at'] = $user_item['created_at'];
+                    $upvotedListFinal[] = $tmp;
+                }
+            }
+        }
+
+        $commentedListFinal = [];
+        foreach($commentedList as $item){
+            foreach($item['comments'] as $user_item)
+            {
+                if($user_item['user_id'] != $user_id)
+                {
+                    $tmp = $item;
+                    $tmp['comments'] = null;
+                    $tmp['comment'] = $user_item['comment'];
+                    $tmp['user'] = $user_item;
+                    $tmp['activity_type'] = 'comment.get';
+                    $tmp['point'] = $rewards['comment.get'];
+                    $tmp['created_at'] = $user_item['created_at'];
+                    $commentedListFinal[] = $tmp;
+                }
+            }
+        }
+
+
+        $activities = array_merge($projectList, $upvoteList, $commentList, $upvotedListFinal, $commentedListFinal);
+        $activities = array_map(function($item){
+            if(isset($item['title']))
+                $item['title'] = strlen($item['title']) > 50 ? substr($item['title'],0,50).'...' : $item['title'];
+            if(isset($item['description']))
+                $item['description'] = strlen($item['description']) > 150 ? substr($item['description'],0,150).'...' : $item['description'];
+            if(isset($item['comment']))
+                $item['comment'] = strlen($item['comment']) > 150 ? substr($item['comment'],0,150).'...' : $item['comment'];
+            return $item;
+        }, $activities);
+        usort($activities, function($a,$b){
+            return $a['created_at'] == $b['created_at']? 0 : ($a['created_at'] < $b['created_at']? 1: -1);
+        });
+
+        return response()->success($activities);
+    }
+
+    /**
+     * Get User Point
+     *
+     * @return JSON
+     */
+    public function getUserPoint(Request $request){
+
+        $user_id = $request['id'];
+        $user = User::find($user_id);
+
+        $point = 0;
+        $rewards = self::allRewards();
+
+        $projectCount = $user->user_projects()->count();
+        $upvoteCount = $user->user_upvote()->count();
+        $upvotedList = $user->user_projects()
+            ->withCount(array('votes'=>function($query) use($user_id){
+                $query->where('user_id','<>',$user_id);
+            }))->get()->toArray();
+        $commentCount = $user->user_comment()->count();
+        $commentedList = $user->user_projects()
+            ->withCount(array('comments'=>function($query) use($user_id){
+                $query->where('user_id','<>',$user_id);
+            }))->get()->toArray();
+
+        $upvotedCount = array_reduce($upvotedList,function($sum, $item){
+            return $sum + $item['votes_count'];
+        },0);
+
+        $commentedCount = array_reduce($commentedList,function($sum, $item){
+            return $sum + $item['comments_count'];
+        },0);
+
+        $point = $projectCount*$rewards['post.create'] + $upvoteCount*$rewards['post.like'] + $commentCount*$rewards['comment.new']+ $upvotedCount * $rewards['post.liked'] + $commentedCount * $rewards['comment.get'];
+        return response()->success($point);
+    }
+    private function allRewards(){
+        $rewards = Reward::all()->toArray();
+        $result = [];
+        foreach($rewards as $item)
+        {
+            $result[$item['type']] = $item['point'];
+        }
+        return $result;
     }
 
 
