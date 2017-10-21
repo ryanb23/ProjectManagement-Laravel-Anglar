@@ -91,6 +91,9 @@
                                         <span>{{activity_item.point}} points</span></p>
                                         <p><img src="img/custom/time-clock.png" alt="img" class="brand"> &nbsp;<span class="datetime" am-time-ago="activity_item.created_at | amUtc | amLocal"></span></p>
                                     </div>
+                                    <div class="m-b-20">
+                                        <a href="javascript:;" ng-click="vm.detailView(activity_item)">{{activity_item.title}}</a>
+                                    </div>
                                     <div class="card share full-width">
                                         <div class="card-description">
                                             <p>{{activity_item.comment}}</p>

@@ -275,7 +275,11 @@ class UserController extends Controller
 
         $projectList = $user->user_projects()->orderby('created_at','desc')->get()->toArray();
         $upvoteList = $user->user_upvote()->orderby('created_at','desc')->get()->toArray();
-        $commentList = $user->user_comment()->orderby('created_at','desc')->get()->toArray();
+        $commentList = $user->user_comment()
+            ->with(array('project'=>function($query) use($user_id){
+                $query->where('creator_id','<>',$user_id);
+            }))->orderby('created_at','desc')->get()->toArray();
+
         $upvotedList = $user->user_projects()
             ->with(array('votes.user'=>function($query) use($user_id){
                 $query->where('id','<>',$user_id);
@@ -297,9 +301,14 @@ class UserController extends Controller
             return $item;
         },$upvoteList);
 
+        $commentList = array_filter($commentList, function($item){
+            return $item['project'] == null ? false: true;
+        });
+
         $commentList = array_map(function($item) use($rewards){
             $item['activity_type'] = 'comment.new';
             $item['point'] = $rewards['comment.new'];
+            $item['title'] = $item['project']['title'];
             return $item;
         },$commentList);
 
@@ -350,7 +359,7 @@ class UserController extends Controller
             return $item;
         }, $activities);
         usort($activities, function($a,$b){
-            return $a['created_at'] == $b['created_at']? 0 : ($a['created_at'] < $b['created_at']? 1: -1);
+            return $a['created_at'] == $b['created_at']? 0 : ($a['created_at'] > $b['created_at']? 1: -1);
         });
 
         return response()->success($activities);
@@ -375,7 +384,12 @@ class UserController extends Controller
             ->withCount(array('votes'=>function($query) use($user_id){
                 $query->where('user_id','<>',$user_id);
             }))->get()->toArray();
-        $commentCount = $user->user_comment()->count();
+
+        $commentList = $user->user_comment()
+            ->with(array('project'=>function($query) use($user_id){
+                $query->where('creator_id','<>',$user_id);
+            }))->orderby('created_at','desc')->get()->toArray();
+
         $commentedList = $user->user_projects()
             ->withCount(array('comments'=>function($query) use($user_id){
                 $query->where('user_id','<>',$user_id);
@@ -383,6 +397,10 @@ class UserController extends Controller
 
         $upvotedCount = array_reduce($upvotedList,function($sum, $item){
             return $sum + $item['votes_count'];
+        },0);
+
+        $commentCount = array_reduce($commentList,function($sum, $item){
+            return $item['project'] == null ? $sum : $sum + 1;
         },0);
 
         $commentedCount = array_reduce($commentedList,function($sum, $item){
