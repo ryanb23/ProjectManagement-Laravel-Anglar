@@ -6,16 +6,18 @@ class RewardManagementController {
         this.$compile = $compile;
         this.$filter = $filter;
         this.API = API;
-        this.departmentRoute = API.all('departments');
+        this.rewardRoute = API.all('rewards');
         let that = this
 
         this.table = $('#tableDepartments')
-        this.addTable = $('#addDepartmentModal')
-        this.addDepartmentForm = null
-        this.addTable_obj = null
-        this.formSubmitted = false
-        this.formType = 'add';
-
+        this.editTable = $('#editRewardModal')
+        this.editRewardForm = null;
+        this.addTable_obj = null;
+        this.formSubmitted = false;
+        this.updateRewardItem = {
+            id    : null,
+            point : 0
+        }
         this.options = {
             "sDom": "<'table-responsive't><'row'<p i>>",
             "destroy": true,
@@ -27,17 +29,7 @@ class RewardManagementController {
             },
             "iDisplayLength": 10
         };
-        this.departments = [];
-        this.p_department_sel = {};
-        this.p_departments = [];
-
-        this.newDepartment = {
-            name: '',
-            active: true,
-            des: '',
-            p_dep: '0',
-            id: null
-        }
+        this.rewards = [];
 
         $scope.$on('initDataTable', function(ngRepeatFinishedEvent) {
             if ($.fn.DataTable.isDataTable('#tableDepartments'))
@@ -45,96 +37,55 @@ class RewardManagementController {
             that.addTable_obj = that.table.dataTable(that.options)
         });
     }
-    InitValues(dep_list) {
+    InitValues(reward_list) {
         if ($.fn.DataTable.isDataTable('#tableDepartments'))
             this.addTable_obj.fnDestroy()
-        this.departments = dep_list;
-        this.p_departments = [{
-            id: '0',
-            name: '---',
-            des: ''
-        }];
-        for (var i = 0; i < dep_list.length; i++) {
-            var item = dep_list[i];
-            if(item.p_dep_id == 0)
-              this.p_departments.push({
-                  id: item.id,
-                  name: item.name,
-                  des: item.description
-              })
-        }
+        this.rewards = reward_list;
     }
 
-    getDepartment() {
-        this.departmentRoute.get('index').then((response) => {
-            var dep_list = response.plain().data;
-            this.InitValues(dep_list)
+    getRewards() {
+        this.rewardRoute.get('index').then((response) => {
+            var reward_list = response.plain().data;
+            this.InitValues(reward_list)
         })
     }
     filter(event) {
         this.table.dataTable().fnFilter($(event.currentTarget).val());
     }
 
-    addNewDepartment(isValid) {
-        if (isValid) {
-            this.newDepartment.p_dep = this.p_department_sel.selected.id;
-            console.log(this.newDepartment);
-            let endpoint = this.departmentRoute.all("new-department")
-            if (this.formType == 'edit')
-                endpoint = this.departmentRoute.all("update-department")
+    editDepartment(params) {
+        this.updateRewardItem.id = params.id;
+        this.updateRewardItem.point = params.point;
+        this.showModal();
+    }
 
-            endpoint.post(this.newDepartment).then((response) => {
-                var dep_list = response.plain().data;
-                this.InitValues(dep_list)
-                this.addTable.modal('hide');
+    updateDepartment(isValid)
+    {
+        if(isValid)
+        {
+            this.rewardRoute.all("reward").post(this.updateRewardItem).then((response) => {
+                var reward_list = response.plain().data;
+                this.InitValues(reward_list)
+                this.editTable.modal('hide');
             }).catch(this.addNewDepartmentFail.bind(this))
         } else {
-            this.formSubmitted = true
+            this.formSubmitted = true;
         }
-    }
-    addNewDepartmentFail(response) {
-
-    }
-    addDepartment() {
-        this.formType = 'add';
-        this.newDepartment.name = '';
-        this.newDepartment.active = true;
-        this.newDepartment.des = '';
-        this.newDepartment.p_dep = '0';
-        this.newDepartment.id = null;
-
-        this.p_department_sel.selected = this.p_departments[0]
-        this.showModal();
-    }
-
-    editDepartment(params) {
-        this.formType = 'edit';
-        let item = params.data;
-        this.newDepartment.id = item.id
-        this.newDepartment.name = item.name
-        this.newDepartment.des = item.description
-        this.newDepartment.active = item.active == 1 ? true : false;
-
-        this.newDepartment.p_dep = item.p_dep_id
-        this.p_department_sel.selected = this.$filter('filter')(this.p_departments, {
-            'id': item.p_dep_id
-        })[0]
-        this.showModal();
     }
 
     removeDepartment(params) {
       let id = params.id;
       if(confirm('Are you sure?'))
         this.departmentRoute.one('department', id).remove().then((response) => {
-            this.getDepartment()
+            this.getRewards()
         })
     }
     // Modal Functions
     showModal() {
-        this.addTable.modal('show')
+        this.editTable.modal('show')
     }
     hideModal() {
-        this.addTable.modal('hide');
+        this.editTable.modal('hide');
     }
 
     trustAsHtml(value) {
@@ -142,8 +93,7 @@ class RewardManagementController {
     }
 
     $onInit() {
-        this.p_department_sel.selected = this.p_departments[0]
-        this.getDepartment()
+        this.getRewards()
     }
 }
 

@@ -3,19 +3,7 @@
     <!-- START PANEL -->
     <div class="panel panel-transparent">
         <div class="panel-heading">
-            <div class="panel-title">User Table</div>
-            <div class="clearfix"></div>
-            <div class="pull-left">
-                <div class="col-xs-12">
-                    <input type="text" id="search-table" class="form-control pull-right" placeholder="Search" ng-keyup="vm.filter($event)">
-                </div>
-            </div>
-            <div class="pull-right">
-                <div class="col-xs-12">
-
-                </div>
-            </div>
-            <div class="clearfix"></div>
+            <div class="panel-title">Reward Table</div>
         </div>
     </div>
     <div class="panel-body">
@@ -23,21 +11,20 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Value</th>
+                    <th>Point</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-class="{parent:item.p_dep_id == 0}" ng-repeat="item in vm.departments" on-finish-render="initDataTable">
+                <tr ng-repeat="item in vm.rewards" on-finish-render="initDataTable">
                     <td class="v-align-middle">
-                        <p></p>
+                        <p>{{item.title}}</p>
                     </td>
                     <td class="v-align-middle">
-                        <p></p>
+                        <p><p>{{item.point}}</p></p>
                     </td>
                     <td>
-                        <button class="btn btn-primary btn-xs m-t-10"><i class="fa fa-edit"></i></button>
-                        <button class="btn btn-danger btn-xs m-t-10"><i class="fa fa-remove"></i></button>
+                        <button class="btn btn-primary btn-xs m-t-10" ng-click="vm.editDepartment(item)"><i class="fa fa-edit"></i></button>
                     </td>
                 </tr>
             </tbody>
@@ -49,59 +36,29 @@
 <!-- END CONTAINER FLUID -->
 
 <!-- MODAL STICK UP  -->
-<div class="modal fade stick-up" id="addDepartmentModal" tabindex="-1" role="dialog" aria-labelledby="addDepartmentModal" aria-hidden="true">
+<div class="modal fade stick-up" id="editRewardModal" tabindex="-1" role="dialog" aria-labelledby="editRewardModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header clearfix ">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
                 </button>
-                <h4 class="p-b-5"><span class="semi-bold">New</span> Department</h4>
+                <h4 class="p-b-5"><span class="semi-bold">Edit</span> Reward Setting</h4>
             </div>
-            <form role="form" name="vm.addDepartmentForm" ng-submit="vm.addNewDepartment(vm.addDepartmentForm.$valid)" novalidate>
+            <form role="form" name="vm.editRewardForm" ng-submit="vm.updateDepartment(vm.editRewardForm.$valid)" novalidate>
                 <div class="modal-body">
-                    <p class="small-text">Create a new Department</p>
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.addDepartmentForm.name.$invalid && ( vm.formSubmitted || vm.addDepartmentForm.name.$touched) }">
-                                <label>name</label>
-                                <input id="departmentName" ng-model="vm.newDepartment.name" name="name" type="text" class="form-control" placeholder="Name" required>
-                            </div>
-                            <label class="error help-block" for="name" ng-show="vm.addDepartmentForm.name.$error.required && ( vm.formSubmitted || vm.addDepartmentForm.name.$touched)">This field is required.</label>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group form-group-default input-group">
-                                <label class="inline">Enable</label>
-                                <span class="input-group-addon bg-transparent">
-                                  <input type="checkbox" class="js-switch" ng-model="vm.newDepartment.active" ui-switch="{color: '#6d5cae',size : 'small'}"/>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                    <p class="small-text">Update the point</p>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div pg-form-group class="form-group form-group-default form-group-default-select">
-                                <label class="">Parent Department</label>
-                                <ui-select ng-model="vm.p_department_sel.selected" theme="bootstrap">
-                                    <ui-select-match placeholder="Select Department">{{$select.selected.name}}</ui-select-match>
-                                    <ui-select-choices repeat="item in vm.p_departments | filter: $select.search">
-                                        <span ng-bind-html="vm.trustAsHtml((item.name | highlight: $select.search))"></span>
-                                        <small ng-bind-html="vm.trustAsHtml((item.des | highlight: $select.search))"></small>
-                                    </ui-select-choices>
-                                </ui-select>
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.editRewardForm.point.$invalid && ( vm.formSubmitted || vm.editRewardForm.point.$touched) }">
+                                <label>Point</label>
+                                <input id="departmentName" ng-model="vm.updateRewardItem.point" name="point" type="number" class="form-control" placeholder="Name" required>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div pg-form-group class="form-group form-group-default">
-                                <label>Description</label>
-                                <input id="description" ng-model="vm.newDepartment.des" type="text" class="form-control" placeholder="Description">
-                            </div>
+                            <label class="error help-block" for="point" ng-show="vm.editRewardForm.point.$error.required && ( vm.formSubmitted || vm.editRewardForm.point.$touched)">This field is required.</label>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary  btn-cons">Add</button>
+                    <button type="submit" ng-disabled="vm.editRewardForm.$invalid" class="btn btn-primary btn-cons">Update</button>
                     <button type="button" class="btn btn-cons" ng-click="vm.hideModal()">Close</button>
                 </div>
             </form>
