@@ -11,10 +11,19 @@ class UserProfileController {
         this.ContextService = ContextService
 
         this.projectRoute = API.all('projects')
+        this.userRoute = API.all('users')
+
+        this.userActivities = [];
     }
 
     detailView(project){
         this.$state.go('app.projects.view', {projectId: project.id})
+    }
+
+    viewProfile(user)
+    {
+        let $state = this.$state
+        $state.go('app.user.other-profile',{userId:user.id})
     }
 
     editProfile(){
@@ -24,6 +33,18 @@ class UserProfileController {
     getProjectList(){
         this.projectRoute.get('user-projects',{'id':this.userInfo.id}).then((response) => {
             this.projects = response.plain().data
+        })
+    }
+
+    getUserActivities(){
+        this.userRoute.get('user-activities',{'id':this.userInfo.id}).then((response) => {
+            this.userActivities = response.plain().data
+        })
+    }
+
+    getUserPoint(){
+        this.userRoute.get('user-point',{'id':this.userInfo.id}).then((response) => {
+            this.userInfo['point'] = response.plain().data;
         })
     }
 
@@ -38,6 +59,8 @@ class UserProfileController {
             {
                 that.userInfo = data
                 that.getProjectList();
+                that.getUserActivities();
+                that.getUserPoint();
             }
         })
     }
