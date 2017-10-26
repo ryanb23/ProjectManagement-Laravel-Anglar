@@ -22,19 +22,44 @@ class LabelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function getIndex()
     {
         $labels = Label::get();
         return response()->success($labels);
     }
 
-    public function getLabel()
+    /**
+     * Upsert Label
+     *
+     * @return JSON success message
+     */
+    public function postLabel(Request $request)
     {
-
+        $id = $request['id'];
+        $label = null;
+        if($id == null)
+            $label = new Label();
+        else {
+            $label = Label::find($id);
+        }
+        $label->name = $request['name'];
+        $label->color = $request['color'];
+        $label->save();
+        $labels = Label::get();
+        return response()->success($labels);
     }
 
-    public function postLabel()
+    /**
+     * Delete Label
+     *
+     * @return JSON success message
+     */
+    public function deleteLabel($id)
     {
-
+        $department = Label::find($id);
+        $department->delete();
+        $labels = Label::get();
+        return response()->success($labels);
     }
 }

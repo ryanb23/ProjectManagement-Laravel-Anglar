@@ -215,13 +215,63 @@
 				<div class="panel-title pull-left">Project Details
 				</div>
 				<div class="likes-div pull-right">
-					<span class="p-t-5 p-b-5 p-r-5">
-						<i class="fa fa-heart fs-20"></i>
-					</span>
-					<span>{{vm.projectDetail.vote_count}} likes</span>
+					<div class="p-t-5 p-b-5 p-r-15 like-div" ng-click="vm.toggleVote()">
+						<i class="fa fs-20" ng-class="{'fa-heart': vm.projectDetail.is_upvote, 'fa-heart-o': !vm.projectDetail.is_upvote}"></i>
+						<span>{{vm.projectDetail.vote_count}} likes</span>
+					</div>
 				</div>
 			</div>
 			<div class="panel-body">
+				<div class="panel panel-transparent m-t-15">
+					<div class="panel-heading">
+						<h2 class="no-margin project-title">{{vm.projectDetail.title}}</h2>
+						<div class="project-object-div">
+							<p class="p-objective">{{vm.projectDetail.objective}}</p>
+							<div class="m-t-10 label-div">
+								<span class="label label-success" ng-style="{'background-color':item.color}" ng-repeat="item in vm.projectDetail.label">{{item.name}}</span>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="user-div">
+							<img src="img/custom/time-clock.png" alt="img" class="brand">
+							<span class="m-l-5 datetime" am-time-ago="vm.projectDetail.created_at | amUtc | amLocal"></span>
+							<span class="m-l-5 m-r-5"> by </span>
+							<span class="profile-link" ng-click="vm.viewProfile(vm.projectDetail.user)">
+								<img class="user-img" width="25px" height="25px"  alt="" src="{{vm.projectDetail.user.avatar}}" check-image>
+								<span class="user-name">{{vm.projectDetail.user.name}}</span>
+							</span>
+							<span class="m-l-5 m-r-5"> in </span>
+							<span class="badge badge-success m-l-5" ng-repeat="dep_item in vm.projectDetail.user.departments">{{dep_item.name}}</span>
+						</div>
+
+						<div class="contributor-div">
+							<span class="m-l-5 m-r-5"> Contributors: </span>
+							<span ng-repeat="item in vm.projectDetail.contributor">
+								<span class="profile-link" ng-click="vm.viewProfile(item)">
+									<img class="user-img" width="25px" height="25px"  alt="" src="{{item.avatar}}" check-image>
+									<span class="user-name">{{item.name}}</span>
+								</span>
+								<span class="m-l-5 m-r-5"> in </span>
+								<span class="badge badge-success m-l-5" ng-repeat="dep_item in item.departments">{{dep_item.name}}</span>
+							</span>
+						</div>
+
+						<div class="attachment-div">
+							<span>Attachments</span>
+							<div ng-repeat="(index,file_item) in vm.projectDetail.file" class="attachment-item">
+								<a class="attachment-info" href="{{vm.getImageUrl(vm.projectDetail.id,file_item.filename)}}" download>
+									<img src="img/custom/attachment.png" alt="img" class="brand"> <span>  {{file_item.org_filename}}</span>
+								</a>
+							</div>
+						</div>
+
+						<div class="description-div">
+							<span>Description</span>
+							<p class="m-t-10">{{vm.projectDetail.description}}</p>
+						</div>
+					</div>
+				</div>
 				<div class="panel panel-transparent m-t-15">
 					<div class="panel-body custom-action-div">
 						<div class="btn-group pull-right">
@@ -262,52 +312,7 @@
                                         <span class="fs-11 font-montserrat text-uppercase">Reopen</span>
                                     </button>
 								</div>
-								<div class="btn-group">
-									<button type="button"  class="btn btn-success"  ng-click="vm.toggleVote()">
-                                        <span class="p-t-5 p-b-5">
-                                            <i class="fa fs-15" ng-class="{'fa-heart': vm.projectDetail.is_upvote, 'fa-heart-o': !vm.projectDetail.is_upvote}" ></i>
-                                        </span>
-                                        <br>
-                                        <span class="fs-11 font-montserrat text-uppercase">Like</span>
-                                    </button>
-								</div>
 							</div>
-						</div>
-					</div>
-				</div>
-				<div class="panel panel-transparent m-t-15">
-					<div class="panel-heading">
-						<h2 class="no-margin project-title">{{vm.projectDetail.title}}</h2>
-						<div class="project-object-div">
-							<p class="p-objective">{{vm.projectDetail.objective}}</p>
-							<div class="m-t-10 label-div">
-								<span class="label label-success" ng-style="{'background-color':item.color}" ng-repeat="item in vm.projectDetail.label">{{item.name}}</span>
-							</div>
-						</div>
-					</div>
-					<div class="panel-body">
-						<div class="user-div">
-							<img src="img/custom/time-clock.png" alt="img" class="brand">
-							<span class="m-l-5 datetime" am-time-ago="vm.projectDetail.created_at | amUtc | amLocal"></span>
-							<span class="m-l-5 m-r-5"> by </span>
-							<img class="user-img" width="25px" height="25px"  alt="" src="{{vm.projectDetail.user.avatar}}" check-image>
-							<span class="user-name">{{vm.projectDetail.user.name}}</span>
-							<span class="m-l-5 m-r-5"> in </span>
-							<span class="badge badge-success m-l-5" ng-repeat="dep_item in vm.projectDetail.user.departments">{{dep_item.name}}</span>
-						</div>
-
-						<div class="attachment-div">
-							<span>Attachments</span>
-							<div ng-repeat="(index,file_item) in vm.projectDetail.file" class="attachment-item">
-								<a class="attachment-info" href="{{vm.getImageUrl(vm.projectDetail.id,file_item.filename)}}" download>
-									<img src="img/custom/attachment.png" alt="img" class="brand"> <span>  {{file_item.org_filename}}</span>
-								</a>
-							</div>
-						</div>
-
-						<div class="description-div">
-							<span>Description</span>
-							<p class="m-t-10">{{vm.projectDetail.description}}</p>
 						</div>
 					</div>
 				</div>

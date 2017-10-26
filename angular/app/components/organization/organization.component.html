@@ -6,33 +6,6 @@
         <li><a class="active">Contacts</a>
         </li>
     </ul>
-    <!-- <nav class="secondary-sidebar padding-30" style="">
-        <p class="menu-title">BY DEPARTMENT</p>
-        <ul class="main-menu scroll-content scroll-scrolly_visible">
-            <li ng-class="{active: vm.depSel == dep_item.id}" ng-repeat="dep_item in vm.departments">
-                <a href="javascript:;" ng-click="vm.getUsers(dep_item)">
-                    <div>
-    				<span class="title">
-    					<i class="fa fa-desktop"></i> {{dep_item.name}}
-    				</span>
-    				<span class="badge pull-right">{{dep_item.user_count[0].user_count}}</span>
-                    <div style="clear:both"></div>
-                    </div>
-    			</a>
-                <ul ng-if="dep_item.child_department" class="sub-menu no-padding">
-                    <li ng-class="{active: vm.depSel == dep_child_item.id}" ng-repeat="dep_child_item in dep_item.child_department">
-                        <a href="javascript:;" ng-click="vm.getUsers(dep_child_item)">
-                            <div>
-                            <span class="title">{{dep_child_item.name}}</span>
-                            <span class="badge pull-right">{{dep_child_item.user_count[0].user_count}}</span>
-                            <div style="clear:both"></div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </nav> -->
     <div class="row inner-contact-div">
         <div class="panel panel-transparent col-md-10 col-md-offset-1">
             <!-- Nav tabs -->
@@ -47,12 +20,12 @@
             <div class="row m-t-10">
                 <div class="col-md-2">
                     <div class="form-group filter-div">
-                        <div ng-dropdown-multiselect="" translation-texts="{buttonDefaultText: 'Departments'}" events="vm.departments.event_setting" extra-settings="vm.departments.setting" options="vm.departments.list" selected-model="vm.departments.sel"></div>
+                        <div ng-dropdown-multiselect="" translation-texts="{buttonDefaultText: 'All Departmnet'}" events="vm.departments.event_setting" extra-settings="vm.departments.setting" options="vm.departments.list" selected-model="vm.departments.sel"></div>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group filter-div">
-                        <div ng-dropdown-multiselect="" translation-texts="{buttonDefaultText: 'Permissions'}" events="vm.permissions.event_setting" extra-settings="vm.permissions.setting" options="vm.permissions.list" selected-model="vm.permissions.sel"></div>
+                        <div ng-dropdown-multiselect="" translation-texts="{buttonDefaultText: 'All Permission'}" events="vm.permissions.event_setting" extra-settings="vm.permissions.setting" options="vm.permissions.list" selected-model="vm.permissions.sel"></div>
                     </div>
                 </div>
                 <div class="col-md-8">

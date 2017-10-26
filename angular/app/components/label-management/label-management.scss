@@ -1,0 +1,10 @@
+.label-management-page{
+    .table tbody tr {
+        &.parent > td { background-color: #fafafa !important; }
+    }
+    .color-div{
+        width: 25px;
+        height: 25px;
+        margin-left: 8px; 
+    }
+}

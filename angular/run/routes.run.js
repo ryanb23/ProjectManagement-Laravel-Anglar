@@ -17,7 +17,7 @@ export function RoutesRun($rootScope, $state, $auth, AclService, $timeout, API, 
             if(!AclService.hasAnyRole(statRoles))
             {
                 event.preventDefault()
-                return $state.go('app.landing')
+                return $state.go('app.projects')
             }
         }
 

@@ -274,12 +274,18 @@ class ProjectController extends Controller
         $projectId = $request['id'];
         $user = Auth::user();
         $projectDetail = Project::with(array('votes','comments','file','label','department',
+            'contributor'=>function($query){
+            },
+            'contributor.departments' => function($query){
+                $query->select();
+            },
             'user'=>function($query){
                 $query->select(['id','name','avatar','firstname','lastname']);
             },
             'user.departments' => function($query){
                 $query->select();
-            }))->find($projectId);
+            })
+            )->find($projectId);
         $is_upvote = ProjectUpvote::where(['project_id'=>$projectId,'user_id'=>$user->id])->count();
         $projectDetail['is_upvote'] = $is_upvote;
         $projectDetail['vote_count'] = $projectDetail->votes->count();

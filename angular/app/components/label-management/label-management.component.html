@@ -1,0 +1,86 @@
+<!-- START CONTAINER FLUID -->
+<div class="container-fluid container-fixed-lg bg-white label-management-page">
+    <!-- START PANEL -->
+    <div class="panel panel-transparent">
+        <div class="panel-heading">
+            <div class="panel-title">Label Table</div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="pull-right">
+            <div class="col-xs-12">
+                <button id="show-modal" class="btn btn-primary btn-cons" ng-click="vm.addLabel()"><i class="fa fa-plus"></i> Add row</button>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Color</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.labels" on-finish-render="initDataTable">
+                    <td class="v-align-middle">
+                        <p>{{item.name}}</p>
+                    </td>
+                    <td class="v-align-middle">
+                        <div class="color-div" style="background-color: {{item.color}}"></div>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-xs m-t-10" ng-click="vm.editLabel(item)"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-danger btn-xs m-t-10" ng-click="vm.removeLabel({'id':item.id})"><i class="fa fa-remove"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- END PANEL -->
+</div>
+<!-- END CONTAINER FLUID -->
+
+<!-- MODAL STICK UP  -->
+<div class="modal fade stick-up" id="editRewardModal" tabindex="-1" role="dialog" aria-labelledby="editRewardModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header clearfix ">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                </button>
+                <h4 class="p-b-5"><span class="semi-bold">{{vm.modalType}}</span> Label</h4>
+            </div>
+            <form role="form" name="vm.editLabelForm" ng-submit="vm.updateLabel(vm.editLabelForm.$valid)" novalidate>
+                <div class="modal-body">
+                    <p class="small-text">Input label information</p>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.editLabelForm.name.$invalid && ( vm.formSubmitted || vm.editLabelForm.name.$touched) }">
+                                <label>Name</label>
+                                <input id="departmentName" ng-model="vm.updateLabelItem.name" name="name" type="text" class="form-control" placeholder="Name" required>
+                            </div>
+                            <label class="error help-block" for="name" ng-show="vm.editLabelForm.name.$error.required && ( vm.formSubmitted || vm.editLabelForm.name.$touched)">This field is required.</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.editLabelForm.color.$invalid && ( vm.formSubmitted || vm.editLabelForm.color.$touched) }">
+                                <label>Color</label>
+                                <input id="departmentName" ng-model="vm.updateLabelItem.color" name="color" type="text" class="form-control" placeholder="Name" required>
+                            </div>
+                            <label class="error help-block" for="color" ng-show="vm.editLabelForm.color.$error.required && ( vm.formSubmitted || vm.editLabelForm.color.$touched)">This field is required.</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="vm.editLabelForm.$invalid" class="btn btn-primary btn-cons">{{vm.modalType}}</button>
+                    <button type="button" class="btn btn-cons" ng-click="vm.hideModal()">Close</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

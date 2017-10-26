@@ -231,20 +231,17 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
         })
         .state('app.admin.reward_management', {
             url: '/rewards',
-            resolve: {
-                  deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                      return $ocLazyLoad.load([
-                              'switchery'
-                          ], {
-                              insertBefore: '#lazyload_placeholder'
-                          })
-                          .then(function() {
-                          });
-                  }]
-            },
             views: {
                 'main@app': {
                     template: '<reward-management></reward-management>'
+                }
+            }
+        })
+        .state('app.admin.label_management', {
+            url: '/labels',
+            views: {
+                'main@app': {
+                    template: '<label-management></label-management>'
                 }
             }
         })

@@ -475,6 +475,12 @@ class ProjectViewController {
 
     }
 
+    viewProfile(user)
+    {
+        let $state = this.$state
+        $state.go('app.user.other-profile',{userId:user.id})
+    }
+
     init()
     {   this.getProjectDetail()
         this.getProjectManagers()

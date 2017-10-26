@@ -84,9 +84,9 @@ class NavHeaderController {
   }
 
   $onInit () {
-      this.notificaitonList = [];
-      this.getNotifications();
-      this.updateNotificationNumber();
+    this.notificaitonList = [];
+    this.getNotifications();
+    this.updateNotificationNumber();
   }
 }
 

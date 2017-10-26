@@ -17,6 +17,7 @@ import { PreferenceComponent } from './app/components/preference/preference.comp
 import { UserManagementComponent } from './app/components/user-management/user-management.component'
 import { DepartmentManagementComponent } from './app/components/department-management/department-management.component'
 import { RewardManagementComponent } from './app/components/reward-management/reward-management.component'
+import { LabelManagementComponent } from './app/components/label-management/label-management.component'
 import { ProjectCommentComponent } from './app/components/project-comment/project-comment.component'
 import { HelpComponent } from './app/components/help/help.component'
 import { UserProfileComponent } from './app/components/user-profile/user-profile.component'
@@ -44,6 +45,7 @@ angular.module('app.components')
     .component('userManagement', UserManagementComponent)
     .component('departmentManagement', DepartmentManagementComponent)
     .component('rewardManagement', RewardManagementComponent)
+    .component('labelManagement', LabelManagementComponent)
     .component('projectComment', ProjectCommentComponent)
     .component('helpPage', HelpComponent)
     .component('userProfile', UserProfileComponent)

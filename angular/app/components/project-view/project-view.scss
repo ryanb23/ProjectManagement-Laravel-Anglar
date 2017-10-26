@@ -39,6 +39,7 @@
             width: 100px;
         }
     }
+
     .panel-body{
         .panel-heading, .panel-body{
             padding-left: 0px !important;
@@ -48,11 +49,19 @@
         border-bottom: 1px solid rgba(0, 0, 0, 0.07) !important;
         padding: 24px 24px 20px 20px !important;
         .likes-div{
+            display: flex;
+            align-items: center;
+            cursor: pointer;
             color: #929292;
-            font-size: 15px;
+            font-size: 16px;
             i{
-                font-size: 16px;
+                font-size: 20px;
                 color: #f76f83 !important;
+            }
+            &:hover{
+                i{
+                    color: #da4a5f !important;
+                }
             }
         }
     }
@@ -119,6 +128,27 @@
         align-items: center;
         margin-bottom: 16px;
         font-size: 15px;
+        .profile-link{
+            cursor: pointer;
+        }
+        .user-img{
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0px 5px;
+        }
+        .user-name{
+            color: #3a8fc8;
+            font-weight: 500;
+        }
+    }
+    .contributor-div{
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+        font-size: 15px;
+        .profile-link{
+            cursor: pointer;
+        }
         .user-img{
             border-radius: 50%;
             overflow: hidden;

@@ -14,7 +14,8 @@ class Label extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'color', 'created_at', 'updated_at'
+        'name', 'color'
     ];
 
+    public $timestamps = false;
 }

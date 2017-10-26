@@ -24,7 +24,7 @@
                         <p><p>{{item.point}}</p></p>
                     </td>
                     <td>
-                        <button class="btn btn-primary btn-xs m-t-10" ng-click="vm.editDepartment(item)"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-primary btn-xs m-t-10" ng-click="vm.editReward(item)"><i class="fa fa-edit"></i></button>
                     </td>
                 </tr>
             </tbody>
@@ -44,7 +44,7 @@
                 </button>
                 <h4 class="p-b-5"><span class="semi-bold">Edit</span> Reward Setting</h4>
             </div>
-            <form role="form" name="vm.editRewardForm" ng-submit="vm.updateDepartment(vm.editRewardForm.$valid)" novalidate>
+            <form role="form" name="vm.editRewardForm" ng-submit="vm.updateReward(vm.editRewardForm.$valid)" novalidate>
                 <div class="modal-body">
                     <p class="small-text">Update the point</p>
                     <div class="row">
