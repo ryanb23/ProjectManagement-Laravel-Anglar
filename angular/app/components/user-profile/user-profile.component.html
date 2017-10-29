@@ -14,7 +14,6 @@
         <div class="panel-heading button-div">
             <a class="javascript:;" ><i class="fa fa-envelope"></i></a>
             <a class="" ng-click="vm.editProfile()"><i class="fa fa-gear"></i></a>
-            <a class="" ><i class="fa fa-star"></i></a>
             <div class="clearfix"></div>
         </div>
         <div class="panel-body">
@@ -195,7 +194,7 @@
                                         <a class="attachment-info" href="{{vm.getImageUrl(project.id,file_item.filename)}}" download>
                                             <img src="img/custom/attachment.png" alt="img" class="brand"> <span>  {{file_item.org_filename}}</span>
                                         </a>
-                                        <div class="image-div" style="background-image: url({{vm.getImageUrl(project.id,file_item.filename)}})"></div>
+                                        <div  ng-if="vm.imageTypeArr.indexOf(file_item.filetype) != -1" class="image-div" style="background-image: url({{vm.getImageUrl(project.id,file_item.filename)}})"></div>
                                     </div>
                                 </div>
                                 <div class="status-div">

@@ -12,6 +12,14 @@ class UserProfileOtherController {
 
         this.projectRoute = API.all('projects')
         this.userRoute = API.all('users')
+        this.isFavorite = false;
+        this.imageTypeArr = [
+            'image/gif',
+            'image/png',
+            'image/jpeg',
+            'image/bmp',
+            'image/webp'
+        ]
     }
 
     detailView(project){
@@ -46,13 +54,18 @@ class UserProfileOtherController {
         return 'pro_imgs/' + project_id+ '/' + filename
     }
 
+    toggleProfileLike(){
+        this.userRoute.all('user-like').post({'id':this.userInfo.id}).then((response) => {
+            this.userInfo['is_favorite'] = response.plain().data;
+        })
+    }
+
     $onInit() {
-        let that = this
-        this.userRoute.get('show',{'id':that.userId}).then((response) => {
-            that.userInfo = response.plain().data
-            that.getProjectList();
-            that.getUserActivities();
-            that.getUserPoint();
+        this.userRoute.get('show',{'id':this.userId}).then((response) => {
+            this.userInfo = response.plain().data
+            this.getProjectList();
+            this.getUserActivities();
+            this.getUserPoint();
         })
     }
 

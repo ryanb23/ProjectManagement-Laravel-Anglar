@@ -36,13 +36,13 @@
             </ul>
         </li>
     </ul>
-    <p class="menu-title m-t-20 all-caps">Project Status</p>
+    <p class="menu-title m-t-20 all-caps">Project Post</p>
     <ul class="main-menu scroll-content scroll-scrolly_visible no-padding">
         <li ng-class="{active: vm.depSel.value == 'opened'}">
             <a href="javascript:;" ng-click="vm.getProjects({'type':'status','value':'opened'})">
                 <div class="menu-itme-div">
 				<span class="title">
-                    <i class="fa fa-arrow-right"></i> Opened Project
+                    <i class="fa fa-arrow-right"></i> Opened Post
                 </span>
                 <span class="badge pull-right">{{vm.countArr.opened}}</span>
                 </div>
@@ -52,7 +52,7 @@
             <a href="javascript:;" ng-click="vm.getProjects({'type':'status','value':'approved'})">
                 <div class="menu-itme-div">
 				<span class="title">
-                    <i class="fa fa-arrow-right"></i> Approved Project
+                    <i class="fa fa-arrow-right"></i> Approved Post
                 </span>
                 <span class="badge pull-right">{{vm.countArr.approved}}</span>
                 </div>
@@ -62,7 +62,7 @@
             <a href="javascript:;"  ng-click="vm.getProjects({'type':'status','value':'dismissed'})">
                 <div class="menu-itme-div">
 				<span class="title">
-                    <i class="fa fa-arrow-right"></i> Dismissed Project
+                    <i class="fa fa-arrow-right"></i> Dismissed Post
                 </span>
                 <span class="badge pull-right">{{vm.countArr.dismissed}}</span>
                 </div>
@@ -78,8 +78,8 @@
                 <div class=" custom-widget no-border bg-purple">
                     <div class="container-height full-height">
                         <div class="pull-left">
-                            <span class="title">Traffic</span>
-                            <span class="number">234,234</span>
+                            <span class="title">Posts</span>
+                            <span class="number">{{vm.statusArr['post_count']}}</span>
                         </div>
                         <div class="img-div pull-right">
                             <img src="img/custom/statistic1.png" alt="img" class="brand">
@@ -91,8 +91,8 @@
                 <div class=" custom-widget no-border bg-green">
                     <div class="container-height full-height">
                         <div class="pull-left">
-                            <span class="title">Profit</span>
-                            <span class="number">$234,234</span>
+                            <span class="title">Likes</span>
+                            <span class="number">{{vm.statusArr['like_count']}}</span>
                         </div>
                         <div class="img-div pull-right">
                             <img src="img/custom/statistic2.png" alt="img" class="brand">
@@ -104,8 +104,8 @@
                 <div class=" custom-widget no-border bg-orange">
                     <div class="container-height full-height">
                         <div class="pull-left">
-                            <span class="title">Weekly Upvotes</span>
-                            <span class="number">1,234</span>
+                            <span class="title">Comments</span>
+                            <span class="number">{{vm.statusArr['comment_count']}}</span>
                         </div>
                         <div class="img-div pull-right">
                             <img src="img/custom/statistic3.png" alt="img" class="brand">
@@ -117,8 +117,8 @@
                 <div class=" custom-widget no-border bg-pink">
                     <div class="container-height full-height">
                         <div class="pull-left">
-                            <span class="title">Visitors</span>
-                            <span class="number">234,234</span>
+                            <span class="title">Today's Posts</span>
+                            <span class="number">{{vm.statusArr['todays_count']}}</span>
                         </div>
                         <div class="img-div pull-right">
                             <img src="img/custom/statistic4.png" alt="img" class="brand">
@@ -127,27 +127,27 @@
                 </div>
             </div>
             <div class="col-lg-2 col-md-4 col-sm-6 m-b-10 no-padding no-margin">
-                <div class=" custom-widget no-border bg-light-pink">
+                <div class=" custom-widget no-border bg-pink">
                     <div class="container-height full-height">
                         <div class="pull-left">
-                            <span class="title">Visitors</span>
-                            <span class="number">234,234</span>
+                            <span class="title">Approved Posts</span>
+                            <span class="number">{{vm.statusArr['approved_count']}}</span>
                         </div>
                         <div class="img-div pull-right">
-                            <img src="img/custom/statistic5.png" alt="img" class="brand">
+                            <img src="img/custom/statistic4.png" alt="img" class="brand">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-2 col-md-4 col-sm-6 m-b-10 no-padding no-margin">
-                <div class=" custom-widget no-border bg-blue">
+                <div class=" custom-widget no-border bg-pink">
                     <div class="container-height full-height">
                         <div class="pull-left">
-                            <span class="title">Visitors</span>
-                            <span class="number">234,234</span>
+                            <span class="title">Dismissed Posts</span>
+                            <span class="number">{{vm.statusArr['dismissed_count']}}</span>
                         </div>
                         <div class="img-div pull-right">
-                            <img src="img/custom/statistic6.png" alt="img" class="brand">
+                            <img src="img/custom/statistic4.png" alt="img" class="brand">
                         </div>
                     </div>
                 </div>
@@ -159,7 +159,7 @@
             <div class="filter-option-div  col-lg-8 col-lg-offset-2  col-md-10 col-md-offset-1 col-sm-12 m-t-30 m-b-20">
                 <div class="form-group filter-form">
                     <label>Filter</label>
-                    <ui-select ng-model="vm.filterName" theme="bootstrap" class="m-l-20 filter-select">
+                    <ui-select ng-model="vm.filterName" theme="bootstrap" class="m-l-20 filter-select" ng-change="vm.filterSelect()">
                         <ui-select-match placeholder="Filter...">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices repeat="item in vm.filterTypes | filter: $select.search">
                             <div ng-bind-html="vm.trustAsHtml((item.name | highlight: $select.search))"></div>
@@ -194,7 +194,7 @@
                                         <a class="attachment-info" href="{{vm.getImageUrl(project.id,file_item.filename)}}" download>
                                             <img src="img/custom/attachment.png" alt="img" class="brand"> <span>  {{file_item.org_filename}}</span>
                                         </a>
-                                        <div class="image-div" style="background-image: url({{vm.getImageUrl(project.id,file_item.filename)}})"></div>
+                                        <div ng-if="vm.imageTypeArr.indexOf(file_item.filetype) != -1" class="image-div" style="background-image: url({{vm.getImageUrl(project.id,file_item.filename)}})"></div>
                                     </div>
                                 </div>
                                 <div class="status-div">
@@ -202,13 +202,13 @@
                                         <span class="p-t-5 p-b-5 p-r-5">
             								<i class="fa fa-heart fs-20"></i>
             							</span>
-                                        <span>{{project.vote_count}} Likes</span>
+                                        <span>{{project.votes_count}} Likes</span>
                                     </div>
                                     <div class="comments-div">
                                         <span class="p-r-5">
                                             <img src="img/custom/comment-bg.png" alt="img" class="brand">
                                         </span>
-                                        <span>{{project.comment_count}} comments</span>
+                                        <span>{{project.comments_count}} comments</span>
                                     </div>
                                 </div>
                             </div>

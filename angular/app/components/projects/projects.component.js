@@ -28,20 +28,29 @@ class ProjectsController {
 
     this.projectRoute = API.all('projects');
     this.projects = [];
-    this.filterName = '';
+    this.filterName = null;
     this.filterTypes = [
-        { 'name': 'By name', 'value': 'test'},
-        { 'name': 'By date', 'value': 'test1'},
+        { 'name': 'By Date', 'value': 'by_date'},
+        { 'name': 'By Likes', 'value': 'by_likes'},
     ]
 
     this.depSel = {'type':'dep','value': 'all'};
+    this.statusArr = {};
 
     this.projectPagination ={
-        'lastID'  : null,
+        'lastID'  : 1,
         'count' : 5,
         'busy'  : true,
         'end'   : false
     }
+
+    this.imageTypeArr = [
+        'image/gif',
+        'image/png',
+        'image/jpeg',
+        'image/bmp',
+        'image/webp'
+    ]
   }
 
   detailView(project){
@@ -66,19 +75,31 @@ class ProjectsController {
   getProjects(depParam){
       this.depSel =  depParam;
       this.projectPagination ={
-          'lastID'  : null,
+          'lastID'  : 1,
           'count' : 5,
           'busy'  : true,
           'end'   : false
       }
       this.projects = []
+      this.getStatusInfo();
       this.loadProjects(depParam);
+  }
+
+  getStatusInfo(){
+      let param = {
+          'depParam': this.depSel
+      }
+      console.log(param)
+      this.projectRoute.get('all-status',param).then((response) => {
+          this.statusArr = response.plain().data;
+      })
   }
 
   loadProjects(depParam){
       this.depSel =  depParam;
       let param = {
           'depParam'    : depParam,
+          'order'       : this.filterName,
           'pagination'  : this.projectPagination
       }
 
@@ -90,7 +111,7 @@ class ProjectsController {
           if(result.length)
           {
               this.projects = this.projects.concat(result);
-              this.projectPagination['lastID'] = result[result.length-1]['id'];
+              this.projectPagination['lastID'] ++;
           }else{
               this.projectPagination['end'] = true;
           }
@@ -113,7 +134,7 @@ class ProjectsController {
               let project = this.projects.find(function(item){
                   return item.id == project_id;
               })
-              project.vote_count ++;
+              project.votes_count ++;
               project.is_vote = true;
           });
       }else{
@@ -121,7 +142,7 @@ class ProjectsController {
               let project = this.projects.find(function(item){
                   return item.id == project_id;
               })
-              project.vote_count --;
+              project.votes_count --;
               project.is_vote = false;
           });
       }
@@ -135,6 +156,9 @@ class ProjectsController {
       yam.platform.yammerShareOpenPopup(options);
   }
 
+  filterSelect(){
+      this.getProjects(this.depSel);
+  }
   $onInit() {
       this.getDepartment();
       let param = this.depSel;

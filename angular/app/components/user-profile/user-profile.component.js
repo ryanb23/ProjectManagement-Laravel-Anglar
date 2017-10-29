@@ -14,6 +14,13 @@ class UserProfileController {
         this.userRoute = API.all('users')
 
         this.userActivities = [];
+        this.imageTypeArr = [
+            'image/gif',
+            'image/png',
+            'image/jpeg',
+            'image/bmp',
+            'image/webp'
+        ]
     }
 
     detailView(project){

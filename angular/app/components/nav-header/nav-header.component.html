@@ -83,10 +83,54 @@
                 </li>
                 <!-- <li class="p-r-15 inline">
                     <a href="javascript:;" class="icon-set clip "></a>
-                </li>
-                <li class="p-r-15 inline">
-                    <a href="javascript:;" class="icon-set grid-box"></a>
                 </li> -->
+                <li class="p-r-15 inline">
+                    <div class="dropdown pull-right main-menu-div">
+                        <a href="javascript:;" id="main-menu-center" class="icon-set grid-box" data-toggle="dropdown">
+                        </a>
+                        <ul class="dropdown-menu main-menu-dropdown" role="menu">
+                            <li class="" ui-sref-active="active">
+                                <a ui-sref="app.organiztion" class="clearfix">
+                                    <span class="pull-left">Contacts</span>
+                                    <span class="pull-right"><i class="fa fa-institution"></i></span>
+                				</a>
+                            </li>
+                            <li class=""  ui-sref-active="active">
+                                <a ui-sref="app.preference" class="clearfix">
+                                    <span class="pull-left">Preferences</span>
+                                    <span class="pull-right"><i class="fa fa-sliders"></i></span>
+                				</a>
+                            </li>
+                            <li class="dropdown-submenu "  ui-sref-active="active" ng-if="vm.hasAnyRole(['admin.super','admin.admin'])">
+                                <a href="javascript:;" class="clearfix">
+                                    <span class="">Administration</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="" ui-sref-active="active">
+                                        <a ui-sref="app.admin.users" class="clearfix">
+                                            <span class="pull-left">Users</span>
+                                        </a>
+                                    </li>
+                                    <li class="" ui-sref-active="active">
+                                        <a ui-sref="app.admin.departments"  class="clearfix">
+                                            <span class="pull-left">Departments</span>
+                                        </a>
+                                    </li>
+                                    <li class="" ui-sref-active="active">
+                                        <a ui-sref="app.admin.reward_management" class="clearfix">
+                                            <span class="pull-left">Rewards</span>
+                                        </a>
+                                    </li>
+                                    <li class="" ui-sref-active="active">
+                                        <a ui-sref="app.admin.label_management" class="clearfix">
+                                            <span class="pull-left">Labels</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
 
             <!-- END NOTIFICATION DROPDOWN -->

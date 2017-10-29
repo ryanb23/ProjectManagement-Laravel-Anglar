@@ -12,8 +12,9 @@
     <!-- START PANEL -->
     <div class="panel panel-default col-md-10 col-md-offset-1 user_profile_div">
         <div class="panel-heading button-div">
-            <a class=""  ng-click="vm.editProfile()"><i class="fa fa-envelope"></i></a>
-            <a class=""  ng-click="vm.editProfile()"><i class="fa fa-star"></i></a>
+            <a class="javascript:;"><i class="fa fa-envelope"></i></a>
+            <a ng-if="vm.userInfo['is_favorite']" href="javascript:;" ng-click="vm.toggleProfileLike()"><i class="fa fa-star"></i></a>
+            <a ng-if="!vm.userInfo['is_favorite']" href="javasript:;" ng-click="vm.toggleProfileLike()"><i class="fa fa-star-o"></i></a>
             <div class="clearfix"></div>
         </div>
         <div class="panel-body">
@@ -194,7 +195,7 @@
                                         <a class="attachment-info" href="{{vm.getImageUrl(project.id,file_item.filename)}}" download>
                                             <img src="img/custom/attachment.png" alt="img" class="brand"> <span>  {{file_item.org_filename}}</span>
                                         </a>
-                                        <div class="image-div" style="background-image: url({{vm.getImageUrl(project.id,file_item.filename)}})"></div>
+                                        <div  ng-if="vm.imageTypeArr.indexOf(file_item.filetype) != -1" class="image-div" style="background-image: url({{vm.getImageUrl(project.id,file_item.filename)}})"></div>
                                     </div>
                                 </div>
                                 <div class="status-div">

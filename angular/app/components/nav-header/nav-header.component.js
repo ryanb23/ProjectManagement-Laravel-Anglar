@@ -1,5 +1,5 @@
 class NavHeaderController {
-  constructor ($rootScope, $state, $scope, ContextService, API) {
+  constructor ($rootScope, $state, $scope, AclService, ContextService, API) {
     'ngInject'
 
     let navHeader = this
@@ -23,8 +23,10 @@ class NavHeaderController {
 
     angular.extend(navHeader, eventFunc);
 
+    this.can = AclService.can
+    this.hasAnyRole = AclService.hasAnyRole
     ContextService.me(function (data) {
-        console.log('n-cha')
+        navSideBar.userData = data
         if(data != null)
         {
             navHeader.userInfo = data

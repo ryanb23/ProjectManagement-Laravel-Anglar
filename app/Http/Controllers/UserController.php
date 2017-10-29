@@ -18,6 +18,7 @@ use App\Models\UserSetting;
 use App\Models\Feed;
 use App\Models\ProjectUpvote;
 use App\Models\Reward;
+use App\Models\UserFavorite;
 
 class UserController extends Controller
 {
@@ -49,6 +50,51 @@ class UserController extends Controller
         }
         $user['like_count'] = $like_count;
         return response()->success($user);
+    }
+
+    /**
+     * User Like
+     *
+     * @return JSON
+     */
+    public function postUserLike(Request $request)
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $like_id = $request['id'];
+
+        $new_staus = 1;
+        $db_item = UserFavorite::where(array('user_id'=>$user_id, 'like_id'=>$like_id))->get();
+        if($db_item->count())
+        {
+            $new_staus = $db_item[0]->status ? 0 : 1;
+            UserFavorite::where(array('user_id'=>$user_id, 'like_id'=>$like_id))->update(['status' => $new_staus]);
+        }else{
+            $new_obj = new UserFavorite();
+            $new_obj->user_id = $user_id;
+            $new_obj->like_id = $like_id;
+            $new_obj->status = $new_staus;
+            $new_obj->save();
+        }
+        return response()->success($new_staus);
+    }
+
+    /**
+     * Get favorite user id list
+     *
+     * @param int
+     *
+     * @return JSON
+     */
+    public function getFavoriteIds()
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $db_result = UserFavorite::where(array('user_id'=>$user_id, 'status'=>1))->get(['like_id'])->toArray();
+        $result = array_map(function($item){
+            return $item['like_id'];
+        },$db_result);
+        return response()->success($result);
     }
 
     /**
@@ -359,7 +405,7 @@ class UserController extends Controller
             return $item;
         }, $activities);
         usort($activities, function($a,$b){
-            return $a['created_at'] == $b['created_at']? 0 : ($a['created_at'] > $b['created_at']? 1: -1);
+            return $a['created_at'] == $b['created_at']? 0 : ($a['created_at'] < $b['created_at']? 1: -1);
         });
 
         return response()->success($activities);
@@ -687,6 +733,9 @@ class UserController extends Controller
     public function getShow(Request $request)
     {
         $id = $request['id'];
+        $authUser = Auth::user();
+        $current_user_id = $authUser->id;
+
         $user = User::find($id);
         $user['fullname'] = $user['firstname'].' '.$user['lastname'];
         $user['role'] = $user
@@ -694,6 +743,7 @@ class UserController extends Controller
                         ->select(['slug', 'roles.id', 'roles.name'])
                         ->get();
         $user['departments'] = $user->departments()->get();
+        $user['projects'] = $user->projects()->get();
         $user['projects'] = $user->projects()->get();
 
         $user_projects = $user->user_projects()->withCount('votes')->get();
@@ -704,6 +754,10 @@ class UserController extends Controller
             $like_count += $item->votes_count;
         }
         $user['like_count'] = $like_count;
+
+        $db_result = UserFavorite::where(array('user_id'=>$current_user_id,'like_id'=>$id, 'status'=>1))->get();
+        $is_favorite = $db_result->count() ? 1 : 0;
+        $user['is_favorite'] = $is_favorite;
 
         return response()->success($user);
     }

@@ -1058,7 +1058,7 @@ body.rtl [class*="col-"] {
 .page-container {
   width: 100%;
   height: 100%;
-  padding-left: 70px;
+
 }
 .page-container .page-content-wrapper {
   min-height: 100%;

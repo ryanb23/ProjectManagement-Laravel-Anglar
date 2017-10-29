@@ -185,13 +185,14 @@ class ProjectController extends Controller
         $user_id = $user->id;
         $depParam = json_decode($request['depParam']);
         $pagination = json_decode($request['pagination']);
+        $order = json_decode($request['order']);
 
         $type = isset($depParam->type)?  $depParam->type :  'dep';
         if($type == 'dep')
         {
             $dep_id = isset($depParam->value)?  $depParam->value :  'all';
             $dep_id_arr = [$dep_id];
-            $db_result = Project::with(array('votes' => function($query){
+            $db_result = Project::withCount(array('votes','comments'))->with(array('votes' => function($query){
                 },
                 'comments' => function($query){
                 },
@@ -212,9 +213,6 @@ class ProjectController extends Controller
                 }
                 $db_result = $db_result->whereIn('department_id',$dep_id_arr);
             }
-            if($pagination->lastID)
-                $db_result = $db_result->where('id','<',$pagination->lastID);
-            $db_result = $db_result->orderBy('created_at','desc')->take($pagination->count)->get();
         }
         if($type == 'status')
         {
@@ -231,7 +229,7 @@ class ProjectController extends Controller
                     $status = 2;
                     break;
             }
-            $db_result = Project::with(array('votes' => function($query){
+            $db_result = Project::withCount(array('votes','comments'))->with(array('votes' => function($query){
                 },
                 'comments' => function($query){
                 },
@@ -243,10 +241,14 @@ class ProjectController extends Controller
                 'user.departments' => function($query){
                     $query->select();
                 }))->where('status',$status);
-            if($pagination->lastID)
-                $db_result = $db_result->where('id','<',$pagination->lastID);
-            $db_result = $db_result->orderBy('created_at','desc')->take($pagination->count)->get();
         }
+        if($order && $order->value == "by_likes")
+        {
+            $db_result = $db_result->orderBy('votes_count','desc');
+        }else{
+            $db_result = $db_result->orderBy('created_at','desc');
+        }
+        $db_result = $db_result->offset(($pagination->lastID-1) *$pagination->count)->limit($pagination->count)->get();
 
         $projects = array();
         foreach($db_result as $db_item)
@@ -261,13 +263,73 @@ class ProjectController extends Controller
                 if($value['user_id'] == $user_id)
                     $is_comment = true;
             }
-            $item['vote_count'] = count($db_item['votes']);
-            $item['comment_count'] = count($db_item['comments']);
             $item['is_vote'] = $is_vote;
             $item['is_comment'] = $is_comment;
             $projects[] = $item;
         }
+
         return response()->success($projects);
+    }
+
+    public function getAllStatus(Request $request){
+        $depParam = json_decode($request['depParam']);
+        $result = array(
+            "post_count" => 0,
+            "like_count" => 0,
+            "comment_count" => 0,
+            "approved_count" => 0,
+            "dismissed_count" => 0,
+            "todays_count" => 0
+        );
+        $type = isset($depParam->type)?  $depParam->type :  'dep';
+        if($type == 'dep')
+        {
+            $dep_id = isset($depParam->value)?  $depParam->value :  'all';
+            $dep_id_arr = [$dep_id];
+            $db_result = Project::withCount(array('votes','comments'));
+            if($dep_id != null && $dep_id != 'all')
+            {
+                $db_query = Department::with('child_department')->where('id',$dep_id)->get(['id']);
+                foreach($db_query[0]->child_department as $key => $value)
+                {
+                    $dep_id_arr[] = $value->id;
+                }
+                $db_result = $db_result->whereIn('department_id',$dep_id_arr);
+            }
+        }
+        if($type == 'status')
+        {
+            $status = isset($depParam->value)?  $depParam->value :  'opened';
+            switch($status)
+            {
+                case 'opened':
+                    $status = 0;
+                    break;
+                case 'approved':
+                    $status = 1;
+                    break;
+                case 'dismissed':
+                    $status = 2;
+                    break;
+            }
+            $db_result = Project::withCount(array('votes','comments'))->where('status',$status);
+        }
+        $db_result = $db_result->get()->toArray();
+
+        foreach($db_result as $item)
+        {
+            $result['post_count'] ++;
+            $result['like_count'] += $item['votes_count'];
+            $result['comment_count'] += $item['comments_count'];
+            if($item['status'] == 1)
+                $result['approved_count'] ++;
+            if($item['status'] == 2)
+                $result['dismissed_count'] ++;
+            if(date('Ymd') == date('Ymd', strtotime($item['created_at'])))
+                $result['todays_count'] ++;
+        }
+
+        return response()->success($result);
     }
     public function getProject(Request $request)
     {

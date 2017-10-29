@@ -52,11 +52,18 @@ class OrganizationController {
     angular.extend(that, this.departments.event_setting);
 
     this.uesrs = []
+    this.favIds = [];
   }
 
   trustAsHtml(value) {
       return this.$sce.trustAsHtml(value);
   };
+
+  getFavIds(){
+      this.userRoute.get('favorite-ids').then((response) => {
+        this.favIds = response.plain().data;
+      })
+  }
 
   getPermission() {
       this.userRoute.get('roles').then((response) => {
@@ -99,6 +106,7 @@ class OrganizationController {
   $onInit() {
       this.getDepartment();
       this.getPermission();
+      this.getFavIds();
   }
 }
 
