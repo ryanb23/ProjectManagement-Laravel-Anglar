@@ -1,0 +1,5 @@
+.jobtitle-management-page{
+    .table tbody tr {
+        &.parent > td { background-color: #fafafa !important; }
+    }
+}

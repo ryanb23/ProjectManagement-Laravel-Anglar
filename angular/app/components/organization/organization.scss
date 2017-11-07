@@ -45,6 +45,13 @@
         }
         .users-div{
             box-shadow: 0 0 8px #eee;
+            .job_title{
+                span{
+                    display: block;
+                    font-size: 13px;
+                    line-height: 18px;
+                }
+            }
         }
     }
 }

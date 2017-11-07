@@ -26,7 +26,7 @@ class NavHeaderController {
     this.can = AclService.can
     this.hasAnyRole = AclService.hasAnyRole
     ContextService.me(function (data) {
-        navSideBar.userData = data
+        navHeader.userData = data
         if(data != null)
         {
             navHeader.userInfo = data

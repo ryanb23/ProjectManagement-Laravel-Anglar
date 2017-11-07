@@ -25,7 +25,7 @@
                 <div class="clearfix"></div>
                 <div class="user-info-div">
                     <p class="user-name">{{vm.userInfo.fullname}}</p>
-                    <p class="user-role"><span ng-repeat="role_item in vm.userInfo.role">{{role_item.name}}</span></p>
+                    <p class="user-role"><span ng-repeat="job_item in vm.userInfo.jobtitles">{{job_item.title}}</span></p>
                     <span class="user-department">Departments</span><span ng-repeat="(index, user_dep_item) in vm.userInfo.departments" class="badge badge-success m-l-5">{{user_dep_item.name}}</span>
                 </div>
             </div>

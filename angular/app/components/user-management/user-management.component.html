@@ -1,5 +1,5 @@
 <!-- START CONTAINER FLUID -->
-<div class="container-fluid container-fixed-lg bg-white">
+<div class="container-fluid container-fixed-lg bg-white user-management-page">
     <!-- START PANEL -->
     <div class="panel panel-transparent">
         <div class="panel-heading">
@@ -22,10 +22,11 @@
         <table class="table table-hover" id="tableUsers">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th width="10%">ID</th>
                     <th>Name</th>
                     <th>Department</th>
                     <th>Roles</th>
+                    <th>Job Title</th>
                     <th>Email</th>
                     <th>Status</th>
                     <th></th>
@@ -42,6 +43,9 @@
                     </td>
                     <td class="v-align-middle">
                         <a ng-repeat="uRoleItem in item.roles" href="" class="btn btn-tag">{{uRoleItem.name}}</a>
+                    </td>
+                    <td class="v-align-middle">
+                        <span class="btn btn-tag" ng-repeat="job_item in item.job_titles">{{job_item.title}}</span>
                     </td>
                     <td class="v-align-middle">
                         <p>{{item.email}}</p>
@@ -145,6 +149,21 @@
                             </div>
                             <label ng-show="vm.addUserForm.department_sel.$invalid && (vm.formSubmitted || vm.errors.department)" class="error help-block">{{vm.errors.department}}</label>
                             <label ng-show="vm.department_sel.length == 0 && ( vm.formSubmitted || vm.addUserForm.department_sel.$touched)" class="error help-block">Department is required.</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default form-group-default-select required" ng-class="{ 'has-error': vm.jobtitles.selected.length == 0 && ( vm.formSubmitted || vm.addUserForm.jobtitles.selected.$touched) }">
+                                <label class="">Job Title</label>
+                                <ui-select multiple ng-model="vm.jobtitles.selected" name="jobtitle_sel" theme="select2" ng-disabled="disabled" style="width:100%">
+                                    <ui-select-match placeholder="Select Departments">{{$item.title}}</ui-select-match>
+                                    <ui-select-choices repeat="dItem in vm.jobtitles.list | propsFilter: {title: $select.search}">
+                                        <span ng-bind-html="vm.trustAsHtml((dItem.title | highlight: $select.search))"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <label ng-show="vm.addUserForm.jobtitles.selected.$invalid && (vm.formSubmitted || vm.errors.jobtitle)" class="error help-block">{{vm.errors.jobtitle}}</label>
+                            <label ng-show="vm.jobtitles.selected.length == 0 && ( vm.formSubmitted || vm.addUserForm.jobtitles.selected.$touched)" class="error help-block">Job Title is required.</label>
                         </div>
                     </div>
                     <div class="row">

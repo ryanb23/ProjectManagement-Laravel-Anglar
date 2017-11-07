@@ -245,6 +245,14 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                 }
             }
         })
+        .state('app.admin.jobtitle_management', {
+            url: '/jobtitle',
+            views: {
+                'main@app': {
+                    template: '<jobtitle-management></jobtitle-management>'
+                }
+            }
+        })
         .state('app.help', {
             url: '/help',
             data: {
