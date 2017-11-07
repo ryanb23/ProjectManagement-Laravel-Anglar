@@ -14,6 +14,7 @@ use DB;
 
 use App\Http\Traits\FileTrait;
 use App\Models\Department;
+use App\Models\JobTitle;
 use App\Models\UserSetting;
 use App\Models\Feed;
 use App\Models\ProjectUpvote;
@@ -37,6 +38,7 @@ class UserController extends Controller
                         ->select(['slug', 'roles.id', 'roles.name'])
                         ->get();
         $user['departments'] = $user->departments()->get();
+        $user['jobtitles'] = $user->job_titles()->get();
         $user['projects'] = $user->projects()->get();
         $user['todos'] = $user->todos()->get();
         $user['tasks'] = $user->tasks()->get();
@@ -284,7 +286,7 @@ class UserController extends Controller
         $dep_ids = array_map(function($v){return $v['id'];},$sub_dep_ids);
         $dep_ids = array_merge($depIds, $dep_ids);
 
-        $users = User::with(array('departments','roles'));
+        $users = User::with(array('departments','roles','job_titles'));
         if($departments)
         {
             $users = $users->whereHas('departments',function($query) use($dep_ids){
@@ -503,12 +505,19 @@ class UserController extends Controller
 
         $departments = $request['department'];
         $roles = $request['role'];
+        $jobtitles = $request['jobtitle'];
 
         $dep_data = array_map(function($dep_item) use ($user_id){
             return ['user_id'=>$user_id,'department_id'=>$dep_item['id']];
         }, $departments);
 
         DB::table('department_user')->insert($dep_data);
+
+        $job_data = array_map(function($item) use ($user_id){
+            return ['user_id'=>$user_id,'job_id'=>$item['id']];
+        }, $jobtitles);
+
+        DB::table('user_job')->insert($job_data);
 
         foreach($roles as $role)
             $user->attachRole($role['id']);
@@ -576,13 +585,20 @@ class UserController extends Controller
 
         $departments = $request['department'];
         $roles = $request['role'];
+        $jobtitles = $request['jobtitle'];
 
         $dep_data = array_map(function($dep_item) use ($user_id){
             return ['user_id'=>$user_id,'department_id'=>$dep_item['id']];
         }, $departments);
 
+        $job_data = array_map(function($item) use ($user_id){
+            return ['user_id'=>$user_id,'job_id'=>$item['id']];
+        }, $jobtitles);
+
         DB::table('department_user')->where('user_id','=',$user_id)->delete();
         DB::table('department_user')->insert($dep_data);
+        DB::table('user_job')->where('user_id','=',$user_id)->delete();
+        DB::table('user_job')->insert($job_data);
 
         $user->detachAllRoles();
         foreach($roles as $role)
@@ -714,7 +730,7 @@ class UserController extends Controller
      */
     public function getIndex()
     {
-        $users = User::with('departments','roles')->get();
+        $users = User::with('departments','roles','job_titles')->get();
         foreach($users as &$user)
         {
           $user->fullname = $user->firstname . ' ' . $user->lastname;
@@ -743,6 +759,7 @@ class UserController extends Controller
                         ->select(['slug', 'roles.id', 'roles.name'])
                         ->get();
         $user['departments'] = $user->departments()->get();
+        $user['jobtitles'] = $user->job_titles()->get();
         $user['projects'] = $user->projects()->get();
         $user['projects'] = $user->projects()->get();
 

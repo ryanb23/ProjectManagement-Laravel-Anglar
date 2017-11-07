@@ -22,6 +22,7 @@ use App\Models\TodoList;
 use App\Models\Task;
 use App\Models\UserSetting;
 use App\Models\UserFavorite;
+use App\Models\JobTitle;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasRoleAndPermissionContract
 {
@@ -82,6 +83,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function user_likes(){
         return $this->hasMany(UserFavorite::class, 'user_id');
+    }
+
+    public function job_titles(){
+        return $this->belongsToMany(JobTitle::class, 'user_job','user_id','job_id');
     }
 
     public function setting(){

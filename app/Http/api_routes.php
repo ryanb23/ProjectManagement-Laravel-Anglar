@@ -32,6 +32,7 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     $api->controller('tasks','TaskController');
     $api->controller('notifications','NotificationController');
     $api->controller('rewards','RewardController');
+    $api->controller('jobtitles','JobtitleController');
 
     /**
     ** Image UploadedFileInterface
