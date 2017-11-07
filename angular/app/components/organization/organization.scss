@@ -44,6 +44,10 @@
             }
         }
         .users-div{
+            .row{
+                display: flex;
+                flex-wrap: wrap;
+            }
             box-shadow: 0 0 8px #eee;
             .job_title{
                 span{

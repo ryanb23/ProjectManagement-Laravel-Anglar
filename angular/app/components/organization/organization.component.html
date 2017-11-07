@@ -47,7 +47,9 @@
                                     </div>
                                     <div class="m-t-10">
                                         <h5 class="no-margin overflow-ellipsis user-name">{{item.name}}</h5>
-                                        <p class="hint-text all-caps user-title small no-margin overflow-ellipsis job_title"><span ng-repeat="job_item in item.job_titles">{{job_item.title || 'NA'}}</span></p>
+                                        <p class="hint-text all-caps user-title small no-margin overflow-ellipsis job_title">
+                                            <span ng-repeat="job_item in item.job_titles">{{job_item.title}}</span>
+                                        </p>
                                     </div>
                                 </a>
                             </div>
