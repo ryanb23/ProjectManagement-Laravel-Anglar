@@ -1,6 +1,6 @@
 <!-- START PAGE CONTENT -->
 <!-- START CONTAINER FLUID -->
-<div class="container-fluid container-fixed-lg">
+<div class="container-fluid container-fixed-lg project-view-page">
 	<!-- START PANEL -->
 	<div class="col-md-3 no-padding">
 		<!-- START PANEL -->
@@ -30,7 +30,7 @@
 							</div>
 							<div class="pull-left">
 								<h5>{{item.firstname + ' ' + item.lastname}}</h5>
-								<h6 class="m-t-5">Web Designer, QA</h6>
+								<h6 class="m-t-5"> <span ng-repeat="job_item in item.job_titles">{{job_item.title}}</span> </h6>
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -487,17 +487,10 @@
 			<form role="form" name="vm.assignManagerForm" ng-submit="vm.assignManager(vm.assignManagerForm.$valid)" novalidate>
                 <div class="modal-body">
                     <p class="small-text">Assign Project Managers</p>
-                    <div class="row">
+					<div class="row">
 						<div class="col-sm-12">
-							<div pg-form-group class="form-group form-group-default form-group-default-select required" ng-class="{ 'has-error': vm.projectManagers.sel.length == 0 && ( vm.formSubmitted || vm.assignManagerForm.projectManagers.$touched) }">
-                                <label class="">Project Manager(s)</label>
-                                <ui-select multiple ng-model="vm.projectManagers.sel" name="projectManagers" theme="select2" ng-disabled="disabled" style="width:100%">
-                                    <ui-select-match placeholder="Select Managers">{{$item.name}}</ui-select-match>
-                                    <ui-select-choices repeat="item in vm.projectManagers.list | propsFilter: {name: $select.search}">
-                                        <span ng-if="item.p_dep_id != 0" style="margin-left:20px"></span>
-                                        <span ng-bind-html="vm.trustAsHtml((item.name | highlight: $select.search))"></span>
-                                    </ui-select-choices>
-                                </ui-select>
+							<div pg-form-group class="form-group form-group-default form-group-default-select form-group-custom-select required" ng-class="{ 'has-error': vm.projectManagers.sel.length == 0 && ( vm.formSubmitted || vm.assignManagerForm.projectManagers.$touched) }">
+                                <div ng-dropdown-multiselect="" translation-texts="{buttonDefaultText: 'Project Manager(s)'}" extra-settings="vm.projectManagers.setting" options="vm.projectManagers.list" selected-model="vm.projectManagers.sel"></div>
                             </div>
                             <label ng-show="vm.assignManagerForm.projectManagers.$invalid && (vm.formSubmitted || vm.errors.projectManager)" class="error help-block">{{vm.errors.projectManager}}</label>
                             <label ng-show="vm.projectManagers.sel.length == 0 && ( vm.formSubmitted || vm.assignManagerForm.projectManagers.$touched)" class="error help-block">Manager is required.</label>

@@ -46,6 +46,10 @@ class ProjectViewController {
         this.projectManagers = {}
         this.projectManagers.list = []
         this.projectManagers.sel = []
+        this.projectManagers.setting = {
+            smartButtonMaxItems: 4,
+            smartButtonTextConverter: function(itemText, originalItem) { return itemText;}
+        }
 
         this.progressDetail = []
         this.progressManagerList = []
@@ -440,13 +444,14 @@ class ProjectViewController {
         this.projectRoute.get('project-managers',{'id':this.projectId}).then((response) => {
             var result = response.plain().data;
             this.progressManagerList = result[0].manager;
+            this.projectManagers.sel = this.progressManagerList.map(function(item){ return {id: item['id']};});
         })
     }
     getManagers(){
         this.userRoute.get('project-managers').then((response) => {
             var result = response.plain().data;
             this.managers.list = result;
-            this.projectManagers.list = result;
+            this.projectManagers.list = result.map(function(item){ return {id: item.id, label: item.name};});
         })
     }
 

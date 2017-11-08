@@ -427,12 +427,18 @@ class ProjectController extends Controller
     public function postUpdateProjectManagers(Request $request){
         $id = $request['id'];
         $project_id = $request['project_id'];
+        $user_ids = [];
         $user = Auth::user();
 
         foreach($request['project_managers'] as $pm)
         {
-            $row = DB::table('project_users')->where('project_id',$project_id)->where('user_id',$pm['id'])->get();
-            if (count($row) == 0)
+            $user_ids[] = $pm;
+        }
+        DB::table('project_users')->where('project_id',$project_id)->whereNotIn('user_id',$user_ids)->delete();
+        foreach($request['project_managers'] as $pm)
+        {
+            $tmpObj = DB::table('project_users')->where(['project_id' => $project_id, 'user_id' => $pm['id']])->first();
+            if(!$tmpObj)
             {
                 DB::table('project_users')->insert(['project_id'=>$project_id,'user_id'=>$pm['id']]);
             }
@@ -446,7 +452,7 @@ class ProjectController extends Controller
 
     public function getProjectManagers(Request $request){
         $id = $request['id'];
-        $result = Project::with('manager')->where('projects.id',$id)->get();
+        $result = Project::with(['manager','manager.job_titles'])->where('projects.id',$id)->get();
         return response()->success($result);
     }
     public function postStore(Request $request)
