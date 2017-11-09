@@ -22,15 +22,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div pg-form-group class="form-group form-group-default form-group-default-select required" ng-class="{ 'has-error': vm.labels.sel.length == 0 && ( vm.formSubmitted || vm.createProjectForm.label_sel.$touched) }">
-                                    <label class="">Labels</label>
-                                    <ui-select multiple ng-model="vm.labels.sel" name="label_sel" theme="select2" ng-disabled="disabled" style="width:100%">
-                                        <ui-select-match placeholder="Select Labels">{{$item.name}}</ui-select-match>
-                                        <ui-select-choices repeat="dItem in vm.labels.list | propsFilter: {name: $select.search}">
-                                            <span ng-if="dItem.p_dep_id != 0" style="margin-left:20px"></span>
-                                            <span ng-bind-html="vm.trustAsHtml((dItem.name | highlight: $select.search))"></span>
-                                        </ui-select-choices>
-                                    </ui-select>
+                                <div pg-form-group class="form-group form-group-default form-group-default-select form-group-custom-select required" ng-class="{ 'has-error': vm.labels.sel.length == 0 && ( vm.formSubmitted || vm.createProjectForm.label_sel.$touched) }">
+                                    <div ng-dropdown-multiselect="" translation-texts="{buttonDefaultText: 'Select Label(s)'}" extra-settings="vm.labels.setting" options="vm.labels.list" selected-model="vm.labels.sel"></div>
                                 </div>
                                 <label ng-show="vm.createProjectForm.label_sel.$invalid && (vm.formSubmitted || vm.errors.department)" class="error help-block">{{vm.errors.label}}</label>
                                 <label ng-show="vm.labels.sel.length == 0 && ( vm.formSubmitted || vm.createProjectForm.label_sel.$touched)" class="error help-block">Label is required.</label>
@@ -38,8 +31,8 @@
                             <div class="col-md-6">
                                 <div pg-form-group class="form-group form-group-default form-group-default-select required" ng-class="{ 'has-error': vm.departments.sel == null && ( vm.formSubmitted || vm.createProjectForm.dep_sel.$touched) }">
                                     <label class="">Departments</label>
-                                    <ui-select ng-model="vm.departments.sel" name="dep_sel" theme="bootstrap" ng-disabled="disabled" style="width:100%">
-                                        <ui-select-match placeholder="Select Departments">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select ng-model="vm.departments.sel" name="dep_sel" theme="bootstrap" search-enabled="false" ng-disabled="disabled" style="width:100%">
+                                        <ui-select-match placeholder="Select Department(s)">{{$select.selected.name}}</ui-select-match>
                                         <ui-select-choices repeat="dItem in vm.departments.list | propsFilter: {name: $select.search, description: $select.search}">
                                             <span ng-if="dItem.p_dep_id != 0" style="margin-left:20px"></span>
                                             <span ng-bind-html="vm.trustAsHtml((dItem.name | highlight: $select.search))"></span> -
@@ -67,14 +60,8 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-12">
-                                <div pg-form-group class="form-group form-group-default form-group-default-select">
-                                    <label class="">Contributors</label>
-                                    <ui-select multiple ng-model="vm.contributors.sel" name="cont_sel" theme="select2" ng-disabled="disabled" style="width:100%">
-                                        <ui-select-match placeholder="Select Contributors">{{$item.name}}</ui-select-match>
-                                        <ui-select-choices repeat="dItem in vm.contributors.list | propsFilter: {name: $select.search}">
-                                            <span ng-bind-html="vm.trustAsHtml((dItem.name | highlight: $select.search))"></span>
-                                        </ui-select-choices>
-                                    </ui-select>
+                                <div pg-form-group class="form-group form-group-default form-group-default-select form-group-custom-select">
+                                    <div ng-dropdown-multiselect="" translation-texts="{buttonDefaultText: 'Select Contributor(s)'}" extra-settings="vm.contributors.setting" options="vm.contributors.list" selected-model="vm.contributors.sel"></div>
                                 </div>
                             </div>
                         </div>

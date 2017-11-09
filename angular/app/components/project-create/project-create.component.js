@@ -31,6 +31,10 @@ class ProjectCreateController {
         this.labels = {}
         this.labels.list = []
         this.labels.sel = []
+        this.labels.setting = {
+            smartButtonMaxItems: 4,
+            smartButtonTextConverter: function(itemText, originalItem) { return itemText;}
+        }
 
         this.departments = {}
         this.departments.list = []
@@ -39,6 +43,11 @@ class ProjectCreateController {
         this.contributors = {}
         this.contributors.list = []
         this.contributors.sel = []
+        this.contributors.setting = {
+            smartButtonMaxItems: 4,
+            smartButtonTextConverter: function(itemText, originalItem) { return itemText;}
+        }
+
         that.dropzoneObj = null
 
         this.dzOptions = {
@@ -90,7 +99,7 @@ class ProjectCreateController {
     getLabels(){
         this.labelRoute.get('index').then((response) => {
             var result = response.plain().data;
-            this.labels.list = result;
+            this.labels.list = result.map(function(item){ return {id: item.id, label: item.name};});
         })
     }
 
@@ -104,7 +113,7 @@ class ProjectCreateController {
     getContributors(){
         this.userRoute.get('department-user').then((response) => {
             var result = response.plain().data;
-            this.contributors.list = result;
+            this.contributors.list = result.map(function(item){ return {id: item.id, label: item.name};});
         })
     }
     createProject(isValid) {
