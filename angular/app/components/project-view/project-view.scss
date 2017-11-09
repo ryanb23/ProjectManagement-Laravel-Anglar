@@ -231,18 +231,3 @@
       }
     }
 }
-
-.form-group-custom-select{
-    [ng-dropdown-multiselect]{
-        .multiselect-parent{
-            .btn{
-                padding: 0px;
-                background-color: transparent;
-                border-color: transparent;
-                .caret{
-                    display: none;
-                }
-            }
-        }
-    }
-}

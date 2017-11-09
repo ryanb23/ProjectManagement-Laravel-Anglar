@@ -378,7 +378,7 @@
                         <div class="col-md-12">
                             <div pg-form-group class="form-group form-group-default form-group-default-select required" ng-class="{ 'has-error': vm.managers.sel == null && ( vm.formSubmitted || vm.addTaskForm.manager_sel.$touched) }">
                                 <label class="">Manager</label>
-                                <ui-select ng-model="vm.managers.sel" name="manager_sel" theme="bootstrap" ng-disabled="disabled" style="width:100%">
+                                <ui-select ng-model="vm.managers.sel" name="manager_sel" theme="bootstrap" search-enabled="false" ng-disabled="disabled" style="width:100%">
                                     <ui-select-match placeholder="Select Manager">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="item in vm.managers.list | propsFilter: {name: $select.search}">
                                         <span ng-bind-html="vm.trustAsHtml((item.name | highlight: $select.search))"></span>
@@ -393,7 +393,7 @@
 						<div class="col-md-12">
 							<div pg-form-group class="form-group form-group-default form-group-default-select required" ng-class="{ 'has-error': vm.departments.sel == null && ( vm.formSubmitted || vm.createProjectForm.dep_sel.$touched) }">
 								<label class="">Department</label>
-								<ui-select ng-model="vm.departments.sel" name="dep_sel" theme="bootstrap" ng-disabled="disabled" style="width:100%">
+								<ui-select ng-model="vm.departments.sel" name="dep_sel" theme="bootstrap" search-enabled="false" ng-disabled="disabled" style="width:100%">
 									<ui-select-match placeholder="Select Department">{{$select.selected.name}}</ui-select-match>
 									<ui-select-choices repeat="dItem in vm.departments.list | propsFilter: {name: $select.search, description: $select.search}">
 										<span ng-if="dItem.p_dep_id != 0" style="margin-left:20px"></span>
@@ -452,7 +452,7 @@
                         <div class="col-md-12">
                             <div pg-form-group class="form-group form-group-default form-group-default-select required" ng-class="{ 'has-error': vm.managers.sel == null && ( vm.formSubmitted || vm.addTodolistForm.manager_sel.$touched) }">
                                 <label class="">Manager</label>
-                                <ui-select ng-model="vm.managers.sel" name="manager_sel" theme="bootstrap" ng-disabled="disabled" style="width:100%">
+                                <ui-select ng-model="vm.managers.sel" name="manager_sel" theme="bootstrap" search-enabled="false" ng-disabled="disabled" style="width:100%">
                                     <ui-select-match placeholder="Select Manager">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="item in vm.managers.list | propsFilter: {name: $select.search}">
                                         <span ng-bind-html="vm.trustAsHtml((item.name | highlight: $select.search))"></span>
