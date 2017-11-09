@@ -505,4 +505,60 @@ class ProjectController extends Controller
         DB::table('project_files')->insert($file_data);
         return response()->success('success');
     }
+
+    public function postUpdate(Request $request)
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $project_id = $request['id'];
+        $project = Project::find($project_id);
+        $project->title = trim($request->title);
+        $project->objective = trim($request->objective);
+        $project->description = trim($request->description);
+        $project->creator_id  = $user->id;
+        $project->department_id  = $request->departments['id'];
+        $project->save();
+
+        DB::table('project_label')->where('project_id','=',$project_id)->delete();
+        $label_data = array_map(function($label) use ($project_id){
+            return array(
+                'project_id'=>$project_id,
+                'label_id'=>$label['id'],
+            );
+        }, $request->labels);
+        DB::table('project_label')->insert($label_data);
+
+        DB::table('project_contributors')->where('project_id','=',$project_id)->delete();
+        $contributor_data = array_map(function($contributor) use ($project_id){
+            return array(
+                'project_id'=>$project_id,
+                'contributor_id'=>$contributor['id'],
+                'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+            );
+        }, $request->contributors);
+        DB::table('project_contributors')->insert($contributor_data);
+
+        $old_file_arr = $request->newfiles['oldFiles'];
+        $old_file_ids = array_map(function($file){
+            return $file['id'];
+        },$old_file_arr);
+        DB::table('project_files')->where('project_id', $project_id)->whereNotIn('id',$old_file_ids)->delete();
+
+        $file_arr = $this->fileUpload($project_id,$request->newfiles['newFiles']);
+        $file_data = array_map(function($file) use ($project_id,$user_id){
+            return array(
+                'project_id' => $project_id,
+                'uploader_id' => $user_id,
+                'filename' => $file['filename'],
+                'org_filename' => $file['org_filename'],
+                'filetype' => $file['type'],
+                'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+            );
+        }, $file_arr);
+        DB::table('project_files')->insert($file_data);
+
+        return response()->success('success');
+    }
 }
