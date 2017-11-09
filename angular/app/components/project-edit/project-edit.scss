@@ -1,0 +1,31 @@
+.project-edit-page{
+    .current-attachment-div{
+        padding: 5px 0px;
+        >span{
+            text-transform: uppercase;
+            color: #333;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .attachment-item{
+            .attachment-info{
+                display: flex;
+                align-items: center;
+                padding: 10px 0px 10px;
+                font-size: 16px;
+                display: block;
+            }
+            .remove-icon{
+                font-size: 20px;
+                margin-right: 10px;
+                margin-top: 10px;
+            }
+            .image-div{
+                width: 100%;
+                height: 300px;
+                background-position: center;
+                background-size: cover;
+            }
+        }
+    }
+}

@@ -133,6 +133,32 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProv
                 }
             }
         })
+        .state('app.projects.edit', {
+            url: '/:projectId/edit',
+            data: {
+                auth: true
+            },
+            resolve: {
+                  deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                      return $ocLazyLoad.load([
+                            'select',
+                          ], {
+                              insertBefore: '#lazyload_placeholder'
+                          })
+                          .then(function() {
+                              angular.module('app.components', ['ui.select']);
+                          });
+                  }]
+            },
+            views: {
+                'main@app': {
+                    template: '<project-edit></project-edit>'
+                }
+            },
+            params: {
+                projectId: null
+            }
+        })
         .state('app.projects.view', {
             url: '/:projectId',
             data: {

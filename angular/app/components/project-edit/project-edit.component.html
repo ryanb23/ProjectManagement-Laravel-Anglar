@@ -1,0 +1,115 @@
+<!-- START PAGE CONTENT -->
+<!-- START CONTAINER FLUID -->
+<div class="container-fluid container-fixed-lg project-edit-page">
+    <!-- START PANEL -->
+    <div class="panel panel-default col-md-8 col-md-offset-2">
+        <div class="panel-heading">
+            <h2 class="panel-title">Edit Project Details</h2>
+        </div>
+        <div class="panel-body">
+            <form role="form" name="vm.editProjectForm" ng-submit="vm.createProject(vm.editProjectForm.$valid)" novalidate>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.editProjectForm.title.$invalid && ( vm.formSubmitted || vm.editProjectForm.title.$touched) }">
+                                    <label>Title</label>
+                                    <input ng-model="vm.editProject.title" name="title" type="text" class="form-control" placeholder="Title" required>
+                                </div>
+                                <label class="error help-block" for="title" ng-show="vm.editProjectForm.title.$error.required && ( vm.formSubmitted || vm.editProjectForm.title.$touched)">Title is required.</label>
+                                <label class="error help-block" for="title" ng-show="vm.editProjectForm.title.$invalid && (vm.formSubmitted || vm.errors.title)">{{vm.errors.title}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div pg-form-group class="form-group form-group-default form-group-default-select form-group-custom-select required" ng-class="{ 'has-error': vm.labels.sel.length == 0 && ( vm.formSubmitted || vm.editProjectForm.label_sel.$touched) }">
+                                    <div ng-dropdown-multiselect="" translation-texts="{buttonDefaultText: 'Select Label(s)'}" extra-settings="vm.labels.setting" options="vm.labels.list" selected-model="vm.labels.sel"></div>
+                                </div>
+                                <label ng-show="vm.editProjectForm.label_sel.$invalid && (vm.formSubmitted || vm.errors.department)" class="error help-block">{{vm.errors.label}}</label>
+                                <label ng-show="vm.labels.sel.length == 0 && ( vm.formSubmitted || vm.editProjectForm.label_sel.$touched)" class="error help-block">Label is required.</label>
+                            </div>
+                            <div class="col-md-6">
+                                <div pg-form-group class="form-group form-group-default form-group-default-select required" ng-class="{ 'has-error': vm.departments.sel == null && ( vm.formSubmitted || vm.editProjectForm.dep_sel.$touched) }">
+                                    <label class="">Departments</label>
+                                    <ui-select ng-model="vm.departments.sel" name="dep_sel" theme="bootstrap" search-enabled="false" ng-disabled="disabled" style="width:100%">
+                                        <ui-select-match placeholder="Select Department(s)">{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="dItem in vm.departments.list | propsFilter: {name: $select.search, description: $select.search}">
+                                            <span ng-if="dItem.p_dep_id != 0" style="margin-left:20px"></span>
+                                            <span ng-bind-html="vm.trustAsHtml((dItem.name | highlight: $select.search))"></span> -
+                                            <small ng-bind-html="vm.trustAsHtml((dItem.description | highlight: $select.search))"></small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <label ng-show="vm.editProjectForm.dep_sel.$invalid && (vm.formSubmitted || vm.errors.department)" class="error help-block">{{vm.errors.department}}</label>
+                                <label ng-show="vm.departments.sel == null && ( vm.formSubmitted || vm.editProjectForm.dep_sel.$touched)" class="error help-block">Department is required.</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': vm.editProjectForm.objective.$invalid && ( vm.formSubmitted || vm.editProjectForm.objective.$touched) }">
+                                    <label>Objective</label>
+                                    <input ng-model="vm.editProject.objective" name="objective" type="text" class="form-control" placeholder="Title" required>
+                                </div>
+                                <label class="error help-block" for="objective" ng-show="vm.editProjectForm.objective.$error.required && ( vm.formSubmitted || vm.editProjectForm.objective.$touched)">Objective is required.</label>
+                                <label class="error help-block" for="objective" ng-show="vm.editProjectForm.objective.$invalid && (vm.formSubmitted || vm.errors.objective)">{{vm.errors.objective}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div pg-form-group class="form-group form-group-default form-group-default-select form-group-custom-select">
+                                    <div ng-dropdown-multiselect="" translation-texts="{buttonDefaultText: 'Select Contributor(s)'}" extra-settings="vm.contributors.setting" options="vm.contributors.list" selected-model="vm.contributors.sel"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- START PANEL -->
+                    <div class="panel panel-transparent">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                Project Files
+                            </div>
+                            <div class="tools">
+                                <a class="collapse" href="javascript:;"></a>
+                                <a class="config" data-toggle="modal" href="#grid-config"></a>
+                                <a class="reload" href="javascript:;"></a>
+                                <a class="remove" href="javascript:;"></a>
+                            </div>
+                        </div>
+                        <div class="panel-body no-scroll no-padding">
+                            <ng-dropzone class="dropzone" options="vm.dzOptions" callbacks="vm.dzCallbacks" methods="vm.dzMethods"></ng-dropzone>
+                            <div class="current-attachment-div">
+                                <div ng-repeat="(index,file_item) in vm.currentFile" class="attachment-item">
+                                    <a class="attachment-info pull-left" href="{{file_item.url}}" download>
+                                        <img src="img/custom/attachment.png" alt="img" class="brand"> <span>  {{file_item.caption}}</span>
+                                    </a>
+                                    <a class="pull-right remove-icon" href="javascript:;" ng-click="vm.removeCurrentFile(file_item)"><i class="fa fa-close"></i></a>
+                                    <div class="clearfix"></div>
+                                    <div ng-if="vm.imageTypeArr.indexOf(file_item.filetype) != -1" class="image-div" style="background-image: url({{file_item.thumbUrl}})"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PANEL -->
+                    <div class="form-group form-group-default">
+                        <label class="control-label">Description</label>
+                        <textarea ng-model="vm.editProject.description" class="form-control" style="height:60px;"></textarea>
+                    </div>
+                    </section>
+                    <section class="pull-right">
+                        <a ui-sref="app.projects"><button type="button" class="btn btn-danger">
+                    <i class="fa fa-close"></i>
+                    </button></a>
+                        <button type="submit" class="btn btn-primary">
+                    Publish
+                    <i class="fa fa-send"></i>
+                </button>
+                    </section>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

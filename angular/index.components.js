@@ -6,6 +6,7 @@ import { RegisterFormComponent } from './app/components/register-form/register-f
 import { NavSidebarComponent } from './app/components/nav-sidebar/nav-sidebar.component'
 import { NavHeaderComponent } from './app/components/nav-header/nav-header.component'
 import { ProjectCreateComponent } from './app/components/project-create/project-create.component'
+import { ProjectEditComponent } from './app/components/project-edit/project-edit.component'
 import { ProjectsComponent } from './app/components/projects/projects.component'
 import { ProjectViewComponent } from './app/components/project-view/project-view.component'
 import { ContactsComponent } from './app/components/contacts/contacts.component'
@@ -36,6 +37,7 @@ angular.module('app.components')
     .component('navHeader', NavHeaderComponent)
     .component('projectView', ProjectViewComponent)
     .component('projectCreate', ProjectCreateComponent)
+    .component('projectEdit', ProjectEditComponent)
     .component('projects', ProjectsComponent)
     .component('contacts', ContactsComponent)
     .component('dashboard', DashboardComponent)
