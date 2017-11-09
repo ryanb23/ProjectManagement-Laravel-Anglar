@@ -151,6 +151,24 @@
             .main-content
             {
                 padding: 30px 30px 10px 30px;
+                position: relative;
+                .edit-button-div{
+                    cursor: pointer;
+                    position: absolute;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    right: 35px;
+                    top: 30px;
+                    color: $blue;
+                    opacity: 0.6;
+                    i{
+                        font-size: 25px;
+                    }
+                    &:hover{
+                        opacity: 1;
+                    }
+                }
                 .user-info{
                     font-size: 15px;
                     .user-avatar{

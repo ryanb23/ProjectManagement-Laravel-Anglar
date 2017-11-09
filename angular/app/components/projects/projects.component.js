@@ -1,5 +1,5 @@
 class ProjectsController {
-  constructor (API, $state, $stateParams, $scope, $sce, $compile, $filter,$location) {
+  constructor (API, $state, $stateParams, $scope, $sce, $compile, $filter,$location, ContextService) {
     'ngInject'
 
     let that = this
@@ -10,7 +10,7 @@ class ProjectsController {
     this.$state = $state;
     this.$location = $location;
     this.API = API;
-
+    this.userData = [];
     this.status = null;
     if ($stateParams.status) {
       this.status = $stateParams.status;
@@ -51,10 +51,19 @@ class ProjectsController {
         'image/bmp',
         'image/webp'
     ]
+
+    ContextService.me(function (data) {
+        that.userData = data
+        console.log(that.userData)
+    })
   }
 
   detailView(project){
       this.$state.go('app.projects.view', {projectId: project.id})
+  }
+
+  editProject(id){
+      this.$state.go('app.projects.edit', {projectId: id})
   }
 
   viewProfile(user)
