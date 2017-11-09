@@ -265,7 +265,7 @@ class UserController extends Controller
         $user_dep = $user->departments()->get();
 
         $result = User::with('roles','departments')->whereHas('roles',function($query){
-            $query->where('roles.id','=','4');
+            $query->where('roles.id','>=','4');
         })->where('users.id','<>',$user->id)->get();
 
         return response()->success($result);
