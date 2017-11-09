@@ -146,6 +146,14 @@ class ProjectViewController {
 
         this.dzMethods = {};
 
+        this.imageTypeArr = [
+            'image/gif',
+            'image/png',
+            'image/jpeg',
+            'image/bmp',
+            'image/webp'
+        ]
+
     }
 
     removeFile(file){
@@ -196,10 +204,6 @@ class ProjectViewController {
                 this.projectDetail.vote_count ++;
             })
         }
-    }
-
-    getImageUrl(project_id, filename){
-        return 'pro_imgs/' + project_id+ '/' + filename
     }
 
     getProjectDetail() {

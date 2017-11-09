@@ -247,14 +247,16 @@
 
 						<div class="contributor-div">
 							<span class="m-l-5 m-r-5"> Contributors: </span>
-							<span ng-repeat="item in vm.projectDetail.contributor">
-								<span class="profile-link" ng-click="vm.viewProfile(item)">
-									<img class="user-img" width="25px" height="25px"  alt="" src="{{item.avatar}}" check-image>
-									<span class="user-name">{{item.name}}</span>
+							<div class="detail-div">
+								<span ng-repeat="item in vm.projectDetail.contributor" class="contributor-item">
+									<span class="profile-link" ng-click="vm.viewProfile(item)">
+										<img class="user-img" width="25px" height="25px"  alt="" src="{{item.avatar}}" check-image>
+										<span class="user-name">{{item.name}}</span>
+									</span>
+									<span class="m-l-5 m-r-5"> in </span>
+									<span class="badge badge-success m-l-5" ng-repeat="dep_item in item.departments">{{dep_item.name}}</span>
 								</span>
-								<span class="m-l-5 m-r-5"> in </span>
-								<span class="badge badge-success m-l-5" ng-repeat="dep_item in item.departments">{{dep_item.name}}</span>
-							</span>
+							</div>
 						</div>
 
 						<div class="attachment-div">

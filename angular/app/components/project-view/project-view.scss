@@ -147,17 +147,23 @@
             align-items: center;
             margin-bottom: 16px;
             font-size: 15px;
-            .profile-link{
-                cursor: pointer;
-            }
-            .user-img{
-                border-radius: 50%;
-                overflow: hidden;
-                margin: 0px 5px;
-            }
-            .user-name{
-                color: #3a8fc8;
-                font-weight: 500;
+            .detail-div{
+                .contributor-item{
+                    display: block;
+                    margin: 4px 0px;
+                }
+                .profile-link{
+                    cursor: pointer;
+                }
+                .user-img{
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin: 0px 5px;
+                }
+                .user-name{
+                    color: #3a8fc8;
+                    font-weight: 500;
+                }
             }
         }
     }
