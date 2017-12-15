@@ -1,243 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html ng-app="app">
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Efico - Innovation</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-
-    <!-- Plugin CSS -->
-    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="libs/simple-line-icons/css/simple-line-icons.css">
-    <link rel="stylesheet" href="libs/device-mockups/device-mockups.min.css">
-
-    <!-- Theme CSS -->
-    <link href="dist/css/new-age.css" rel="stylesheet">
-
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <title>Efico</title>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="apple-touch-icon" href="pages/ico/60.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="pages/ico/76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="pages/ico/120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="pages/ico/152.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <!-- BEGIN Vendor CSS-->
+    <!-- <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" /> -->
+    <link href="assets/plugins/bootstrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css" media="screen" />
+
+    <link id="lazyload_placeholder">
+    <!-- BEGIN Pages CSS-->
+    <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{!! elixir('css/final.css') !!}">
+    <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css" />
+    <!--[if lte IE 9]>
+        <link href="pages/css/ie9.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <!--[if lt IE 9]>
+            <link href="assets/plugins/mapplic/css/mapplic-ie.css" rel="stylesheet" type="text/css" />
     <![endif]-->
 
+    <script type="text/javascript">
+    window.onload = function() {
+        // fix for windows 8
+        if (navigator.appVersion.indexOf("Windows NT 6.2") != -1)
+            document.head.innerHTML += '<link rel="stylesheet" type="text/css" href="pages/css/windows.chrome.fix.css" />'
+    }
+    </script>
+
 </head>
+<body class="fixed-header"  ng-class="{
+'bg-master-lighter': is('app.extra.timeline'),
+'no-header': is('app.social') || is('app.calendar') || is('app.maps.vector') || is('app.maps.google'),
+'menu-pin' : app.layout.menuPin,
+'menu-behind' : app.layout.menuBehind
+ }">
+    <div route-bodyclass ui-view="layout" class="full-height">
+    </div>
 
-<body id="page-top">
-
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Efico</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a class="page-scroll" href="#download">Download</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#features">Features</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
-                    </li>
-                    <li>
-                        <a href="{{url('/app')}}">Login</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-
-    <header>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-7">
-                    <div class="header-content">
-                        <div class="header-content-inner">
-                            <h1>New Age is an app landing page that will help you beautifully showcase your new mobile app, or anything else!</h1>
-                            <a href="#download" class="btn btn-outline btn-xl page-scroll">Start Now for Free!</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-5">
-                    <div class="device-container">
-                        <div class="device-mockup iphone6_plus portrait white">
-                            <div class="device">
-                                <div class="screen">
-                                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                                    <img src="img/demo-screen-1.jpg" class="img-responsive" alt="">
-                                </div>
-                                <div class="button">
-                                    <!-- You can hook the "home button" to some JavaScript events or just remove it -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section id="download" class="download bg-primary text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <h2 class="section-heading">Discover what all the buzz is about!</h2>
-                    <p>Our app is available on any mobile device! Download now to get started!</p>
-                    <div class="badges">
-                        <a class="badge-link" href="#"><img src="img/google-play-badge.svg" alt=""></a>
-                        <a class="badge-link" href="#"><img src="img/app-store-badge.svg" alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="features" class="features">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="section-heading">
-                        <h2>Unlimited Features, Unlimited Fun</h2>
-                        <p class="text-muted">Check out what you can do with this app theme!</p>
-                        <hr>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="device-container">
-                        <div class="device-mockup iphone6_plus portrait white">
-                            <div class="device">
-                                <div class="screen">
-                                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                                    <img src="img/demo-screen-1.jpg" class="img-responsive" alt=""> </div>
-                                <div class="button">
-                                    <!-- You can hook the "home button" to some JavaScript events or just remove it -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="feature-item">
-                                    <i class="icon-screen-smartphone text-primary"></i>
-                                    <h3>Device Mockups</h3>
-                                    <p class="text-muted">Ready to use HTML/CSS device mockups, no Photoshop required!</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="feature-item">
-                                    <i class="icon-camera text-primary"></i>
-                                    <h3>Flexible Use</h3>
-                                    <p class="text-muted">Put an image, video, animation, or anything else in the screen!</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="feature-item">
-                                    <i class="icon-present text-primary"></i>
-                                    <h3>Free to Use</h3>
-                                    <p class="text-muted">As always, this theme is free to download and use for any purpose!</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="feature-item">
-                                    <i class="icon-lock-open text-primary"></i>
-                                    <h3>Open Source</h3>
-                                    <p class="text-muted">Since this theme is MIT licensed, you can use it commercially!</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="cta">
-        <div class="cta-content">
-            <div class="container">
-                <h2>Stop waiting.<br>Start building.</h2>
-                <a href="#contact" class="btn btn-outline btn-xl page-scroll">Let's Get Started!</a>
-            </div>
-        </div>
-        <div class="overlay"></div>
-    </section>
-
-    <section id="contact" class="contact bg-primary">
-        <div class="container">
-            <h2>We <i class="fa fa-heart"></i> new friends!</h2>
-            <ul class="list-inline list-social">
-                <li class="social-twitter">
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                </li>
-                <li class="social-facebook">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                </li>
-                <li class="social-google-plus">
-                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2016 Start Bootstrap. All Rights Reserved.</p>
-            <ul class="list-inline">
-                <li>
-                    <a href="#">Privacy</a>
-                </li>
-                <li>
-                    <a href="#">Terms</a>
-                </li>
-                <li>
-                    <a href="#">FAQ</a>
-                </li>
-            </ul>
-        </div>
-    </footer>
-
-    <!-- jQuery -->
-    <script src="libs/jquery/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <!-- Pusher JS-->
     <script src="//js.pusher.com/4.0/pusher.min.js"></script>
 
-    <!-- Theme JavaScript -->
-    <script src="dist/js/app.js"></script>
+    <!-- BEGIN VENDOR JS -->
+    <!-- JQUERY -->
+    <!-- <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script> -->
+    <script src="assets/plugins/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/modernizr.custom.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/bootstrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery/jquery-easy.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-bez/jquery.bez.min.js"></script>
+    <script src="assets/plugins/jquery-ios-list/jquery.ioslist.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-actual/jquery.actual.min.js"></script>
+    <script src="assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/classie/classie.js"></script>
+
+    <!-- ANGULAR -->
+    <script src="{!! elixir('js/final.js') !!}"></script>
+
+    <!-- <script type="text/javascript" src="assets/plugins/angular-ui-grid/ui-grid.min.js"></script> -->
+    <!-- <script src="assets/plugins/angular-sanitize/angular-sanitize.min.js" type="text/javascript"></script> -->
+    <!-- <script src="assets/plugins/angular-oc-lazyload/ocLazyLoad.min.js" type="text/javascript"></script> -->
+
+    <!-- END VENDOR JS -->
+    <!-- BEGIN CORE TEMPLATE JS -->
+    <!-- END CORE TEMPLATE JS -->
+
+    <!-- Yummer JS-->
+    <script type="text/javascript" src="https://s0.assets-yammer.com/assets/platform_social_buttons.min.js"></script>
 
 </body>
-
 </html>
